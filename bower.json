@@ -1,5 +1,5 @@
 {
-  "name": "template_mean_project",
+  "name": "mean_hike",
   "description": "",
   "main": "index.js",
   "authors": [
@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular": "^1.6.2",
-    "angular-route": "^1.6.2"
+    "angular-route": "^1.6.2",
+    "bootstrap": "^3.3.7"
   }
 }

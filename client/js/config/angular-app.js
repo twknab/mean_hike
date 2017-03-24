@@ -6,11 +6,11 @@ app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'html/_index.html', // root route partial
-            controller: 'userController',
+            controller: 'loginController',
         })
-        .when('/edit/:id', {
-            templateUrl: 'html/_edit.html',
-            controller: 'editUserController',
+        .when('/dashboard', {
+            templateUrl: 'html/_dashboard.html', // root route partial
+            controller: 'dashboardController',
         })
         .otherwise({
             redirectTo: '/',

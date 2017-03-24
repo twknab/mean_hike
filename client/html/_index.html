@@ -1,25 +1,109 @@
-<h2>Partial Page!</h2>
-<fieldset><legend>Lorem Ipsum Text!</legend>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-</fieldset>
-<fieldset><legend>Form Setup:</legend>
-    <p ng-repeat="error in errors" class="error">{{error.message}}</p>
-    <!-- Form -->
-    <form ng-submit="create()">
-        <label for="username">
-            <!-- Username Field -->
-            <input type="text" name="username" id="username" ng-model="person.username">
-        </label>
-        <!-- Button -->
-        <input type="submit" value="Create">
-    </form>
-</fieldset>
-<fieldset><legend>Data:</legend>
-    <!-- Raw Data -->
-    <pre ng-bind="user"></pre>
-</fieldset>
-<!-- Show All Users -->
-<button ng-click="show()">Show All Users</button>
-<ul ng-repeat="user in allUsers">
-    <li><span ng-bind="user.username"></span> <a href="#!/edit/{{user._id}}">Edit</a> | <button ng-click="delete(user)">Delete</button></li>
-</ul>
+<div class="container">
+    <!-- Page Title and Icon -->
+    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>MEAN_hike<br/><small><em>hike like you mean it.</em></small></h1>
+    <!-- Alert Info Message -->
+    <div class="alert alert-info alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <p><strong>What's this?</strong> MEAN_hike is a small, web-based app, which can help you plan your hiking adventures.</p>
+    </div>
+    <!-- Login Panel -->
+    <div class="panel panel-primary">
+        <!-- Panel Title -->
+        <div class="panel-heading"><h4>Login</h4></div>
+        <div class="panel-body">
+            <!-- Login Errors -->
+            <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                <p><strong>Error!</strong> {{error.message}}</p>
+            </div>
+            <!-- Login Form -->
+            <form ng-submit="login()" class="padding-left padding-right padding-bottom padding-top-sm form-horizontal">
+                <div class="form-group">
+                    <!-- Username Field -->
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="username" id="username" ng-model="user.username" class="form-control input-lg" placeholder="Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- Password Field -->
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="Password">
+                    </div>
+                </div>
+                <!-- Login Button -->
+                <input type="submit" value="Login" class="form-control btn-primary">
+            </form>
+        </div>
+    </div>
+    <!-- Registration Callout (small) -->
+    <h4>Don't have a username?</h4>
+    Go ahead, <a href="" data-toggle="modal" data-target="#myModal">create an account</a> why don't you?</p>
+</div>
+
+<!-- Registration Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Create an Account</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel panel-primary">
+              <div class="panel-heading"><h4>Register</h4></div>
+              <div class="panel-body">
+                  <!-- Registration Errors -->
+                  <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                      <p><strong>Error!</strong> {{error.message}}</p>
+                  </div>
+                  <!-- Registration Form -->
+                  <form ng-submit="register()" class="padding-all form-horizontal">
+                      <!-- Username Field -->
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input type="text" name="username" id="username" ng-model="newUser.username" class="form-control input-lg" placeholder="Desired Username">
+                          </div>
+                      </div>
+                      <!-- Email Field -->
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                              <input type="text" name="email" id="email" ng-model="newUser.email" class="form-control input-lg" placeholder="Email">
+                          </div>
+                      </div>
+                      <!-- Email Confirm Field -->
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                              <input type="text" name="email-confirm" id="email-confirm" ng-model="newUser.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+                          </div>
+                      </div>
+                      <!-- Password Field -->
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                              <input type="password" name="password" id="password" ng-model="newUser.password" class="form-control input-lg" placeholder="Password">
+                          </div>
+                      </div>
+                      <!-- Confirm Password Field -->
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                              <input type="password" name="password-confirm" id="password-confirm" ng-model="newUser.passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+                          </div>
+                      </div>
+                      <!-- Registration Button -->
+                      <input type="submit" value="Register" class="form-control btn-primary margin-top">
+                      <button type="button" class="form-control btn btn-default" data-dismiss="modal">Cancel</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</div>

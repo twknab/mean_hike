@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Page Title -->
-    <title>My MEAN Project</title>
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <title>MEAN Hike | Hike like you mean it.</title>
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Theme -->
+    <!-- <link rel="stylesheet" href="bootstrap/dist/css/bootstrap-theme.min.css"> -->
+    <!-- jQuery -->
+    <script src="jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Angular -->
     <script src="angular/angular.js"></script>
     <!-- Angular Route -->
@@ -15,14 +21,13 @@
     <!-- Angular App -->
     <script src="js/config/angular-app.js"></script>
     <!-- Angular Controllers -->
-    <script src="js/controllers/angular-user-controller.js"></script>
-    <script src="js/controllers/angular-user-edit-controller.js"></script>
+    <script src="js/controllers/angular-login-controller.js"></script>
+    <script src="js/controllers/angular-dashboard-controller.js"></script>
     <!-- Angular Factories -->
-    <script src="js/factories/angular-user-factory.js"></script>
+    <script src="js/factories/angular-login-factory.js"></script>
+    <script src="js/factories/angular-dashboard-factory.js"></script>
 </head>
 <body>
-    <!-- Title -->
-    <h1>My Project Title</h1>
     <!-- Partial Container -->
     <div ng-view><!-- Partials load here --></div>
 </body>

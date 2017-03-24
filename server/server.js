@@ -11,9 +11,6 @@ require('./config/app')(express, app, bodyParser, path);
 // Setup Mongoose and Models:
 require('./config/db');
 
-// Setup Custom Mongoose Middleware (if using):
-require('./middleware/user')(app);
-
 // Setup Server-Side Routing:
 require('./config/routes')(app);
 

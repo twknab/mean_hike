@@ -46,6 +46,10 @@ body {
     padding: 35px;
 }
 
+.padding-all-sm {
+    padding: 15px;
+}
+
 /*************************/
 /*       MARGIN:         */
 /*************************/
@@ -58,12 +62,20 @@ body {
     margin-left: 15px;
 }
 
+.margin-left-xsm {
+    margin-left: 10px;
+}
+
 .margin-right {
     margin-right: 35px;
 }
 
 .margin-right-sm {
     margin-right: 15px;
+}
+
+.margin-right-xsm {
+    margin-right: 10px;
 }
 
 .margin-top {
@@ -74,6 +86,10 @@ body {
     margin-top: 15px;
 }
 
+.margin-top-xsm {
+    margin-top: 10px;
+}
+
 .margin-bottom {
     margin-bottom: 35px;
 }
@@ -82,8 +98,16 @@ body {
     margin-bottom: 15px;
 }
 
+.margin-bottom-xsm {
+    margin-bottom: 10px;
+}
+
 .margin-all {
     margin: 35px;
+}
+
+.margin-all-sm {
+    margin: 15px;
 }
 
 /*************************/
@@ -93,4 +117,61 @@ body {
 .completed {
     background-color: whitesmoke;
     color: grey;
+}
+
+.completed a {
+    color: grey;
+}
+
+/*************************/
+/*    COMPLETED HIKE:    */
+/*************************/
+
+.stats {
+    font-size: 20px;
+}
+
+/***********************************/
+/*  LOGOUT AND DASHBOARD BUTTONS:  */
+/***********************************/
+
+.logout {
+    margin-left: auto;
+    display: block;
+}
+
+.dashboard {
+    width: 255px;
+}
+
+@media only screen and (max-width: 400px)  {
+    .dashboard {
+        width: 258px;
+    }
+}
+
+/*****************************/
+/*     HIKE REPORT PAGE:     */
+/*****************************/
+
+.custom-list li:nth-child(even) {
+	background-color: whitesmoke;
+}
+
+/*********************************/
+/*   PRE / POST / REPORT PAGE:   */
+/*********************************/
+
+.no-list-margin {
+	margin-bottom: 0px;
+}
+
+.no-heading-margin {
+	margin-top: 0px;
+}
+
+.gear-carried-list {
+    font-size: 12px;
+    list-style-type: none;
+    margin: 5px 0px 5px -20px;
 }

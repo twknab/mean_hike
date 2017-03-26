@@ -1,0 +1,129 @@
+<!-- Begin Primary Container -->
+<div class="container">
+    <!-- Page Title and Icon -->
+    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>MEAN_hike<br/><small><em>Post-Trip</em></small></h1>
+    <!-- Dashboard and Logout Buttons -->
+    <div class="logout dashboard">
+        <div class="btn-group margin-bottom-sm">
+            <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</button>
+            <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+        </div>
+    </div>
+    <!-- Hike Overview Panel -->
+    <div class="panel panel-primary">
+        <!-- Panel Title -->
+        <div class="panel-heading"><h4>Hike Overview</h4></div>
+        <div class="panel-body">
+            <h2 class="no-heading-margin">Boulder River</h2>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                <ul class="list-group custom-list no-list-margin">
+                    <li class="list-group-item"><strong>Date Added:</strong> 3/13/17</li>
+                    <li class="list-group-item"><strong>Region:</strong> Skagit Valley</li>
+                    <li class="list-group-item"><strong>Distance:</strong> 8.3 miles</li>
+                    <li class="list-group-item"><strong>Elevation Gain:</strong> 800 feet</li>
+                    <li class="list-group-item"><strong>Estimated Time:</strong> 4 hours 51 minutes</li>
+                    <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
+                </ul>
+            </div>
+            <div class="alert alert-info margin-top-sm">
+                <strong>Notes:</strong> Fallen tree in first mile after parking lot. Proceed cautiously, especially with pack.
+            </div>
+            <!-- View All Hikes Button -->
+            <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+        </div>
+    </div>
+    <!-- Full Pre-Trip Report Panel -->
+    <div class="panel panel-primary">
+        <!-- Panel Title -->
+        <div class="panel-heading"><h4>Pre-Trip Report</h4></div>
+        <!-- Panel Body -->
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-arrow-right"></i></span>
+                <ul class="list-group custom-list no-list-margin">
+                    <li class="list-group-item"><strong>Date:</strong> 3/22/17</li>
+                    <li class="list-group-item"><strong>Itinerary:</strong> Hike to end of trail and back. Start @1PM from trailhead, return to car by 6PM, home by 7/8PM.</li>
+                    <li class="list-group-item"><strong>Weather Report:</strong> Fog in the AM, clear in the PM, low 53, high 67.</li>
+                    <li class="list-group-item"><strong>Sunset:</strong> 7:02PM</li>
+                    <li class="list-group-item"><strong>Potential Hazards:</strong> Fallen tree at first 1/2 mile.</li>
+                    <li class="list-group-item"><strong>Group Size:</strong> Solo hike</li>
+                    <li class="list-group-item"><strong>Gear Carried:</strong>
+                        <ul>
+                            <li class="gear-carried-list"><span class="label label-info" style="font-size:12px;">Day Hike List</span></li>
+                            <li>warm hat</li>
+                            <li>gloves</li>
+                            <li>extra socks</li>
+                            <li>sunglasses</li>
+                            <li>rain jacket</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="alert alert-info margin-top-sm">
+                <strong>Notes:</strong> Windy today, will proceed with some extra caution.
+            </div>
+            <!-- View All Hikes Button -->
+            <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+        </div>
+    </div>
+    <!-- Post-Trip Report Panel -->
+    <div class="panel panel-primary">
+        <!-- Panel Title -->
+        <div class="panel-heading"><h4>Post-Trip Report</h4></div>
+        <!-- Panel Body -->
+        <div class="panel-body">
+            <!-- Post-Trip Hike Form -->
+            <form ng-submit="pretrip()" class="padding-left padding-right form-horizontal">
+                <!-- Actual Hiking Time -->
+                <div class="form-group">
+                    <fieldset><legend>Actual Hiking Time</legend>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                            <input type="text" name="time" id="time" class="form-control input-lg" placeholder="Actual Hiking Time">
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Actual Weather -->
+                <div class="form-group">
+                    <fieldset><legend>Actual Weather</legend>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
+                            <textarea class="form-control" rows="5" id="weather" placeholder="Describe the actual weather experienced, hour by hour if able, or a general overview."></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Hazards or Emergencies -->
+                <div class="form-group">
+                    <fieldset><legend>Experienced Hazards or Emergencies</legend>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
+                            <textarea class="form-control" rows="5" id="hazards" placeholder="Describe any hazards experienced, or if there were any medical emergencies or issues, describe them below."></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Flora and Fauna -->
+                <div class="form-group">
+                    <fieldset><legend>Flora and Fauna Sightings</legend>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
+                            <textarea class="form-control" rows="5" id="wildlife" placeholder="Describe any interesting flora or fauna observed."></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Additional Notes -->
+                <div class="form-group">
+                    <fieldset><legend>Additional Notes</legend>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                            <textarea class="form-control" rows="5" id="notes" placeholder="Describe any additional details which may aid in future or repeated endeavors."></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Complete Post-Trip and Cancel Buttons -->
+                <button type="submit" class="form-control btn btn-primary"><span class="glyphicon glyphicon-check"></span> Complete Post Trip</button>
+                <button class="form-control btn btn-link"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+            </form>
+        </div>
+    </div>
+</div> <!-- End Primary Container -->

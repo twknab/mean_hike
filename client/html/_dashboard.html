@@ -1,245 +1,161 @@
+<!-- Begin Primary Container -->
 <div class="container">
     <!-- Page Title and Icon -->
     <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>MEAN_hike<br/><small><em>Dashboard</em></small></h1>
-    <!-- Upcoming Hikes Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4>Upcoming Hikes</h4></div>
-        <div class="panel-body">
-            <!-- Upcoming Hikes -->
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""><a href="#"><strong>Boulder River</strong></label> (8.3mi, 800ft gain) - 4 hours 51 minutes - added 03/13/17</a>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Mt. Si</strong></label> (8.0mi, 3,000ft gain) - 7 hours - added 03/02/17 - <a href="#">full report</a>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Middlefork Road</strong></label> (6.0mi, 500ft gain) - 3 hours 30 minutes - added 02/16/17 - <a href="#">full report</a>
-                    </div>
-                </li>
-            </ul>
-            <!-- All Hikes Button -->
-            <button class="form-control btn-primary">See All Hikes</button>
-        </div>
+    <!-- Logout Button -->
+    <button class="btn btn-default btn-lg logout margin-bottom-sm"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+    <!-- Alert Info Message -->
+    <div class="alert alert-info alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p><strong>How to Use:</strong> Add a new hike below. Start a pre-trip prior to leaving and build a gear list. When you return, complete your post-trip. View your entire trip report.</a></p>
     </div>
-    <!-- Add a New Hike Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4>Add a New Hike</h4></div>
-        <div class="panel-body">
-            <!-- Registration Errors -->
-            <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
-                <p><strong>Error!</strong> {{error.message}}</p>
-            </div>
-            <!-- Registration Form -->
-            <form ng-submit="create()" class="padding-all form-horizontal">
-                <!-- Hike Name Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
-                    </div>
-                </div>
-                <!-- Region Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
-                        <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
-                    </div>
-                </div>
-                <!-- Hike Distance Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                        <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (in miles)">
-                    </div>
-                </div>
-                <!-- Elevation Gain Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                        <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (in feet)">
-                    </div>
-                </div>
-                <!-- Location URL Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                        <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Location (Map URL)">
-                    </div>
-                </div>
-                <!-- Hike Notes -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                        <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes Regarding Logistics, Driving or Trailhead Access Notes"></textarea>
-                    </div>
-                </div>
-                <!-- Add New Hike Button -->
-                <input type="submit" value="Add New Hike" class="form-control btn-primary margin-top">
-            </form>
-        </div>
-    </div>
-    <!-- Hike Pre-Trip Form Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4>Start a Pre-Trip</h4></div>
-        <div class="panel-body">
-            <!-- Pre-Trip Hike Selector Dropdown Form -->
-            <form ng-submit="pretrip()" class="padding-all form-horizontal">
-                <div class="form-group">
-                    <select class="form-control" id="selectedHike">
-                        <option selected>Choose a Hike for Pre-Trip</option>
-                        <option>Boulder River</option>
-                        <option>Mt Si</option>
-                        <option>Middlefork Road</option>
-                        <option>Mt St Helens</option>
-                    </select>
-                </div>
-                <!-- Start Pre-Trip Button -->
-                <input type="submit" value="Start Pre-Trip Form" class="form-control btn-primary margin-top">
-            </form>
-        </div>
-    </div>
-
-<!-- BEGIN COLLAPSIBLE ACCORDIANS -->
-<!-- BEGIN COLLAPSIBLE ACCORDIANS -->
-<!-- BEGIN COLLAPSIBLE ACCORDIANS -->
-<!-- BEGIN COLLAPSIBLE ACCORDIANS -->
-<!-- BEGIN COLLAPSIBLE ACCORDIANS -->
-
-<h1>Begin Accordians</h1>
-
+    <!-- Begin Accordion -->
     <div class="panel-group" id="accordion">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h4 class="panel-title padding-top-sm padding-bottom-sm">
-            <a data-toggle="collapse" data-parent="#accordion">
-            Upcoming Hikes</a>
-          </h4>
+        <!-- Begin Collapse 1 -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="panel-title">
+                    <!-- Panel Title -->
+                    <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse1">
+                    <h4>Recent Hikes</h4></a>
+                </span>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <!-- Begin Panel Content -->
+                <div class="panel-body">
+                    <!-- Recent Hikes -->
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        <ul class="list-group no-list-margin">
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value=""><strong>Boulder River</strong> - </label> <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> - <span class="label label-warning">Pre-Trip Incomplete</span><button class="btn btn-link btn-sm">Current Report</button>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value=""><strong>Mt. Si</strong> - </label> <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> - <span class="label label-success">Pre-Trip Completed</span><button class="btn btn-link btn-sm">Current Report</button>
+                                </div>
+                            </li>
+                            <li class="list-group-item completed">
+                                <div class="checkbox disabled">
+                                    <label><input type="checkbox" value="" checked disabled><strong>Middle Fork Road</strong></label> - <a href=#>6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- All Hikes Button -->
+                    <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                </div>
+                <!-- End Panel Content -->
+            </div>
         </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-          <div class="panel-body">
-              <!-- Upcoming Hikes -->
-              <ul class="list-group">
-                  <li class="list-group-item">
-                      <div class="checkbox">
-                          <label><input type="checkbox" value=""><a href="#"><strong>Boulder River</strong></label> (8.3mi, 800ft gain) - 4 hours 51 minutes - added 03/13/17</a>
-                      </div>
-                  </li>
-                  <li class="list-group-item completed">
-                      <div class="checkbox disabled">
-                          <label><input type="checkbox" value="" checked disabled><strong>Mt. Si</strong></label> (8.0mi, 3,000ft gain) - 7 hours - added 03/02/17 - <a href="#">full report</a>
-                      </div>
-                  </li>
-                  <li class="list-group-item completed">
-                      <div class="checkbox disabled">
-                          <label><input type="checkbox" value="" checked disabled><strong>Middlefork Road</strong></label> (6.0mi, 500ft gain) - 3 hours 30 minutes - added 02/16/17 - <a href="#">full report</a>
-                      </div>
-                  </li>
-              </ul>
-              <!-- All Hikes Button -->
-              <button class="form-control btn btn-primary">See All Hikes</button>
-          </div>
-          </div>
+        <!-- End Collapse 1 -->
+        <!-- Begin Collapse 2 -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="panel-title">
+                    <!-- Begin Panel Title -->
+                    <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse2">
+                    <h4>Add a New Hike</h4></a>
+                </span>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <!-- Begin Panel Content -->
+                <div class="panel-body">
+                    <!-- New Hike Errors -->
+                    <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                        <p><strong>Error!</strong> {{error.message}}</p>
+                    </div>
+                    <!-- New Hike Form -->
+                    <form ng-submit="create()" class="padding-left-sm padding-right-sm form-horizontal">
+                        <!-- Hike Name Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
+                            </div>
+                        </div>
+                        <!-- Region Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
+                                <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
+                            </div>
+                        </div>
+                        <!-- Hike Distance Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+                                <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (mi)">
+                            </div>
+                        </div>
+                        <!-- Elevation Gain Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
+                                <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (ft)">
+                            </div>
+                        </div>
+                        <!-- Location URL Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Map URL">
+                            </div>
+                        </div>
+                        <!-- Hike Notes -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes: logistics, driving or trailhead access"></textarea>
+                            </div>
+                        </div>
+                        <!-- Add New Hike Button -->
+                        <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
+                    </form>
+                </div>
+                <!-- End Panel Content -->
+            </div>
         </div>
-      </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h4 class="panel-title padding-top-sm padding-bottom-sm">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-            Add a New Hike</a>
-          </h4>
+        <!-- End Collapse 2 -->
+        <!-- Begin Collapse 3 -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="panel-title">
+                    <!-- Panel Title -->
+                    <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse3">
+                    <h4>Start a Hike Pre-Trip</h4></a>
+                </span>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <!-- Begin Panel Content -->
+                <div class="panel-body">
+                    <!-- Pre-Trip Hike Selector Dropdown Form -->
+                    <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
+                                <select class="form-control" id="selectedHike">
+                                    <option selected>Choose a Hike to Start</option>
+                                    <option>Boulder River</option>
+                                    <option>Mt Si</option>
+                                    <option>Middlefork Road</option>
+                                    <option>Mt St Helens</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Start Pre-Trip Button -->
+                        <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip Form</button>
+                    </form>
+                </div>
+                <!-- End Panel Content -->
+            </div>
         </div>
-        <div id="collapse2" class="panel-collapse collapse">
-          <div class="panel-body">
-              <!-- Registration Errors -->
-              <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
-                  <p><strong>Error!</strong> {{error.message}}</p>
-              </div>
-              <!-- Registration Form -->
-              <form ng-submit="create()" class="padding-all form-horizontal">
-                  <!-- Hike Name Field -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                          <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
-                      </div>
-                  </div>
-                  <!-- Region Field -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
-                          <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
-                      </div>
-                  </div>
-                  <!-- Hike Distance Field -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                          <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (in miles)">
-                      </div>
-                  </div>
-                  <!-- Elevation Gain Field -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                          <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (in feet)">
-                      </div>
-                  </div>
-                  <!-- Location URL Field -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                          <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Location (Map URL)">
-                      </div>
-                  </div>
-                  <!-- Hike Notes -->
-                  <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                          <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes Regarding Logistics, Driving or Trailhead Access Notes"></textarea>
-                      </div>
-                  </div>
-                  <!-- Add New Hike Button -->
-                  <input type="submit" value="Add New Hike" class="form-control btn-primary margin-top">
-              </form>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h4 class="panel-title padding-top-sm padding-bottom-sm">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-            Start a Pre-Trip</a>
-          </h4>
-        </div>
-        <div id="collapse3" class="panel-collapse collapse">
-          <div class="panel-body">
-              <!-- Pre-Trip Hike Selector Dropdown Form -->
-              <form ng-submit="pretrip()" class="padding-all form-horizontal">
-                  <div class="form-group">
-                      <select class="form-control" id="selectedHike">
-                          <option selected>Choose a Hike for Pre-Trip</option>
-                          <option>Boulder River</option>
-                          <option>Mt Si</option>
-                          <option>Middlefork Road</option>
-                          <option>Mt St Helens</option>
-                      </select>
-                  </div>
-                  <!-- Start Pre-Trip Button -->
-                  <input type="submit" value="Start Pre-Trip Form" class="form-control btn-primary margin-top">
-              </form>
-          </div>
-        </div>
-      </div>
+        <!-- End Collapse 3 -->
     </div>
+    <!-- End Accordion -->
 
-<!-- End Primary Container -->
+
 </div>
+<!-- End Primary Container -->

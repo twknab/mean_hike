@@ -34,5 +34,6 @@
 
 ###Where I Left Off:
 
-	+ Tried to convert /dashboard page to accordians, but was hitting issue with angular-routing and bootstrap.
-	See this link here: http://stackoverflow.com/questions/18803955/angularjs-with-bootstrap-3-accordion-not-working-when-included-via-ng-view
+	+ Almost all html is framed out. Icons need to be added to pre-trip form. Post trip form is almost complete. Icons need to be added
+	to all other form elements. ng-models don't matter now, you'll build them as you go next. Double check that visually everything lines
+	up to the mockup, before you start building the back end.

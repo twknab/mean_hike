@@ -5,45 +5,49 @@ var app = angular.module('app', ['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'html/_login.html', // root route partial
+            templateUrl: 'html/_login.html', // login page
             controller: 'loginController',
         })
         .when('/dashboard', {
-            templateUrl: 'html/_dashboard.html', // root route partial
+            templateUrl: 'html/_dashboard.html', // dashboard page
             controller: 'dashboardController',
         })
         .when('/hikes', {
-            templateUrl: 'html/_all-hikes.html', // root route partial
+            templateUrl: 'html/_all-hikes.html', // all hikes page
             controller: 'allHikesController',
         })
         .when('/hikes/:id/edit', {
-            templateUrl: 'html/_edit-hike.html', // root route partial
+            templateUrl: 'html/_edit-hike.html', // edit hike page
             controller: 'editHikeController',
         })
         .when('/hikes/:id/pre-trip', {
-            templateUrl: 'html/_pre-trip.html', // root route partial
+            templateUrl: 'html/_pre-trip.html', // pre-trip page
             controller: 'preTripController',
         })
         .when('/hikes/add-gear-list', {
-            templateUrl: 'html/_add-gear-list.html', // root route partial
+            templateUrl: 'html/_add-gear-list.html', // add gear list page
             controller: 'addGearListController',
         })
         .when('/hikes/edit-gear-list', {
-            templateUrl: 'html/_edit-gear-list.html', // root route partial
+            templateUrl: 'html/_edit-gear-list.html', // edit gear list pages
             controller: 'editGearListController',
         })
         .when('/hikes/:id/post-trip', {
-            templateUrl: 'html/_post-trip.html', // root route partial
+            templateUrl: 'html/_post-trip.html', // post trip page
             controller: 'postTripController',
         })
         .when('/hikes/:id/report', {
-            templateUrl: 'html/_report.html', // root route partial
+            templateUrl: 'html/_report.html', // report page
             controller: 'reportController',
         })
         .otherwise({
-            redirectTo: '/',
+            redirectTo: '/', // otherise load root
         });
-    $locationProvider
+    $locationProvider // setup html5 mode to remove hashbangs from url
         .html5Mode(true)
         .hashPrefix('!');
+        /*
+            Note: Because HTML5 mode is enabled, you're going to have to
+            rewrite your ExpressJS routing (see `server/config/app.js`)
+        */
 });

@@ -5,7 +5,7 @@ var app = angular.module('app', ['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: 'html/_index.html', // root route partial
+            templateUrl: 'html/_login.html', // root route partial
             controller: 'loginController',
         })
         .when('/dashboard', {
@@ -24,9 +24,9 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_pre-trip.html', // root route partial
             controller: 'preTripController',
         })
-        .when('/hikes/new-gear-list', {
-            templateUrl: 'html/_new-gear-list.html', // root route partial
-            controller: 'newGearListController',
+        .when('/hikes/add-gear-list', {
+            templateUrl: 'html/_add-gear-list.html', // root route partial
+            controller: 'addGearListController',
         })
         .when('/hikes/edit-gear-list', {
             templateUrl: 'html/_edit-gear-list.html', // root route partial

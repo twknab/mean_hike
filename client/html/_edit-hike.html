@@ -14,7 +14,7 @@
         <div class="panel-heading">
             <span class="panel-title">
                 <!-- Panel Title -->
-                <h4><span class="glyphicon glyphicon-pencil"></span> Edit Hike</h4></a>
+                <h4><span class="glyphicon glyphicon-edit"></span> Edit Hike</h4></a>
             </span>
         </div>
         <!-- Begin Panel Content -->
@@ -22,7 +22,7 @@
             <!-- Alert Info Message -->
             <div class="alert alert-info alert-dismissable fade in">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              <p><strong>Note:</strong> Pre-trip and post-trip information cannot be edited.</p>
+              <p><strong>Note:</strong> <em>Pre-Trip</em> and <em>Post-Trip</em> information cannot be edited. For record keeping accuracy and anti-tampering, a hike locks once a <em>Pre-Trip</em> is completed.</p>
             </div>
             <!-- Edit Hike Errors -->
             <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
@@ -52,7 +52,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
                         <input type="text" name="distance" id="distance" value="8.3" class="form-control input-lg" placeholder="Hike Distance (mi)">
                     </div>
-                    <span class="help-block">Enter total hike distance round-trip in miles.</span>
+                    <span class="help-block margin-left-sm">Enter total hike distance round-trip in miles.</span>
                 </div>
                 <!-- Elevation Gain Field -->
                 <div class="form-group">

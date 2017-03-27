@@ -8,8 +8,9 @@
     </div>
     <!-- Login Panel -->
     <div class="panel panel-primary">
-        <!-- Panel Title -->
+        <!-- Panel Heading -->
         <div class="panel-heading"><h4><span class="glyphicon glyphicon-log-in"></span> Login</h4></div>
+        <!-- Panel Body -->
         <div class="panel-body">
             <!-- Login Errors -->
             <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
@@ -35,10 +36,13 @@
                 <button type="submit" class="form-control btn-primary"><span class="glyphicon glyphicon-log-in"></span> Login</button>
             </form>
         </div>
+        <!-- Panel Footer -->
+        <div class="panel-footer">
+            <!-- Registration Callout (small) -->
+            <h4>Don't have a username?</h4>
+            Go ahead, <a href="" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-modal-window"></span> create an account</a> why don't you?</p>
+        </div>
     </div>
-    <!-- Registration Callout (small) -->
-    <h4>Don't have a username?</h4>
-    Go ahead, <a href="" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-modal-window"></span> create an account</a> why don't you?</p>
 </div>
 
 <!-- Registration Modal -->

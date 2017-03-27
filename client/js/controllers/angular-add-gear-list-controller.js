@@ -1,4 +1,4 @@
-app.controller('newGearListController', ['$scope', 'gearListFactory', '$location', '$routeParams', function($scope, gearListFactory, $location, $routeParams) {
+app.controller('addGearListController', ['$scope', 'gearListFactory', '$location', '$routeParams', function($scope, gearListFactory, $location, $routeParams) {
 
     // Callbacks
     var cb = {

@@ -17,53 +17,132 @@
             <!-- Alert Info Message -->
             <div class="alert alert-info alert-dismissable fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p><strong>What Can I Do Here?</strong> View a hike's report. Start a pre-trip by ticking a box on a newly added hike. Complete a post-trip by ticking the box on an active hike. <a href="#stats"><span class="glyphicon glyphicon-link"></span> See your full stats for all of your combined hikes here</a>.</p>
+                <p><strong>Did You Know?</strong> You can view your <a href="#stats"><span class="glyphicon glyphicon-link"></span> full stats </a> for all of your combined hikes?</p>
+            </div>
+            <!-- Search Box -->
+            <div class="input-group margin-bottom-sm">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input type="text" name="search" id="search" placeholder="Search All Hikes..." class="form-control input-lg">
             </div>
             <!-- All Hikes -->
             <ul class="list-group">
                 <li class="list-group-item">
                     <div class="checkbox">
-                        <label><input type="checkbox" value=""><strong>Boulder River</strong> - </label> <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> - <span class="label label-warning">Pre-Trip Incomplete</span><button class="btn btn-link btn-sm">Current Report</button>
+                        <label>
+                            <input type="checkbox" value="">
+                            <strong>Boulder River</strong> -
+                        </label>
+                        <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
+                        <span class="label label-warning">Pre-Trip Incomplete</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <div class="checkbox">
-                        <label><input type="checkbox" value=""><strong>Mt. Si</strong> - </label> <a href="#">8.0mi | 3,000ft gain - 7 hours - added 03/02/17</a> - <span class="label label-success">Pre-Trip Completed</span><button class="btn btn-link btn-sm">Current Report</button>
+                        <label>
+                            <input type="checkbox" value="">
+                            <strong>Mt. Si</strong> -
+                        </label>
+                        <a href="#">8.0mi | 3,000ft gain - 7 hours - added 03/02/17</a> -
+                        <span class="label label-success">Pre-Trip Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Middle Fork Road</strong></label> - <a href="#" class="">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Middle Fork Road</strong> -
+                        </label>
+                        <a href="#" class="">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Mt St Helens, Wormflows Route</strong></label> - <a href="#" class="">12.0mi | 4,000ft gain - 12 hours 30 minutes - added 02/02/17</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Mt St Helens, Wormflows Route</strong> -
+                        </label>
+                        <a href="#" class="">12.0mi | 4,000ft gain - 12 hours 30 minutes - added 02/02/17</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>St Edwards State Park</strong></label> - <a href="#" class="">3.0mi | 500ft gain - 1 hours 30 minutes - added 01/16/17</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>St Edwards State Park</strong> -
+                        </label>
+                        <a href="#" class="">3.0mi | 500ft gain - 1 hours 30 minutes - added 01/16/17</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Granite Mountain</strong></label> - <a href="#" class="">3.0mi | 1,000ft gain - 2 hours 0 minutes - added 11/20/16</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Granite Mountain</strong> -
+                        </label>
+                        <a href="#" class="">3.0mi | 1,000ft gain - 2 hours 0 minutes - added 11/20/16</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Mt Teneriffe</strong></label> - <a href="#" class="">8.0mi | 1,000ft gain - 5 hours 0 minutes - added 10/26/16</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Mt Teneriffe</strong> -
+                        </label>
+                        <a href="#" class="">8.0mi | 1,000ft gain - 5 hours 0 minutes - added 10/26/16</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Snoqualmie Trail</strong></label> - <a href="#" class="">4.0mi | 200ft gain - 2 hours 0 minutes - added 10/02/16</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Snoqualmie Trail</strong> -
+                        </label>
+                        <a href="#" class="">4.0mi | 200ft gain - 2 hours 0 minutes - added 10/02/16</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
                 <li class="list-group-item completed">
                     <div class="checkbox disabled">
-                        <label><input type="checkbox" value="" checked disabled><strong>Little Si</strong></label> - <a href="#" class="">6.0mi | 1,500ft gain - 4 hours 30 minutes - added 09/16/16</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                        <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <strong>Little Si</strong>
+                        </label>
+                        <a href="#" class="">6.0mi | 1,500ft gain - 4 hours 30 minutes - added 09/16/16</a> -
+                        <span class="label label-default">Completed</span>
+                        <div class="margin-top-sm">
+                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                        </div>
                     </div>
                 </li>
             </ul>

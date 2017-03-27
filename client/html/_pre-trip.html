@@ -46,16 +46,16 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
                             <select class="form-control" id="selectedHike">
-                                <option selected>Choose a Gear List to Use</option>
+                                <option selected>Choose a List</option>
                                 <option>Day Hike List</option>
                                 <option>Winter Day Hike List</option>
                             </select>
                         </div>
 
                         <!-- Add New List and Edit List Buttons -->
-                        <div class="btn-group pull-right margin-top-sm">
-                            <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-list-alt"></span> Add New List</button>
-                            <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-edit"></span> Edit List</button>
+                        <div class="btn-group pull-right margin-top-sm gear-list-buttons">
+                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span> Add New List</button>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit List</button>
                         </div>
                     </fieldset>
                 </div>
@@ -103,7 +103,7 @@
                         <fieldset><legend>Itinerary</legend>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
-                                <textarea class="form-control" rows="5" id="itinerary" placeholder="Include your goals and plans for the day (or each day if multiple), along with time estimates for reaching the trailhead and arriving back home."></textarea>
+                                <textarea class="form-control" rows="5" id="itinerary" placeholder="What are your goals each day? When will you reach each goal, the trailhead and home?"></textarea>
                             </div>
                         </fieldset>
                 </div>
@@ -112,7 +112,7 @@
                     <fieldset><legend>Weather Report</legend>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
-                            <textarea class="form-control" rows="5" id="weather" placeholder="Enter a brief weather report or copy and paste from weather website for day(s) of hiking."></textarea>
+                            <textarea class="form-control" rows="5" id="weather" placeholder="Enter (or copy and paste) a weather report for each day."></textarea>
                         </div>
                     </fieldset>
                 </div>
@@ -121,7 +121,7 @@
                     <fieldset><legend>Sunset</legend>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-adjust"></i></span>
-                            <textarea class="form-control" rows="5" id="sunset" placeholder="Enter sunset time for each day."></textarea>
+                            <textarea class="form-control" rows="5" id="sunset" placeholder="What time is sunset each day?"></textarea>
                         </div>
                     </fieldset>
                 </div>
@@ -130,7 +130,7 @@
                     <fieldset><legend>Potential Hazards</legend>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
-                            <textarea class="form-control" rows="5" id="hazards" placeholder="Define any possible hazards you may experience: this may be based on weather, trailhead conditions, or other variables."></textarea>
+                            <textarea class="form-control" rows="5" id="hazards" placeholder="What are possible hazards? Weather? Trail or route conditions or anything else?"></textarea>
                         </div>
                     </fieldset>
                 </div>
@@ -139,7 +139,7 @@
                     <fieldset><legend>Additional Notes</legend>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                            <textarea class="form-control" rows="5" id="notes" placeholder="Enter any additional notes or issues regarding anything that may have changed since first planning your hike."></textarea>
+                            <textarea class="form-control" rows="5" id="notes" placeholder="Any additional notes since first adding your hike?"></textarea>
                         </div>
                     </fieldset>
                 </div>

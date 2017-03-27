@@ -7,7 +7,7 @@
     <!-- Alert Info Message -->
     <div class="alert alert-info alert-dismissable fade in">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p><strong>How to Use:</strong> Add a new hike below. Start a pre-trip prior to leaving and build a gear list. When you return, complete your post-trip. View your entire trip report.</a></p>
+        <p><strong>How Do I Use This?</strong> Travel outdoors with greater awareness and safety. Add hikes you're planning and view their reports. Tick the box before you go to trigger a <em>Pre-Trip</em> to prepare for your experience. Tick the box again when you get back to trigger a <em>Post-Trip</em> to learn for next time.</p>
     </div>
     <!-- Begin Accordion -->
     <div class="panel-group" id="accordion">
@@ -24,26 +24,49 @@
                 <!-- Begin Panel Content -->
                 <div class="panel-body">
                     <!-- Recent Hikes -->
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                        <ul class="list-group no-list-margin">
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value=""><strong>Boulder River</strong> - </label> <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> - <span class="label label-warning">Pre-Trip Incomplete</span><button class="btn btn-link btn-sm">Current Report</button>
+                    <ul class="list-group no-list-margin">
+                        <li class="list-group-item">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    <strong>Boulder River</strong> -
+                                </label>
+                                <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
+                                <span class="label label-warning">Pre-Trip Incomplete</span>
+                                <div class="margin-top-sm">
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                 </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value=""><strong>Mt. Si</strong> - </label> <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> - <span class="label label-success">Pre-Trip Completed</span><button class="btn btn-link btn-sm">Current Report</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="">
+                                    <strong>Mt. Si</strong> -
+                                </label>
+                                <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> -
+                                <span class="label label-success">Pre-Trip Completed</span>
+                                <div class="margin-top-sm">
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
                                 </div>
-                            </li>
-                            <li class="list-group-item completed">
-                                <div class="checkbox disabled">
-                                    <label><input type="checkbox" value="" checked disabled><strong>Middle Fork Road</strong></label> - <a href=#>6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> - <span class="label label-default">Completed</span><button class="btn btn-link btn-sm">Full Report</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item completed">
+                            <div class="checkbox disabled">
+                                <label>
+                                    <input type="checkbox" value="" checked disabled>
+                                    <strong>Middle Fork Road</strong> -
+                                </label>
+                                <a href=#>6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
+                                <span class="label label-default">Completed</span>
+                                <div class="margin-top-sm">
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                     <!-- All Hikes Button -->
                     <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                 </div>

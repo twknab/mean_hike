@@ -6,7 +6,7 @@ app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'html/_login.html', // login page
-            controller: 'loginController',
+            controller: 'userController',
         })
         .when('/dashboard', {
             templateUrl: 'html/_dashboard.html', // dashboard page

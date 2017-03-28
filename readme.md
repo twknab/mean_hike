@@ -34,6 +34,9 @@
 
 ###Where I Left Off:
 
-	+ Almost all html is framed out. Icons need to be added to pre-trip form. Post trip form is almost complete. Icons need to be added
-	to all other form elements. ng-models don't matter now, you'll build them as you go next. Double check that visually everything lines
-	up to the mockup, before you start building the back end.
+	+ Almost done validating registration. Username is validated for unique, case insensitive, min and maxlength, and alphanumer.
+	Email is validated for min length, unique, and proper formatting. Password is validated for minlength.
+	**STILL NEED TO VALIDATE THE FOLLOWING:**
+		- Email and Email Confirm match
+		- Password and Password Confirm match
+		- Bcrpyt Password

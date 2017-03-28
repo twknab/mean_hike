@@ -1,14 +1,14 @@
-app.factory('loginFactory', ['$http', function($http) {
+app.factory('userFactory', ['$http', function($http) {
     // Setup Factory Object:
     var factory = {};
 
-    // Login:
-    factory.login = function(user, createCallback, errorsCallback) {
+    // Register:
+    factory.register = function(user, registerCallback, errorsCallback) {
         console.log('Factory talking...', user);
-        $http.post('/login', user)
+        $http.post('/api/register', user)
             .then(function(newUser) {
                 console.log(newUser.data);
-                createCallback(newUser.data);
+                registerCallback(newUser.data);
             })
             .catch(function(err) {
                 console.log(err);

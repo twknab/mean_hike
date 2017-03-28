@@ -1,5 +1,6 @@
 // Setup dependencies (like `express-session`):
-var session = require('express-session');
+var session = require('express-session'),
+    apiCheck = require('./../middleware/api-check');
 
 // Setup 'client' and 'bower_components' static folders:
 module.exports = function(express, app, bodyParser, path) {
@@ -21,8 +22,6 @@ module.exports = function(express, app, bodyParser, path) {
     app.use(express.static(path.join(__dirname, './../../client')))
         .use(express.static(path.join(__dirname, './../../bower_components')))
         .use(session(sessionInfo))
-        .use(bodyParser.json()) // setup bodyParser to send form data as JSON
-        .all('/*', function(req, res) { // rewrites our routes for Angular's HTML5 mode
-            res.sendFile(path.join(__dirname, './../../client/index.html')); // delivers index.html which angular-route will then load appropriate partials
-        });
+        .use('/*', apiCheck) // intercepts all routes for API check -- needed due to Angular's HTML5 mode request changes
+        .use(bodyParser.json()); // setup bodyParser to send form data as JSON
 };

@@ -34,9 +34,8 @@
 
 ###Where I Left Off:
 
-	+ Almost done validating registration. Username is validated for unique, case insensitive, min and maxlength, and alphanumer.
-	Email is validated for min length, unique, and proper formatting. Password is validated for minlength.
+	+ Streamlined Validations, but:
+
 	**STILL NEED TO VALIDATE THE FOLLOWING:**
-		- Email and Email Confirm match
-		- Password and Password Confirm match
-		- Bcrpyt Password
+		- Make sure PWD is STRONG
+		- Bcrpyt Incoming Password

@@ -18,7 +18,7 @@ router.use(function apiChecker (req, res, next) {
     if (regex.test(req.originalUrl)) { // if the URL contains the pattern, then `next()`
         console.log('YOU JUST PINGED THE API');
         next();
-    } else { // if the URL does not contain:
+    } else { // if the URL does not contain `/api`:
         res.sendFile(path.join(__dirname, './../../client/index.html')); // deliver index.html which angular-route will then load appropriate partial
     }
 })
@@ -28,8 +28,9 @@ module.exports = router;
 /*
     Further Notes: It is important to understand, if we did not check for the `/api/` in our
     URL, then, *any* url in our request would be handed the `index.html` file,
-    which in the case of our API or creating mongo documents, would render our
-    app useless.
+    which might be fine if our routes were only for HTML, but because we also
+    use routing for our API or creating mongo documents, serving the the index.html
+    file every time would render our app useless.
 
     None of this would be necessary if we didn't render HTML5 mode. HTML5 mode
     removes the hashbangs from the URL, but also causes an issue if the page is

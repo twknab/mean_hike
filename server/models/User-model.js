@@ -9,7 +9,7 @@ var UserSchema = new Schema (
             type: String,
             minlength: [2, 'Username must be at least 2 characters.'],
             maxlength: [30, 'Username must be less than 30 characters.'],
-            required: [true, 'Username cannot be blank.'],
+            required: true,
             trim: true,
             unique: true, // username must be unique
             dropDups: true,
@@ -18,7 +18,7 @@ var UserSchema = new Schema (
             type: String,
             minlength: [5, 'Email must be at least 5 characters.'],
             maxlength: [50, 'Email must be less than 50 characters.'],
-            required: [true, 'Email cannot be blank.'],
+            required: true,
             trim: true,
             unique: true, // email must be unique
             dropDups: true,
@@ -33,7 +33,7 @@ var UserSchema = new Schema (
         password: {
             type: String,
             minlength: [12, 'Password must be at least 12 characters.'],
-            required: [true, 'Password cannot be blank.'],
+            required: true,
             trim: true,
         }, // end password field
         hikes: [{
@@ -49,13 +49,6 @@ var UserSchema = new Schema (
 /**********************/
 /*  INSTANCE METHODS  */
 /**********************/
-
-// RegEx Validation (Alphanumerical and Underscores Only):
-UserSchema.methods.validateUsername = function(username) {
-    console.log('Validating for alphanumerics and underscores only...');
-    var regex = /^[a-z0-9_]+$/i;
-    return regex.test(username); // if pass, value will be true
-};
 
 // Case insensitive query validation instance method:
 UserSchema.methods.checkDuplicates = function(username, next) {
@@ -78,10 +71,6 @@ UserSchema.methods.checkDuplicates = function(username, next) {
         })
 };
 
-UserSchema.methods.passwordMatch = function(password, passwordConfirm) {
-    return password === passwordConfirm;
-};
-
 /*************************/
 /*  PRE SAVE MIDDLEWARE  */
 /*************************/
@@ -98,32 +87,8 @@ UserSchema.pre('save', function(next) {
         console.log('Existing User detected. Skipping custom user validations...');
         next();
     } else {
-        console.log('New User detected. Running custom validations...');
-        // Username RegEx Validation (Alphanumeric + Underscores Only):
-        if (self.validateUsername(this.username)) { // if test result is true (passed), then query for existing users:
-            console.log('Passed.');
-            /* DO THIS HERE */
-            // If email and email-confirm match:
-                // If pwd and pwd-confirm match
-                    // hash pwd (bcrypt)
-                    // check duplicates (this should be the last method to run in your pre-save)
-                        // If duplicates not found: (conditional inside scope of instance method)
-                            // Create record
-                        // Else: (conditional inside scope of instance method)
-                            // Send Error
-                // Else:
-                    // Send Error
-            // Else:
-                // Send Error
-
-            // Check for Duplicates (case insensitive):
-            self.checkDuplicates(this.username, next);
-        } else {
-            console.log('Username Creation Validation ERROR...');
-            var err = new Error('Username may contain only letters, numbers or underscores.');
-            console.log(err);
-            next(err);
-        };
+        // Check for Duplicate Users:
+        self.checkDuplicates(this.username, next);
     }
 
 });

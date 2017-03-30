@@ -12,6 +12,7 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
         },
         regError: function(err) {
             console.log('Errors returned from server:', err);
+            $scope.regErrors = {};
             $scope.regErrors = err;
         },
     };

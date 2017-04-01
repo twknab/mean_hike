@@ -117,34 +117,35 @@ module.exports = {
             }
 
             // Check if password is strong password:
-
-            /*
-                Notes about a strong password:
-
-                    - must be between 12 and 24 characters
-                    - must contain at least 1 uppercase, 1 lowercase letters, 1 numbers, 1 characters: ! " ? $ ? % ^ & * ( ) _ - + = { [ } ] : ; @ ' ~ # | \ < , > . ? /
-
-                    - cannot be all numbers
-                    - cannot be all letters
-                    - cannot be same as username
-                    - cannot be single sequence of letters or numbers (#1)
-                    - cannot be login name (#2)
-                    - cannot be `qwerty` or `asdfghjkl` or `12345678` - #3 - which should qualify for #1
-
-                How to approach:
-
-                    - make 2 rounds of regex checks? (or maybe more)..
-                        - #1) check for what it must have
-                        - #2) check for what it cannot have
-                        - #3) tally the results and make a decision
-
-            */
-
-            // Check if password is at least 12 characters:
-            if (user.password.length <= 11) {
-                err.errors.passwordLength = {
-                    message: new Error('Password must be at least 12 characters long').message
+                /*
+                    PASSWORD RULES:
+                    - Must have at least 2 lowercase
+                    - Must have at least 1 uppercase
+                    - Must have at least 1 symbol
+                    - Must be 12-20 characters
+                    - No more than 2 consecutive characters
+                    - Voided sequences: username, `asdf`, `123`, `qwerty` or Username
+                    - Note: This occurs in 2 steps: (1) basic character validations, (2) username regex check
+                */
+            var strongPassword = /^(?!.*(.)\1{2})(?=(.*[\d]){1,})(?=(.*[a-z]){2,})(?=(.*[A-Z]){1,})(?=(.*[@#$%!.,;:'"`~/\\|&*()\-_+=<>{}[\]]){1,})(?!(?=.*(asdf|qwerty|123|\s)))(?:[\da-zA-Z@#$%!.,;:'"`~/\\|&*()\-_+=<>{}[\]]){12,20}$/;
+            if (!strongPassword.test(user.password)) {
+                console.log('Failed strong password detection.');
+                err.errors.strongPassword = {
+                    message: new Error('Password must be strong. Requirements: between 12-20 characters, includes 2 lowercase, 1 uppercase, 1 symbol, 1 number and may not include your username or basic sequences.').message
                 };
+            } else {
+                console.log('Passed strong password detection.');
+                // Check if password contains username
+                console.log('Checking if username is contained in password...');
+                var usernameRegEx = new RegExp(user.username, "i"); // creates regex pattern with username case insensitive
+                if (usernameRegEx.test(user.password)) { // checks password for any matching username
+                    console.log('Failed, Username is contained in password. Not strong.');
+                    err.errors.strongPassUsername = {
+                        message: new Error('Password cannot contain username.').message
+                    };
+                } else {
+                    console.log('Passed, Username not found in password.');
+                }
             }
 
             // Run callback with any errors after validation:

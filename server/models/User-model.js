@@ -32,7 +32,6 @@ var UserSchema = new Schema (
         }, // end email field
         password: {
             type: String,
-            minlength: [12, 'Password must be at least 12 characters.'],
             required: true,
             trim: true,
         }, // end password field

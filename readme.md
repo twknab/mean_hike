@@ -34,8 +34,12 @@
 
 ###Where I Left Off:
 
-	+ Streamlined Validations, but:
-
-	**STILL NEED TO VALIDATE THE FOLLOWING:**
-		- Make sure PWD is STRONG
-		- Bcrpyt Incoming Password
+	+ User registration complete with P/W hasing and comparison methods completed.
+	+ Keep testing strong password generator. So far seems OK but seen a few bugs.
+	+ **ISSUES**: Currently, when Modal window closes, the close does work, but the `$location.url` does not work
+		unless it's moved outside of the `.on()` event listener. I posted to stackoverflow to see if I can find a
+		solution. People seem to recognize **angular-ui** which you might want to look into and see how you
+		can integrate your angular with bootstrap more smoothly, and if this would give you the solution you needed.
+		Maybe here you will find your answers:
+			+ http://angular-ui.github.io/bootstrap/
+			+ http://stackoverflow.com/questions/27470697/how-to-close-bootstrap-modal-window-from-angularjs

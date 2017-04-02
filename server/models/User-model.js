@@ -1,5 +1,6 @@
 // Setup dependencies:
 var mongoose = require('mongoose'),
+    bcrypt = require('bcrypt-as-promised'),
     Schema = mongoose.Schema;
 
 // Setup a schema:
@@ -51,6 +52,7 @@ var UserSchema = new Schema (
 
 // Case insensitive query validation instance method:
 UserSchema.methods.checkDuplicates = function(username, next) {
+    var self = this;
     console.log('Checking for duplicates (insensitive)...');
     User.findOne({username: { $regex : new RegExp("^" + username + "$", "i")}}) // looks for any case which might match `username`
         .then(function(matchedUser) {
@@ -59,15 +61,33 @@ UserSchema.methods.checkDuplicates = function(username, next) {
                 var err = new Error('Username already exists.');
                 next(err);
             }
-            if(!matchedUser) { // if no match is found, then create user:
+            if(!matchedUser) { // if no match is found, hash password and create user:
                 console.log('Passed. Creating user now...');
-                next();
+                self.hashPassword(self.password, next); // Hashes password and passes `next()` which runs in the hash password function (which then proceeds to creating the User instance)
             }
         })
         .catch(function(err) { // if our regex query goes awry this will catch any errors:
             console.log('Error performing case insensitive query to MongoDB...', err);
             next(err);
         })
+};
+
+// Hash Password / Encrypt:
+UserSchema.methods.hashPassword = function(password, next) {
+    var self = this;
+    console.log('Hashing password...');
+    bcrypt.hash(self.password, 12) // will return a promise
+        .then(function(hash) {
+            console.log('Password has been hashed:', hash);
+            self.password = hash; // updates p/w entry to hash
+            next();
+        })
+        .catch(next); // catches any errors
+};
+
+// Compare Password to Hash / Decrypt (but only get true or false):
+UserSchema.methods.verifyPassword = function(enteredPassword) {
+    return bcrypt.compare(enteredPassword, this.password);
 };
 
 /*************************/
@@ -82,12 +102,12 @@ UserSchema.pre('save', function(next) {
 
     // Checks if New User or Not:
     console.log(now - created);
-    if (now - created >= 1000) { // If user is older than 1 second, skip user creation custom validations:
+    if (now - created >= 1000) { // If not new user (user is older than 1 second), skip user creation custom validations:
         console.log('Existing User detected. Skipping custom user validations...');
         next();
-    } else {
-        // Check for Duplicate Users:
-        self.checkDuplicates(this.username, next);
+    } else { // If user is new:
+        // Check for Username Duplicates then Hash Password (called after Duplicates are checked):
+        self.checkDuplicates(self.username, next);
     }
 
 });

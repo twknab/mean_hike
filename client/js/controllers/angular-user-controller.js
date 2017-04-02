@@ -5,6 +5,11 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
         register: function(createdUser) {
             $scope.regErrors = '';
             $scope.newUser = {};
+            $('#myModal').modal('hide'); // closes Modal window per: http://getbootstrap.com/javascript/#modals
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                console.log('TRANSITION DONE');
+                $location.url('/dashboard');
+            })
         },
         loginError: function(err) {
             console.log('Errors returned from server:', err);

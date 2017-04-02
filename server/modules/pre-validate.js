@@ -127,7 +127,7 @@ module.exports = {
                     - Voided sequences: username, `asdf`, `123`, `qwerty` or Username
                     - Note: This occurs in 2 steps: (1) basic character validations, (2) username regex check
                 */
-            var strongPassword = /^(?!.*(.)\1{2})(?=(.*[\d]){1,})(?=(.*[a-z]){2,})(?=(.*[A-Z]){1,})(?=(.*[@#$%!.,;:'"`~/\\|&*()\-_+=<>{}[\]]){1,})(?!(?=.*(asdf|qwerty|123|\s)))(?:[\da-zA-Z@#$%!.,;:'"`~/\\|&*()\-_+=<>{}[\]]){12,20}$/;
+            var strongPassword = /^(?!.*(.)\1{2})(?=(.*[\d]){1,})(?=(.*[a-z]){2,})(?=(.*[A-Z]){1,})(?=(.*[@#$%!?^.,;:'"`~/\\|&*()\-_+=<>{}[\]]){1,})(?!(?=.*(asdf|qwerty|123|\s)))(?:[\da-zA-Z@#$%!?^.,;:'"`~/\\|&*()\-_+=<>{}[\]]){12,20}$/;
             if (!strongPassword.test(user.password)) {
                 console.log('Failed strong password detection.');
                 err.errors.strongPassword = {

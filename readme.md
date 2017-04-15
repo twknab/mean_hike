@@ -34,7 +34,7 @@
 
 ###Where I Left Off:
 
-	+ User registration complete with P/W hasing and comparison methods completed.
+	+ User registration complete with P/W hashing and comparison methods completed.
 	+ Keep testing strong password generator. So far seems OK but seen a few bugs.
 	+ **ISSUES**: Currently, when Modal window closes, the close does work, but the `$location.url` does not work
 		unless it's moved outside of the `.on()` event listener. I posted to stackoverflow to see if I can find a

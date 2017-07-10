@@ -1,3 +1,32 @@
+/*
+    Note: Normally I like to do my validations using a combination of
+    built-in mongoose validators along with pre-save methods. In the
+    case of this project, we are to confirm email and password fields.
+    Because the email and password fields are not actual properties of
+    our database model for a User, we don't have access to built-in
+    validators.
+
+    Because I could not find a way to perform my validations within my models
+    file, prior to instance creation, I chose to create a module instead
+    to validate the extra fields which are not present in the User model.
+
+    However, because I'm using a mixture of this module, the built-in
+    validators, and the pre-save hooks, my validations were occurring in
+    "layers", and my user might receive a list of errors, to submit again,
+    to receive another set of errors that were validated at the next layer.
+    This is bad user experience and could confuse users or deter them.
+    Thus, I chose to put *most all* of my validations into this module,
+    leaving only the "checking for duplicates" (for username and email)
+    to be done as pre-save instance methods. As a backup, I still have
+    the built-in validators configured in the model itself, but is not
+    likely they'll ever get flagged as this validation below should catch
+    most everything.
+
+    Now, a user will only receive two sets of errors if their username
+    or email is a duplicate, else they'll get a nice list of all
+    issues all at once to be corrected. A smoother UX.
+*/
+
 // Grab any dependencies:
 var mongoose = require('mongoose'),
     User = require('mongoose').model('User');
@@ -9,48 +38,6 @@ module.exports = {
         var err = {
             errors: {}
         };
-
-        console.log('///// USER //////');
-        console.log(user);
-
-        /*
-
-            Note: Normally I like to do my validations using a combination of
-            built-in mongoose validators along with pre-save methods. In the
-            case of this project, we are to confirm email and password fields.
-            Because the email and password fields are not actual properties of
-            our database model for a User, we don't have access to built-in
-            validators.
-
-            Now, I did try passing the entire user object into an
-            instance method, and calling this instance method directly in my
-            server controller, prior to user creation. However, it appears that
-            accessing protype methods of a model is not the same as accessing
-            these methods once an instance is generated. I believe that
-            after an instance is generated, the model instance methods are added
-            as prototypes to the actual instance.
-
-            Because I could not find a way for my instance method to behave as
-            desired, prior to instance creation, I chose to create a module instead
-            to validate the extra fields which are not present in the User model.
-
-            However, because I'm using a mixture of this module, the built-in
-            validators, and the pre-save hooks, my validations were occurring in
-            "layers", and my user might receive a list of errors, to submit again,
-            to receive another set of errors that were validated at the next layer.
-            This is bad user experience and could confuse users or deter them.
-            Thus, I chose to put *most all* of my validations into this module,
-            leaving only the "checking for duplicates" (for username and email)
-            to be done as pre-save instance methods. As a backup, I still have
-            the built-in validators configured in the model itself, but is not
-            likely they'll ever run as this validation below should catch
-            most everything.
-
-            Now a use will only receive two sets of errors if their username
-            or email is a duplicate, else they'll get a nice list of any
-            issues all at once to be corrected. A smoother UX.
-
-        */
 
         // Check if all 5 fields are filled out:
         /*--------------------*/

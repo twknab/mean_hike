@@ -1,10 +1,14 @@
 /*************************/
-/*       ELEMENTS:       */
+/*    CUSTOM STYLINGS:   */
 /*************************/
+/*
+The stylings below are customized additions to the default Bootstrap CSS file.
+*/
 
-body {
-    background-color: whitesmoke;
-}
+/*************************/
+/*     BOOTSTRAP FIX:    */
+/*************************/
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /*************************/
 /*       PADDING:        */
@@ -111,21 +115,28 @@ body {
 }
 
 /*************************/
+/*    TOP NAVIGATION:    */
+/*************************/
+@media only screen and (max-width: 782px)  {
+    .btn.btn-info.navbar-btn {
+    	margin-left: 15px;
+    }
+}
+
+/*************************/
 /*    COMPLETED HIKE:    */
 /*************************/
-
-.completed {
-    background-color: whitesmoke;
-    color: grey;
-}
 
 .completed a {
     color: grey;
 }
 
-/*************************/
-/*    COMPLETED HIKE:    */
-/*************************/
+.completed label {
+    color: grey;
+}
+/************************/
+/*   ALL HIKES STATS:   */
+/************************/
 
 .stats {
     font-size: 20px;
@@ -144,7 +155,7 @@ body {
     width: 255px;
 }
 
-// Mobile formatting for top nav
+/* Mobile formatting for top nav */
 @media only screen and (max-width: 400px)  {
     .dashboard {
         margin-left: auto;

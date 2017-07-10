@@ -1,14 +1,6 @@
 #Setup Directions:
 1. `npm install`
 2. `bower install`
-3. Edit `/bower_components/bootstrap/bootstrap.less`
-	+ Add to the bottom of the file:
-		`// Addons
-		@import "./../../client/css/tk-customizations.less";`
-	+ This will pull in the customization less file
-4. `npm install -g grunt-cli`
-5. Navigate to `/bower_components/bootstrap` folder
-6.`grunt dist` to have grunt re-compile less files
 
 
 ###Development Issues Log:
@@ -43,3 +35,17 @@
 		Maybe here you will find your answers:
 			+ http://angular-ui.github.io/bootstrap/
 			+ http://stackoverflow.com/questions/27470697/how-to-close-bootstrap-modal-window-from-angularjs
+
+
+	+ angular-ui:
+		- The reason the modal windows are not working is because the proper way
+		to integrate Boostrap into Angular is with 'angular-ui'. Since angular has
+		its own way of manipulating the DOM, you cannot incorporate jQuery without
+		getting some bugs or ghetto rigging it. Thus, what we have to do is incorporate angular-ui.
+
+		- So far I have:
+			- Grabbed bootstrap css
+			- Installed angular, angular-touch and angular-animate
+
+		- Still need to install directives and setup module:
+			- See this link: https://angular-ui.github.io/bootstrap/

@@ -53,4 +53,39 @@ module.exports = {
 
         });
     },
+    // Login a user
+    login: function(req, res) {
+        console.log('/// LOGIN REQ BODY ///', req.body);
+        preValidate.login(req.body, function(err) {
+
+            // If there are any errors send them:
+            if (Object.keys(err.errors).length > 0) {
+                return res.status(500).json(err.errors);
+            }
+
+            // If no errors, get user:
+            else {
+                console.log('There were no errors:');
+                User.findOne({ 'email': req.body.email })
+                    .then(function(foundUser) {
+                        return res.json(foundUser);
+                    })
+                    .catch(function(err) {
+                        console.log('Error trying to retrieve user!', err);
+                        if (err.errors == null) {
+                            console.log('Custom Validator Function Error detected...');
+                            return res.status(500).json({
+                                custom: {
+                                    message: err.message
+                                }
+                            });
+                        } else {
+                            console.log('Built in Mongoose Validation detected....');
+                            return res.status(500).json(err.errors)
+                        };
+                    })
+            }
+
+        });
+    },
 };

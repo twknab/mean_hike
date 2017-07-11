@@ -7,8 +7,14 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
             $scope.newUser = {};
             $location.url('/dashboard');
         },
+        login: function(foundUser) {
+            $scope.loginErrors = '';
+            $scope.user = {};
+            $location.url('/dashboard');
+        },
         loginError: function(err) {
             console.log('Errors returned from server:', err);
+            $scope.loginErrors = {}; // resets errors if any already existing
             $scope.loginErrors = err;
         },
         regError: function(err) {
@@ -18,22 +24,19 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
         },
     };
 
-    // Submit New Registered User:
-    $scope.register = function() {
-        console.log('Login Process: Ang Controller running...data submitted:', $scope.newUser);
-        userFactory.register($scope.newUser, cb.register, cb.regError);
-        $uibModalInstance.close(); // closes modal
-    };
-
-    // Login User:
-    $scope.login = function() {
-        console.log("LOGIN CLICKED");
-        console.log($scope.user);
+    // Load Homepage:
+    $scope.home = function() {
+        $location.url('/');
     };
 
     // Load About Page:
     $scope.about = function() {
-        console.log("ABOUT CLICKED");
+        $location.url('/about');
+    };
+
+    // Login User:
+    $scope.login = function() {
+        userFactory.login($scope.user, cb.login, cb.loginError);
     };
 
 

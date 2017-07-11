@@ -10,9 +10,9 @@
     </div>
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="" ng-click="home()"><span class="glyphicon glyphicon-home"></span> Home</a></li>
           <li><a href="" ng-controller="ModalDemoCtrl as $ctrl" ng-click="$ctrl.open('lg')"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-          <li><a href="" ng-click="about()"><span class="glyphicon glyphicon-tree-conifer"></span> About</a></li>
+          <li class="active"><a href="" ng-click="about()"><span class="glyphicon glyphicon-tree-conifer"></span> About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -29,41 +29,61 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="jumbotron">
-                <h1><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool</h1>
-                <p>Plan, record and better prepare for your hiking adventures.</p>
-                <p><a class="btn btn-danger btn-lg" ng-click="about()"><span class="glyphicon glyphicon-tree-conifer"></span> Learn more</a></p>
+                <h1><span class="glyphicon glyphicon-tree-conifer"></span> About Hiking Tool</h1>
+                <p>The goal of Hiking Tool is to assist you in better preparing for your hikes, while also allowing you to improve your hiking skills by learning from each experience.</p>
             </div>
         </div>
     </div>
-    <!-- Login -->
+    <!-- 3 Columns -->
+    <div class="row">
+        <div class="col-sm-4">
+            <h1><span class="glyphicon glyphicon-ok"></span> Prepare</h1>
+            <hr>
+            <p>Add a trip, and before leaving, fill out a "pre-trip" form, providing information like the weather, potential hazards, map location and more. See a round-trip time estimate, based upon your distance and elevation gain.</p>
+        </div>
+        <div class="col-sm-4">
+            <h1><span class="glyphicon glyphicon-education"></span> Learn</h1>
+            <hr>
+            <p>Upon returning from a trip, fill out a "post-trip" form, providing information such as actual travel times, actual weather experienced, wildlife observed, hazards experienced and general notes for next time.</p>
+        </div>
+        <div class="col-sm-4">
+            <h1><span class="glyphicon glyphicon-thumbs-up"></span> Improve</h1>
+            <hr>
+            <p>By asking certain questions, the pre-trip form helps you prepare for your hike. By filling out the post-trip forms, you can look back on your hiking history and learn how to avoid past issues or better prepare.</p>
+        </div>
+    </div>
+    <!-- 1 Column -->
     <div class="row">
         <div class="col-sm-12">
-            <h3><span class="glyphicon glyphicon-log-in"></span> User Login</h3>
-            <!-- Login Errors -->
-            <div class="alert alert-danger margin-top-sm" ng-repeat="error in loginErrors">
-                <p><strong>Error!</strong> {{error.message}}</p>
-            </div>
-            <!-- Login Form -->
-            <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal">
-                <div class="form-group">
-                    <!-- Username Field -->
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="login-username" id="login-username" ng-model="user.username" class="form-control input-lg" placeholder="Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <!-- Password Field -->
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="Password">
-                    </div>
-                    <!-- Login Button -->
-                    <button type="submit" class="btn-block btn-info btn-lg margin-top-sm margin-bottom"><span class="glyphicon glyphicon-log-in"></span> Login</button>
-                    <!-- Register Button -->
-                    <button ng-controller="ModalDemoCtrl as $ctrl" ng-click="$ctrl.open('lg')" class="btn-block btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Create New Account</button>
-                </div>
-            </form>
+            <h1><span class="glyphicon glyphicon-ok-sign"></span> Safer and Smarter</h1>
+            <hr>
+            <p>Knowing the weather, haivng the right gear, and knowing your travel times can make a big difference when trying to enjoy the outdoors. At times, preparing for a hike can feel hectic, and sometimes we might forget items accidentally, or forget to garner important information before departing into areas away from cell phone service.</p>
+            <p>Hiking Tool aims to help your outdoor trip prepartion by having you fill out a form before and after your experience. Each asks questions that will aid in your preparation and awareness, and as reports may be viewed any time, you can learn and prepare better for next time. The aim of Hiking tool is to help you hike safer and smarter.</p>
+        </div>
+    </div>
+    <!-- 1 Column -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h2><span class="glyphicon glyphicon-align-justify"></span> Technical Stuff:</h2>
+            <hr>
+            <p>Currently, Hiking Tool is:</p>
+            <ul>
+                <li>Only browser-based (no mobile-specific application), although the website is mobile friendly.</li>
+                <li>Hiking tool may evolve into a sister mobile application.</li>
+                <li>Hiking tool's features may evolve to become more robust or to provide greater use.</li>
+                <li>This is an MVC, <em>MEAN</em> stack application, utilizing the following technologies:
+                    <ul>
+                        <li><a href="http://mongodb.com" target="_blank">MongoDB</a> database</li>
+                        <li><a href="http://expressjs.com" target="_blank">ExpressJS</a> framework</li>
+                        <li><a href="https://angularjs.org" target="_blank">Angular JS</a> framework</li>
+                        <li><a href="https://nodejs.org/en/" target="_blank">NodeJS</a> server</li>
+                        <li><a href="https://angular-ui.github.io/bootstrap/" target="_blank">Angular UI Bootstrap</a> with <a href="https://bootswatch.com/darkly/">Darkly</a> Bootstrap theme</li>
+                    </ul>
+            </ul>
+            <hr>
+            <p class="text-center"><a class="btn btn-danger btn-lg" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Login or Register</a></p>
+            <hr>
+            <p><a href="mailto:t@sasquat.ch"><span class="glyphicon glyphicon-envelope"></span> Contact me</a> with questions or <a href="https://github.com/natureminded/mean_hike"><span class="glyphicon glyphicon-download"></span> fork</a> my project from <a href="http://github.com/natureminded" target="_blank">GitHub</a>.</p>
         </div>
     </div>
 </div>

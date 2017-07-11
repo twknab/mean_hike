@@ -8,6 +8,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_login.html', // login page
             controller: 'userController',
         })
+        .when('/about', {
+            templateUrl: 'html/_about.html', // login page
+            controller: 'userController',
+        })
         .when('/dashboard', {
             templateUrl: 'html/_dashboard.html', // dashboard page
             controller: 'dashboardController',

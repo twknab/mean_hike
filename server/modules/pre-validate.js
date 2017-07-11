@@ -144,4 +144,67 @@ module.exports = {
         } // end else for all fields
 
     }, // end registration validation method
+    login : function(user, callback) {
+        // Create Error Object which will hold all Errors:
+        var err = {
+            errors: {}
+        };
+
+        // Check if both fields are filled out:
+        /*--------------------*/
+        /*---- ALL FIELDS ----*/
+        /*--------------------*/
+        if (Object.keys(user).length < 2) {
+            // Format Error Object for Angular:
+            err.errors.allFields = {
+                message: new Error('All fields are required.').message
+            };
+            callback(err);
+        }
+        // If all fields are filled in proceed with validations:
+        else {
+            /*-----------------*/
+            /*----- EMAIL -----*/
+            /*-----------------*/
+            // Check if user with email exists:
+            User.findOne({ email: user.email })
+                .then(function(foundUser) {
+                    if (!foundUser) {
+                        console.log("User not found.")
+                        err.errors.email = {
+                            message: new Error('Email address not registered.').message
+                        };
+                        callback(err);
+                    }
+                    else {
+                        /*--------------------*/
+                        /*----- PASSWORD -----*/
+                        /*--------------------*/
+                        User.verifyPassword(user.password)
+                        .then(function() {
+                            console.log("Password has been verified.");
+                            return res.json(foundUser);
+                        })
+                        .catch(function() {
+                            err.errors.password = {
+                                message: new Error('Password is incorrect.').message
+                            };
+                        })
+                    }
+                })
+                .catch(function(err) {
+                    err.errors.email = {
+                        message: new Error('There was a problem trying to find this user.').message
+                    };
+                })
+
+            // Run callback with any errors after validation:
+            // Note: Built-in mongoose validators followed by pre-save instance methods will run after this.
+            console.log('/// ERRORS LIST ///');
+            console.log(err.errors); // should be full list of all errors above in successive formatting: Username > Email > Password
+            callback(err);
+
+        } // end else for all fields
+
+    }, // end login validation method
 }

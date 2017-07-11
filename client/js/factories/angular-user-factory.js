@@ -17,6 +17,21 @@ app.factory('userFactory', ['$http', function($http) {
             })
     };
 
+    // Login:
+    factory.login = function(user, loginCallback, errorsCallback) {
+        console.log('Factory talking...', user);
+        $http.post('/api/login', user)
+            .then(function(foundUser) {
+                console.log(foundUser.data);
+                loginCallback(foundUser.data);
+            })
+            .catch(function(err) {
+                console.log(err);
+                console.log('Error from DB:', err.data);
+                errorsCallback(err.data);
+            })
+    };
+
     // Return Factory Object:
     return factory;
 }]);

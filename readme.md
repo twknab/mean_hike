@@ -1,20 +1,15 @@
-#Setup Directions:
+# Setup Directions:
 1. `npm install`
 2. `bower install`
 
 
-###Development Issues Log:
+# About:
 
-1. Why won't my bootstrap `alert-dismissable` class not take?:
-
-	+ If I follow the instructions from this page: https://www.w3schools.com/bootstrap/bootstrap_alerts.asp,
-	I am still unable to get my alerts (like the info one on the home page) to properly respond to a close action.
-
-	####Solution:
+This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked, along with the ability
+to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
 
-
-###Future Feature Ideas/Improvements:
+## Future Feature Ideas / Improvements:
 
 	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object)
 	is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection.
@@ -23,29 +18,25 @@
 
 	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`)
 
+	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size.
 
-###Where I Left Off:
+	+ Add a feature where users can attach documents, such as a
+	PDF map to their hike.
 
-	+ User registration complete with P/W hashing and comparison methods completed.
-	+ Keep testing strong password generator. So far seems OK but seen a few bugs.
-	+ **ISSUES**: Currently, when Modal window closes, the close does work, but the `$location.url` does not work
-		unless it's moved outside of the `.on()` event listener. I posted to stackoverflow to see if I can find a
-		solution. People seem to recognize **angular-ui** which you might want to look into and see how you
-		can integrate your angular with bootstrap more smoothly, and if this would give you the solution you needed.
-		Maybe here you will find your answers:
-			+ http://angular-ui.github.io/bootstrap/
-			+ http://stackoverflow.com/questions/27470697/how-to-close-bootstrap-modal-window-from-angularjs
+	+ Add a feature where users can share their hike report or pre-trip data with another (including map PDF attachments, for example).
 
+	+ Add a feature where a google map / alternative map embed is placed
+	into the hike.
 
-	+ angular-ui:
-		- The reason the modal windows are not working is because the proper way
-		to integrate Boostrap into Angular is with 'angular-ui'. Since angular has
-		its own way of manipulating the DOM, you cannot incorporate jQuery without
-		getting some bugs or ghetto rigging it. Thus, what we have to do is incorporate angular-ui.
+	+ Add a buddy system where users can see other users and see their hikes. Messaging? (Everything these days must have a comment field eh...or must it...do we want people bickering and arguing? ...Maybe no messaging...)
 
-		- So far I have:
-			- Grabbed bootstrap css
-			- Installed angular, angular-touch and angular-animate
+## Development Issues Log:
 
-		- Still need to install directives and setup module:
-			- See this link: https://angular-ui.github.io/bootstrap/
+### Where I Left Off:
+
+	+ Finish User Login:
+		- Add session for after registration and login.
+		- Add login validation to check for email address in proper format.
+		- Add login validation to ensure password
+		is correct length.
+		

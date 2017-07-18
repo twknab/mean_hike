@@ -19,7 +19,7 @@ app.factory('userFactory', ['$http', function($http) {
 
     // Login:
     factory.login = function(user, loginCallback, errorsCallback) {
-        console.log('Factory talking...', user);
+        console.log('(1) Login process starting...', user);
         $http.post('/api/login', user)
             .then(function(foundUser) {
                 console.log(foundUser.data);

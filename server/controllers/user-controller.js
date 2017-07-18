@@ -55,18 +55,18 @@ module.exports = {
     },
     // Login a user
     login: function(req, res) {
-        console.log('/// LOGIN REQ BODY ///', req.body);
+        console.log('(2) Login Data Submitted:', req.body);
         preValidate.login(req.body, function(err) {
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
+                console.log("(5) Errors logging user in:", err.errors);
                 return res.status(500).json(err.errors);
             }
 
             // If no errors, get user:
             else {
-                console.log('There were no errors:');
-                User.findOne({ 'email': req.body.email })
+                User.findOne({ 'username': req.body.username })
                     .then(function(foundUser) {
                         return res.json(foundUser);
                     })

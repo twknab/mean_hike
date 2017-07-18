@@ -150,29 +150,36 @@ module.exports = {
             errors: {}
         };
 
-        // Check if both fields are filled out:
         /*--------------------*/
         /*---- ALL FIELDS ----*/
         /*--------------------*/
-        if (Object.keys(user).length < 2) {
-            // Format Error Object for Angular:
+        // Check if both fields are filled out:
+        if (!user.username && !user.password){
             err.errors.allFields = {
                 message: new Error('All fields are required.').message
             };
             callback(err);
         }
-        // If all fields are filled in proceed with validations:
+
         else {
-            /*-----------------*/
-            /*----- EMAIL -----*/
-            /*-----------------*/
-            // Check if user with email exists:
-            User.findOne({ email: user.email })
+            // Check if username and password field are right number of characters:
+            console.log('Username and password detected...checking length...');
+            if (user.username.length < 3 | user.password.length < 12) {
+                err.errors.username = {
+                    message: new Error('Username must be at least 3 characters, Password must be at least 12.').message
+                };
+                callback(err);
+            }
+
+            /*--------------------*/
+            /*----- USERNAME -----*/
+            /*--------------------*/
+            // Check if user exists (check by username):
+            User.findOne({ username: user.username })
                 .then(function(foundUser) {
                     if (!foundUser) {
-                        console.log("User not found.")
-                        err.errors.email = {
-                            message: new Error('Email address not registered.').message
+                        err.errors.username = {
+                            message: new Error('Username is not registered.').message
                         };
                         callback(err);
                     }
@@ -183,28 +190,26 @@ module.exports = {
                         User.verifyPassword(user.password)
                         .then(function() {
                             console.log("Password has been verified.");
-                            return res.json(foundUser);
+                            callback(err);
                         })
                         .catch(function() {
                             err.errors.password = {
                                 message: new Error('Password is incorrect.').message
                             };
+                            callback(err);
                         })
                     }
                 })
                 .catch(function(err) {
-                    err.errors.email = {
-                        message: new Error('There was a problem trying to find this user.').message
+                    console.log("OPERATION FAILED");
+                    console.log(err.errors);
+                    err.errors.username = {
+                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY".').message
                     };
+                    callback(err);
                 })
 
-            // Run callback with any errors after validation:
-            // Note: Built-in mongoose validators followed by pre-save instance methods will run after this.
-            console.log('/// ERRORS LIST ///');
-            console.log(err.errors); // should be full list of all errors above in successive formatting: Username > Email > Password
-            callback(err);
-
-        } // end else for all fields
+        }
 
     }, // end login validation method
 }

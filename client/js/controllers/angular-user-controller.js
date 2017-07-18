@@ -8,7 +8,7 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
             $location.url('/dashboard');
         },
         login: function(foundUser) {
-            $scope.loginErrors = '';
+            $scope.loginErrors = {};
             $scope.user = {};
             $location.url('/dashboard');
         },

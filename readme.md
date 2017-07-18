@@ -39,4 +39,10 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 		- Add login validation to check for email address in proper format.
 		- Add login validation to ensure password
 		is correct length.
-		
+
+
+
+
+### Where I Left Off:
+
+-- login is failing when username query is attempted.

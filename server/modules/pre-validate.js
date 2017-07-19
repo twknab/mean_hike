@@ -177,6 +177,8 @@ module.exports = {
             // Check if user exists (check by username):
             User.findOne({ username: user.username })
                 .then(function(foundUser) {
+                    console.log("We found the user!");
+                    console.log(foundUser);
                     if (!foundUser) {
                         err.errors.username = {
                             message: new Error('Username is not registered.').message
@@ -184,25 +186,26 @@ module.exports = {
                         callback(err);
                     }
                     else {
+                        console.log("Checking password...");
                         /*--------------------*/
                         /*----- PASSWORD -----*/
                         /*--------------------*/
-                        User.verifyPassword(user.password)
-                        .then(function() {
-                            console.log("Password has been verified.");
-                            callback(err);
-                        })
-                        .catch(function() {
-                            err.errors.password = {
-                                message: new Error('Password is incorrect.').message
-                            };
-                            callback(err);
-                        })
+                        foundUser.verifyPassword(user.password)
+                            .then(function() {
+                                console.log("Password has been verified.");
+                                callback(err);
+                            })
+                            .catch(function() {
+                                err.errors.password = {
+                                    message: new Error('Password is incorrect.').message
+                                };
+                                callback(err);
+                            })
                     }
                 })
-                .catch(function(err) {
-                    console.log("OPERATION FAILED");
-                    console.log(err.errors);
+                .catch(function(err2) {
+                    console.log("There's been an error.");
+                    console.log(err2)
                     err.errors.username = {
                         message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY".').message
                     };

@@ -33,6 +33,8 @@ module.exports = {
                 console.log('There were no errors:');
                 User.create(req.body)
                     .then(function(newUser) {
+                        // Create session for newly registered user:
+                        req.session.userId = newUser._id;
                         return res.json(newUser);
                     })
                     .catch(function(err) {
@@ -55,12 +57,12 @@ module.exports = {
     },
     // Login a user
     login: function(req, res) {
-        console.log('(2) Login Data Submitted:', req.body);
+        console.log('Login Data Submitted:', req.body);
         preValidate.login(req.body, function(err) {
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
-                console.log("(5) Errors logging user in:", err.errors);
+                console.log("Errors logging user in:", err.errors);
                 return res.status(500).json(err.errors);
             }
 
@@ -68,6 +70,8 @@ module.exports = {
             else {
                 User.findOne({ 'username': req.body.username })
                     .then(function(foundUser) {
+                        // Setup session for found user:
+                        req.session.userId = foundUser._id;
                         return res.json(foundUser);
                     })
                     .catch(function(err) {
@@ -87,5 +91,34 @@ module.exports = {
             }
 
         });
+    },
+    // Authorize a user by checking for session data:
+    auth: function(req, res) {
+        if (typeof(req.session.userId) == 'undefined') { // if no session return false
+            return res.status(500).json({
+                status: false
+            });
+        } else { // if valid session, return true along with validated user
+            User.findOne({_id: req.session.userId})
+                .then(function(foundUser) {
+                    console.log(foundUser);
+                    return res.json({
+                        user: foundUser,
+                        status: true
+                    })
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    return res.status(500).json(err);
+                })
+        }
+    },
+    // Logout a user
+    logout: function(req, res) {
+        console.log('Logging out user...');
+        // Destroy session:
+        req.session.destroy();
+        console.log('Session destroyed.');
+        return res.json("User logged out.");
     },
 };

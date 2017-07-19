@@ -30,6 +30,14 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Add a buddy system where users can see other users and see their hikes. Messaging? (Everything these days must have a comment field eh...or must it...do we want people bickering and arguing? ...Maybe no messaging...)
 
+	+ Add login validations where after 5 attempts account locks out for awhile.
+
+	+ (can you get a server log of an IP?)
+
+	+ Login: if email address is used rather than username, display message saying they need to use their username, not their email (or accept either)
+	
+	+ Add link to blue dashboard box to "Never show me this again" (Change database so that users have a value to show dashboard info box or not -- add something which then checks and decides whether to show it or not)
+
 ## Development Issues Log:
 
 ### Where I Left Off:
@@ -42,7 +50,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 
 
-
 ### Where I Left Off:
-
--- login is failing when username query is attempted.
+	- clean up login page / user controller (some of the code is still copy-and-pasty from boostrap ui)
+	- get accordians to work with proper formats and top navigation on dashboard Page
+	- build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes that they own)

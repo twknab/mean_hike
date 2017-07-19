@@ -87,6 +87,7 @@ UserSchema.methods.hashPassword = function(password, next) {
 
 // Compare Password to Hash / Decrypt (but only get true or false):
 UserSchema.methods.verifyPassword = function(enteredPassword) {
+    console.log("Verifying password now...");
     return bcrypt.compare(enteredPassword, this.password);
 };
 

@@ -1,6 +1,8 @@
 app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, $location, $routeParams) {
 
-    // Callbacks
+    //----------------------------------//
+    //-------- CALLBACK FUNCTIONS ------//
+    //----------------------------------//
     var cb = {
         auth: function(authStatus) {
             if (!authStatus.status) {
@@ -27,16 +29,49 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         },
     };
 
+    //----------------------------------//
+    //---------- AUTHORIZE USER --------//
+    //----------------------------------//
+
     // Authorize a User:
     $scope.auth = function() {
+        console.log("Authorizing user...");
         userFactory.auth(cb.auth);
     };
 
     // Run Auth on Login:
     $scope.auth();
 
-    // Load Homepage:
-    $location.url('/dashboard');
+    //--------------------------------//
+    //---------- NAVIGATION ----------//
+    //--------------------------------//
+
+    // Recent Hikes Top Navigation -- Open Recent Hikes Accordian:
+    $scope.recentHikes = function() {
+        $scope.status.isFirstOpen = true;
+        $scope.status.newHike = false;
+    };
+
+    // New Hike Top Navigation -- Open New Hike Accordian:
+    $scope.newHike = function() {
+        $scope.status.newHike = true;
+    };
+
+    // New Pre-Trip Navigation -- Open New Pre-Trip Accordian:
+    $scope.newPreTrip = function() {
+        $scope.status.newPreTrip = true;
+    };
+
+    // Logout User:
+    $scope.logout = function() {
+        console.log('Login Process: Ang Controller running...data submitted:', $scope.user);
+        userFactory.logout(cb.logout);
+    };
+
+
+    //----------------------------------//
+    //------- ANGULAR UI ALERTS  -------//
+    //----------------------------------//
 
     // Dashboard Alerts:
     $scope.alerts = [
@@ -48,36 +83,21 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         $scope.alerts.splice(index, 1);
     };
 
+
+    //----------------------------------//
+    //------ ANGULAR UI ACCORDIAN ------//
+    //----------------------------------//
+
+    // Angular UI Accordian - Open One at a Time Variable:
     $scope.oneAtATime = true;
 
-    $scope.groups = [
-        {
-            title: 'Dynamic Group Header - 1',
-            content: 'Dynamic Group Body - 1'
-        },
-        {
-            title: 'Dynamic Group Header - 2',
-            content: 'Dynamic Group Body - 2'
-        }
-    ];
-
-    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-    $scope.addItem = function() {
-        var newItemNo = $scope.items.length + 1;
-        $scope.items.push('Item ' + newItemNo);
-    };
-
+    // Accordian Status Variables:
     $scope.status = {
-        isCustomHeaderOpen: false,
         isFirstOpen: true,
-        isFirstDisabled: false
+        isFirstDisabled: false,
+        newHike: false,
+        newPreTrip: false,
     };
 
-    // Logout User:
-    $scope.logout = function() {
-        console.log('Login Process: Ang Controller running...data submitted:', $scope.user);
-        userFactory.logout(cb.logout);
-    };
 
 }]);

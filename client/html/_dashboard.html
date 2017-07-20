@@ -12,9 +12,10 @@
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-          <li><a href="" ng-click=""><span class="glyphicon glyphicon-plus"></span> New Hike</a></li>
-          <li><a href="" ng-click=""><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</a></li>
-          <li><a href="" ng-click=""><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+          <li class=""><a href="" ng-click="recentHikes()"><span class="glyphicon glyphicon-time"></span> Recent Hikes</a></li>
+          <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> New Hike</a></li>
+          <li class=""><a href="" ng-click="newPreTrip()"><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</a></li>
+          <li class=""><a href="" ng-click="allHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -29,7 +30,7 @@
 </nav>
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Responsive Row -->
+    <!-- Welcome Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
             <!-- Page Title and Icon -->
@@ -39,239 +40,149 @@
         </div>
     </div>
 
-    <div>
-      <script type="text/ng-template" id="group-template.html">
-        <div class="panel-heading">
-          <h4 class="panel-title" style="color:#fa39c3">
-            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-              <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
-                {{heading}}
-              </span>
-            </a>
-          </h4>
-        </div>
-        <div class="panel-collapse collapse" uib-collapse="!isOpen">
-          <div class="panel-body" style="text-align: right" ng-transclude></div>
-        </div>
-      </script>
-
-      <p>
-        <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
-        <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
-      </p>
-
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" ng-model="oneAtATime">
-          Open only one at a time
-        </label>
-      </div>
-      <uib-accordion close-others="oneAtATime">
-        <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-          This content is straight in the template.
-        </div>
-        <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in groups">
-          {{group.content}}
-        </div>
-        <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
-          <p>The body of the uib-accordion group grows to fit the contents</p>
-          <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-          <div ng-repeat="item in items">{{item}}</div>
-        </div>
-        <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
-          Hello
-        </div>
-        <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
-          <uib-accordion-heading>
-            Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
-          </uib-accordion-heading>
-          World
-        </div>
-        <div uib-accordion-group class="panel-danger" heading="Delete account">
-          <p>Please, to delete your account, click the button below</p>
-          <button class="btn btn-danger">Delete</button>
-        </div>
-        <div uib-accordion-group class="panel-default" is-open="status.open">
-          <uib-accordion-heading>
-            I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-          </uib-accordion-heading>
-          This is just some content to illustrate fancy headings.
-        </div>
-      </uib-accordion>
-    </div>
-
-    <!-- Responsive Row -->
+    <!-- Accordian Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
-            <!-- Begin Accordion -->
-            <div class="panel-group" id="accordion">
-                <!-- Begin Collapse 1 -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <span class="panel-title">
-                            <!-- Panel Title -->
-                            <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse1">
-                                <h4><span class="glyphicon glyphicon-time"></span> Recent Hikes</h4></a>
-                            </span>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                            <!-- Begin Panel Content -->
-                            <div class="panel-body">
-                                <!-- Recent Hikes -->
-                                <ul class="list-group no-list-margin">
-                                    <li class="list-group-item">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <strong>Boulder River</strong> -
-                                            </label>
-                                            <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
-                                            <span class="label label-warning">Pre-Trip Incomplete</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" value="">
-                                                <strong>Mt. Si</strong> -
-                                            </label>
-                                            <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> -
-                                            <span class="label label-success">Pre-Trip Completed</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item completed">
-                                        <div class="checkbox disabled">
-                                            <label>
-                                                <input type="checkbox" value="" checked disabled>
-                                                <strong>Middle Fork Road</strong> -
-                                            </label>
-                                            <a href="#">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
-                                            <span class="label label-default">Completed</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <!-- All Hikes Button -->
-                                <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
-                            </div>
-                            <!-- End Panel Content -->
-                        </div>
+            <!-- Angular UI Accordian -->
+            <div>
+                <!-- Accordian -->
+                <uib-accordion close-others="oneAtATime">
+                    <!-- Recent Hikes -->
+                    <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen">
+                        <uib-accordion-heading>
+                            <h3><span class="glyphicon glyphicon-time"></span> Recent Hikes</h3>
+                        </uib-accordion-heading>
+                        <ul class="list-group no-list-margin">
+                            <!-- Trip with Pre-Trip Completed -->
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        <strong>Mt. Si</strong> -
+                                    </label>
+                                    <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> -
+                                    <span class="label label-success">Pre-Trip Completed</span>
+                                    <div class="margin-top-sm">
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Pre-Trip Incomplete Trips -->
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        <strong>Boulder River</strong> -
+                                    </label>
+                                    <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
+                                    <span class="label label-warning">Pre-Trip Incomplete</span>
+                                    <div class="margin-top-sm">
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Completed Hikes -->
+                            <li class="list-group-item completed">
+                                <div class="checkbox disabled">
+                                    <label>
+                                        <input type="checkbox" value="" checked disabled>
+                                        <strong>Middle Fork Road</strong> -
+                                    </label>
+                                    <a href="#">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
+                                    <span class="label label-default">Completed</span>
+                                    <div class="margin-top-sm">
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- All Hikes Button -->
+                        <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                     </div>
-                    <!-- End Collapse 1 -->
-                    <!-- Begin Collapse 2 -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <span class="panel-title">
-                                <!-- Begin Panel Title -->
-                                <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse2">
-                                    <h4><span class="glyphicon glyphicon-plus"></span> New Hike</h4></a>
-                                </span>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse">
-                                <!-- Begin Panel Content -->
-                                <div class="panel-body">
-                                    <!-- New Hike Errors -->
-                                    <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
-                                        <p><strong>Error!</strong> {{error.message}}</p>
-                                    </div>
-                                    <!-- New Hike Form -->
-                                    <form ng-submit="create()" class="padding-left-sm padding-right-sm form-horizontal">
-                                        <!-- Hike Name Field -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
-                                            </div>
-                                        </div>
-                                        <!-- Region Field -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
-                                                <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
-                                            </div>
-                                        </div>
-                                        <!-- Hike Distance Field -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                                                <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (mi)">
-                                            </div>
-                                        </div>
-                                        <!-- Elevation Gain Field -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                                                <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (ft)">
-                                            </div>
-                                        </div>
-                                        <!-- Location URL Field -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                                <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Map URL">
-                                            </div>
-                                        </div>
-                                        <!-- Hike Notes -->
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                                <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes: logistics, driving or trailhead access"></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- Add New Hike Button -->
-                                        <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
-                                    </form>
-                                </div>
-                                <!-- End Panel Content -->
-                            </div>
+                    <!-- Add New Hike -->
+                    <div uib-accordion-group class="panel-default" is-open="status.newHike">
+                        <uib-accordion-heading>
+                            <h3><span class="glyphicon glyphicon-plus"></span> New Hike</h3>
+                        </uib-accordion-heading>
+                        <!-- New Hike Errors -->
+                        <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                            <p><strong>Error!</strong> {{error.message}}</p>
                         </div>
-                        <!-- End Collapse 2 -->
-                        <!-- Begin Collapse 3 -->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span class="panel-title">
-                                    <!-- Panel Title -->
-                                    <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse3">
-                                        <h4><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</h4></a>
-                                    </span>
-                                </div>
-                                <div id="collapse3" class="panel-collapse collapse">
-                                    <!-- Begin Panel Content -->
-                                    <div class="panel-body">
-                                        <!-- Pre-Trip Hike Selector Dropdown Form -->
-                                        <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
-                                                    <select class="form-control" id="selectedHike">
-                                                        <option selected>Choose a Hike to Start</option>
-                                                        <option>Boulder River</option>
-                                                        <option>Mt Si</option>
-                                                        <option>Middlefork Road</option>
-                                                        <option>Mt St Helens</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!-- Start Pre-Trip Button -->
-                                            <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip Form</button>
-                                        </form>
-                                    </div>
-                                    <!-- End Panel Content -->
+                        <!-- New Hike Form -->
+                        <form ng-submit="create()" class="padding-left-sm padding-right-sm form-horizontal">
+                            <!-- Hike Name Field -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
                                 </div>
                             </div>
-                            <!-- End Collapse 3 -->
-                        </div>
-                        <!-- End Accordion -->
+                            <!-- Region Field -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
+                                    <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
+                                </div>
+                            </div>
+                            <!-- Hike Distance Field -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+                                    <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (mi)">
+                                </div>
+                            </div>
+                            <!-- Elevation Gain Field -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
+                                    <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (ft)">
+                                </div>
+                            </div>
+                            <!-- Location URL Field -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                    <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Map URL">
+                                </div>
+                            </div>
+                            <!-- Hike Notes -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                    <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes: logistics, driving or trailhead access"></textarea>
+                                </div>
+                            </div>
+                            <!-- Add New Hike Button -->
+                            <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
+                        </form>
+                    </div>
+                    <!-- Add New Pre-Trip -->
+                    <div uib-accordion-group class="panel-default" is-open="status.newPreTrip">
+                        <uib-accordion-heading>
+                            <h3><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</h3>
+                        </uib-accordion-heading>
+                        <!-- Pre-Trip Hike Selector Dropdown Form -->
+                        <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
+                                    <select class="form-control" id="selectedHike">
+                                        <option selected>Choose a Hike to Start</option>
+                                        <option>Boulder River</option>
+                                        <option>Mt Si</option>
+                                        <option>Mt St Helens</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Start Pre-Trip Button -->
+                            <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip Form</button>
+                        </form>
+                    </div>
+                    <!-- End Accordian -->
+                </uib-accordion>
+            </div>
         </div>
     </div>
 

@@ -4,6 +4,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //-------- CALLBACK FUNCTIONS ------//
     //----------------------------------//
     var cb = {
+        // Check for valid session, else direct home:
         auth: function(authStatus) {
             if (!authStatus.status) {
                 console.log('Session invalid.');
@@ -19,14 +20,21 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 console.log("Dashboard loaded...");
             }
         },
+        // Sets Welcome Alert to False (Never Display Again):
+        welcomeSetFalse: function() {
+            console.log("Attempting to reload page...");
+            $scope.auth();
+        },
+        // Loads Login/Registration Page:
         logout: function() {
             console.log("Redirecting home...");
             $location.url('/');
         },
-        error: function(err) {
-            console.log('Errors returned from server:', err);
-            $scope.errors = err;
-        },
+        // // Displays any Errors:
+        // error: function(err) {
+        //     console.log('Errors returned from server:', err);
+        //     $scope.errors = err;
+        // },
     };
 
     //----------------------------------//
@@ -69,9 +77,9 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     };
 
 
-    //----------------------------------//
-    //------- ANGULAR UI ALERTS  -------//
-    //----------------------------------//
+    //-----------------------------------------//
+    //------- ANGULAR UI ALERT ACTIONS  -------//
+    //-----------------------------------------//
 
     // Dashboard Alerts:
     $scope.alerts = [
@@ -81,6 +89,11 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     // Close Dashboard Alerts:
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
+    };
+
+    // Set Welcome Messaeg Preference to False:
+    $scope.welcomeMessageFalse = function() {
+        userFactory.welcomeMessageFalse(cb.welcomeSetFalse)
     };
 
 

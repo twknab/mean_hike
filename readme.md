@@ -35,8 +35,8 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 	+ (can you get a server log of an IP?)
 
 	+ Login: if email address is used rather than username, display message saying they need to use their username, not their email (or accept either)
-	
-	+ Add link to blue dashboard box to "Never show me this again" (Change database so that users have a value to show dashboard info box or not -- add something which then checks and decides whether to show it or not)
+
+	+ Add link to blue dashboard box to "Never show me this again" (Change database so that users have a value to show dashboard info box or not -- add something which then checks and decides whether to show it or not) //DONE
 
 ## Development Issues Log:
 

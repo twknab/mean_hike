@@ -40,6 +40,10 @@ var UserSchema = new Schema (
             type: Schema.Types.ObjectId,
             ref: 'Hike'
         }], // end hikes array
+        welcome_msg_status: {
+            type: Boolean,
+            default: true,
+        }, // end welcome msg status
     },
     {
         timestamps: true,

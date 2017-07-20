@@ -45,6 +45,18 @@ app.factory('userFactory', ['$http', function($http) {
             })
     };
 
+    // Set Welcome Message to False:
+    factory.welcomeMessageFalse = function(welcomeCallback) {
+        $http.get('/api/welcome')
+            .then(function(updatedUser) {
+                console.log(updatedUser.data);
+                welcomeCallback();
+            })
+            .catch(function(err) {
+                console.log('Error attempting to set welcome message to false:', err.data);
+            })
+    };
+
     // Logout:
     factory.logout = function(logoutCallback) {
         console.log('Logout process starting...');

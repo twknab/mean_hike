@@ -13,8 +13,8 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
           <li class=""><a href="" ng-click="recentHikes()"><span class="glyphicon glyphicon-time"></span> Recent Hikes</a></li>
-          <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> New Hike</a></li>
-          <li class=""><a href="" ng-click="newPreTrip()"><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</a></li>
+          <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> Hike</a></li>
+          <li class=""><a href="" ng-click="newPreTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
           <li class=""><a href="" ng-click="allHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -35,8 +35,11 @@
         <div class="col-sm-12">
             <!-- Page Title and Icon -->
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Dashboard</em></small></h1>
-            <!-- Alert Info Message -->
-            <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+            <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
+            <span ng-if="user.welcome_msg_status === true">
+                <!-- Alert Info Message -->
+                <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="welcome_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
+            </span>
         </div>
     </div>
 
@@ -104,7 +107,7 @@
                     <!-- Add New Hike -->
                     <div uib-accordion-group class="panel-default" is-open="status.newHike">
                         <uib-accordion-heading>
-                            <h3><span class="glyphicon glyphicon-plus"></span> New Hike</h3>
+                            <h3><span class="glyphicon glyphicon-plus"></span> Hike</h3>
                         </uib-accordion-heading>
                         <!-- New Hike Errors -->
                         <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
@@ -161,7 +164,7 @@
                     <!-- Add New Pre-Trip -->
                     <div uib-accordion-group class="panel-default" is-open="status.newPreTrip">
                         <uib-accordion-heading>
-                            <h3><span class="glyphicon glyphicon-plus"></span> New Pre-Trip</h3>
+                            <h3><span class="glyphicon glyphicon-plus"></span> Pre-Trip</h3>
                         </uib-accordion-heading>
                         <!-- Pre-Trip Hike Selector Dropdown Form -->
                         <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">

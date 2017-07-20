@@ -113,6 +113,19 @@ module.exports = {
                 })
         }
     },
+    // Set welcome message to false:
+    welcomeSetFalse: function(req, res) {
+        User.findOneAndUpdate({_id: req.session.userId}, {welcome_msg_status: false})
+            .then(function(foundUser) {
+                console.log(foundUser);
+                return res.json('User welcome message updated.');
+            })
+            .catch(function(err) {
+                console.log(err);
+                return res.status(500).json(err);
+            })
+
+    },
     // Logout a user
     logout: function(req, res) {
         console.log('Logging out user...');

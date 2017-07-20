@@ -123,6 +123,16 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     }
 }
 
+/**********************/
+/*    WELCOME LINK    */
+/**********************/
+.welcome_link {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #ffffff;
+};
+
+
 /*************************/
 /*    COMPLETED HIKE:    */
 /*************************/

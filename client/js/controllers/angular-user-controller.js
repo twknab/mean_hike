@@ -1,6 +1,8 @@
 app.controller('userController', ['$scope', 'userFactory', '$location', '$routeParams', '$uibModal', '$log', function($scope, userFactory, $location, $routeParams, $uibModal, $log) {
 
-    // Callbacks
+    //----------------------------------//
+    //-------- CALLBACK FUNCTIONS ------//
+    //----------------------------------//
     var cb = {
         register: function(createdUser) {
             $scope.regErrors = '';
@@ -24,6 +26,10 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
         },
     };
 
+    //--------------------------//
+    //-------- NAVIGATION ------//
+    //--------------------------//
+
     // Load Homepage:
     $scope.home = function() {
         $location.url('/');
@@ -42,6 +48,9 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
 
 }]);
 
+//---------------------------------------//
+//-------- ANGULAR UI MODAL WINDOW ------//
+//---------------------------------------//
 
 angular.module('ui.bootstrap').controller('ModalDemoCtrl', function($uibModal, $log, $document) {
     var $ctrl = this;

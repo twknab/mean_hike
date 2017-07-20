@@ -51,6 +51,5 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 
 ### Where I Left Off:
-	- clean up login page / user controller (some of the code is still copy-and-pasty from boostrap ui)
-	- get accordians to work with proper formats and top navigation on dashboard Page
-	- build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes that they own)
+	- Clean up login page / user controller (some of the code is still copy-and-pasty from boostrap ui)
+	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes that they own)

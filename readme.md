@@ -8,13 +8,13 @@
 This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked, along with the ability
 to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
+## Completed Improvements:
+	- 7/20/17 - Cleaned up modal controllers.
+	- 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
 ## Future Feature Ideas / Improvements:
 
-	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object)
-	is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection.
-	This would be useful for the user so they're able to instantly see the field that flagged the error. Would be a nice cleaner
-	way to show off error objects.
+	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object) is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection. This would be useful for the user so they're able to instantly see the field that flagged the error. Would be a nice cleaner way to show off error objects. Basically this allows fields that need to be fixed to be highlighted.
 
 	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`)
 
@@ -34,9 +34,8 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ (can you get a server log of an IP?)
 
-	+ Login: if email address is used rather than username, display message saying they need to use their username, not their email (or accept either)
+	+ Login: if email address is used rather than username, display message saying they need to use their username, not their email (or accept either a username or email -- this is the ideal functionality and common in many web applications)...
 
-	+ Add link to blue dashboard box to "Never show me this again" (Change database so that users have a value to show dashboard info box or not -- add something which then checks and decides whether to show it or not) //DONE
 
 ## Development Issues Log:
 
@@ -48,8 +47,5 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 		- Add login validation to ensure password
 		is correct length.
 
-
-
 ### Where I Left Off:
-	- Clean up login page / user controller (some of the code is still copy-and-pasty from boostrap ui)
 	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes that they own)

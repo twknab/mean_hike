@@ -4,25 +4,17 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
     //-------- CALLBACK FUNCTIONS ------//
     //----------------------------------//
     var cb = {
-        register: function(createdUser) {
-            $scope.regErrors = '';
-            $scope.newUser = {};
-            $location.url('/dashboard');
-        },
+        // Runs after $scope.login() function completes:
         login: function(foundUser) {
             $scope.loginErrors = {};
             $scope.user = {};
             $location.url('/dashboard');
         },
+        // Runs if errors after $scope.login() function completes:
         loginError: function(err) {
             console.log('Errors returned from server:', err);
             $scope.loginErrors = {}; // resets errors if any already existing
             $scope.loginErrors = err;
-        },
-        regError: function(err) {
-            console.log('Errors returned from server:', err);
-            $scope.regErrors = {};
-            $scope.regErrors = err;
         },
     };
 
@@ -30,17 +22,17 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
     //-------- NAVIGATION ------//
     //--------------------------//
 
-    // Load Homepage:
+    // Loads Homepage:
     $scope.home = function() {
         $location.url('/');
     };
 
-    // Load About Page:
+    // Loads About Page:
     $scope.about = function() {
         $location.url('/about');
     };
 
-    // Login User:
+    // Login Existing User:
     $scope.login = function() {
         userFactory.login($scope.user, cb.login, cb.loginError);
     };
@@ -48,103 +40,65 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
 
 }]);
 
-//---------------------------------------//
-//-------- ANGULAR UI MODAL WINDOW ------//
-//---------------------------------------//
-
-angular.module('ui.bootstrap').controller('ModalDemoCtrl', function($uibModal, $log, $document) {
+//--------------------------------------//
+//-------- ANGULAR UI MODAL SETUP ------//
+//--------------------------------------//
+// Create an angular controller to handle the setup of our Modal:
+angular.module('ui.bootstrap').controller('ModalRegisterCtrl', function($uibModal, $log, $document) {
+    // Set `this` as the variable `$ctrl`, to access our controller instance:
     var $ctrl = this;
-    $ctrl.items = ['item1', 'item2', 'item3'];
 
+    // Turns on Modal Animations:
     $ctrl.animationsEnabled = true;
 
-    $ctrl.open = function(size, parentSelector) {
+    // Defines Properties of New Modal Window:
+    $ctrl.open = function(parentSelector) {
         var parentElem = parentSelector ?
+            // Gives us parent of `.modal-demo` so we can append our Modal to parent -- at least, I believe this is what's going on... =)
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
         var modalInstance = $uibModal.open({
             animation: $ctrl.animationsEnabled,
-            //   backdrop: false,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '_register.html',
-            controller: 'ModalInstanceCtrl',
-            controllerAs: '$ctrl',
-            size: size,
-            appendTo: parentElem,
-            resolve: {
-                items: function() {
-                    return $ctrl.items;
-                }
-            }
+            //   backdrop: false,  // turn off backdrop (known ang-ui bootstrap modal bug)
+            ariaLabelledBy: 'modal-title', // modal title HTML
+            ariaDescribedBy: 'modal-body', // modal body HTML
+            templateUrl: '_register.html', // the HTML data itself that will be loaded into Modal
+            controller: 'ModalInstanceCtrl', // links us to the controller for our Modal
+            controllerAs: '$ctrl', // shorthand notation for our controller
+            size: 'lg', // sets modal to Large size
+            appendTo: parentElem, // appends our Modal to the parent element above
         });
 
-        modalInstance.result.then(function(selectedItem) {
-            $ctrl.selected = selectedItem;
+        // Runs after modal window is closed:
+        modalInstance.result.then(function() {
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
-
-    $ctrl.openComponentModal = function() {
-        var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
-            component: 'modalComponent',
-            resolve: {
-                items: function() {
-                    return $ctrl.items;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(selectedItem) {
-            $ctrl.selected = selectedItem;
-        }, function() {
-            $log.info('modal-component dismissed at: ' + new Date());
-        });
-    };
-
-    $ctrl.openMultipleModals = function() {
-        $uibModal.open({
-            animation: $ctrl.animationsEnabled,
-            ariaLabelledBy: 'modal-title-bottom',
-            ariaDescribedBy: 'modal-body-bottom',
-            templateUrl: '_register.html',
-            size: 'sm',
-            controller: function($scope) {
-                $scope.name = 'bottom';
-            }
-        });
-
-        $uibModal.open({
-            animation: $ctrl.animationsEnabled,
-            ariaLabelledBy: 'modal-title-top',
-            ariaDescribedBy: 'modal-body-top',
-            templateUrl: 'stackedModal.html',
-            size: 'sm',
-            controller: function($scope) {
-                $scope.name = 'top';
-            }
-        });
-    };
-
-    $ctrl.toggleAnimation = function() {
-        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
-    };
 });
 
+//------------------------------------------//
+//-------- ANGULAR UI MODAL FUNCTIONS ------//
+//------------------------------------------//
+//--- this is the stuff the modal can do ---//
+//------------------------------------------//
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
+// Create an angular controller to handle the functions our Modal should perform:
+angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModalInstance, $scope, userFactory, $location) {
 
-angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModalInstance, items, $scope, userFactory, $location) {
+    // Gives us easy access to our instance by capturing `this` as `$ctrl`:
      var $ctrl = this;
+
      // Callbacks
      var cb = {
+         // Runs after $ctrl.register() finishes:
          register: function(createdUser) {
              $scope.regErrors = '';
              $scope.newUser = {};
              $uibModalInstance.close();
              $location.url('/dashboard');
          },
+         // Runs if registration errors after $ctrl.register():
          regError: function(err) {
              console.log('Errors returned from server:', err);
              $scope.regErrors = {};
@@ -152,46 +106,15 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
          },
      };
 
+    // Registers new user:
     $ctrl.register = function() {
-        console.log("OK");
-        console.log($scope.newUser);
+        console.log("Attemping to register new user...");
+        console.log("Data submitted:", $scope.newUser);
         userFactory.register($scope.newUser, cb.register, cb.regError);
     };
 
+    // Cancels registration and closes Modal window:
     $ctrl.cancel = function() {
         $uibModalInstance.dismiss('cancel');
     };
-});
-
-// Please note that the close and dismiss bindings are from $uibModalInstance.
-
-angular.module('ui.bootstrap').component('modalComponent', {
-    templateUrl: '_register.html',
-    bindings: {
-        resolve: '<',
-        close: '&',
-        dismiss: '&'
-    },
-    controller: function() {
-        var $ctrl = this;
-
-        $ctrl.$onInit = function() {
-            $ctrl.items = $ctrl.resolve.items;
-            $ctrl.selected = {
-                item: $ctrl.items[0]
-            };
-        };
-
-        $ctrl.ok = function() {
-            $ctrl.close({
-                $value: $ctrl.selected.item
-            });
-        };
-
-        $ctrl.cancel = function() {
-            $ctrl.dismiss({
-                $value: 'cancel'
-            });
-        };
-    }
 });

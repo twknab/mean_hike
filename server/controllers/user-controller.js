@@ -1,16 +1,23 @@
 /*
-    Note: The reason we essentially send back 3 separate lists of errors here,
-    is becuase our first round uses a custom module to do some basic "pre" validations.
-    If any errors are flagged, those errors are sent back. If there are no errors,
-    then the mongoose pre-save validations run -- if any flags, those are sent back.
-    If pre-save is successful, the instance is created, and the built in mongoose
-    validators run (if errors, those are sent back). Because there is a step-wise
-    process by which errors are generated, as we are using 3 different strategies
-    for valdiation, there are 3 potentail sets of errors that can be generated.
+    Note: Although it is best practices to have all validations occur in the models,
+    due to the nature of Mongoose's step-wise validations (first the pre-save validators run,
+    followed by the built-in validators). The preValidate module that I built attempts
+    to streamline the validation process, by sending a first round of basic errors,
+    prior to any instance creation (and any pre-save methods running). At the time,
+    this seemed like a cleaner way to give user's error lists in a step-wise fashion,
+    so that the most basic errors were highlighted first. Essentially there are 3
+    different layers of validation: (1) custom preValidate module, (2) mongoose
+    pre-save methods, (3) mongoose built-in validators. In that order.
 
-    - Please see the notes in the top of "./modules/pre-validate.js"
-    - Please also see "./models/User-model.js" for mongoose pre-validation and built-in
-    validation methods.
+    This validation could be improved, by trying to take the pre-save validation
+    module I created, and bundling it all into the pre-save functions within the
+    User model. At the time of creating this project, I chose this alernative
+    strategy to try and better handle my validation process. In retrospect,
+    I question my initial design and may be able to streamline/improve. For now,
+    at least, we've got functionality.
+
+    -- See notes in `/pre-validate.js` file.
+    -- See notes in `/User-model.js` file.
 */
 
 // Grab our Mongoose Model:
@@ -30,6 +37,13 @@ module.exports = {
 
             // If no errors, create user and run built-in and pre-save validations:
             else {
+
+                /*
+                    Note: All user data is validated in our preValidate.register()
+                    method, while the actual user instance is then created below,
+                    after we've verified no errors.
+                */
+
                 console.log('There were no errors:');
                 User.create(req.body)
                     .then(function(newUser) {
@@ -58,7 +72,7 @@ module.exports = {
     // Login a user
     login: function(req, res) {
         console.log('Login Data Submitted:', req.body);
-        preValidate.login(req.body, function(err) {
+        preValidate.login(req.body, function(err, validatedUser) {
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
@@ -66,28 +80,24 @@ module.exports = {
                 return res.status(500).json(err.errors);
             }
 
-            // If no errors, get user:
+            // If no errors, lookup user by username first:
             else {
-                User.findOne({ 'username': req.body.username })
-                    .then(function(foundUser) {
-                        // Setup session for found user:
-                        req.session.userId = foundUser._id;
-                        return res.json(foundUser);
-                    })
-                    .catch(function(err) {
-                        console.log('Error trying to retrieve user!', err);
-                        if (err.errors == null) {
-                            console.log('Custom Validator Function Error detected...');
-                            return res.status(500).json({
-                                custom: {
-                                    message: err.message
-                                }
-                            });
-                        } else {
-                            console.log('Built in Mongoose Validation detected....');
-                            return res.status(500).json(err.errors)
-                        };
-                    })
+                /*
+                    Note: The below section, is part of the callback function
+                    which runs within our preValidate method. Because we have an
+                    additional parameter for a `validatedUser` in our callback,
+                    we can pass the validated user in the preValidate method
+                    to this callback, and simply setup our session data without
+                    once again querying for our user (already done for us in
+                    the preValidate method). Because this will only run when
+                    - 0 - errors have been returned, a valid user should be
+                    passed along each and every time.
+                */
+
+                console.log("Setting up session for verified user...");
+                req.session.userId = validatedUser._id;
+                return res.json(validatedUser);
+
             }
 
         });

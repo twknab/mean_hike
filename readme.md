@@ -9,8 +9,9 @@ This application is designed to help others plan and prepare for their hiking ad
 to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
 ## Completed Improvements:
-	- 7/20/17 - Cleaned up modal controllers.
-	- 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
++ 7/21/17 - Added feature so username OR email allows for login validation.
++ 7/20/17 - Cleaned up modal controllers.
++ 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
 ## Future Feature Ideas / Improvements:
 
@@ -33,8 +34,6 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 	+ Add login validations where after 5 attempts account locks out for awhile.
 
 	+ (can you get a server log of an IP?)
-
-	+ Login: if email address is used rather than username, display message saying they need to use their username, not their email (or accept either a username or email -- this is the ideal functionality and common in many web applications)...
 
 
 ## Development Issues Log:

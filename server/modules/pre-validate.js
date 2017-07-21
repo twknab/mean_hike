@@ -154,7 +154,7 @@ module.exports = {
         /*---- ALL FIELDS ----*/
         /*--------------------*/
         // Check if both fields are filled out:
-        if (!user.username && !user.password){
+        if (!user.login_id && !user.password){
             err.errors.allFields = {
                 message: new Error('All fields are required.').message
             };
@@ -163,10 +163,10 @@ module.exports = {
 
         else {
             // Check if username and password field are right number of characters:
-            console.log('Username and password detected...checking length...');
-            if (user.username.length < 3 | user.password.length < 12) {
+            console.log('Login ID and password detected...checking length...');
+            if (user.login_id.length < 3 | user.password.length < 12) {
                 err.errors.username = {
-                    message: new Error('Username must be at least 3 characters, Password must be at least 12.').message
+                    message: new Error('Login username or email must be at least 3 characters, Password must be at least 12.').message
                 };
                 callback(err);
             }
@@ -174,45 +174,76 @@ module.exports = {
             /*--------------------*/
             /*----- USERNAME -----*/
             /*--------------------*/
-            // Check if user exists (check by username):
-            User.findOne({ username: user.username })
+            // Check if user exists (check by username first):
+            User.findOne({ username: user.login_id })
                 .then(function(foundUser) {
-                    console.log("We found the user!");
-                    console.log(foundUser);
+                    // If returned user is empty (no match):
                     if (!foundUser) {
-                        err.errors.username = {
-                            message: new Error('Username is not registered.').message
-                        };
-                        callback(err);
+                        // Check if user exists by email instead:
+                        User.findOne({ email: user.login_id })
+                            .then(function(foundEmail) {
+                                // If empty user is returned (no match):
+                                if (!foundEmail) {
+                                    err.errors.email = {
+                                        message: new Error('Username or Email provided is not registered.').message
+                                    };
+                                    // Run callback returning errors:
+                                    callback(err);
+                                }
+                                // If email is found, run password authorization:
+                                else {
+                                    console.log("Checking password....");
+                                    /*---------------------------*/
+                                    /*----- VERIFY PASSWORD -----*/
+                                    /*---------------------------*/
+                                    // Verifies password and runs callback after:
+                                    checkPassword(foundEmail);
+                                }
+                            })
+                            .catch(function(err) {
+                                // This will only catch if the email query itself failed:
+                                err.errors.email = {
+                                    message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
+                                };
+                                // Run Callback:
+                                callback(err);
+                            })
                     }
                     else {
                         console.log("Checking password...");
-                        /*--------------------*/
-                        /*----- PASSWORD -----*/
-                        /*--------------------*/
-                        foundUser.verifyPassword(user.password)
-                            .then(function() {
-                                console.log("Password has been verified.");
-                                callback(err);
-                            })
-                            .catch(function() {
-                                err.errors.password = {
-                                    message: new Error('Password is incorrect.').message
-                                };
-                                callback(err);
-                            })
+                        /*---------------------------*/
+                        /*----- VERIFY PASSWORD -----*/
+                        /*---------------------------*/
+                        // Verifies password and runs callback after:
+                        checkPassword(foundUser);
                     }
                 })
-                .catch(function(err2) {
+                .catch(function(err) {
+                    // This will only catch of the username query failed:
                     console.log("There's been an error.");
-                    console.log(err2)
+                    console.log(err)
                     err.errors.username = {
-                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY".').message
+                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY USERNAME QUERY".').message
                     };
                     callback(err);
                 })
 
         }
+
+        // Internal function merely for confirming password match:
+        function checkPassword(userObj) {
+            userObj.verifyPassword(user.password)
+                .then(function() {
+                    console.log("Password has been verified.");
+                    callback(err, userObj);
+                })
+                .catch(function() {
+                    err.errors.password = {
+                        message: new Error('Password is incorrect.').message
+                    };
+                    callback(err);
+                })
+        };
 
     }, // end login validation method
 }

@@ -15,36 +15,31 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ## Future Feature Ideas / Improvements:
 
-	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object) is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection. This would be useful for the user so they're able to instantly see the field that flagged the error. Would be a nice cleaner way to show off error objects. Basically this allows fields that need to be fixed to be highlighted.
+	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object) is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection. This would be useful for the user so they're able to instantly see the field that flagged the error. Would be a nice cleaner way to show off error objects. Basically this allows fields that need to be fixed to be highlighted. (medium-priority)
 
-	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`)
+	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`) (low-priority)
 
-	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size.
+	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size. (high-priority)
 
 	+ Add a feature where users can attach documents, such as a
-	PDF map to their hike.
+	PDF map to their hike. (medium-priority)
 
-	+ Add a feature where users can share their hike report or pre-trip data with another (including map PDF attachments, for example).
+	+ Add a feature where users can share their hike report or pre-trip data with another (including map PDF attachments, for example). (medium-priority)
 
 	+ Add a feature where a google map / alternative map embed is placed
-	into the hike.
+	into the hike. (high-priority)
 
-	+ Add a buddy system where users can see other users and see their hikes. Messaging? (Everything these days must have a comment field eh...or must it...do we want people bickering and arguing? ...Maybe no messaging...)
+	+ Add a buddy system where users can see other users and see their hikes. Messaging? (Everything these days must have a comment field eh...or must it...do we want people bickering and arguing? ...Maybe no messaging...) (low-priority)
 
-	+ Add login validations where after 5 attempts account locks out for awhile.
+	+ Add login validations where after 5 attempts account locks out for awhile. (medium-priority)
 
-	+ (can you get a server log of an IP?)
+	+ Can you get a server log of user IP? (low-priority)
+
+	+ Improve user creation validations. See if you can bundle EVERYTHING in your preValidate module into pre-save Mongoose functions. This would be the best way to handle this, and right now your validations work, but are probably not best practices for the ways you could utilize Mongoose. (medium-low priority)
 
 
 ## Development Issues Log:
 
-### Where I Left Off:
-
-	+ Finish User Login:
-		- Add session for after registration and login.
-		- Add login validation to check for email address in proper format.
-		- Add login validation to ensure password
-		is correct length.
 
 ### Where I Left Off:
-	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes that they own)
+	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes, gear lists, and pre and post-trips that they own) -- maybe do this AFTER you've built all your models to better know all the bases you have to cover. Right now, we've only built our user model and you may not totally understand your database design yet. Maybe make an ERD before this. OR: Just add basic user changes for now, and then add in DELETE function after you've mostly built rest of features.

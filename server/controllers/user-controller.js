@@ -1,12 +1,12 @@
 /*
     Note: Although it is best practices to have all validations occur in the models,
     due to the nature of Mongoose's step-wise validations (first the pre-save validators run,
-    followed by the built-in validators). The preValidate module that I built attempts
+    followed by the built-in validators). The validate module that I built attempts
     to streamline the validation process, by sending a first round of basic errors,
     prior to any instance creation (and any pre-save methods running). At the time,
     this seemed like a cleaner way to give user's error lists in a step-wise fashion,
     so that the most basic errors were highlighted first. Essentially there are 3
-    different layers of validation: (1) custom preValidate module, (2) mongoose
+    different layers of validation: (1) custom validate module, (2) mongoose
     pre-save methods, (3) mongoose built-in validators. In that order.
 
     This validation could be improved, by trying to take the pre-save validation
@@ -22,13 +22,23 @@
 
 // Grab our Mongoose Model:
 var User = require('mongoose').model('User'),
-    preValidate = require('./../modules/pre-validate');
+    validate = require('./../modules/user-validator');
 
 module.exports = {
     // Register a user
     register: function(req, res) {
-        console.log('/// REGISTER REQ BODY ///', req.body);
-        preValidate.registration(req.body, function(err) {
+        console.log('Server talking..registration data rec\'d:', req.body);
+
+        // Run validate.registration() method, passing our entire form data and
+        // a callback function, which runs after our validations complete.
+        validate.registration(req.body, function(err) {
+            /*
+                Note: As our callback functions runs, it checks for errors. If no
+                errors, it attempts to create the user, sets up session and sends
+                them back. If errors are generated during this process they are
+                returned. If errors are initially detected (before creation attepmpt),
+                these too are returned.
+            */
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
@@ -39,7 +49,7 @@ module.exports = {
             else {
 
                 /*
-                    Note: All user data is validated in our preValidate.register()
+                    Note: All user data is validated in our validate.register()
                     method, while the actual user instance is then created below,
                     after we've verified no errors.
                 */
@@ -54,14 +64,14 @@ module.exports = {
                     .catch(function(err) {
                         console.log('Error trying to create user!', err);
                         if (err.errors == null) {
-                            console.log('Custom Validator Function Error detected...');
+                            console.log('Pre-Save Validation detected...');
                             return res.status(500).json({
                                 custom: {
                                     message: err.message
                                 }
                             });
                         } else {
-                            console.log('Built in Mongoose Validation detected....');
+                            console.log('Built-in Validation detected....');
                             return res.status(500).json(err.errors)
                         };
                     })
@@ -72,7 +82,11 @@ module.exports = {
     // Login a user
     login: function(req, res) {
         console.log('Login Data Submitted:', req.body);
-        preValidate.login(req.body, function(err, validatedUser) {
+
+        // Again, we pass in a callback function to our validate method, which will run once validations complete.
+        // In a nut shell, we send our form data to be validated, along with our callback, which runs after.
+        // This is the same strategy that is deployed in the above register() function:
+        validate.login(req.body, function(err) {
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
@@ -80,25 +94,77 @@ module.exports = {
                 return res.status(500).json(err.errors);
             }
 
-            // If no errors, lookup user by username first:
+            // If no errors, set session data for retrieved and validated user:
             else {
-                /*
-                    Note: The below section, is part of the callback function
-                    which runs within our preValidate method. Because we have an
-                    additional parameter for a `validatedUser` in our callback,
-                    we can pass the validated user in the preValidate method
-                    to this callback, and simply setup our session data without
-                    once again querying for our user (already done for us in
-                    the preValidate method). Because this will only run when
-                    - 0 - errors have been returned, a valid user should be
-                    passed along each and every time.
-                */
 
-                console.log("Setting up session for verified user...");
-                req.session.userId = validatedUser._id;
-                return res.json(validatedUser);
+                // Check if User exists (check by username first):
+                User.findOne({ username: req.body.login_id })
+                    .then(function(foundUser) {
+                        // If returned user is empty (no match):
+                        if (!foundUser) {
+                            // Check if User exists by email instead:
+                            User.findOne({ email: req.body.login_id })
+                                .then(function(foundEmail) {
+                                    // If empty user is returned (no match):
+                                    if (!foundEmail) {
+                                        err.errors.email = {
+                                            message: new Error('Username or Email provided is not registered.').message
+                                        };
+                                        // Return errors:
+                                        return res.status(500).json(err.errors);
+                                    }
+                                    // Else, if user is found by email, run password auth:
+                                    else {
+                                        // Else, check password and log user in:
+                                        console.log("Checking password....");
+                                        __checkPassword(foundEmail, req.body.password);
+                                    }
+                                })
+                                .catch(function(err) {
+                                    // This will only catch if the email query itself failed:
+                                    err.errors.email = {
+                                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
+                                    };
+                                    // Return Errors:
+                                    return res.status(500).json(err.errors);
+                                })
+                        }
 
+                        else {
+                            // Else, check password and log user in:
+                            console.log("Checking password...");
+                            __checkPassword(foundUser, req.body.password);
+                        }
+
+                    })
+                    .catch(function(err) {
+                        // This will only catch of the username query failed:
+                        console.log("There's been an error.");
+                        console.log(err)
+                        err.errors.username = {
+                            message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY USERNAME QUERY".').message
+                        };
+                        return res.status(500).json(err.errors);
+                    })
             }
+
+            // Internal function merely for confirming password match:
+            function __checkPassword(userObj, password) {
+                userObj.verifyPassword(password)
+                    .then(function() {
+                        console.log("Password has been verified.");
+                        console.log("Setting up session for verified user...");
+                        req.session.userId = userObj._id;
+                        return res.json(userObj);
+                    })
+                    .catch(function(err2) {
+                        console.log("Password is incorrect. Access denied.");
+                        err.errors.password = {
+                            message: new Error('Password is incorrect.').message
+                        };
+                        return res.status(500).json(err.errors);
+                    })
+            };
 
         });
     },

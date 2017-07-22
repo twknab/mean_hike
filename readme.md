@@ -9,6 +9,7 @@ This application is designed to help others plan and prepare for their hiking ad
 to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
 ## Completed Improvements:
++ 7/22/17 - Moved bulk sum of validations to Models file.
 + 7/21/17 - Added feature so username OR email allows for login validation.
 + 7/20/17 - Cleaned up modal controllers.
 + 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
@@ -35,11 +36,13 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Can you get a server log of user IP? (low-priority)
 
-	+ Improve user creation validations. See if you can bundle EVERYTHING in your preValidate module into pre-save Mongoose functions. This would be the best way to handle this, and right now your validations work, but are probably not best practices for the ways you could utilize Mongoose. (medium-low priority)
 
 
 ## Development Issues Log:
 
 
 ### Where I Left Off:
+	- Refactoring validations and placing them in model instead of controller. Total revamp. Got through all the instance methods, but now need to figure out why the actual document is not being created (instance) of User. Left notes in User Controller where things are stopping. Note: Only did this for Registration so far, NOT for login validations.
+	Why is my user creation not working?
+
 	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes, gear lists, and pre and post-trips that they own) -- maybe do this AFTER you've built all your models to better know all the bases you have to cover. Right now, we've only built our user model and you may not totally understand your database design yet. Maybe make an ERD before this. OR: Just add basic user changes for now, and then add in DELETE function after you've mostly built rest of features.

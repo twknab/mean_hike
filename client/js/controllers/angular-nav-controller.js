@@ -19,17 +19,12 @@ app.controller('navController', ['$scope', 'dashboardFactory', 'userFactory', '$
                 // Redirect home:
                 $location.url('/');
             } else {
-                console.log('Session valid.');
+                console.log('Session valid.', authStatus.user);
                 // Set User Data:
                 $scope.user = authStatus.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
             }
-        },
-        // Sets Welcome Alert to False (Never Display Again):
-        welcomeSetFalse: function() {
-            console.log("Attempting to reload page...");
-            $scope.auth();
         },
         // Loads Login/Registration Page:
         logout: function() {

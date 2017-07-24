@@ -177,18 +177,6 @@ module.exports = {
                 })
         }
     },
-    // Get logged in user based on session data:
-    getLoggedIn: function(req, res) {
-        User.findOne({_id: req.session.userId})
-            .then(function(foundUser) {
-                console.log(foundUser);
-                return res.json(foundUser);
-            })
-            .catch(function(err) {
-                console.log(err);
-                return res.status(500).json(err);
-            })
-    },
     // Set welcome message to false:
     welcomeSetFalse: function(req, res) {
         User.findOneAndUpdate({_id: req.session.userId}, {welcome_msg_status: false})

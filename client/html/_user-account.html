@@ -12,7 +12,7 @@
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
           <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-          <li class="active"><a href="" ng-click="userAccount()"><span class="glyphicon glyphicon-user"></span> User Account</a></li>
+          <li class="active"><a href="" ng-click="userAccount(user.username)"><span class="glyphicon glyphicon-user"></span> User Account</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="username" id="username" value="{{user.username}}" class="form-control input-lg" placeholder="Update Username">
+                        <input type="text" name="username" id="username" ng-value="user.username" class="form-control input-lg">
                     </div>
                     <span class="help-block margin-label">Update your username.</span>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="email" id="email" value="{{user.email}}" class="form-control input-lg" placeholder="Update Email">
+                        <input type="email" name="email" id="email" ng-value="user.email" class="form-control input-lg">
                     </div>
                     <span class="help-block margin-label">Update your email address.</span>
                 </div>
@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="emailConfirm" id="emailConfirm" value="{{user.email}}" class="form-control input-lg" placeholder="Confirm Email">
+                        <input type="email" name="emailConfirm" id="emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
                     </div>
                     <span class="help-block margin-label">Confirm your updated email address.</span>
                 </div>
@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="password" id="password" value="" class="form-control input-lg" placeholder="New Password">
+                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="New Password">
                     </div>
                     <span class="help-block margin-label">Set a new password.</span>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" value="" class="form-control input-lg" placeholder="Confirm Password">
+                        <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
                     </div>
                     <span class="help-block margin-label">Confirm your new password.</span>
                     <!-- Update User and Cancel Buttons -->

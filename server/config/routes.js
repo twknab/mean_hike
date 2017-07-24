@@ -7,7 +7,6 @@ module.exports = function(app) {
     app.post('/api/register', UserController.register)
         .post('/api/login', UserController.login)
         .get('/api/login', UserController.auth)
-        .get('/api/login/user', UserController.getLoggedIn)
         .get('/api/welcome', UserController.welcomeSetFalse)
         .post('/api/logout', UserController.logout)
 };

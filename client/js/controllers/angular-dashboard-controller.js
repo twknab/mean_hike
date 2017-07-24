@@ -5,18 +5,24 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //----------------------------------//
     var cb = {
         // Sets $scope.user to retrieved logged in user:
-        loggedIn: function(user) {
-            console.log('THIS IS THE USER THIS IS THE USER THIS IS THE USER');
-            console.log(user);
-            // Set User Data:
-            $scope.user = user;
-            // Deletes password hash from front end (security):
-            delete user.password;
+        user: function(authStatus) {
+            if (!authStatus.status) {
+                console.log('Session invalid.');
+                // Redirect home:
+                $location.url('/');
+            } else {
+                console.log('Session valid.', authStatus.user);
+                // Set User Data:
+                $scope.user = authStatus.user;
+                // Deletes password hash from front end
+                delete $scope.user.password;
+            }
         },
         // Sets Welcome Alert to False (Never Display Again):
         welcomeSetFalse: function() {
             console.log("Attempting to reload page...");
-            $scope.auth();
+            // Get a fresh copy of the user on angular's side:
+            $scope.getUser();
         },
         // Loads Login/Registration Page:
         logout: function() {
@@ -37,7 +43,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     // Get Logged In a User:
     $scope.getUser = function() {
         console.log("Get logged in user...");
-        userFactory.getLoggedIn(cb.loggedIn);
+        userFactory.auth(cb.user);
     };
 
     // Run Auth on Login:

@@ -130,6 +130,7 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 /**********************/
 /*    WELCOME LINK    */
 /**********************/
+/* Make welcome link bold and underlined. */
 .welcome_link {
     font-weight: bold;
     text-decoration: underline;

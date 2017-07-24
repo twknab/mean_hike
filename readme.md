@@ -9,6 +9,7 @@ This application is designed to help others plan and prepare for their hiking ad
 to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
 ## Completed Improvements:
+
 + 7/22/17 - Moved bulk sum of User validations to Models file.
 + 7/21/17 - Added feature so username OR email allows for login validation.
 + 7/20/17 - Cleaned up modal controllers.
@@ -34,6 +35,8 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Add login validations where after 5 attempts account locks out for awhile. (medium-priority)
 
+	+ Add feature where if user name ends with `s` (but preserve the apostrophe), that the apostrophes on the Account page and Dashboard page (which use the username in plural sense), is removed, so that the language is proper english (low-priority).
+
 	+ Can you get a server log of user IP? (low-priority)
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (high-priority)
@@ -45,20 +48,27 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	- Build edit user page that allows user to change their email (as long as not already taken), change their password, and to delete their account (if they wish, along with all the hikes, gear lists, and pre and post-trips that they own) -- maybe do this AFTER you've built all your models to better know all the bases you have to cover. Right now, we've only built our user model and you may not totally understand your database design yet. Maybe make an ERD before this. OR: Just add basic user changes for now, and then add in DELETE function after you've mostly built rest of features.
+	- Built edit user page that allows user to:
+		- **NOTE** Everything is mostly in place, but need to add in ng-models/directives to fields and then need to build server side controller functions to validate and update user based on if fields were filled out. Maybe think out in pseudocode first before programming it all out.
+		
+		- Change their username
+		- Change their email
+		- Change their password
+		- Validate any changes
+		- Try using ngChange directive or ngBlur for handling your ng-model values / binding...
+		- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
+			- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
 
-		# THIS IS WHAT YOU MUST DO #
-		- Realized that I may need to build a navigation-specific controller.
-		- This controller will hold all important navigation tasks.
-		- This controller will only be linked to important dashboard-side actions.
-		- You will use ng-controller="navController" to pass this into every navbar you want to work.
-		- This will check for a valid session
+	- Built Nav Bar Controller:
+		- Realized that I may need to build a navigation-specific controller. //DONE
+		- This controller will hold all important navigation tasks. //DONE
+		- This controller will only be linked to important dashboard-side actions. //DONE
+		- You will use ng-controller="navController" to pass this into every navbar you want to work. //DONE
+		- This will check for a valid session //DONE
+		- Note: You might be able to use a 'service' or something along those lines to do your authing every time,
+		rather than have it built into your navbar controller. I don't know if that's bad juju or not.
 
-		# Here's what I just did:
-			- made a nav controller which:
-				- checks for session
-				- holds all imporant logged-in user nav functions
 
-		# Here's my confusion:
-			- Technically your api routes are still open to non-session users
-			- What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?]
+	- Secure your API Routes:
+		- Technically your api routes are still open to non-session users
+		- What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)

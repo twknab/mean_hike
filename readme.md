@@ -61,4 +61,4 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 		# Here's my confusion:
 			- Technically your api routes are still open to non-session users
-			- What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)
+			- What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?]

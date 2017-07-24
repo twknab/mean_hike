@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" ng-controller="navController">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -19,7 +19,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <button class="btn btn-default navbar-btn margin-right-sm" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> {{user.username}}'s Account</button>
+                <button class="btn btn-default navbar-btn margin-right-sm" ng-click="userAccount(user.username)"><span class="glyphicon glyphicon-log-out"></span> {{user.username}}'s Account</button>
             </li>
             <li>
                 <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
@@ -42,7 +42,7 @@
             </span>
         </div>
     </div>
-
+    <p>{{user}}</p>
     <!-- Accordian Responsive Row -->
     <div class="row">
         <div class="col-sm-12">

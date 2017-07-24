@@ -18,6 +18,14 @@ var mongoose = require('mongoose'),
 module.exports = {
     // Validates user registration generating one list of error objects to hand back:
     registration : function(formData, callback) {
+        /*
+        Validates a registration data object and runs a callback, passing along the errors.
+
+        Parameters:
+        - `formData` - An object containing 5 registration key:value pairs.
+        - `callback` - A callback function which runs after all validators have run.
+        */
+        
         /*----------------------------*/
         /*- REGISTRATION VALIDATIONS -*/
         /*----------------------------*/

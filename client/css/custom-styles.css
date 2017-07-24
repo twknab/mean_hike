@@ -58,6 +58,10 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 /*       MARGIN:         */
 /*************************/
 
+.margin-label {
+    margin-left: 45px;
+}
+
 .margin-left {
     margin-left: 35px;
 }

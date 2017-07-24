@@ -8,6 +8,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_login.html', // login page
             controller: 'userController',
         })
+        .when('/account/:username', {
+            templateUrl: 'html/_user-account.html', // user account page
+            controller: 'accountController',
+        })
         .when('/about', {
             templateUrl: 'html/_about.html', // login page
             controller: 'userController',
@@ -16,34 +20,34 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_dashboard.html', // dashboard page
             controller: 'dashboardController',
         })
-        .when('/hikes', {
-            templateUrl: 'html/_all-hikes.html', // all hikes page
-            controller: 'allHikesController',
-        })
-        .when('/hikes/:id/edit', {
-            templateUrl: 'html/_edit-hike.html', // edit hike page
-            controller: 'editHikeController',
-        })
-        .when('/hikes/:id/pre-trip', {
-            templateUrl: 'html/_pre-trip.html', // pre-trip page
-            controller: 'preTripController',
-        })
-        .when('/hikes/add-gear-list', {
-            templateUrl: 'html/_add-gear-list.html', // add gear list page
-            controller: 'addGearListController',
-        })
-        .when('/hikes/edit-gear-list', {
-            templateUrl: 'html/_edit-gear-list.html', // edit gear list pages
-            controller: 'editGearListController',
-        })
-        .when('/hikes/:id/post-trip', {
-            templateUrl: 'html/_post-trip.html', // post trip page
-            controller: 'postTripController',
-        })
-        .when('/hikes/:id/report', {
-            templateUrl: 'html/_report.html', // report page
-            controller: 'reportController',
-        })
+        // .when('/hikes', {
+        //     templateUrl: 'html/_all-hikes.html', // all hikes page
+        //     controller: 'allHikesController',
+        // })
+        // .when('/hikes/:id/edit', {
+        //     templateUrl: 'html/_edit-hike.html', // edit hike page
+        //     controller: 'editHikeController',
+        // })
+        // .when('/hikes/:id/pre-trip', {
+        //     templateUrl: 'html/_pre-trip.html', // pre-trip page
+        //     controller: 'preTripController',
+        // })
+        // .when('/hikes/add-gear-list', {
+        //     templateUrl: 'html/_add-gear-list.html', // add gear list page
+        //     controller: 'addGearListController',
+        // })
+        // .when('/hikes/edit-gear-list', {
+        //     templateUrl: 'html/_edit-gear-list.html', // edit gear list pages
+        //     controller: 'editGearListController',
+        // })
+        // .when('/hikes/:id/post-trip', {
+        //     templateUrl: 'html/_post-trip.html', // post trip page
+        //     controller: 'postTripController',
+        // })
+        // .when('/hikes/:id/report', {
+        //     templateUrl: 'html/_report.html', // report page
+        //     controller: 'reportController',
+        // })
         .otherwise({
             redirectTo: '/', // otherise load root
         });

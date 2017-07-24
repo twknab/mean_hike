@@ -45,6 +45,18 @@ app.factory('userFactory', ['$http', function($http) {
             })
     };
 
+    // Get Logged In User:
+    factory.getLoggedIn = function(loggedInCallback) {
+        $http.get('/api/login/user')
+            .then(function(retrievedUser) {
+                loggedInCallback(retrievedUser.data);
+            })
+            .catch(function(err) {
+                console.log('Error attempting to authorize user:', err.data);
+                loggedInCallback(err.data);
+            })
+    };
+
     // Set Welcome Message to False:
     factory.welcomeMessageFalse = function(welcomeCallback) {
         $http.get('/api/welcome')

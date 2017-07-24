@@ -1,23 +1,11 @@
 /*
-    Note: Although it is best practices to have all validations occur in the models,
-    due to the nature of Mongoose's step-wise validations (first the pre-save validators run,
-    followed by the built-in validators). The validate module that I built attempts
-    to streamline the validation process, by sending a first round of basic errors,
-    prior to any instance creation (and any pre-save methods running). At the time,
-    this seemed like a cleaner way to give user's error lists in a step-wise fashion,
-    so that the most basic errors were highlighted first. Essentially there are 3
-    different layers of validation: (1) custom validate module, (2) mongoose
-    pre-save methods, (3) mongoose built-in validators. In that order.
-
-    This validation could be improved, by trying to take the pre-save validation
-    module I created, and bundling it all into the pre-save functions within the
-    User model. At the time of creating this project, I chose this alernative
-    strategy to try and better handle my validation process. In retrospect,
-    I question my initial design and may be able to streamline/improve. For now,
-    at least, we've got functionality.
-
-    -- See notes in `/pre-validate.js` file.
-    -- See notes in `/User-model.js` file.
+    Note: Our validator functions  live primarily in our `User-model.js` file
+    (as instance methods). In our controller methods below, I've opted to add in
+    a module file, called `user-validator.js` which then runs these various instance
+    methods for validation. Each instance method returns either an error, or if no
+    error, returns `undefined`. The user-validator methods accept form data and
+    a callback function. In our callbacks below, we choose to assess our returned
+    errors list, and if no errors, proceed with our database actions.
 */
 
 // Grab our Mongoose Model:
@@ -94,7 +82,7 @@ module.exports = {
                 return res.status(500).json(err.errors);
             }
 
-            // If no errors, set session data for retrieved and validated user:
+            // If no errors, lookup user by username or email, and set session data for retrieved and validated user:
             else {
 
                 // Check if User exists (check by username first):
@@ -188,6 +176,18 @@ module.exports = {
                     return res.status(500).json(err);
                 })
         }
+    },
+    // Get logged in user based on session data:
+    getLoggedIn: function(req, res) {
+        User.findOne({_id: req.session.userId})
+            .then(function(foundUser) {
+                console.log(foundUser);
+                return res.json(foundUser);
+            })
+            .catch(function(err) {
+                console.log(err);
+                return res.status(500).json(err);
+            })
     },
     // Set welcome message to false:
     welcomeSetFalse: function(req, res) {

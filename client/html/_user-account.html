@@ -1,0 +1,94 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse" ng-controller="navController">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+    </div>
+    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+          <li class="active"><a href="" ng-click="userAccount()"><span class="glyphicon glyphicon-user"></span> User Account</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+<!-- Begin Primary Container -->
+<div class="container">
+    <!-- Welcome Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Page Title and Icon -->
+            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>{{user.username}}'s Account</em></small></h1>
+        </div>
+    </div>
+
+    <!-- User Account Responsive Row -->
+    <div class="row">
+        <!-- Edit User Account -->
+        <div class="col-sm-12">
+            <!-- Edit User Errors -->
+            <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                <p><strong>Error!</strong> {{error.message}}</p>
+            </div>
+            <!-- Edit Hike Form -->
+            <form ng-submit="updateAccount()" class="padding-left-sm padding-right-sm form-horizontal">
+                <!-- Update Password Field -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="username" id="username" value="{{user.username}}" class="form-control input-lg" placeholder="Update Username">
+                    </div>
+                    <span class="help-block margin-label">Update your username.</span>
+                </div>
+                <!-- Update Email Field -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="email" name="email" id="email" value="{{user.email}}" class="form-control input-lg" placeholder="Update Email">
+                    </div>
+                    <span class="help-block margin-label">Update your email address.</span>
+                </div>
+                <!-- Confirm Email Field -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="email" name="emailConfirm" id="emailConfirm" value="{{user.email}}" class="form-control input-lg" placeholder="Confirm Email">
+                    </div>
+                    <span class="help-block margin-label">Confirm your updated email address.</span>
+                </div>
+                <!-- Update Password Field -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="password" id="password" value="" class="form-control input-lg" placeholder="New Password">
+                    </div>
+                    <span class="help-block margin-label">Set a new password.</span>
+                </div>
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" value="" class="form-control input-lg" placeholder="Confirm Password">
+                    </div>
+                    <span class="help-block margin-label">Confirm your new password.</span>
+                    <!-- Update User and Cancel Buttons -->
+                    <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-check"></span> Update User</button>
+                    <button class="form-control btn btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<!-- End Primary Container -->

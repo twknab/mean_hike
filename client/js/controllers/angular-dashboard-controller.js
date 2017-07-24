@@ -4,21 +4,14 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //-------- CALLBACK FUNCTIONS ------//
     //----------------------------------//
     var cb = {
-        // Check for valid session, else direct home:
-        auth: function(authStatus) {
-            if (!authStatus.status) {
-                console.log('Session invalid.');
-                // Redirect home:
-                $location.url('/');
-            } else {
-                console.log('Session valid.');
-                // Set User Data:
-                $scope.user = authStatus.user;
-                // Deletes password hash from front end
-                delete $scope.user.password;
-                // Get All Dashboard Data
-                console.log("Dashboard loaded...");
-            }
+        // Sets $scope.user to retrieved logged in user:
+        loggedIn: function(user) {
+            console.log('THIS IS THE USER THIS IS THE USER THIS IS THE USER');
+            console.log(user);
+            // Set User Data:
+            $scope.user = user;
+            // Deletes password hash from front end (security):
+            delete user.password;
         },
         // Sets Welcome Alert to False (Never Display Again):
         welcomeSetFalse: function() {
@@ -41,18 +34,30 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //---------- AUTHORIZE USER --------//
     //----------------------------------//
 
-    // Authorize a User:
-    $scope.auth = function() {
-        console.log("Authorizing user...");
-        userFactory.auth(cb.auth);
+    // Get Logged In a User:
+    $scope.getUser = function() {
+        console.log("Get logged in user...");
+        userFactory.getLoggedIn(cb.loggedIn);
     };
 
     // Run Auth on Login:
-    $scope.auth();
+    $scope.getUser();
 
     //--------------------------------//
     //---------- NAVIGATION ----------//
     //--------------------------------//
+
+    // View User Account:
+    $scope.userAccount = function(username) {
+        console.log('Loading User Account...');
+        console.log(username);
+        $location.url('/account/' + username);
+    };
+
+    // Load Dashboard:
+    $scope.home = function() {
+        $location.url('/dashboard');
+    };
 
     // Recent Hikes Top Navigation -- Open Recent Hikes Accordian:
     $scope.recentHikes = function() {

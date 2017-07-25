@@ -50,7 +50,9 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	- Built edit user page that allows user to:
 		- **NOTE** Everything is mostly in place, but need to add in ng-models/directives to fields and then need to build server side controller functions to validate and update user based on if fields were filled out. Maybe think out in pseudocode first before programming it all out.
-		
+
+		- **USE EXISTING VALIDATION FUNCTIONS TO CHECK FOR DUPLICATES, CONFIRM FIELDS, AND PASS STRENGTH**
+
 		- Change their username
 		- Change their email
 		- Change their password

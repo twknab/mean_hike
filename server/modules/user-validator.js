@@ -17,20 +17,21 @@ var mongoose = require('mongoose'),
 
 module.exports = {
     // Validates user registration generating one list of error objects to hand back:
-    registration : function(formData, callback) {
+    registration : function(userData, callback) {
         /*
         Validates a registration data object and runs a callback, passing along the errors.
 
         Parameters:
-        - `formData` - An object containing 5 registration key:value pairs.
+        - `userData` - An object containing 5 registration key:value pairs.
         - `callback` - A callback function which runs after all validators have run.
         */
-        
+
         /*----------------------------*/
         /*- REGISTRATION VALIDATIONS -*/
         /*----------------------------*/
         /*
             Validates full registration data using instance methods below.
+
             The following is validated:
             - all fields must be filled out.
             - username or email cannot already exist.
@@ -48,7 +49,6 @@ module.exports = {
                 - may not contain basic sequences
 
             Note: Please see the individual instance functions for each specific validation.
-            The validate() function below, runs tbrough them and collects the errors.
 
         */
 
@@ -62,12 +62,12 @@ module.exports = {
 
         // Run all validations and gather messages as a dictionary:
         var validations = {
-            allRegFields: User.schema.methods.checkAllRegFields(formData),
-            username: User.schema.methods.alphaNum_Username(formData.username),
-            emailMatch: User.schema.methods.emailMatch(formData.email, formData.emailConfirm),
-            emailFormat: User.schema.methods.validateEmailFormat(formData.email),
-            pwdMatch: User.schema.methods.passwordMatch(formData.password, formData.passwordConfirm),
-            pwdStrong: User.schema.methods.strongPassword(formData.password, formData.username),
+            allRegFields: User.schema.methods.checkAllRegFields(userData),
+            username: User.schema.methods.alphaNum_Username(userData.username),
+            emailMatch: User.schema.methods.emailMatch(userData.email, userData.emailConfirm),
+            emailFormat: User.schema.methods.validateEmailFormat(userData.email),
+            pwdMatch: User.schema.methods.passwordMatch(userData.password, userData.passwordConfirm),
+            pwdStrong: User.schema.methods.strongPassword(userData.password, userData.username),
         };
 
         // Check all fields (if not, send errors right away):
@@ -128,6 +128,7 @@ module.exports = {
         /*---------------------*/
         /*
             Validates full login data using instance methods below.
+
             The following is validated:
             - all fields must be filled out.
             - login id must be greater than 2 characters, less than 30 characters.
@@ -136,7 +137,6 @@ module.exports = {
             - if user is found, password is verified with retreived user.
 
             Note: Please see the individual instance functions for each specific validation.
-            The validate() function below, runs tbrough them and collects the errors.
 
         */
 
@@ -181,4 +181,53 @@ module.exports = {
         };
 
     }, // end login validation method
+    update : function(userData, callback) {
+        /*----------------------*/
+        /*- UPDATE VALIDATIONS -*/
+        /*----------------------*/
+        /*
+            Validates user data before updating user.
+
+            The following is validated:
+            - username and email must not be taken.
+            - username must be greater than 2 characters, less than 30 characters.
+            - email address must be valid format.
+            - email address and confirmation must match.
+            - password must be greater than 12 characters, less than 50 characters.
+            - password and password confirmation must match.
+
+            Note: Please see the individual instance functions for each specific validation.
+
+        */
+
+        // Create Error Object which will hold all Errors:
+        var err = {
+            errors: {}
+        };
+
+        // Use the same validations as you did with registration pretty much, and take advantage of your
+        // pre-save validations.
+
+        // Some psuedo-code:
+
+        // If username and email has changed:
+            // Validate username and save validation result to dictionary
+            // Validate email format and save to dictionary
+            // If error, add to err.errors object. 
+            // Check for duplicates (this part may be tricky given your current checkDuplicates function setup...may have to modify)
+
+        // If email has changed:
+            // Validate email format
+            // If error, add to err.errors object.
+            // Check for duplicates (this part may be tricky given your current checkDuplicates function setup...may have to modify)
+
+        // If password field was filled out:
+            // Validate password as strong.
+            // If error, add to err.errors object.
+            // Validate password matching.
+            // If error, add to err.errors object.
+
+        // Min and max length should run with the pre-save validations.. (we'll see)
+
+    }, // end update validation method
 }

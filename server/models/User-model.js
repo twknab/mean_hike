@@ -118,9 +118,9 @@ UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
         })
 };
 
-/*--------------------*/
-/*---- ALL FIELDS ----*/
-/*--------------------*/
+/*-----------------------------------*/
+/*---- ALL FIELDS & LOGIN LENGTH ----*/
+/*-----------------------------------*/
 // Check if all registration fields are filled out (parameter is a dictionary of key value pairs from the form):
 UserSchema.methods.checkAllRegFields = function(regFormData) {
     if (Object.keys(regFormData).length < 5) {
@@ -131,6 +131,7 @@ UserSchema.methods.checkAllRegFields = function(regFormData) {
         return undefined;
     }
 };
+
 
 // Check if all fields are filled out (parameter is a dictionary of key value pairs from the form):
 UserSchema.methods.checkAllLoginFields = function(loginFormData) {
@@ -158,9 +159,6 @@ UserSchema.methods.checkAllLoginFields = function(loginFormData) {
     }
 };
 
-/*--------------------*/
-/*---- MIN LENGTH ----*/
-/*--------------------*/
 // Check if login data for min and max lengths:
 UserSchema.methods.checkLoginLength = function(loginFormData) {
     var self = this;
@@ -182,9 +180,9 @@ UserSchema.methods.checkLoginLength = function(loginFormData) {
 };
 
 
-/*--------------------------*/
-/*----- USERNAME REGEX -----*/
-/*--------------------------*/
+/*--------------------*/
+/*----- USERNAME -----*/
+/*--------------------*/
 // Check if username contains only alphanumerical and underscores:
 UserSchema.methods.alphaNum_Username = function(username) {
     if (!(/^[a-z0-9_]+$/i.test(username))) {
@@ -218,9 +216,9 @@ UserSchema.methods.validateEmailFormat = function(email) {
     }
 }
 
-/*-------------------------------------*/
-/*----- PASSWORD CONFIRM & STRONG -----*/
-/*-------------------------------------*/
+/*--------------------*/
+/*----- PASSWORD -----*/
+/*--------------------*/
 // Confirm password:
 UserSchema.methods.passwordMatch = function(password, passwordConfirm) {
     if (password !== passwordConfirm) {
@@ -254,26 +252,24 @@ UserSchema.methods.strongPassword = function(password, username) {
     }
 };
 
-/*----------------------------*/
-/*----- PASSWORD HASHING -----*/
-/*----------------------------*/
 // Hash Password / Encrypt:
-UserSchema.methods.hashPassword = function(password, next) {
+UserSchema.methods.hashPassword = function(password) {
     var self = this;
     console.log('Hashing password...');
     bcrypt.hash(self.password, 12) // will return a promise
         .then(function(hash) {
             console.log('Password has been hashed:', hash);
             self.password = hash; // updates p/w entry to hash
-            next();
+            return undefined;
         })
-        .catch(next); // catches any errors
+        .catch(function(err) {
+            console.log(err);
+            var error = new Error('Password hashing failed.');
+            console.log(err.message);
+            return error;
+        }); // catches any errors
 };
 
-
-/*---------------------------*/
-/*----- PASSWORD VERIFY -----*/
-/*---------------------------*/
 // Compare Password to Hash / Decrypt (but only get true or false):
 UserSchema.methods.verifyPassword = function(enteredPassword) {
     console.log("Verifying password now...");
@@ -300,8 +296,7 @@ UserSchema.pre('save', function(next) {
     } else { // If user is new:
         // Check if username contains only alphanum + underscores, then check for duplicates:
         self.checkDuplicates(self.username, self.email, next, function() {
-            console.log('HASHING!!!!');
-            self.hashPassword(self.password, next);
+            next();
         }); // check for username or email duplicates
     }
 

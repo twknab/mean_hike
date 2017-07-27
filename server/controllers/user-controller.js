@@ -45,6 +45,8 @@ module.exports = {
                 console.log('There were no errors:');
                 User.create(req.body)
                     .then(function(newUser) {
+                        // Hash password:
+                        newUser.hashPassword(newUser.password);
                         // Create session for newly registered user:
                         req.session.userId = newUser._id;
                         return res.json(newUser);
@@ -153,6 +155,52 @@ module.exports = {
                         return res.status(500).json(err.errors);
                     })
             };
+
+        });
+    },
+    // Update a user
+    update: function(req, res) {
+        console.log('Updating user :', req.body);
+
+        validate.update(req.body, function(err) {
+
+            // If there are any errors send them:
+            if (Object.keys(err.errors).length > 0) {
+                console.log("Errors updating user:", err.errors);
+                return res.status(500).json(err.errors);
+            }
+
+            // If no errors, hash new password and update User:
+            else {
+
+                // Retrieve user:
+                User.findOne({ username: req.body.login_id })
+                    .then(function(foundUser) {
+                        // Hash password:
+                        foundUser.hashPassword(req.body.username);
+                        // Update username and email fields (other than password, as it was just updated):
+                        foundUser.username = req.body.username; // turn these into functions instead
+                        foundUser.email = req.body.email; // turn these into functions instead
+                        foundUser.save();
+                        return res.json(foundUser);
+                    })
+                    .catch(function(err) {
+                        // This will only catch of the username query failed:
+                        console.log("There's been an error trying to update the user.");
+                        console.log(err)
+                        if (err.errors == null) {
+                            console.log('Pre-Save Validation detected...');
+                            return res.status(500).json({
+                                custom: {
+                                    message: err.message
+                                }
+                            });
+                        } else {
+                            console.log('Built-in Validation detected....');
+                            return res.status(500).json(err.errors)
+                        };
+                    })
+            }
 
         });
     },

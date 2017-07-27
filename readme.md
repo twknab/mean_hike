@@ -10,6 +10,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ## Completed Improvements:
 
++ 7/23/17 - Created separate `navController`, which handles all back-end navigation actions.
 + 7/22/17 - Moved bulk sum of User validations to Models file.
 + 7/21/17 - Added feature so username OR email allows for login validation.
 + 7/20/17 - Cleaned up modal controllers.
@@ -48,10 +49,14 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	- Built edit user page that allows user to:
-		- **NOTE** Everything is mostly in place, but need to add in ng-models/directives to fields and then need to build server side controller functions to validate and update user based on if fields were filled out. Maybe think out in pseudocode first before programming it all out.
+	- Update User Account Page:
 
-		- **USE EXISTING VALIDATION FUNCTIONS TO CHECK FOR DUPLICATES, CONFIRM FIELDS, AND PASS STRENGTH**
+		+ Realized that the way you have your update function setup in your server controller might not be the best method. Instead, create 2 separate methods (one which updates your password, the other which updates your username).
+
+		+ Check if each field has been modified. If it has, go ahead and run the validator. Check if error occurred, if so, add it to list.
+		+ In case of no error, update the field right away.
+
+		+ When done, check if errors list was generated, if so, go ahead and send it back.
 
 		+ Validate:
 			- make sure username is alphanum with underscores only, at least 2 char.
@@ -60,22 +65,9 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 			- password must be strong
 			- password must match password confirmation
 
-		- Change their username
-		- Change their email
-		- Change their password
-		- Validate any changes
-		- Try using ngChange directive or ngBlur for handling your ng-model values / binding...
 		- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
 			- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
 
-	- Built Nav Bar Controller:
-		- Realized that I may need to build a navigation-specific controller. //DONE
-		- This controller will hold all important navigation tasks. //DONE
-		- This controller will only be linked to important dashboard-side actions. //DONE
-		- You will use ng-controller="navController" to pass this into every navbar you want to work. //DONE
-		- This will check for a valid session //DONE
-		- Note: You might be able to use a 'service' or something along those lines to do your authing every time,
-		rather than have it built into your navbar controller. I don't know if that's bad juju or not.
 
 
 	- Secure your API Routes:

@@ -36,6 +36,8 @@
     <div class="row">
         <!-- Edit User Account -->
         <div class="col-sm-12">
+            <!-- Success Alerts -->
+            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
             <!-- Edit User Errors -->
             <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
                 <p><strong>Error!</strong> {{error.message}}</p>
@@ -46,7 +48,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="username" id="username" ng-value="user.username" class="form-control input-lg">
+                        <input type="text" name="username" id="username" ng-model="userUpdate.username" ng-value="user.username" class="form-control input-lg">
                     </div>
                     <span class="help-block margin-label">Update your username.</span>
                 </div>
@@ -54,7 +56,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="email" id="email" ng-value="user.email" class="form-control input-lg">
+                        <input type="email" name="email" id="email" ng-model="userUpdate.email" ng-value="user.email" class="form-control input-lg">
                     </div>
                     <span class="help-block margin-label">Update your email address.</span>
                 </div>
@@ -62,7 +64,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="emailConfirm" id="emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+                        <input type="email" name="emailConfirm" id="emailConfirm" ng-model="userUpdate.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
                     </div>
                     <span class="help-block margin-label">Confirm your updated email address.</span>
                 </div>
@@ -70,7 +72,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="New Password">
+                        <input type="password" name="password" id="password" ng-model="userUpdate.password" class="form-control input-lg" placeholder="New Password">
                     </div>
                     <span class="help-block margin-label">Set a new password.</span>
                 </div>
@@ -78,7 +80,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+                        <input type="passwordConfirm" name="passwordConfirm" ng-model="userUpdate.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
                     </div>
                     <span class="help-block margin-label">Confirm your new password.</span>
                     <!-- Update User and Cancel Buttons -->

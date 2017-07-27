@@ -16,13 +16,22 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
             // Delete user password hash:
             delete $scope.user.password;
         },
-        // // Runs if errors after $scope.login() function completes:
-        // loginError: function(err) {
-        //     console.log('Errors returned from server:', err);
-        //     $scope.loginErrors = {}; // resets errors if any already existing
-        //     $scope.loginErrors = err;
-        // },
+        // Runs after $scope.updateUser() function completes:
+        update: function(foundUser) {
+            $scope.successAlerts.push({ type: 'success', hdr: 'Updated!', msg: 'Your profile has been successfully updated. <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a>' });
+            // Run getUser():
+            $scope.getUser();
+        },
+        updateError: function(err) {
+            console.log('Errors returned from server:', err);
+            $scope.updateErrors = {}; // resets errors if any already existing
+            $scope.updateErrors = err;
+        },
     };
+
+    //---------------------------------//
+    //-------- PAGE LOAD ACTIONS ------//
+    //---------------------------------//
 
     // Gets currently logged in user:
     $scope.getUser = function() {
@@ -37,6 +46,12 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
     //-------- FORM ACTIONS ------//
     //----------------------------//
 
+    // Update User:
+    $scope.updateUser = function() {
+        console.log("Updating user...");
+        $scope.updateErrors = {};
+        userFactory.update($scope.userUpdate, cb.update, cb.updateError);
+    };
 
     // Cancel User Update:
     $scope.cancel = function() {
@@ -44,5 +59,16 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
         $location.url('/dashboard');
     };
 
+    //----------------------------------//
+    //------- ANGULAR UI ALERTS  -------//
+    //----------------------------------//
+
+    // Create empty successAlerts list to hold future success messages:
+    $scope.successAlerts = [];
+
+    // Close Success Alert:
+    $scope.closeSuccessAlert = function(index) {
+        $scope.successAlerts.splice(index, 1); // removes message from alert array
+    };
 
 }]);

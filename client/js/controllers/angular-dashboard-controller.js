@@ -92,14 +92,14 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //------- ANGULAR UI ALERT ACTIONS  -------//
     //-----------------------------------------//
 
-    // Dashboard Alerts:
-    $scope.alerts = [
-        { type: 'info', hdr: 'What Now?', msg: 'Add a New Hike to queue up a new hike. Prep for your trip before you go, by ticking the box to initiate a Pre-Trip report. When you get back, tick the box again to fill out a Post-Trip report and to mark the hike completed. View a Hike Report to see all your info in one place.' }
+    // Welcome Alert:
+    $scope.weclomeAlerts = [
+        { type: 'info', hdr: 'What Now?', msg: 'Add a New Hike to queue up a new hike. Prep for your trip before you go, by ticking the box to initiate a Pre-Trip report. When you get back, tick the box again to fill out a Post-Trip report and to mark the hike completed. View a Hike Report to see all your info in one place. <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a>' }
     ];
 
-    // Close Dashboard Alerts:
-    $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
+    // Close Welcome Alert:
+    $scope.closeWelcomeAlert = function(index) {
+        $scope.weclomeAlerts.splice(index, 1);
     };
 
     // Set Welcome Messaeg Preference to False:

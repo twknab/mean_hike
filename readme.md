@@ -53,6 +53,13 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 		- **USE EXISTING VALIDATION FUNCTIONS TO CHECK FOR DUPLICATES, CONFIRM FIELDS, AND PASS STRENGTH**
 
+		+ Validate:
+			- make sure username is alphanum with underscores only, at least 2 char.
+			- make sure email address is valid format
+			- make sure email and email confirmation match
+			- password must be strong
+			- password must match password confirmation
+
 		- Change their username
 		- Change their email
 		- Change their password

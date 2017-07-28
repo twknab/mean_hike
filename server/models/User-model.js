@@ -53,6 +53,130 @@ var UserSchema = new Schema({
 /**********************************/
 /**********************************/
 
+
+
+/*--------------------------------*/
+/*---- USER UPDATE VALIDATION ----*/
+/*--------------------------------*/
+
+UserSchema.methods.validateUpdate = function(formData, callback) {
+    /*
+    Validates user data before updating user.
+
+    The following is validated:
+    - username and email must not be taken.
+    - username must be greater than 2 characters, less than 30 characters.
+    - email address must be valid format.
+    - email address and confirmation must match.
+    - password must be greater than 12 characters, less than 50 characters.
+    - password and password confirmation must match.
+
+    Note: Please see the individual instance functions for each specific validation.
+    */
+
+    // Save `this` as as self:
+    var self = this;
+
+    // Create errors object to hold any errors:
+    var err = {
+        errors: {},
+    };
+
+
+    /*
+
+    Check if username has changed:
+        - generate alphanumerical errors
+        - generate min and max length errors
+
+    Check if email has changed:
+        - generate email formatting errors
+        - check that matches email confirmation
+        - generate min and max length errors
+
+    Check if password has changed:
+        - check for strong password
+        - check that matches password confirmation
+        - if passes, hash and update password
+
+    Once all of these errors are completed, use your callbacks to step-wise
+    evaluate if the username or email is already taken:
+
+    Check if username ONLY has changed:
+        - query for user by username -- if duplicate, send error
+        - if errors object is empty, update username
+        - else, run callback and send back all errors
+
+    Check if email ONLY has changed:
+        - query for user by email -- if duplicate, send error
+        - if errors object is empty, update email
+        - else, run callback and send back all errors
+
+    Check if email AND username has changed:
+        - query for each and send errors if found
+        - if errors object is empty, update username and email
+        - else, run callback and send back all errors
+
+    */
+
+    // If username submitted differs from that in document record:
+    if (formData.username != self.username) {
+
+        // Check if new username contains alphanumerical and underscores only:
+        console.log('Username change detected. Checking for alphanumeric and underscore only...');
+        var alphaNum_validate = self.alphaNum_Username(formData.username);
+
+        // If error is returned, add it to errors object:
+        if (alphaNum_validate) {
+            err.errors.username = {
+                message: alphaNum_validate.message
+            }
+
+            // Run callback with error:
+            return callback(err);
+        }
+
+        // Else, check for duplicates:
+        else {
+            // Check for duplicates:
+            console.log('Passed alphanumeric and underscore evaluation.');
+            console.log('Checking for duplicates...');
+            self.checkUsernameDuplicates(formData.username, function(duplicateError){
+
+                // This code only runs after querying for the user completes.
+
+                // If username passes validation, the `duplicateError` will be undefined,
+                // otherwise it will be an actual object.
+
+                // Check for error:
+                if (duplicateError) {
+                    err.errors.usernameDuplicate = {
+                        message: duplicateError.message,
+                    }
+
+                    console.log(err);
+
+                    // Run callback with error:
+                    return callback(err);
+                }
+
+                // Else, no error, update username, as all validations passed:
+                else {
+                    console.log("New username passed validation...Updating now...");
+                    self.updateUsername(formData.username);
+                    // Run callback with err object, note that `errors` will be empty:
+                    return callback(err);
+                }
+            })
+        }
+
+    }
+
+    // If email submitted differes from that in document record:
+
+};
+
+
 /*--------------------------*/
 /*---- CHECK DUPLICATES ----*/
 /*--------------------------*/
@@ -119,64 +243,28 @@ UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
 };
 
 // Case insensitive query validation instance method:
-UserSchema.methods.checkDupes = function(username, email, callback) {
-    var self = this;
+UserSchema.methods.checkUsernameDuplicates = function(username, callback) {
 
-    var err = {
-        errors: {},
-    };
-
-    /*
-        ADD SOMETHING HERE THAT WILL CHECK IF THE USENRAME OR EMAIL IS DIFF THAN THE DOCUMENT RECORD.
-        IF IT IS, CONTINUE WITH VALIDATIONS. IF NOT, IGNORE VALIDATIONS
-        THIS WAY .SAVE() WHEN RUN, WILL AUTO CHECK FOR DUPES, AND IF NOTHING HAS CHANGED, WILL CONTINUE ON.
-    */
-
-    console.log('Checking username and email for duplicates (insensitive)...');
     // Check if username is different than current username or if email is different than current email:
+    console.log('Checking username for duplicates (case insensitive query)...');
     User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
-    .then(function(matchedUser) {
-        User.findOne({
-            email: {
-                $regex: new RegExp("^" + email + "$", "i")
-            }
-        }) // looks for any case which might match `username`
-        .then(function(matchedEmail) {
-            // if both email and user is found:
-            if (matchedEmail && matchedUser) {
-                console.log('Failed. Existing users found with this email address and username.');
-                err.errors.matchedEmailAndUsername = new Error('Username and Email address is already in use.').message;
-                // Run callback with errors:
-                callback(err);
-            }
-            // if user is found:
+        .then(function(matchedUser) {
+            // If matched user is found, run callback with error:
             if (matchedUser) {
                 console.log('Failed. Existing user found with this username.');
-                err.errors.matchedUser = new Error('Username already in use by another user.').message;
+                var err =  new Error('Username already in use by another user.');
                 callback(err);
             }
-            // if email address is found:
-            if (matchedEmail) {
-                console.log('Failed. Existing user found with this email address.');
-                err.errors.matchedEmail = new Error('Email address already in use by another user.').message;
-                callback(err);
-            }
-            // If matched user and matched email are empty, run callback and pass in password for hashing:
-            if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
-                console.log('Passed duplicates check... Running callback now...');
-                // Run callback:
-                callback();
+
+            // Else, run callback with error as undefined (no error):
+            else {
+                callback(undefined);
             }
         })
-        .catch(function(err) {
-            console.log('Error querying mongoDB for duplicate email...', err);
+        .catch(function(err) { // if our regex query goes awry this will catch any errors:
+            console.log('Error querying mongoDB for duplicate username...Please contact administrator.', err);
             callback(err);
         })
-    })
-    .catch(function(err) { // if our regex query goes awry this will catch any errors:
-        console.log('Error querying mongoDB for duplicate username...', err);
-        callback(err);
-    })
 };
 
 /*-----------------------------------*/
@@ -247,7 +335,7 @@ UserSchema.methods.checkLoginLength = function(loginFormData) {
 // Check if username contains only alphanumerical and underscores:
 UserSchema.methods.alphaNum_Username = function(username) {
     if (!(/^[a-z0-9_]+$/i.test(username))) {
-        var err = new Error('Username may contain only letters, numbers or underscores.')
+        var err = new Error('Username may contain only letters, numbers or underscores.');
         return err;
     } else {
         return undefined;

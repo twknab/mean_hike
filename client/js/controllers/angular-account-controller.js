@@ -12,13 +12,14 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
                 // Redirect to correct user dashboard:
                 $location.url('/account/' + foundUser.user.username);
             }
+            $scope.accountName = foundUser.user.username;
             $scope.user = foundUser.user;
             // Delete user password hash:
             delete $scope.user.password;
         },
         // Runs after $scope.updateUser() function completes:
         update: function(foundUser) {
-            $scope.successAlerts.push({ type: 'success', hdr: 'Updated!', msg: 'Your profile has been successfully updated. <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a>' });
+            // $scope.successAlerts.push({ type: 'success', hdr: 'Updated!', msg: 'Your profile has been successfully updated. <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a>' });
             // Run getUser():
             $scope.getUser();
         },
@@ -49,8 +50,9 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
     // Update User:
     $scope.updateUser = function() {
         console.log("Updating user...");
+        console.log("Data submitted:", $scope.user);
         $scope.updateErrors = {};
-        userFactory.update($scope.userUpdate, cb.update, cb.updateError);
+        userFactory.update($scope.user, cb.update, cb.updateError);
     };
 
     // Cancel User Update:

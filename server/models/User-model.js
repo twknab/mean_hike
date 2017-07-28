@@ -66,56 +66,59 @@ var UserSchema = new Schema({
 UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
     var self = this;
 
+    /*
+        ADD SOMETHING HERE THAT WILL CHECK IF THE USENRAME OR EMAIL IS DIFF THAN THE DOCUMENT RECORD.
+        IF IT IS, CONTINUE WITH VALIDATIONS. IF NOT, IGNORE VALIDATIONS
+        THIS WAY .SAVE() WHEN RUN, WILL AUTO CHECK FOR DUPES, AND IF NOTHING HAS CHANGED, WILL CONTINUE ON.
+    */
+
     console.log('Checking username and email for duplicates (insensitive)...');
-    User.findOne({
-            username: {
-                $regex: new RegExp("^" + username + "$", "i")
+    // Check if username is different than current username or if email is different than current email:
+    User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
+    .then(function(matchedUser) {
+        User.findOne({
+            email: {
+                $regex: new RegExp("^" + email + "$", "i")
+            }
+        }) // looks for any case which might match `username`
+        .then(function(matchedEmail) {
+            // if both email and user is found:
+            if (matchedEmail && matchedUser) {
+                console.log('Failed. Existing users found with this email address and username.');
+                var err = new Error('Username and Email address is already in use.')
+                next(err);
+            }
+            // if user is found:
+            if (matchedUser) {
+                console.log('Failed. Existing user found with this username.');
+                var err = new Error('Username already in use by another user.')
+                next(err);
+            }
+            // if email address is found:
+            if (matchedEmail) {
+                console.log('Failed. Existing user found with this email address.');
+                var err = new Error('Email address already in use by another user.')
+                next(err);
+            }
+            // If matched user and matched email are empty, run callback and pass in password for hashing:
+            if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
+                console.log('Passed duplicates check... Running callback now...');
+                // Run callback:
+                callback(); // Hashes password and passes `next()` which runs in the hash password function (which then proceeds to creating the User instance)
+            } else {
+                var err = new Error('Server issue has occurred. Please contact server admininstrator with this message: `DUPLICATE QUERY ERROR`.');
+                next(err);
             }
         })
-        .then(function(matchedUser) {
-            User.findOne({
-                    email: {
-                        $regex: new RegExp("^" + email + "$", "i")
-                    }
-                }) // looks for any case which might match `username`
-                .then(function(matchedEmail) {
-                    // if both email and user is found:
-                    if (matchedEmail && matchedUser) {
-                        console.log('Failed. Existing users found with this email address and username.');
-                        var err = new Error('Username and Email address is already in use.')
-                        next(err);
-                    }
-                    // if user is found:
-                    if (matchedUser) {
-                        console.log('Failed. Existing user found with this username.');
-                        var err = new Error('Username already in use by another user.')
-                        next(err);
-                    }
-                    // if email address is found:
-                    if (matchedEmail) {
-                        console.log('Failed. Existing user found with this email address.');
-                        var err = new Error('Email address already in use by another user.')
-                        next(err);
-                    }
-                    // If matched user and matched email are empty, run callback and pass in password for hashing:
-                    if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
-                        console.log('Passed duplicates check... Running callback now...');
-                        // Run callback:
-                        callback(); // Hashes password and passes `next()` which runs in the hash password function (which then proceeds to creating the User instance)
-                    } else {
-                        var err = new Error('Server issue has occurred. Please contact server admininstrator with this message: `DUPLICATE QUERY ERROR`.');
-                        next(err);
-                    }
-                })
-                .catch(function(err) {
-                    console.log('Error querying mongoDB for duplicate email...', err);
-                    next(err);
-                })
-        })
-        .catch(function(err) { // if our regex query goes awry this will catch any errors:
-            console.log('Error querying mongoDB for duplicate username...', err);
+        .catch(function(err) {
+            console.log('Error querying mongoDB for duplicate email...', err);
             next(err);
         })
+    })
+    .catch(function(err) { // if our regex query goes awry this will catch any errors:
+        console.log('Error querying mongoDB for duplicate username...', err);
+        next(err);
+    })
 };
 
 /*-----------------------------------*/
@@ -193,6 +196,12 @@ UserSchema.methods.alphaNum_Username = function(username) {
     }
 };
 
+// Update Username:
+UserSchema.methods.updateUsername = function(username) {
+    self.username = username;
+    self.save();
+};
+
 /*-------------------------------------*/
 /*------- EMAIL CONFIRM & FORMAT-------*/
 /*-------------------------------------*/
@@ -229,6 +238,11 @@ UserSchema.methods.passwordMatch = function(password, passwordConfirm) {
     }
 };
 
+// Update password:
+UserSchema.methods.updatePassword = function(passwordHash) {
+    self.password = passwordHash;
+};
+
 // Check if password is strong:
 UserSchema.methods.strongPassword = function(password, username) {
     var strongPassword = /^(?!.*(.)\1{2})(?=(.*[\d]){1,})(?=(.*[a-z]){2,})(?=(.*[A-Z]){1,})(?=(.*[@#$%!?^.,;:'"`~/\\|&*()\-_+=<>{}[\]]){1,})(?!(?=.*(asdf|qwerty|123|\s)))(?:[\da-zA-Z@#$%!?^.,;:'"`~/\\|&*()\-_+=<>{}[\]]){12,20}$/;
@@ -260,6 +274,7 @@ UserSchema.methods.hashPassword = function(password) {
         .then(function(hash) {
             console.log('Password has been hashed:', hash);
             self.password = hash; // updates p/w entry to hash
+            self.save();
             return undefined;
         })
         .catch(function(err) {
@@ -273,6 +288,8 @@ UserSchema.methods.hashPassword = function(password) {
 // Compare Password to Hash / Decrypt (but only get true or false):
 UserSchema.methods.verifyPassword = function(enteredPassword) {
     console.log("Verifying password now...");
+    console.log(this.password);
+    console.log(enteredPassword);
     return bcrypt.compare(enteredPassword, this.password);
 };
 
@@ -288,9 +305,11 @@ UserSchema.pre('save', function(next) {
         created = this.createdAt.getTime(),
         now = new Date().getTime();
 
+    console.log('PRE SAVE RUNNING')
+
     // Checks if New User or Not:
     console.log(now - created);
-    if (now - created >= 1000) { // If not new user (user is older than 1 second), skip user creation custom validations:
+    if (now - created >= 1) { // If not new user (user is older than .0001 second), skip user creation custom validations:
         console.log('Existing User detected. Skipping custom user validations...');
         next();
     } else { // If user is new:
@@ -309,6 +328,12 @@ UserSchema.pre('save', function(next) {
 /**********************************/
 
 UserSchema.post('save', function(err, doc, next) {
+    if (err) {
+        console.log('******************');
+        console.log(err);
+        console.log('******************');
+    }
+
     if (err.name === 'MongoError' && err.code === 11000) {
         next(new Error('Email address already exists.'));
     } else {

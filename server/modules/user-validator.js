@@ -182,52 +182,7 @@ module.exports = {
 
     }, // end login validation method
     update : function(userData, callback) {
-        /*----------------------*/
-        /*- UPDATE VALIDATIONS -*/
-        /*----------------------*/
-        /*
-            Validates user data before updating user.
 
-            The following is validated:
-            - username and email must not be taken.
-            - username must be greater than 2 characters, less than 30 characters.
-            - email address must be valid format.
-            - email address and confirmation must match.
-            - password must be greater than 12 characters, less than 50 characters.
-            - password and password confirmation must match.
-
-            Note: Please see the individual instance functions for each specific validation.
-
-        */
-
-        // Create Error Object which will hold all Errors:
-        var err = {
-            errors: {}
-        };
-
-        // Use the same validations as you did with registration pretty much, and take advantage of your
-        // pre-save validations.
-
-        // Some psuedo-code:
-
-        // If username and email has changed:
-            // Validate username and save validation result to dictionary
-            // Validate email format and save to dictionary
-            // If error, add to err.errors object. 
-            // Check for duplicates (this part may be tricky given your current checkDuplicates function setup...may have to modify)
-
-        // If email has changed:
-            // Validate email format
-            // If error, add to err.errors object.
-            // Check for duplicates (this part may be tricky given your current checkDuplicates function setup...may have to modify)
-
-        // If password field was filled out:
-            // Validate password as strong.
-            // If error, add to err.errors object.
-            // Validate password matching.
-            // If error, add to err.errors object.
-
-        // Min and max length should run with the pre-save validations.. (we'll see)
 
     }, // end update validation method
 }

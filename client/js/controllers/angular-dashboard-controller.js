@@ -94,7 +94,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
     // Welcome Alert:
     $scope.weclomeAlerts = [
-        { type: 'info', hdr: 'What Now?', msg: 'Add a New Hike to queue up a new hike. Prep for your trip before you go, by ticking the box to initiate a Pre-Trip report. When you get back, tick the box again to fill out a Post-Trip report and to mark the hike completed. View a Hike Report to see all your info in one place. <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a>' }
+        { type: 'info', hdr: 'What Now?', msg: 'Add a New Hike to queue up a new hike. Prep for your trip before you go, by ticking the box to initiate a Pre-Trip report. When you get back, tick the box again to fill out a Post-Trip report and to mark the hike completed. View a Hike Report to see all your info in one place.' }
     ];
 
     // Close Welcome Alert:

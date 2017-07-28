@@ -38,7 +38,7 @@
             <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
             <span ng-if="user.welcome_msg_status === true">
                 <!-- Welcome Message (Angular UI Bootstrap) -->
-                <div uib-alert ng-repeat="alert in weclomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+                <div uib-alert ng-repeat="alert in weclomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
             </span>
         </div>
     </div>

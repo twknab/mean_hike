@@ -42,12 +42,16 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (high-priority)
 
+	+ Change the way that error messages are generated in our model instance methods. Right now, you have to do some comparison in your server controller, to detect the difference between errors returned from built-in validators VS your custom instance methods. This just adds an extra layer of complexity to your server controller and you may be better suited just formatting it all on the back-end, and handing back a nice clean list to iterate through simply. This stuff just makes things more confusing, but understand you took the approach you did as it was a solution at the time. We can improve this solution now that we understand the problem from a greater context. (low-to-medium priority)
+
 
 
 ## Development Issues Log:
 
 
 ### Where I Left Off:
+
+	USER-MODEL.JS -- LINE 70ISH -- LOOK AT YOUR NOTES THERE AND MODIFY YOUR CHECK DUPLICATES FUNCTION
 
 	- Update User Account Page:
 
@@ -59,6 +63,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 		+ When done, check if errors list was generated, if so, go ahead and send it back.
 
 		+ Validate:
+
 			- make sure username is alphanum with underscores only, at least 2 char.
 			- make sure email address is valid format
 			- make sure email and email confirmation match
@@ -68,8 +73,12 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 		- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
 			- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
 
+	- Secure your Authorize Function:
+
+		+ There might be a security risk in your authorize function. Think of it this way: right now, you packaged that into your navbar. What if someone downloads your HTML and tries to use your code, but just chops out the navbar code? Because all the other controller functions on each page will run, without any auth (because they are assuming the navController will take care of that), it means a person could query data if the naBar wasn't present. So my suggestion is to go back to your original strategy: for each Controller, build an auth function that queries for auth status (you should not have to rebuild your server side controller, just your angular controller). Then, ANY controller that runs, will automatically authorize your user, even if the navbar was removed -- and no core content could be obtained, as the other queries ONLY run after things have been authorized. **OR if you can find a way to secure them in the backend, then you won't have to do this -- as any query at all to those functions would require a valid session....you might have to think this one out....**
 
 
 	- Secure your API Routes:
-		- Technically your api routes are still open to non-session users
-		- What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)
+
+		+ Technically your api routes are still open to non-session users
+		+ What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)

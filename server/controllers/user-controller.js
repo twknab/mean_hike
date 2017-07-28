@@ -47,12 +47,20 @@ module.exports = {
                     .then(function(newUser) {
                         // Hash password:
                         newUser.hashPassword(newUser.password);
+                        // newUser.save();
                         // Create session for newly registered user:
                         req.session.userId = newUser._id;
                         return res.json(newUser);
                     })
                     .catch(function(err) {
                         console.log('Error trying to create user!', err);
+                        // Note: The following variation in our errors message is
+                        // due to the different way that built-in validators format
+                        // their error messages, compared to our custom and Pre-Save
+                        // validations. A development improvement may be to simply format
+                        // the errors in the same structure in our model instance methods,
+                        // so here in our controller we can just hand back the list and not
+                        // have to worry about any variation.
                         if (err.errors == null) {
                             console.log('Pre-Save Validation detected...');
                             return res.status(500).json({
@@ -160,49 +168,153 @@ module.exports = {
     },
     // Update a user
     update: function(req, res) {
+        /*
+        Validates user data before updating user.
+
+        The following is validated:
+        - username and email must not be taken. (modify check duplicates)
+        - username must be greater than 2 characters, less than 30 characters. (should run in pre-save)
+        - email address must be valid format. (function exists)
+        - email address and confirmation must match. (function exists)
+        - password must be greater than 12 characters, less than 50 characters. (function exists)
+        - password and password confirmation must match. (function exists)
+
+        Note: Please see the individual instance functions for each specific validation.
+        */
+
+        // Show data submitted:
         console.log('Updating user :', req.body);
 
-        validate.update(req.body, function(err) {
+        // Setup empty object to hold our validation responses:
+        var validations = {}
 
-            // If there are any errors send them:
-            if (Object.keys(err.errors).length > 0) {
-                console.log("Errors updating user:", err.errors);
-                return res.status(500).json(err.errors);
-            }
+        // Setup empty object to hold our errors detected from validations:
+        var err = {
+            errors : {},
+        };
 
-            // If no errors, hash new password and update User:
-            else {
+        // Retreive user and begin validations or updates:
+        User.findOne({ _id: req.session.userId })
+            .then(function(user) {
+                /*
+                    Note: For updating our user, we first detect any changes to
+                    any fields. From there, we go ahead and validate each field
+                    and compile an errors object full of any errors returned.
 
-                // Retrieve user:
-                User.findOne({ username: req.body.login_id })
-                    .then(function(foundUser) {
-                        // Hash password:
-                        foundUser.hashPassword(req.body.username);
-                        // Update username and email fields (other than password, as it was just updated):
-                        foundUser.username = req.body.username; // turn these into functions instead
-                        foundUser.email = req.body.email; // turn these into functions instead
-                        foundUser.save();
-                        return res.json(foundUser);
-                    })
-                    .catch(function(err) {
-                        // This will only catch of the username query failed:
-                        console.log("There's been an error trying to update the user.");
-                        console.log(err)
-                        if (err.errors == null) {
-                            console.log('Pre-Save Validation detected...');
-                            return res.status(500).json({
-                                custom: {
-                                    message: err.message
-                                }
-                            });
-                        } else {
-                            console.log('Built-in Validation detected....');
-                            return res.status(500).json(err.errors)
+                    Once we finish all of our validations, we then check the length
+                    of our errors list. If errors exist, we return them.
+
+                    If errors do not exist, we attempt to update user, which will
+                    run one last series of validations (built in validators) and
+                    pre-save methods. If errors exist, they will be returned, else
+                    we return the newly updated user.
+                */
+                // Check if new username submitted does not match current username:
+                if (req.body.username != user.username) {
+                    console.log('Username change detected...')
+                    // Validate alphanum + underscores for new username:
+                    validations.username = user.alphaNum_Username(req.body.username);
+
+                    // If error:
+                    if (validations.username) {
+                        console.log(validations.username.message);
+                        // Add error to errors list:
+                        err.errors.username = {
+                            message: validations.username.message,
                         };
-                    })
-            }
+                        // Check for duplicates and update username
+                        return res.status(500).json(err.errors);
+                    } else {
+                        console.log('Passed. Attempting to update username...');
+                        User.findOneAndUpdate({ _id: user._id }, { username: req.body.username }, { runValidators: true })
+                            .then(function(updatedUser) {
+                                return res.json(updatedUser);
+                            })
+                            .catch(function(err) {
+                                if (err.errors == null) {
+                                    console.log('Pre-Save Validation detected...');
+                                    return res.status(500).json({
+                                        custom: {
+                                            message: err.message
+                                        }
+                                    });
+                                } else {
+                                    console.log('Built-in Validation detected....');
+                                    return res.status(500).json(err.errors)
+                                };
+                            })
+                    }
 
-        });
+                } else {
+                    console.log('Username change not detected.');
+                }
+
+                if (req.body.email != user.email) {
+                    console.log('Email change detected...');
+                    // Validate email formatting:
+                    validations.email = user.validateEmailFormat(req.body.email);
+
+                    // If error:
+                    if (validations.email) {
+                        err.errors.email = {
+                            message: validations.email.message,
+                        };
+                    } else {
+                        console.log('Passed. Attempting to update email...');
+                    }
+                } else {
+                    console.log('Email change not detected.');
+                }
+
+
+            })
+            .catch(function(err) {
+                console.log(err);
+            })
+
+
+
+
+        // validate.update(req.body, function(err) {
+        //
+        //     // If there are any errors send them:
+        //     if (Object.keys(err.errors).length > 0) {
+        //         console.log("Errors updating user:", err.errors);
+        //         return res.status(500).json(err.errors);
+        //     }
+        //
+        //     // If no errors, hash new password and update User:
+        //     else {
+        //
+        //         console.log("NO ERRORS");
+        //
+        //         // // Retrieve user:
+        //         // User.findOne({ username: req.body.login_id })
+        //         //     .then(function(foundUser) {
+        //         //         // Hash password:
+        //         //         foundUser.hashPassword(req.body.username);
+        //         //         // Update username and email fields (other than password, as it was just updated):
+        //         //         return res.json(foundUser);
+        //         //     })
+        //         //     .catch(function(err) {
+        //         //         // This will only catch of the username query failed:
+        //         //         console.log("There's been an error trying to update the user.");
+        //         //         console.log(err)
+        //         //         if (err.errors == null) {
+        //         //             console.log('Pre-Save Validation detected...');
+        //         //             return res.status(500).json({
+        //         //                 custom: {
+        //         //                     message: err.message
+        //         //                 }
+        //         //             });
+        //         //         } else {
+        //         //             console.log('Built-in Validation detected....');
+        //         //             return res.status(500).json(err.errors)
+        //         //         };
+        //         //     })
+        //     }
+        //
+        // });
     },
     // Authorize a user by checking for session data:
     auth: function(req, res) {

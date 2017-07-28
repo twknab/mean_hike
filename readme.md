@@ -51,19 +51,21 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
+	Left off building update edit user page. Bug found: If I submit something with
+	one character, it breaks. Give it a try.
+
+	Secondly, there are notes in the models file, in regards to the best strategy
+	employed in trying to validate each portion. Figure out the bug and rethink this.
+
 	Unfortunately, your validations are very sloppy. Here's what I want you to do:
+
 		- Rework your checkDuplicates function so that it accepts a callback, and runs that callback when it completes.
+
 		- Re-arrange your login and registration controller functions, so that you don't need the validation module, and instead, do all of your validations right in the single file of the user-controller.js.
+
 		- Change up your errors that you generate in your model, so that they match the default validation style. Then you can simplify how you return errors to your factory within your controller.
+
 		- The reason I want you to do these things, is that they'll make the rest of your project easier. Getting these validations down tight for registration, login and user update, will ensure that your future validations for other parts of your project are also strong.
-
-		+ Validate:
-
-			- make sure username is alphanum with underscores only, at least 2 char.
-			- make sure email address is valid format
-			- make sure email and email confirmation match
-			- password must be strong
-			- password must match password confirmation
 
 		- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
 			- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.

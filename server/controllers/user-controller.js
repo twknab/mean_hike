@@ -211,7 +211,7 @@ module.exports = {
 
                     // If there are any errors send them:
                     if (Object.keys(validationErrors.errors).length > 0) {
-                        console.log("Errors logging user in:", validationErrors.errors);
+                        console.log("Errors updating user:", validationErrors.errors);
                         return res.status(500).json(validationErrors.errors);
                     }
 

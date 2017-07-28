@@ -99,23 +99,24 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         - check that matches password confirmation
         - if passes, hash and update password
 
-    Once all of these errors are completed, use your callbacks to step-wise
-    evaluate if the username or email is already taken:
+    If there are errors at this point, send them with your callback:
 
-    Check if username ONLY has changed:
-        - query for user by username -- if duplicate, send error
-        - if errors object is empty, update username
-        - else, run callback and send back all errors
+    Otherwise, continue:
 
-    Check if email ONLY has changed:
-        - query for user by email -- if duplicate, send error
-        - if errors object is empty, update email
-        - else, run callback and send back all errors
+        Check if username ONLY has changed:
+            - query for user by username -- if duplicate, send error
+            - if errors object is empty, update username
+            - else, run callback and send back all errors
 
-    Check if email AND username has changed:
-        - query for each and send errors if found
-        - if errors object is empty, update username and email
-        - else, run callback and send back all errors
+        Check if email ONLY has changed:
+            - query for user by email -- if duplicate, send error
+            - if errors object is empty, update email
+            - else, run callback and send back all errors
+
+        Check if email AND username has changed:
+            - query for each and send errors if found
+            - if errors object is empty, update username and email
+            - else, run callback and send back all errors
 
     */
 
@@ -138,6 +139,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
         // Else, check for duplicates:
         else {
+            
             // Check for duplicates:
             console.log('Passed alphanumeric and underscore evaluation.');
             console.log('Checking for duplicates...');

@@ -104,10 +104,7 @@ UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
             if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
                 console.log('Passed duplicates check... Running callback now...');
                 // Run callback:
-                callback(); // Hashes password and passes `next()` which runs in the hash password function (which then proceeds to creating the User instance)
-            } else {
-                var err = new Error('Server issue has occurred. Please contact server admininstrator with this message: `DUPLICATE QUERY ERROR`.');
-                next(err);
+                callback();
             }
         })
         .catch(function(err) {
@@ -118,6 +115,67 @@ UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
     .catch(function(err) { // if our regex query goes awry this will catch any errors:
         console.log('Error querying mongoDB for duplicate username...', err);
         next(err);
+    })
+};
+
+// Case insensitive query validation instance method:
+UserSchema.methods.checkDupes = function(username, email, callback) {
+    var self = this;
+
+    var err = {
+        errors: {},
+    };
+
+    /*
+        ADD SOMETHING HERE THAT WILL CHECK IF THE USENRAME OR EMAIL IS DIFF THAN THE DOCUMENT RECORD.
+        IF IT IS, CONTINUE WITH VALIDATIONS. IF NOT, IGNORE VALIDATIONS
+        THIS WAY .SAVE() WHEN RUN, WILL AUTO CHECK FOR DUPES, AND IF NOTHING HAS CHANGED, WILL CONTINUE ON.
+    */
+
+    console.log('Checking username and email for duplicates (insensitive)...');
+    // Check if username is different than current username or if email is different than current email:
+    User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
+    .then(function(matchedUser) {
+        User.findOne({
+            email: {
+                $regex: new RegExp("^" + email + "$", "i")
+            }
+        }) // looks for any case which might match `username`
+        .then(function(matchedEmail) {
+            // if both email and user is found:
+            if (matchedEmail && matchedUser) {
+                console.log('Failed. Existing users found with this email address and username.');
+                err.errors.matchedEmailAndUsername = new Error('Username and Email address is already in use.').message;
+                // Run callback with errors:
+                callback(err);
+            }
+            // if user is found:
+            if (matchedUser) {
+                console.log('Failed. Existing user found with this username.');
+                err.errors.matchedUser = new Error('Username already in use by another user.').message;
+                callback(err);
+            }
+            // if email address is found:
+            if (matchedEmail) {
+                console.log('Failed. Existing user found with this email address.');
+                err.errors.matchedEmail = new Error('Email address already in use by another user.').message;
+                callback(err);
+            }
+            // If matched user and matched email are empty, run callback and pass in password for hashing:
+            if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
+                console.log('Passed duplicates check... Running callback now...');
+                // Run callback:
+                callback();
+            }
+        })
+        .catch(function(err) {
+            console.log('Error querying mongoDB for duplicate email...', err);
+            callback(err);
+        })
+    })
+    .catch(function(err) { // if our regex query goes awry this will catch any errors:
+        console.log('Error querying mongoDB for duplicate username...', err);
+        callback(err);
     })
 };
 

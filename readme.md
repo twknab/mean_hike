@@ -51,16 +51,11 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	USER-MODEL.JS -- LINE 70ISH -- LOOK AT YOUR NOTES THERE AND MODIFY YOUR CHECK DUPLICATES FUNCTION
-
-	- Update User Account Page:
-
-		+ Realized that the way you have your update function setup in your server controller might not be the best method. Instead, create 2 separate methods (one which updates your password, the other which updates your username).
-
-		+ Check if each field has been modified. If it has, go ahead and run the validator. Check if error occurred, if so, add it to list.
-		+ In case of no error, update the field right away.
-
-		+ When done, check if errors list was generated, if so, go ahead and send it back.
+	Unfortunately, your validations are very sloppy. Here's what I want you to do:
+		- Rework your checkDuplicates function so that it accepts a callback, and runs that callback when it completes.
+		- Re-arrange your login and registration controller functions, so that you don't need the validation module, and instead, do all of your validations right in the single file of the user-controller.js.
+		- Change up your errors that you generate in your model, so that they match the default validation style. Then you can simplify how you return errors to your factory within your controller.
+		- The reason I want you to do these things, is that they'll make the rest of your project easier. Getting these validations down tight for registration, login and user update, will ensure that your future validations for other parts of your project are also strong.
 
 		+ Validate:
 

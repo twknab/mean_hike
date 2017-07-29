@@ -218,6 +218,7 @@ module.exports = {
                     // Else if no errors, send back new user:
                     else {
                         return res.json(foundUser);
+
                     }
 
                 });

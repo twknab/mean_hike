@@ -99,20 +99,10 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     Else, if no errors, perform username and email duplication validations:
 
-        Check if username ONLY has changed:
-            - query for user by username -- if duplicate, send error
-            - if errors object is empty, update username
-            - else, run callback and send back all errors
-
-        Check if email ONLY has changed:
-            - query for user by email -- if duplicate, send error
-            - if errors object is empty, update email
-            - else, run callback and send back all errors
-
-        Check if email AND username has changed:
-            - query for each and send errors if found
-            - if errors object is empty, update username and email
-            - else, run callback and send back all errors
+        - Run duplicate checks on Username and Email (this must be done step-wise due to asynchronicity)
+        - If errors, add them to the errors object (which is otherwise empty, if having made it to Phase Two)
+        - If no errors, and email or username does not match that on record, update it.
+        - After both queries are complete, run the callback, passing in the errors object.
     */
 
     // Save `this` as as self:
@@ -131,6 +121,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     console.log('Beginning Phase One validations now...');
 
     // If username submitted differs from that in document record:
+
     if (formData.username != self.username) {
         // Run alphanumerical and underscore validation:
         console.log('Username change detected. Checking for alphanumeric and underscore only...');
@@ -157,13 +148,20 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     // If email submitted differs from that in document record:
     if (formData.email != self.email) {
+
+        console.log('**********************************')
+        console.log('**********************************')
+        console.log(formData.email, self.email);
+        console.log('**********************************')
+        console.log('**********************************')
+
         // Run email format validation:
         console.log('Email change detected. Checking valid email format...');
         var emailFormatValidate = self.validateEmailFormat(formData.email);
 
         // Run email and email confirm validation:
         console.log('Checking if email address matches email confirmation...');
-        var emailConfirmValidate = self.emailMatch(formData.email);
+        var emailConfirmValidate = self.emailMatch(formData.email, formData.emailConfirm);
 
         // Run min and max length validation:
         console.log('Checking for min and max length of new email...');
@@ -187,14 +185,26 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         }
     }
 
-    // If a password is submitted without a confirmation password:
-    if (formData.password && !formData.passwordConfirm) {
-        // Send error that password confirmation is required:
-        console.log("Error: password change detected, but confirmation password not sent...");
-        err.errors.passwordMatch = {
-            message: "Confirm Password field is required to update your password."
-        }
-    }
+
+    // THESE DO NOT WORK::
+    
+    // // If confirmation email is submitted without its counterpart:
+    // if (!formData.email && formData.emailConfirm) {
+    //     // Send error that password confirmation is required:
+    //     console.log("Error: email change detected, but both email and confirmation email not sent...");
+    //     err.errors.emailMatch = {
+    //         message: "Email and Confirmation Email fields must match."
+    //     }
+    // }
+    //
+    // // If a password or confirmation password is subitted without its counterpart:
+    // if (formData.password && !formData.passwordConfirm) {
+    //     // Send error that password confirmation is required:
+    //     console.log("Error: password change detected, but both password and confirmation password not sent...");
+    //     err.errors.passwordMatch = {
+    //         message: "Password and Confirmation Password fields are both required to update password."
+    //     }
+    // }
 
     // If both a password and password confirmation are submitted:
     if (formData.password && formData.passwordConfirm) {
@@ -229,72 +239,70 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     }
 
 
-    // // If there are any errors at this point, return your callback with
-    // // errors -- do not check for duplicates until phase 1 passes without error:
-    // if (Object.keys(err.errors).length > 0) {
-    //     console.log("Failed Phase One validations, returning errors now...");
-    //     callback(err);
-    // }
-    //
-    // /*---------------------------------------*/
-    // /*--------- PHASE TWO VALIDATIONS -------*/
-    // /*---------------------------------------*/
-    // // Else, if no errors are returned from PHASE ONE validations, proceed with PHASE TWO:
-    // else {
-    //     console.log("Passed Phase One validations. Starting phase two validations...");
-    //
-    //     // If username was ONLY field changed, check for duplicates, and if successful, update username:
-    //
-    //
-    //     // If email was ONLY field changed, check for duplicates, and if successful, update email:
-    //
-    //
-    //     // If email AND username has changed, check each for duplicates, and if succesful, update email AND username:
-    //
-    //
-    // }
+    // If there are any errors at this point, return your callback with
+    // errors -- do not check for duplicates until phase 1 passes without error:
+    if (Object.keys(err.errors).length > 0) {
+        console.log("Failed Phase One validations, returning errors now...");
+        callback(err);
+    }
 
+    /*---------------------------------------*/
+    /*--------- PHASE TWO VALIDATIONS -------*/
+    /*---------------------------------------*/
+    // Else, if no errors are returned from PHASE ONE validations, proceed with PHASE TWO:
+    else {
+        console.log("Passed Phase One validations. Starting Phase Two validations...");
 
+        // Run duplicate check for Username first (and then Email):
+        self.checkUsernameDuplicates(formData.username, function(usernameDuplicateError) {
+            // If error AND username submitted does not match username on document record, log it:
+            if (usernameDuplicateError && formData.username != self.username) {
+                err.errors.usernameDuplicate = {
+                    message: usernameDuplicateError.message,
+                }
+            }
 
-    // Run callback with error:
-    callback(err);
+            // Run duplicate check for Email now:
+            self.checkEmailDuplicates(formData.email, function(emailDuplicateError) {
+                // If error AND email submitted does not match one on record, log it:
+                if (emailDuplicateError && formData.email != self.email) {
+                    err.errors.emailDuplicate = {
+                        message: emailDuplicateError.message,
+                    }
+                }
 
-    // // Else, check for duplicates:
-    // else {
-    //
-    //     // Check for duplicates:
-    //     console.log('Passed alphanumeric and underscore evaluation.');
-    //     console.log('Checking for duplicates...');
-    //     self.checkUsernameDuplicates(formData.username, function(duplicateError){
-    //
-    //         // This code only runs after querying for the user completes.
-    //
-    //         // If username passes validation, the `duplicateError` will be undefined,
-    //         // otherwise it will be an actual object.
-    //
-    //         // Check for error:
-    //         if (duplicateError) {
-    //             err.errors.usernameDuplicate = {
-    //                 message: duplicateError.message,
-    //             }
-    //
-    //             console.log(err);
-    //
-    //             // Run callback with error:
-    //             return callback(err);
-    //         }
-    //
-    //         // Else, no error, update username, as all validations passed:
-    //         else {
-    //             console.log("New username passed validation...Updating now...");
-    //             self.updateUsername(formData.username);
-    //             // Run callback with err object, note that `errors` will be empty:
-    //             return callback(err);
-    //         }
-    //     })
-    // }
+                // Check for errors, if found, run callback with errors:
+                if (Object.keys(err.errors).length > 0) {
+                    console.log("Failed Phase Two validations, duplicates detected, returning errors now...");
+                    callback(err);
+                }
 
-    // If email submitted differes from that in document record:
+                // Else, if no errors, update username and run callback passing in empty errors object:
+                else {
+                    console.log("Passed Phase Two validations.");
+
+                    // If email does not match one on record, update it:
+                    if (formData.email != self.email) {
+                        console.log('Updating email now...');
+                        // Update email:
+                        self.updateEmail(formData.email);
+                        console.log("Email update now complete.");
+                    }
+
+                    // If, username does not match one on record, update it:
+                    if (formData.username != self.username) {
+                        console.log('Updating username now...');
+                        // Update username:
+                        self.updateUsername(formData.username);
+                        console.log("Username update complete.");
+                    }
+
+                    // Run callback, sending empty error object:
+                    callback(err);
+                }
+            })
+        })
+    }
 
 };
 
@@ -364,16 +372,15 @@ UserSchema.methods.checkDuplicates = function(username, email, next, callback) {
     })
 };
 
-// Case insensitive query validation instance method:
+// Check if any username duplicates (case insensitive query) exist:
 UserSchema.methods.checkUsernameDuplicates = function(username, callback) {
 
-    // Check if username is different than current username or if email is different than current email:
     console.log('Checking username for duplicates (case insensitive query)...');
     User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
         .then(function(matchedUser) {
             // If matched user is found, run callback with error:
             if (matchedUser) {
-                console.log('Failed. Existing user found with this username.');
+                console.log('Duplicate found. Existing user found with this username.');
                 var err =  new Error('Username already in use by another user.');
                 callback(err);
             }
@@ -385,6 +392,30 @@ UserSchema.methods.checkUsernameDuplicates = function(username, callback) {
         })
         .catch(function(err) { // if our regex query goes awry this will catch any errors:
             console.log('Error querying mongoDB for duplicate username...Please contact administrator.', err);
+            callback(err);
+        })
+};
+
+// Check if any email duplicates (case insensitive query) exist:
+UserSchema.methods.checkEmailDuplicates = function(email, callback) {
+
+    console.log('Checking email for duplicates (case insensitive query)...');
+    User.findOne({ email: { $regex: new RegExp("^" + email + "$", "i") }})
+        .then(function(matchedUser) {
+            // If matched user is found by email address, run callback with error:
+            if (matchedUser) {
+                console.log('Duplicate found. Existing user found with this email address.');
+                var err =  new Error('Email address already in use by another user.');
+                callback(err);
+            }
+
+            // Else, run callback with error as undefined (no error):
+            else {
+                callback(undefined);
+            }
+        })
+        .catch(function(err) { // if our regex query goes awry this will catch any errors:
+            console.log('Error querying mongoDB for duplicate email address...Please contact administrator.', err);
             callback(err);
         })
 };
@@ -466,6 +497,8 @@ UserSchema.methods.alphaNum_Username = function(username) {
 
 // Update Username:
 UserSchema.methods.updateUsername = function(username) {
+    var self = this;
+
     self.username = username;
     self.save();
 };
@@ -509,7 +542,7 @@ UserSchema.methods.validateEmailFormat = function(email) {
     } else {
         return undefined;
     }
-}
+};
 
 // Check Email Length (For Updating User):
 UserSchema.methods.checkEmailLength = function(email) {
@@ -527,7 +560,15 @@ UserSchema.methods.checkEmailLength = function(email) {
         // passed validation:
         return undefined;
     }
-}
+};
+
+// Update Email:
+UserSchema.methods.updateEmail = function(email) {
+    var self = this;
+
+    self.email = email;
+    self.save();
+};
 
 /*---------------------------------------*/
 /*----- PASSWORD VALIDATION METHODS -----*/

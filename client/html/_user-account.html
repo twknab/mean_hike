@@ -37,7 +37,7 @@
         <!-- Update User Account -->
         <div class="col-sm-12">
             <!-- Success Alerts -->
-            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a></div>
             <!-- Update User Errors -->
             <div class="alert alert-danger margin-top-sm" ng-repeat="error in updateErrors">
                 <p><strong>Error!</strong> {{error.message}}</p>

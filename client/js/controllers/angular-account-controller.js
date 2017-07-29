@@ -1,4 +1,4 @@
-app.controller('accountController', ['$scope', 'userFactory', '$location', '$routeParams', '$uibModal', '$log', function($scope, userFactory, $location, $routeParams, $uibModal, $log) {
+app.controller('accountController', ['$scope', 'userFactory', '$location', '$routeParams', function($scope, userFactory, $location, $routeParams) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -19,13 +19,21 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
         },
         // Runs after $scope.updateUser() function completes:
         update: function(foundUser) {
-            // $scope.successAlerts.push({ type: 'success', hdr: 'Updated!', msg: 'Your profile has been successfully updated. <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a>' });
+            // console.log(foundUser.username, $scope.user.username)
+            // $scope.successAlerts.push({ type: 'success', hdr: 'Success!', msg: 'Profile updated!' });
+            // $scope.user = foundUser;
+            // $scope.accountName = foundUser.username;
+            // delete $scope.user.password;
+            // console.log($scope.successAlerts);
+            // $location.url('/account/' + $scope.user.username);
+
             // Run getUser():
             $scope.getUser();
         },
         updateError: function(err) {
             console.log('Errors returned from server:', err);
             $scope.updateErrors = {}; // resets errors if any already existing
+            $scope.successAlerts = []; // resets any success messages existing
             $scope.updateErrors = err;
         },
     };
@@ -51,6 +59,7 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
     $scope.updateUser = function() {
         console.log("Updating user...");
         console.log("Data submitted:", $scope.user);
+        $scope.successAlerts = [];
         $scope.updateErrors = {};
         userFactory.update($scope.user, cb.update, cb.updateError);
     };

@@ -49,20 +49,16 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 ## Development Issues Log:
 
 
-### Where I Left Off:		
+### Where I Left Off:
 
-	Unfortunately, your validations are very sloppy. Here's what I want you to do:
+	Got most of update functions working. Hitting a few issues trying to display success messages. Also  noticed 2 bugs: (1) if email or (2) if password confirmation fields are filled out, without their counterpart (email or password field), no error message displays. Can you fix this and also get error messages to display?
 
-		- Rework your checkDuplicates function so that it accepts a callback, and runs that callback when it completes.
+	**Lookup Angular Messages -- There must a native way to get front end messages to display cleanly**
 
-		- Re-arrange your login and registration controller functions, so that you don't need the validation module, and instead, do all of your validations right in the single file of the user-controller.js.
+	Then can you go through your login and registration validations and clean them up as nicely as you did with your update methods?
 
-		- Change up your errors that you generate in your model, so that they match the default validation style. Then you can simplify how you return errors to your factory within your controller.
-
-		- The reason I want you to do these things, is that they'll make the rest of your project easier. Getting these validations down tight for registration, login and user update, will ensure that your future validations for other parts of your project are also strong.
-
-		- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
-			- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
+	- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
+		- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
 
 	- Secure your Authorize Function:
 

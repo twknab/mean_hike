@@ -223,7 +223,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
             console.log("Password passed confirmation and strength validations. Hashing now...");
 
             // WHY IS PASSWORD NOT HASING CORRECTLY?
-            // self.hashPassword(formData.password);
+            self.hashPassword(formData.password);
             console.log("Completed password hashing:", self.password);
         }
     }
@@ -569,7 +569,7 @@ UserSchema.methods.strongPassword = function(password, username) {
 UserSchema.methods.hashPassword = function(password) {
     var self = this;
     console.log('Hashing password...');
-    bcrypt.hash(self.password, 12) // will return a promise
+    bcrypt.hash(password, 12) // will return a promise
         .then(function(hash) {
             console.log('Password has been hashed:', hash);
             self.password = hash; // updates p/w entry to hash

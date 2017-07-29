@@ -51,11 +51,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	Left off building update edit user page. Bug found: If I submit something with
-	one character, it breaks. Give it a try.
-
-	Secondly, there are notes in the models file, in regards to the best strategy
-	employed in trying to validate each portion. Figure out the bug and rethink this.
+	Left off trying to get password hashing to work, prior to our duplicate query checks.
 
 	Unfortunately, your validations are very sloppy. Here's what I want you to do:
 

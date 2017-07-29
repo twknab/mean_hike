@@ -181,8 +181,4 @@ module.exports = {
         };
 
     }, // end login validation method
-    update : function(userData, callback) {
-
-
-    }, // end update validation method
 }

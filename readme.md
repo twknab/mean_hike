@@ -49,9 +49,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 ## Development Issues Log:
 
 
-### Where I Left Off:
-
-	Left off trying to get password hashing to work, prior to our duplicate query checks.
+### Where I Left Off:		
 
 	Unfortunately, your validations are very sloppy. Here's what I want you to do:
 

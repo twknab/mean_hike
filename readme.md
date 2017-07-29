@@ -53,6 +53,8 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	Got most of update functions working. Hitting a few issues trying to display success messages. Also  noticed 2 bugs: (1) if email or (2) if password confirmation fields are filled out, without their counterpart (email or password field), no error message displays. Can you fix this and also get error messages to display?
 
+	**Can you use an angular service to help pass messages between controllers?**
+
 	**Lookup Angular Messages -- There must a native way to get front end messages to display cleanly**
 
 	Then can you go through your login and registration validations and clean them up as nicely as you did with your update methods?

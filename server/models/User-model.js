@@ -158,7 +158,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     }
 
     // If email submitted differs from that in document record (or if confirmation email field has changed):
-    if (formData.email != self.email || formData.emailConfirm != undefined) {
+    if (formData.email != self.email || (formData.emailConfirm != undefined && formData.emailConfirm != "")) {
 
         // Run email format validation:
         console.log('Email change detected. Checking valid email format...');

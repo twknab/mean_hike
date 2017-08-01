@@ -75,6 +75,12 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     This is the general flow of our validations (psuedo-code):
 
+    First, if no change is detected in the suername entered, or the email, or if
+    the password has not been submitted, run the callback and send a message to
+    the controller for the view.
+
+    Otherwise, begin validations:
+
     PHASE ONE VALIDATIONS:
     If username has changed:
         - generate alphanumerical errors
@@ -111,7 +117,12 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     // Create errors object to hold any errors:
     var err = {
         errors: {},
+        messages: {},
     };
+
+    console.log('()()()()()()()()()()()()');
+    console.log(formData.password, formData.passwordConfirm)
+    console.log('()()()()()()()()()()()()');
 
     /*---------------------------------------*/
     /*--------- PHASE ONE VALIDATIONS -------*/
@@ -185,26 +196,12 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         }
     }
 
-
-    // THESE DO NOT WORK::
-    
-    // // If confirmation email is submitted without its counterpart:
-    // if (!formData.email && formData.emailConfirm) {
-    //     // Send error that password confirmation is required:
-    //     console.log("Error: email change detected, but both email and confirmation email not sent...");
-    //     err.errors.emailMatch = {
-    //         message: "Email and Confirmation Email fields must match."
-    //     }
-    // }
-    //
-    // // If a password or confirmation password is subitted without its counterpart:
-    // if (formData.password && !formData.passwordConfirm) {
-    //     // Send error that password confirmation is required:
-    //     console.log("Error: password change detected, but both password and confirmation password not sent...");
-    //     err.errors.passwordMatch = {
-    //         message: "Password and Confirmation Password fields are both required to update password."
-    //     }
-    // }
+    // If the password or the password confirmation are not filled out:
+    if ((formData.password && formData.passwordConfirm == undefined) || (formData.password == undefined && formData.passwordConfirm)) {
+        err.errors.passwordMatch = {
+            message: 'Password and Password Confirmation fields are both required to update your password.'
+        };
+    }
 
     // If both a password and password confirmation are submitted:
     if (formData.password && formData.passwordConfirm) {
@@ -234,6 +231,10 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
             // WHY IS PASSWORD NOT HASING CORRECTLY?
             self.hashPassword(formData.password);
+            err.messages.passwordUpdated = {
+                hdr: "Password Updated!",
+                msg: "Your password was succesfully updated.",
+            };
             console.log("Completed password hashing:", self.password);
         }
     }
@@ -281,11 +282,29 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                 else {
                     console.log("Passed Phase Two validations.");
 
+                    // If nothing has changed, generate a message and run callback right away:
+                    if (formData.username == self.username && formData.email == self.email && (formData.password == undefined || !formData.password) ) {
+                        console.log('No changes have been detected.');
+                        console.log('[][][][][][][][][][][][]');
+                        console.log(formData.username, self.username, formData.email, self.email);
+                        console.log('[][][][][][][][][][][][]');
+
+                        // Send message that no changes were made to the account:
+                        err.messages.noChange = {
+                            hdr: "Nothing Changed!",
+                            msg: "You haven't made any changes to your account. Try again or ",
+                        };
+                    }
+
                     // If email does not match one on record, update it:
                     if (formData.email != self.email) {
                         console.log('Updating email now...');
                         // Update email:
                         self.updateEmail(formData.email);
+                        err.messages.emailUpdated = {
+                            hdr: "Email Updated!",
+                            msg: "Your email address was successfully updated.",
+                        };
                         console.log("Email update now complete.");
                     }
 
@@ -294,6 +313,11 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                         console.log('Updating username now...');
                         // Update username:
                         self.updateUsername(formData.username);
+                        // Send success message:
+                        err.messages.usernameUpdated = {
+                            hdr: "Username Updated!",
+                            msg: "Your username was successfully updated.",
+                        };
                         console.log("Username update complete.");
                     }
 

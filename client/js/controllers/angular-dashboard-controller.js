@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, $location, $routeParams) {
+app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, userMessages, $location, $routeParams) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -24,16 +24,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Get a fresh copy of the user on angular's side:
             $scope.getUser();
         },
-        // Loads Login/Registration Page:
-        logout: function() {
-            console.log("Redirecting home...");
-            $location.url('/');
-        },
-        // // Displays any Errors:
-        // error: function(err) {
-        //     console.log('Errors returned from server:', err);
-        //     $scope.errors = err;
-        // },
     };
 
     //----------------------------------//
@@ -81,11 +71,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         $scope.status.newPreTrip = true;
     };
 
-    // Logout User:
-    $scope.logout = function() {
-        console.log('Login Process: Ang Controller running...data submitted:', $scope.user);
-        userFactory.logout(cb.logout);
-    };
 
 
     //-----------------------------------------//

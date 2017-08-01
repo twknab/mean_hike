@@ -6,7 +6,7 @@
 */
 
 
-app.controller('navController', ['$scope', 'dashboardFactory', 'userFactory', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, $location, $routeParams) {
+app.controller('navController', ['$scope', 'dashboardFactory', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, userMessages, $location, $routeParams) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -16,6 +16,10 @@ app.controller('navController', ['$scope', 'dashboardFactory', 'userFactory', '$
         auth: function(authStatus) {
             if (!authStatus.status) {
                 console.log('Session invalid.');
+                // Clear out any existing message alerts:
+                userMessages.clearAlerts();
+                // Send a logout success message:
+                userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: 'You must be logged in to view this page.' });
                 // Redirect home:
                 $location.url('/');
             } else {
@@ -29,6 +33,14 @@ app.controller('navController', ['$scope', 'dashboardFactory', 'userFactory', '$
         // Loads Login/Registration Page:
         logout: function() {
             console.log("Redirecting home...");
+
+            // Clear out any existing message alerts:
+            userMessages.clearAlerts();
+
+            // Send a logout success message:
+            userMessages.addAlert({ type: 'success', hdr: 'Logout Success!', msg: 'You\'ve been successfully logged out.' });
+
+            // Redirect home:
             $location.url('/');
         },
     };

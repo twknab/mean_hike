@@ -60,9 +60,9 @@ app.factory('userFactory', ['$http', function($http) {
     // Update a User:
     factory.update = function(user, updateCallback, errorsCallback) {
         $http.post('/api/user/update', user)
-            .then(function(updatedUser) {
-                console.log(updatedUser.data);
-                updateCallback(updatedUser.data);
+            .then(function(updatedUserOrMsg) {
+                console.log(updatedUserOrMsg.data);
+                updateCallback(updatedUserOrMsg.data);
             })
             .catch(function(err) {
                 console.log('Error attempting update user:', err.data);

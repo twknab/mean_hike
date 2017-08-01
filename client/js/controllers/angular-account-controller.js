@@ -1,4 +1,4 @@
-app.controller('accountController', ['$scope', 'userFactory', '$location', '$routeParams', function($scope, userFactory, $location, $routeParams) {
+app.controller('accountController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -8,32 +8,49 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
         user: function(foundUser) {
             // If someone tries to spoof the URL:
             if (foundUser.user.username != $routeParams.username ) {
-                console.log("THIS IS NOT THE CORRECT ROUTE!");
+                console.log("Route paramter for username does not match logged in session...redirecting...");
                 // Redirect to correct user dashboard:
                 $location.url('/account/' + foundUser.user.username);
             }
+
+            // Set user to user sent from DB:
             $scope.accountName = foundUser.user.username;
             $scope.user = foundUser.user;
+
             // Delete user password hash:
             delete $scope.user.password;
+
+            // Update any alert messages:
+            $scope.successAlerts = userMessages.getAlerts();
         },
         // Runs after $scope.updateUser() function completes:
-        update: function(foundUser) {
-            // console.log(foundUser.username, $scope.user.username)
-            // $scope.successAlerts.push({ type: 'success', hdr: 'Success!', msg: 'Profile updated!' });
-            // $scope.user = foundUser;
-            // $scope.accountName = foundUser.username;
-            // delete $scope.user.password;
-            // console.log($scope.successAlerts);
-            // $location.url('/account/' + $scope.user.username);
+        update: function(updatedUserOrMessage) {
+            // Clear any existing alerts from last time:
+            userMessages.clearAlerts();
+
+            // Check if any success messages sent:
+            if (Object.keys(updatedUserOrMessage.messages).length > 0) {
+                console.log("Messages found.");
+
+                // Send each message to the `userMessages` service to be added as an alert.
+                for (var key in updatedUserOrMessage.messages) {
+                    if (updatedUserOrMessage.messages.hasOwnProperty(key)) {
+                        console.log(updatedUserOrMessage.messages[key]);
+                        userMessages.addAlert({ type: 'success', hdr: updatedUserOrMessage.messages[key].hdr, msg: updatedUserOrMessage.messages[key].msg });
+                    }
+                }
+            }
 
             // Run getUser():
             $scope.getUser();
         },
         updateError: function(err) {
             console.log('Errors returned from server:', err);
+
             $scope.updateErrors = {}; // resets errors if any already existing
-            $scope.successAlerts = []; // resets any success messages existing
+            userMessages.clearAlerts(); // resets any success messages existing
+
+            // Set scope errors to rec'd errors object:
             $scope.updateErrors = err;
         },
     };
@@ -74,12 +91,14 @@ app.controller('accountController', ['$scope', 'userFactory', '$location', '$rou
     //------- ANGULAR UI ALERTS  -------//
     //----------------------------------//
 
-    // Create empty successAlerts list to hold future success messages:
-    $scope.successAlerts = [];
-
     // Close Success Alert:
     $scope.closeSuccessAlert = function(index) {
-        $scope.successAlerts.splice(index, 1); // removes message from alert array
+        // Removes alert on page:
+        $scope.successAlerts.splice(index, 1);
+
+        // Runs service to remove alert:
+        userMessages.removeAlert(index);
     };
+
 
 }]);

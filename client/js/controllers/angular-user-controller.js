@@ -1,4 +1,4 @@
-app.controller('userController', ['$scope', 'userFactory', '$location', '$routeParams', '$uibModal', '$log', function($scope, userFactory, $location, $routeParams, $uibModal, $log) {
+app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$uibModal', '$log', function($scope, userFactory, userMessages, $location, $routeParams, $uibModal, $log) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -16,6 +16,22 @@ app.controller('userController', ['$scope', 'userFactory', '$location', '$routeP
             $scope.loginErrors = {}; // resets errors if any already existing
             $scope.loginErrors = err;
         },
+    };
+
+    //----------------------//
+    //-------- ALERTS ------//
+    //----------------------//
+
+    // Update any alert messages:
+    $scope.successAlerts = userMessages.getAlerts();
+
+    // Close Success Alert:
+    $scope.closeSuccessAlert = function(index) {
+        // Removes alert on page:
+        $scope.successAlerts.splice(index, 1);
+
+        // Runs service to remove alert:
+        userMessages.removeAlert(index);
     };
 
     //--------------------------//

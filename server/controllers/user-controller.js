@@ -217,7 +217,17 @@ module.exports = {
 
                     // Else if no errors, send back new user:
                     else {
-                        return res.json(foundUser);
+
+                        // Check if any messages:
+                        if (validationErrors.messages) {
+                            console.log("No changes detected.")
+                            return res.json(validationErrors);
+                        }
+
+                        // If no errors just send back user:
+                        else {
+                            return res.json(foundUser);
+                        }
 
                     }
 

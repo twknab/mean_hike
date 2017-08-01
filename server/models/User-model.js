@@ -157,14 +157,8 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         }
     }
 
-    // If email submitted differs from that in document record:
-    if (formData.email != self.email) {
-
-        console.log('**********************************')
-        console.log('**********************************')
-        console.log(formData.email, self.email);
-        console.log('**********************************')
-        console.log('**********************************')
+    // If email submitted differs from that in document record (or if confirmation email field has changed):
+    if (formData.email != self.email || formData.emailConfirm != undefined) {
 
         // Run email format validation:
         console.log('Email change detected. Checking valid email format...');
@@ -284,10 +278,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
                     // If nothing has changed, generate a message and run callback right away:
                     if (formData.username == self.username && formData.email == self.email && (formData.password == undefined || !formData.password) ) {
-                        console.log('No changes have been detected.');
-                        console.log('[][][][][][][][][][][][]');
-                        console.log(formData.username, self.username, formData.email, self.email);
-                        console.log('[][][][][][][][][][][][]');
+                        console.log('No changes in username, email or password have been detected.');
 
                         // Send message that no changes were made to the account:
                         err.messages.noChange = {
@@ -561,7 +552,7 @@ UserSchema.methods.emailMatch = function(email, emailConfirm) {
 // Check if email is valid format:
 UserSchema.methods.validateEmailFormat = function(email) {
     if (!(/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/.test(email))) {
-        var err = new Error('Email must contain only letters, numbers and have valid formatting.');
+        var err = new Error('Email address must have valid formatting.');
         return err;
     } else {
         return undefined;

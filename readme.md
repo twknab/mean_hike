@@ -51,23 +51,19 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	Got most of update functions working. Hitting a few issues trying to display success messages. Also  noticed 2 bugs: (1) if email or (2) if password confirmation fields are filled out, without their counterpart (email or password field), no error message displays. Can you fix this and also get error messages to display?
 
-	**Can you use an angular service to help pass messages between controllers?**
+	+ Go through your login and registration validations and clean them up as nicely as you did with your update methods, placing everything nicely into the models file.
 
-	**Lookup Angular Messages -- There must a native way to get front end messages to display cleanly**
 
-	Then can you go through your login and registration validations and clean them up as nicely as you did with your update methods?
-
-	- (Later) Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
-		- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
-
-	- Secure your Authorize Function:
+	+ Secure your Authorize Function:
 
 		+ There might be a security risk in your authorize function. Think of it this way: right now, you packaged that into your navbar. What if someone downloads your HTML and tries to use your code, but just chops out the navbar code? Because all the other controller functions on each page will run, without any auth (because they are assuming the navController will take care of that), it means a person could query data if the naBar wasn't present. So my suggestion is to go back to your original strategy: for each Controller, build an auth function that queries for auth status (you should not have to rebuild your server side controller, just your angular controller). Then, ANY controller that runs, will automatically authorize your user, even if the navbar was removed -- and no core content could be obtained, as the other queries ONLY run after things have been authorized. **OR if you can find a way to secure them in the backend, then you won't have to do this -- as any query at all to those functions would require a valid session....you might have to think this one out....**
 
 
-	- Secure your API Routes:
+	+ Secure your API Routes:
 
 		+ Technically your api routes are still open to non-session users
 		+ What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)
+
+	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
+		- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.

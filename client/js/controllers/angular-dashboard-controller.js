@@ -12,6 +12,9 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $location.url('/');
             } else {
                 console.log('Session valid.', authStatus.user);
+                // Clear out any existing user messages:
+                userMessages.clearAlerts();
+
                 // Set User Data:
                 $scope.user = authStatus.user;
                 // Deletes password hash from front end

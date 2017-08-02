@@ -53,7 +53,126 @@ var UserSchema = new Schema({
 /**********************************/
 /**********************************/
 
+/*-------------------------------*/
+/*---- USER LOGIN VALIDATION ----*/
+/*-------------------------------*/
 
+UserSchema.methods.validateLogin = function(formData, callback) {
+    /*
+    Validates user data before logging user in.
+
+    The following is validated:
+        - all fields must be filled out.
+        - login id must be greater than 2 characters, less than 30 characters.
+        - password must be greater than 12 characters, less than 50 characters.
+        - login id is looked up by username, then email and errors sent if any (user may login with username OR email).
+        - if user is found, password is verified with retreived user.
+
+    Note: Please see the individual instance functions for each specific validation.
+    */
+
+    // Save `this` as as self:
+    var self = this;
+
+    // Create errors object to hold any errors:
+
+    var err = {
+        errors: {},
+    };
+
+    /*---------------------------------------*/
+    /*--------- PHASE ONE VALIDATIONS -------*/
+    /*---------------------------------------*/
+
+    // Run all validations and gather messages as a dictionary:
+    var validations = {
+        allLoginFields: self.checkAllLoginFields(formData),
+        loginLength: self.checkLoginLength(formData),
+    };
+
+    // Check all fields (if not, send errors right away):
+    if (validations.allLoginFields) {
+        console.log('Error: All login fields have not been submitted.');
+        err.errors.allLoginFields = {
+            message: validations.allLoginFields.message
+        };
+        callback(err);
+    }
+
+    // Else, all fields are filled out -- begin all other validations:
+    else {
+
+        console.log("All fields submitted...Checking min/max length...")
+
+        // Check if login ID and password is proper length:
+        if (validations.loginLength) {
+            err.errors.loginLength = {
+                message: validations.loginLength.message
+            }
+            callback(err);
+        }
+
+        // If fields are filled out and appropriate length, send back emtpy errors list:
+        else {
+
+            /*---------------------------------------*/
+            /*--------- PHASE TWO VALIDATIONS -------*/
+            /*---------------------------------------*/
+
+            // Attempt to lookup user by username, if not found, attempt to lookup by email -- verify password afterwards:
+
+            // Check if User exists (check by username first):
+            User.findOne({ username: formData.login_id })
+                .then(function(foundUserByUsername) {
+                    // If returned user is empty (no match):
+                    if (!foundUserByUsername) {
+                        // Check if User exists by email instead:
+                        User.findOne({ email: formData.login_id })
+                            .then(function(foundUserByEmail) {
+                                // If empty user is returned (no match):
+                                if (!foundUserByEmail) {
+                                    err.errors.loginNotFound = {
+                                        message: new Error('Username or Email provided is not registered.').message
+                                    };
+                                    // Run callback with errors:
+                                    callback(err);
+                                }
+                                // Else, if user is found by email, run password auth:
+                                else {
+                                    // Else, if user is found by email, check password:
+                                    console.log("Checking password....");
+                                    foundUserByEmail.checkPassword(foundUserByEmail, formData.password, err, callback);
+                                }
+                            })
+                            .catch(function(err) {
+                                // This will only catch if the email query itself failed:
+                                err.errors.email = {
+                                    message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
+                                };
+                                // Run callback with errors:
+                                callback(err);
+                            })
+                    }
+
+                    else {
+                        // Else, if user found by username, check password:
+                        console.log("Checking password...");
+                        foundUserByUsername.checkPassword(foundUserByUsername, formData.password, err, callback);
+                    }
+
+                })
+                .catch(function(err) {
+                    // This will only catch of the username query failed:
+                    console.log("Error performing query for user by username.");
+                    err.errors.username = {
+                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY USERNAME QUERY".').message
+                    };
+                    callback(err);
+                })
+        }
+    };
+
+};
 
 /*--------------------------------*/
 /*---- USER UPDATE VALIDATION ----*/
@@ -81,48 +200,56 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     Otherwise, begin validations:
 
-    PHASE ONE VALIDATIONS:
-    If username has changed:
-        - generate alphanumerical errors
-        - generate min and max length errors
+    I. PHASE ONE VALIDATIONS:
 
-    If email has changed:
-        - generate email formatting errors
-        - check that matches email confirmation
-        - generate min and max length errors
+        If username has changed:
+            - generate alphanumerical errors
+            - generate min and max length errors
 
-    If password submitted but not confirmation password:
-        - Send error that confirmation is req'd
+        If email has changed:
+            - generate email formatting errors
+            - check that matches email confirmation
+            - generate min and max length errors
 
-    If password and confirmation password submitted:
-        - check for strong password
-        - check that matches password confirmation
-        - if passes, hash and update password
+        If password submitted but not confirmation password:
+            - Send error that confirmation is req'd
 
-    PHASE TWO VALIDATIONS:
-    Check if there are errors at this point:
-        - Run callback with errros
+        If password and confirmation password submitted:
+            - check for strong password
+            - check that matches password confirmation
+            - if passes, hash and update password
 
-    Else, if no errors, perform username and email duplication validations:
+    II. PHASE TWO VALIDATIONS:
 
-        - Run duplicate checks on Username and Email (this must be done step-wise due to asynchronicity)
-        - If errors, add them to the errors object (which is otherwise empty, if having made it to Phase Two)
-        - If no errors, and email or username does not match that on record, update it.
-        - After both queries are complete, run the callback, passing in the errors object.
+        Check if there are errors at this point:
+            - Run callback with errros
+
+        Else, if no errors, perform username and email duplication validations:
+
+            - Run duplicate checks on Username and Email (this must be done step-wise due to asynchronicity).
+            - If errors, add them to the errors object (which is otherwise empty, if having made it to Phase Two).
+            - If nothing changed, send message saying so.
+            - If no errors, and email or username does not match that on record, update it.
+            - After both queries are complete, run the callback, passing in the errors object.
     */
 
     // Save `this` as as self:
     var self = this;
 
-    // Create errors object to hold any errors:
+    // Create errors object to hold any errors or messages we want to send to our view:
+
+    /*
+    Development Note: It probably would be best to create a separate object to hold
+    messages, however for simplicity, I've chosen to attach errors, and messages to
+    the same `err` object. This object is then passed into the callback function.
+    In the controller, a check is made if messages or errors are present, and are
+    handled accordingly (see `user-controller.js`).
+    */
+
     var err = {
         errors: {},
         messages: {},
     };
-
-    console.log('()()()()()()()()()()()()');
-    console.log(formData.password, formData.passwordConfirm)
-    console.log('()()()()()()()()()()()()');
 
     /*---------------------------------------*/
     /*--------- PHASE ONE VALIDATIONS -------*/
@@ -641,11 +768,30 @@ UserSchema.methods.hashPassword = function(password) {
 };
 
 // Compare Password to Hash / Decrypt (but only get true or false):
-UserSchema.methods.verifyPassword = function(enteredPassword) {
+UserSchema.methods.__verifyPassword = function(enteredPassword) {
     console.log("Verifying password now...");
     console.log(this.password);
     console.log(enteredPassword);
     return bcrypt.compare(enteredPassword, this.password);
+};
+
+// Internal function merely for confirming password match:
+UserSchema.methods.checkPassword = function(userObj, password, err, callback) {
+    userObj.__verifyPassword(password)
+        .then(function() {
+            console.log("Password has been verified.");
+            // Run callback sending user with it:
+            err.validated = userObj;
+            callback(err);
+        })
+        .catch(function(err2) {
+            console.log("Password is incorrect. Access denied.");
+            err.errors.passwordFail = {
+                message: new Error('Login failed. Please check your login credentials and try again.').message
+            };
+            // Run callback:
+            callback(err);
+        })
 };
 
 /**********************************/

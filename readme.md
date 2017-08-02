@@ -10,6 +10,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ## Completed Improvements:
 
++ 8/01/17 - Added User Account Update feature and added User Messages. Cleaned up validation methods.
 + 7/23/17 - Created separate `navController`, which handles all back-end navigation actions.
 + 7/22/17 - Moved bulk sum of User validations to Models file.
 + 7/21/17 - Added feature so username OR email allows for login validation.

@@ -81,10 +81,11 @@ module.exports = {
     login: function(req, res) {
         console.log('Login Data Submitted:', req.body);
 
-        // Again, we pass in a callback function to our validate method, which will run once validations complete.
-        // In a nut shell, we send our form data to be validated, along with our callback, which runs after.
-        // This is the same strategy that is deployed in the above register() function:
-        validate.login(req.body, function(err) {
+        // Validate our login information by passing in all form data
+        // along with a callback function, which will run after validations
+        // complete.
+
+        User.schema.methods.validateLogin(req.body, function(err) {
 
             // If there are any errors send them:
             if (Object.keys(err.errors).length > 0) {
@@ -92,77 +93,25 @@ module.exports = {
                 return res.status(500).json(err.errors);
             }
 
-            // If no errors, lookup user by username or email, and set session data for retrieved and validated user:
+            // If no errors, see if verified user was returned:
             else {
+                // Check for validatd user object:
+                if (err.validated) {
+                    // If validated property exists, user has been validated.
+                    // Setup session for validated user and send user back:
+                    req.session.userId = err.validated._id;
+                    return res.json(err.validated);
+                }
+                // Else, if validated object is not found, an unexpected error has occurred:
+                else {
+                    // Add unexpected error and send it:
+                    err.errors.unexpectedErr = {
+                        message: "An unexpected error has occurred. Please contact site administrator with the error message: LOGIN VALIDATE ERROR."
+                    };
+                    return res.status(500).json(err.errors);
+                }
 
-                // Check if User exists (check by username first):
-                User.findOne({ username: req.body.login_id })
-                    .then(function(foundUser) {
-                        // If returned user is empty (no match):
-                        if (!foundUser) {
-                            // Check if User exists by email instead:
-                            User.findOne({ email: req.body.login_id })
-                                .then(function(foundEmail) {
-                                    // If empty user is returned (no match):
-                                    if (!foundEmail) {
-                                        err.errors.email = {
-                                            message: new Error('Username or Email provided is not registered.').message
-                                        };
-                                        // Return errors:
-                                        return res.status(500).json(err.errors);
-                                    }
-                                    // Else, if user is found by email, run password auth:
-                                    else {
-                                        // Else, check password and log user in:
-                                        console.log("Checking password....");
-                                        __checkPassword(foundEmail, req.body.password);
-                                    }
-                                })
-                                .catch(function(err) {
-                                    // This will only catch if the email query itself failed:
-                                    err.errors.email = {
-                                        message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
-                                    };
-                                    // Return Errors:
-                                    return res.status(500).json(err.errors);
-                                })
-                        }
-
-                        else {
-                            // Else, check password and log user in:
-                            console.log("Checking password...");
-                            __checkPassword(foundUser, req.body.password);
-                        }
-
-                    })
-                    .catch(function(err) {
-                        // This will only catch of the username query failed:
-                        console.log("There's been an error.");
-                        console.log(err)
-                        err.errors.username = {
-                            message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY USERNAME QUERY".').message
-                        };
-                        return res.status(500).json(err.errors);
-                    })
             }
-
-            // Internal function merely for confirming password match:
-            function __checkPassword(userObj, password) {
-                userObj.verifyPassword(password)
-                    .then(function() {
-                        console.log("Password has been verified.");
-                        console.log("Setting up session for verified user...");
-                        req.session.userId = userObj._id;
-                        return res.json(userObj);
-                    })
-                    .catch(function(err2) {
-                        console.log("Password is incorrect. Access denied.");
-                        err.errors.password = {
-                            message: new Error('Password is incorrect.').message
-                        };
-                        return res.status(500).json(err.errors);
-                    })
-            };
 
         });
     },

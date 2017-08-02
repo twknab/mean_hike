@@ -62,12 +62,12 @@ module.exports = {
 
         // Run all validations and gather messages as a dictionary:
         var validations = {
-            allRegFields: User.schema.methods.checkAllRegFields(userData),
-            username: User.schema.methods.alphaNum_Username(userData.username),
-            emailMatch: User.schema.methods.emailMatch(userData.email, userData.emailConfirm),
-            emailFormat: User.schema.methods.validateEmailFormat(userData.email),
-            pwdMatch: User.schema.methods.passwordMatch(userData.password, userData.passwordConfirm),
-            pwdStrong: User.schema.methods.strongPassword(userData.password, userData.username),
+            allRegFields: User.schema.methods.__checkAllRegFields(userData),
+            username: User.schema.methods.__alphaNum_Username(userData.username),
+            emailMatch: User.schema.methods.__emailMatch(userData.email, userData.emailConfirm),
+            emailFormat: User.schema.methods.__validateEmailFormat(userData.email),
+            pwdMatch: User.schema.methods.__passwordMatch(userData.password, userData.passwordConfirm),
+            pwdStrong: User.schema.methods.__strongPassword(userData.password, userData.username),
         };
 
         // Check all fields (if not, send errors right away):

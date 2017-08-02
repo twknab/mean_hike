@@ -117,24 +117,13 @@ module.exports = {
     },
     // Update a user
     update: function(req, res) {
-        /*
-        Validates user data before updating user.
 
-        The following is validated:
-        - username and email must not be taken. (modify check duplicates)
-        - username must be greater than 2 characters, less than 30 characters. (should run in pre-save)
-        - email address must be valid format. (function exists)
-        - email address and confirmation must match. (function exists)
-        - password must be greater than 12 characters, less than 50 characters. (function exists)
-        - password and password confirmation must match. (function exists)
-
-        Note: Please see the individual instance functions for each specific validation.
-        */
+        // Lookup user by session and validate User update:
 
         // Show data submitted:
         console.log('Updating user :', req.body);
 
-        // Prior to validation, get user based upon session so we can compare existing
+        // Find user based upon session so we can compare existing
         // document values to those submitted for validation:
         User.findOne({ _id: req.session.userId })
             .then(function(foundUser) {
@@ -144,9 +133,7 @@ module.exports = {
                     This code will run after our queries finish retrieving data.
                     Promises are not available to us here.
 
-                    If we didn't pass the callback function in, we'd receive an `undefined`,
-                    as our queries cannot complete by the time our javascript interpreter
-                    moves onto the next line. Thus, our lovely callback spiral..
+                    If we didn't pass the callback function in, we'd receive an `undefined`, as our queries cannot complete by the time our javascript interpreter moves onto the next line. Thus, our lovely callback spiral..
                 */
 
                 // Validate our user update, and pass in our callback which runs after validations finish:

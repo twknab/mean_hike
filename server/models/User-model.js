@@ -2,52 +2,59 @@
 
 Note: There are a lot of instance methods in this models file. If you're reading this, in order to be less overwhelmed, here's the organization of the contents of the file below:
 
-1. Setup dependencies
-2. Schmea creation and setup
-3. Login Validation Method (runs various instance methods)
-4. Registration Validation method (runs various instance methods)
-5. Update Validation method (runs various instance methods)
-6. Instance Methods:
-
+1. Dependencies
+2. Schema
+3. Login Validation
+4. Registration Validation
+5. Update Validation
+6. Private Instance Methods:
     - Duplicate Username or Email:
-        - checkUsernameDuplicates() - Duplicate Username check.
-        - checkEmailDuplicates() - Duplicate Email check.
+        - __checkUsernameDuplicates() - Duplicate Username check.
+        - __checkEmailDuplicates() - Duplicate Email check.
 
     - All Fields / Login Length:
-        - checkAllRegFields() - All registration fields req'd check.
-        - checkAllLoginFields() - All login fields req'd check.
-        - checkLoginLength() - Login length check.
+        - __checkAllRegFields() - All registration fields req'd check.
+        - __checkAllLoginFields() - All login fields req'd check.
+        - __checkLoginLength() - Login length check.
 
     - Username:
-        - alphaNum_Username() - Alphanumeric and underscore regex check.
-        - checkUsernameLength() - Check username length.
-        - updateUsername() - Update username.
+        - __alphaNum_Username() - Alphanumeric and underscore regex check.
+        - __checkUsernameLength() - Check username length.
+        - __updateUsername() - Update username.
 
     - Email:
-        - emailMatch() - Check if email and confirm email match.
-        - validateEmailFormat() - Check if email format is valid.
-        - checkEmailLength() - Check email length.
-        - updateEmail() - Update email:
+        - __emailMatch() - Check if email and confirm email match.
+        - __validateEmailFormat() - Check if email format is valid.
+        - __checkEmailLength() - Check email length.
+        - __updateEmail() - Update email:
 
     - Password:
-        - passwordMatch() - Check if password and password confirm match.
-        - strongPassword() - Ensure password is strong.
-        - hashPassword() - Hashes password for encryption.
+        - __passwordMatch() - Check if password and password confirm match.
+        - __strongPassword() - Ensure password is strong.
+        - __hashPassword() - Hashes password for encryption.
         - __verifyPassword() - Decrypts a password.
-        - checkPassword() - Compares a submitted password to encrypted hash stored for user.
-
+        - __checkPassword() - Compares a submitted password to encrypted hash stored for user.
+7. Model Creation and Export
 */
 
-/*******************************************/
-/*******************************************/
-/******** SETUP AND SCHEMA CREATION ********/
-/*******************************************/
-/*******************************************/
+/******************************/
+/******************************/
+/******** DEPENDENCIES ********/
+/******************************/
+/******************************/
 
 // Setup dependencies:
 var mongoose = require('mongoose'),
     bcrypt = require('bcrypt-as-promised'),
     Schema = mongoose.Schema;
+
+
+/************************/
+/************************/
+/******** SCHEMA ********/
+/************************/
+/************************/
+
 
 // Setup a schema:
 var UserSchema = new Schema({
@@ -57,7 +64,6 @@ var UserSchema = new Schema({
         maxlength: [30, 'Username must not be greater than 30 characters.'],
         required: true,
         trim: true,
-        unique: true, // username must be unique
         dropDups: true,
     }, // end username field
     email: {
@@ -66,15 +72,7 @@ var UserSchema = new Schema({
         maxlength: [50, 'Email must not be greater than 50 characters.'],
         required: true,
         trim: true,
-        unique: true, // email must be unique
         dropDups: true,
-        validate: {
-            validator: function(email) {
-                var regex = /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/;
-                return regex.test(email);
-            },
-            message: 'Email must contain only letters, numbers and have valid formatting.'
-        }
     }, // end email field
     password: {
         type: String,
@@ -99,6 +97,154 @@ var UserSchema = new Schema({
 /************************************/
 /************************************/
 
+/*--------------------------------------*/
+/*---- USER REGISTRATION VALIDATION ----*/
+/*--------------------------------------*/
+
+UserSchema.methods.validateRegistration = function(formData, callback) {
+    /*
+    Validates full registration data using instance methods below.
+
+    The following is validated:
+    - all fields must be filled out.
+    - username or email cannot already exist.
+    - username must contain alphanumerical characters only.
+    - email and confirmation email must match.
+    - email must be in a valid format.
+    - password must match confirmation password.
+    - password must be strong:
+        - 12-20 characters
+        - includes 2 lowercase
+        - includes 1 uppercase
+        - includes 1 symbol
+        - includes 1 number
+        - may not include your username
+        - may not contain basic sequences
+
+    Note: Please see the individual instance functions for each specific validation.
+    */
+
+    // Store `this` variable:
+    var self = this;
+
+    // Setup validates object to hold validation errors or validated user:
+    var validated = {
+        errors: {}, // will hold errors
+        validatedUser: {}, // will store validated user object
+    };
+
+    // Run all validations and gather messages as a dictionary:
+    var validations = {
+        allRegFields: self.__checkAllRegFields(formData),
+        username: self.__alphaNum_Username(formData.username),
+        emailMatch: self.__emailMatch(formData.email, formData.emailConfirm),
+        emailFormat: self.__validateEmailFormat(formData.email),
+        pwdMatch: self.__passwordMatch(formData.password, formData.passwordConfirm),
+        pwdStrong: self.__strongPassword(formData.password, formData.username),
+    };
+
+    // Check all fields (if not, send errors right away):
+    if (validations.allRegFields) {
+        validated.errors.allRegFields = {
+            message: validations.allRegFields.message
+        }
+        callback(validated);
+    }
+
+    // Else, all fields are filled out -- begin all other validations:
+    else {
+
+        // Check if username is alphanumerical with underscores only:
+        if (validations.username) {
+            validated.errors.username = {
+                message: validations.username.message
+            }
+        }
+
+        // Check if email and email confirm match:
+        if (validations.emailMatch) {
+            validated.errors.email = {
+                message: validations.emailMatch.message
+            }
+        }
+
+        // Check if email in proper email format:
+        if (validations.emailFormat) {
+            validated.errors.emailFormat = {
+                message: validations.emailFormat.message
+            }
+        }
+
+        // Check if password and password confirm match:
+        if (validations.pwdMatch) {
+            validated.errors.password = {
+                message: validations.pwdMatch.message
+            }
+        }
+
+        // Check if password is strong:
+        if (validations.pwdStrong) {
+            validated.errors.passwordStrength = {
+                message: validations.pwdStrong.message
+            }
+        }
+
+
+        // If there are any errors send them:
+        if (Object.keys(validated.errors).length > 0) {
+            console.log("Failed Phase One Basic Validations. Errors validating:", validated.errors);
+            // Run callback with errors list:
+            callback(validated);
+        } else {
+            console.log('Passed Phase One Basic Validation. Beginning Phase Two (Checking for Duplicates)...');
+
+            // Run duplicate check for Username first (and then Email):
+            self.__checkUsernameDuplicates(formData.username, function(usernameDuplicateError) {
+                // If error:
+                if (usernameDuplicateError) {
+                    validated.errors.usernameDuplicate = {
+                        message: usernameDuplicateError.message,
+                    }
+                }
+
+                // Run duplicate check for Email now:
+                self.__checkEmailDuplicates(formData.email, function(emailDuplicateError) {
+                    // If error:
+                    if (emailDuplicateError) {
+                        validated.errors.emailDuplicate = {
+                            message: emailDuplicateError.message,
+                        }
+                    }
+
+                    // Check for errors, if found, run callback with errors:
+                    if (Object.keys(validated.errors).length > 0) {
+                        console.log("Failed Phase Two validations, duplicates detected, returning errors now...");
+                        callback(validated);
+                    }
+
+                    // Else, if no errors, create user and hash password:
+                    // Send back validated user to controller for session generation and to load a new view for user:
+                    else {
+                        console.log("Passed Phase Two validations.");
+                        User.create(formData)
+                            .then(function(newUser) {
+                                // Hash password:
+                                newUser.__hashPassword(newUser.password);
+                                // Add validated user to validated object:
+                                validated.validatedUser = newUser;
+                                callback(validated);
+                            })
+                            .catch(function(regErr) {
+                                console.log('Error trying to create user!', regErr);
+                                callback(regErr);
+                            })
+                    };
+                });
+            });
+        };
+    };
+};
+
 /*-------------------------------*/
 /*---- USER LOGIN VALIDATION ----*/
 /*-------------------------------*/
@@ -120,10 +266,10 @@ UserSchema.methods.validateLogin = function(formData, callback) {
     // Save `this` as as self:
     var self = this;
 
-    // Create errors object to hold any errors:
-
-    var err = {
+    // Create validation object to hold any errors or validated user:
+    var validated = {
         errors: {},
+        validatedUser: {},
     };
 
     /*---------------------------------------*/
@@ -139,10 +285,10 @@ UserSchema.methods.validateLogin = function(formData, callback) {
     // Check all fields (if not, send errors right away):
     if (validations.allLoginFields) {
         console.log('Error: All login fields have not been submitted.');
-        err.errors.allLoginFields = {
+        validated.errors.allLoginFields = {
             message: validations.allLoginFields.message
         };
-        callback(err);
+        callback(validated);
     }
 
     // Else, all fields are filled out -- begin all other validations:
@@ -152,10 +298,10 @@ UserSchema.methods.validateLogin = function(formData, callback) {
 
         // Check if login ID and password is proper length:
         if (validations.loginLength) {
-            err.errors.loginLength = {
+            validated.errors.loginLength = {
                 message: validations.loginLength.message
             }
-            callback(err);
+            callback(validated);
         }
 
         // If fields are filled out and appropriate length, send back emtpy errors list:
@@ -168,56 +314,57 @@ UserSchema.methods.validateLogin = function(formData, callback) {
             // Attempt to lookup user by username, if not found, attempt to lookup by email -- verify password afterwards:
 
             // Check if User exists (check by username first):
-            User.findOne({ username: formData.login_id })
+            User.findOne({
+                    username: formData.login_id
+                })
                 .then(function(foundUserByUsername) {
                     // If returned user is empty (no match):
                     if (!foundUserByUsername) {
                         // Check if User exists by email instead:
-                        User.findOne({ email: formData.login_id })
+                        User.findOne({
+                                email: formData.login_id
+                            })
                             .then(function(foundUserByEmail) {
                                 // If empty user is returned (no match):
                                 if (!foundUserByEmail) {
-                                    err.errors.loginNotFound = {
+                                    validated.errors.loginNotFound = {
                                         message: new Error('Username or Email provided is not registered.').message
                                     };
                                     // Run callback with errors:
-                                    callback(err);
+                                    callback(validated);
                                 }
                                 // Else, if user is found by email, run password auth:
                                 else {
                                     // Else, if user is found by email, check password:
                                     console.log("Checking password....");
-                                    foundUserByEmail.__checkPassword(foundUserByEmail, formData.password, err, callback);
+                                    foundUserByEmail.__checkPassword(foundUserByEmail, formData.password, validated, callback);
                                 }
                             })
-                            .catch(function(err) {
+                            .catch(function(validated) {
                                 // This will only catch if the email query itself failed:
-                                err.errors.email = {
+                                validated.errors.email = {
                                     message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
                                 };
                                 // Run callback with errors:
-                                callback(err);
+                                callback(validated);
                             })
-                    }
-
-                    else {
+                    } else {
                         // Else, if user found by username, check password:
                         console.log("Checking password...");
-                        foundUserByUsername.__checkPassword(foundUserByUsername, formData.password, err, callback);
+                        foundUserByUsername.__checkPassword(foundUserByUsername, formData.password, validated, callback);
                     }
 
                 })
-                .catch(function(err) {
+                .catch(function(validated) {
                     // This will only catch of the username query failed:
                     console.log("Error performing query for user by username.");
-                    err.errors.username = {
+                    validated.errors.username = {
                         message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY USERNAME QUERY".').message
                     };
-                    callback(err);
+                    callback(validated);
                 })
-        }
+        };
     };
-
 };
 
 /*--------------------------------*/
@@ -287,12 +434,12 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     /*
     Development Note: It probably would be best to create a separate object to hold
     messages, however for simplicity, I've chosen to attach errors, and messages to
-    the same `err` object. This object is then passed into the callback function.
+    the same `validated` object. This object is then passed into the callback function.
     In the controller, a check is made if messages or errors are present, and are
     handled accordingly (see `user-controller.js`).
     */
 
-    var err = {
+    var validated = {
         errors: {},
         messages: {},
     };
@@ -317,14 +464,14 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
         // If alhpanum_ error is returned, add it to errors object:
         if (alphaNum_validate) {
-            err.errors.usernameAlphaNum_ = {
+            validated.errors.usernameAlphaNum_ = {
                 message: alphaNum_validate.message
             }
         }
 
         // If min/max error is returned, add it to errors object:
         if (minMaxValidate) {
-            err.errors.usernameMinMax = {
+            validated.errors.usernameMinMax = {
                 message: minMaxValidate.message
             }
         }
@@ -347,17 +494,17 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
         // If errors are returned from either validation, add it to errors object:
         if (emailFormatValidate) {
-            err.errors.emailFormat = {
+            validated.errors.emailFormat = {
                 message: emailFormatValidate.message
             }
         }
         if (emailConfirmValidate) {
-            err.errors.emailConfirm = {
+            validated.errors.emailConfirm = {
                 message: emailConfirmValidate.message
             }
         }
         if (minMaxValidate) {
-            err.errors.emailMinMax = {
+            validated.errors.emailMinMax = {
                 message: minMaxValidate.message
             }
         }
@@ -365,7 +512,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     // If the password or the password confirmation are not filled out:
     if ((formData.password && formData.passwordConfirm == undefined) || (formData.password == undefined && formData.passwordConfirm)) {
-        err.errors.passwordMatch = {
+        validated.errors.passwordMatch = {
             message: 'Password and Password Confirmation fields are both required to update your password.'
         };
     }
@@ -382,12 +529,11 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
         // If errors are returned from either validation, add it to errors object:
         if (passwordConfirmValidate) {
-            err.errors.passwordConfirm = {
+            validated.errors.passwordConfirm = {
                 message: passwordConfirmValidate.message
             }
-        }
-        else if (passwordStrong) {
-            err.errors.strongPassword = {
+        } else if (passwordStrong) {
+            validated.errors.strongPassword = {
                 message: passwordStrong.message
             }
         }
@@ -398,7 +544,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
             // WHY IS PASSWORD NOT HASING CORRECTLY?
             self.__hashPassword(formData.password);
-            err.messages.passwordUpdated = {
+            validated.messages.passwordUpdated = {
                 hdr: "Password Updated!",
                 msg: "Your password was succesfully updated.",
             };
@@ -409,9 +555,9 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 
     // If there are any errors at this point, return your callback with
     // errors -- do not check for duplicates until phase 1 passes without error:
-    if (Object.keys(err.errors).length > 0) {
+    if (Object.keys(validated.errors).length > 0) {
         console.log("Failed Phase One validations, returning errors now...");
-        callback(err);
+        callback(validated);
     }
 
     /*---------------------------------------*/
@@ -425,7 +571,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         self.__checkUsernameDuplicates(formData.username, function(usernameDuplicateError) {
             // If error AND username submitted does not match username on document record, log it:
             if (usernameDuplicateError && formData.username != self.username) {
-                err.errors.usernameDuplicate = {
+                validated.errors.usernameDuplicate = {
                     message: usernameDuplicateError.message,
                 }
             }
@@ -434,15 +580,15 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
             self.__checkEmailDuplicates(formData.email, function(emailDuplicateError) {
                 // If error AND email submitted does not match one on record, log it:
                 if (emailDuplicateError && formData.email != self.email) {
-                    err.errors.emailDuplicate = {
+                    validated.errors.emailDuplicate = {
                         message: emailDuplicateError.message,
                     }
                 }
 
                 // Check for errors, if found, run callback with errors:
-                if (Object.keys(err.errors).length > 0) {
+                if (Object.keys(validated.errors).length > 0) {
                     console.log("Failed Phase Two validations, duplicates detected, returning errors now...");
-                    callback(err);
+                    callback(validated);
                 }
 
                 // Else, if no errors, update username and run callback passing in empty errors object:
@@ -450,11 +596,11 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                     console.log("Passed Phase Two validations.");
 
                     // If nothing has changed, generate a message and run callback right away:
-                    if (formData.username == self.username && formData.email == self.email && (formData.password == undefined || !formData.password) ) {
+                    if (formData.username == self.username && formData.email == self.email && (formData.password == undefined || !formData.password)) {
                         console.log('No changes in username, email or password have been detected.');
 
                         // Send message that no changes were made to the account:
-                        err.messages.noChange = {
+                        validated.messages.noChange = {
                             hdr: "Nothing Changed!",
                             msg: "You haven't made any changes to your account. Try again or ",
                         };
@@ -465,7 +611,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                         console.log('Updating email now...');
                         // Update email:
                         self.__updateEmail(formData.email);
-                        err.messages.emailUpdated = {
+                        validated.messages.emailUpdated = {
                             hdr: "Email Updated!",
                             msg: "Your email address was successfully updated.",
                         };
@@ -478,7 +624,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                         // Update username:
                         self.__updateUsername(formData.username);
                         // Send success message:
-                        err.messages.usernameUpdated = {
+                        validated.messages.usernameUpdated = {
                             hdr: "Username Updated!",
                             msg: "Your username was successfully updated.",
                         };
@@ -486,7 +632,7 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
                     }
 
                     // Run callback, sending empty error object:
-                    callback(err);
+                    callback(validated);
                 }
             })
         })
@@ -510,72 +656,21 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
     step-wise, first checking for a username, then for an email (using case insensiitive
     regex queries). An appropriate error is generated, depending upon the results:
 */
-// Case insensitive query validation instance method:
-UserSchema.methods.__checkDuplicates = function(username, email, next, callback) {
-    var self = this;
-
-    /*
-        ADD SOMETHING HERE THAT WILL CHECK IF THE USENRAME OR EMAIL IS DIFF THAN THE DOCUMENT RECORD.
-        IF IT IS, CONTINUE WITH VALIDATIONS. IF NOT, IGNORE VALIDATIONS
-        THIS WAY .SAVE() WHEN RUN, WILL AUTO CHECK FOR DUPES, AND IF NOTHING HAS CHANGED, WILL CONTINUE ON.
-    */
-
-    console.log('Checking username and email for duplicates (insensitive)...');
-    // Check if username is different than current username or if email is different than current email:
-    User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
-    .then(function(matchedUser) {
-        User.findOne({
-            email: {
-                $regex: new RegExp("^" + email + "$", "i")
-            }
-        }) // looks for any case which might match `username`
-        .then(function(matchedEmail) {
-            // if both email and user is found:
-            if (matchedEmail && matchedUser) {
-                console.log('Failed. Existing users found with this email address and username.');
-                var err = new Error('Username and Email address is already in use.')
-                next(err);
-            }
-            // if user is found:
-            if (matchedUser) {
-                console.log('Failed. Existing user found with this username.');
-                var err = new Error('Username already in use by another user.')
-                next(err);
-            }
-            // if email address is found:
-            if (matchedEmail) {
-                console.log('Failed. Existing user found with this email address.');
-                var err = new Error('Email address already in use by another user.')
-                next(err);
-            }
-            // If matched user and matched email are empty, run callback and pass in password for hashing:
-            if (!matchedUser && !matchedEmail) { // If no existing user by email, hash password
-                console.log('Passed duplicates check... Running callback now...');
-                // Run callback:
-                callback();
-            }
-        })
-        .catch(function(err) {
-            console.log('Error querying mongoDB for duplicate email...', err);
-            next(err);
-        })
-    })
-    .catch(function(err) { // if our regex query goes awry this will catch any errors:
-        console.log('Error querying mongoDB for duplicate username...', err);
-        next(err);
-    })
-};
 
 // Check if any username duplicates (case insensitive query) exist:
 UserSchema.methods.__checkUsernameDuplicates = function(username, callback) {
 
     console.log('Checking username for duplicates (case insensitive query)...');
-    User.findOne({ username: { $regex: new RegExp("^" + username + "$", "i") }})
+    User.findOne({
+            username: {
+                $regex: new RegExp("^" + username + "$", "i")
+            }
+        })
         .then(function(matchedUser) {
             // If matched user is found, run callback with error:
             if (matchedUser) {
                 console.log('Duplicate found. Existing user found with this username.');
-                var err =  new Error('Username already in use by another user.');
+                var err = new Error('Username already in use by another user.');
                 callback(err);
             }
 
@@ -594,12 +689,16 @@ UserSchema.methods.__checkUsernameDuplicates = function(username, callback) {
 UserSchema.methods.__checkEmailDuplicates = function(email, callback) {
 
     console.log('Checking email for duplicates (case insensitive query)...');
-    User.findOne({ email: { $regex: new RegExp("^" + email + "$", "i") }})
+    User.findOne({
+            email: {
+                $regex: new RegExp("^" + email + "$", "i")
+            }
+        })
         .then(function(matchedUser) {
             // If matched user is found by email address, run callback with error:
             if (matchedUser) {
                 console.log('Duplicate found. Existing user found with this email address.');
-                var err =  new Error('Email address already in use by another user.');
+                var err = new Error('Email address already in use by another user.');
                 callback(err);
             }
 
@@ -692,14 +791,10 @@ UserSchema.methods.__checkUsernameLength = function(username) {
     if (username.length < 2) {
         var err = new Error('Username must be at least 2 characters.');
         return err;
-    }
-
-    else if (username.length > 30) {
+    } else if (username.length > 30) {
         var err = new Error('Username must be no greater than 30 characters.');
         return err;
-    }
-
-    else {
+    } else {
         // passed validation:
         return undefined;
     }
@@ -741,14 +836,10 @@ UserSchema.methods.__checkEmailLength = function(email) {
     if (email.length < 5) {
         var err = new Error('Email must be at least 5 characters.');
         return err;
-    }
-
-    else if (email.length > 50) {
+    } else if (email.length > 50) {
         var err = new Error('Email must be no greater than 50 characters.');
         return err;
-    }
-
-    else {
+    } else {
         // passed validation:
         return undefined;
     }
@@ -826,63 +917,23 @@ UserSchema.methods.__verifyPassword = function(enteredPassword) {
 };
 
 // Internal function merely for confirming password match:
-UserSchema.methods.__checkPassword = function(userObj, password, err, callback) {
+UserSchema.methods.__checkPassword = function(userObj, password, validate, callback) {
     userObj.__verifyPassword(password)
         .then(function() {
             console.log("Password has been verified.");
             // Run callback sending user with it:
-            err.validated = userObj;
-            callback(err);
+            validate.validatedUser = userObj;
+            callback(validate);
         })
         .catch(function(err2) {
             console.log("Password is incorrect. Access denied.");
-            err.errors.passwordFail = {
+            validate.errors.passwordFail = {
                 message: new Error('Login failed. Please check your login credentials and try again.').message
             };
             // Run callback:
-            callback(err);
+            callback(validate);
         })
 };
-
-/**********************************/
-/**********************************/
-/******* PRE-SAVE MIDDLEWARE ******/
-/**********************************/
-/**********************************/
-
-// Pre Save Hook:
-UserSchema.pre('save', function(next) {
-    var self = this,
-        created = this.createdAt.getTime(),
-        now = new Date().getTime();
-
-    // Checks if New User or Not:
-    console.log(now - created);
-    if (now - created >= 1) { // If not new user (user is older than .0001 second), skip user creation custom validations:
-        console.log('Existing User detected. Skipping custom user validations...');
-        next();
-    } else { // If user is new:
-        // Check if username contains only alphanum + underscores, then check for duplicates:
-        self.checkDuplicates(self.username, self.email, next, function() {
-            next();
-        }); // check for username or email duplicates
-    }
-
-});
-
-/**********************************/
-/**********************************/
-/****** POST-SAVE MIDDLEWARE ******/
-/**********************************/
-/**********************************/
-
-UserSchema.post('save', function(err, doc, next) {
-    if (err.name === 'MongoError' && err.code === 11000) {
-        next(new Error('Email address already exists.'));
-    } else {
-        next(err);
-    }
-});
 
 /**********************************/
 /**********************************/

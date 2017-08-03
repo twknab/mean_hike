@@ -10,7 +10,7 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/account/:username', {
             templateUrl: 'html/_user-account.html', // user account page
-            controller: 'accountController',
+            controller: 'userUpdateController',
         })
         .when('/about', {
             templateUrl: 'html/_about.html', // login page

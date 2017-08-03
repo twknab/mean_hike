@@ -53,9 +53,9 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 ### Where I Left Off:
 
 
-	+ You re-organized your login validation methods. Now, re-organize your registration validation methods and nuke the validation module entirely (no longer needed as all will be done in your models file). If you move fast, this should only take you 30 minutes.
+	+ Finished re-organizing the login and registration validation methods. Nuked the pre-validate module which was garbage.
 
-	+ Add doc string-like descriptions to each validation and all controller methods thus far. Don't spend more than hour on this.
+	+ Cleaned up all commenting and functional doc strings in Controller. Do the same for the User Model now, then do the same for your Controllers, Factories and Services up until now. This is a pain, but will make things a lot easier as you go along, sets a good precedent and will help yourself and others better understand your project.
 
 	+ Secure your Authorize Function:
 

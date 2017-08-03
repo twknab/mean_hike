@@ -1,219 +1,277 @@
-/*
-    Note: Our validator functions  live primarily in our `User-model.js` file
-    (as instance methods). In our controller methods below, I've opted to add in
-    a module file, called `user-validator.js` which then runs these various instance
-    methods for validation. Each instance method returns either an error, or if no
-    error, returns `undefined`. The user-validator methods accept form data and
-    a callback function. In our callbacks below, we choose to assess our returned
-    errors list, and if no errors, proceed with our database actions.
-*/
-
-// Grab our Mongoose Model:
-var User = require('mongoose').model('User'),
-    validate = require('./../modules/user-validator');
+var User = require('mongoose').model('User'); // grab our Mongoose model
 
 module.exports = {
-    // Register a user
     register: function(req, res) {
-        console.log('Server talking..registration data rec\'d:', req.body);
+        /*
+        Validates and registers a new User, or returns errors.
 
-        // Run validate.registration() method, passing our entire form data and
-        // a callback function, which runs after our validations complete.
-        validate.registration(req.body, function(err) {
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        console.log('Starting new user validation....data submitted:', req.body);
+
+        User.schema.methods.validateRegistration(req.body, function(validated) {
             /*
-                Note: As our callback functions runs, it checks for errors. If no
-                errors, it attempts to create the user, sets up session and sends
-                them back. If errors are generated during this process they are
-                returned. If errors are initially detected (before creation attepmpt),
-                these too are returned.
+            Performs model validation instance methods; returns errors or the validated new user for session creation.
+
+            Parameters:
+            - `req.body` - Registration form object data from Registration function in User factory.
+            - `callback(validated)` - A callback function which runs after validation, returning `validated` object data containing `errors` and `validated` objects).
+
+            Notes:
+            - The code below only runs after validations have completed. The `validated` object contains either an `errors` object with errors inside, or a `validated` object, with the validated user attached (see validateRegistration() inside of `User-model.js` for more).
+            */
+
+            // If there are any errors returned, send them back to Angular factory:
+            if (Object.keys(validated.errors).length > 0) {
+                return res.status(500).json(validated.errors);
+            }
+
+            // else, if there are no errors returned, check for validated user object:
+            else {
+
+                // Check for validatd user object:
+                if (validated.validatedUser) {
+                    // Setup session for successfully validated user and send back:
+                    req.session.userId = validated.validatedUser._id;
+                    return res.json(validated.validatedUser);
+                }
+                // Else, if validated object is not found, an unexpected error has occurred:
+                else {
+                    // Add unexpected error and send it:
+                    validated.errors.unexpectedErr = {
+                        message: "An unexpected server error has occurred. Please contact site administrator with the error message: REGISTRATION VALIDATE ERROR."
+                    };
+                    // Send back errors:
+                    return res.status(500).json(validated.errors);
+                }
+            }
+        });
+    },
+    login: function(req, res) {
+        /*
+        Validates and login an existing User, or returns errors.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        console.log('Starting existing user login process...Data submitted:', req.body);
+
+        User.schema.methods.validateLogin(req.body, function(validated) {
+            /*
+            Performs login validation instance methods; returns either errors object or validated object containing validated user for login.
+
+            Parameters:
+            - `req.body` - Login form object data from login function in User factory.
+            - `callback(validated)` - A callback function which runs after all validation methods have completed. `validated` object returns contains either `errors` object with errors, or `validated` object with successfully validated user.
             */
 
             // If there are any errors send them:
-            if (Object.keys(err.errors).length > 0) {
-                return res.status(500).json(err.errors);
-            }
-
-            // If no errors, create user and run built-in and pre-save validations:
-            else {
-
-                /*
-                    Note: All user data is validated in our validate.register()
-                    method, while the actual user instance is then created below,
-                    after we've verified no errors.
-                */
-
-                console.log('There were no errors:');
-                User.create(req.body)
-                    .then(function(newUser) {
-                        // Hash password:
-                        newUser.hashPassword(newUser.password);
-                        // newUser.save();
-                        // Create session for newly registered user:
-                        req.session.userId = newUser._id;
-                        return res.json(newUser);
-                    })
-                    .catch(function(err) {
-                        console.log('Error trying to create user!', err);
-                        // Note: The following variation in our errors message is
-                        // due to the different way that built-in validators format
-                        // their error messages, compared to our custom and Pre-Save
-                        // validations. A development improvement may be to simply format
-                        // the errors in the same structure in our model instance methods,
-                        // so here in our controller we can just hand back the list and not
-                        // have to worry about any variation.
-                        if (err.errors == null) {
-                            console.log('Pre-Save Validation detected...');
-                            return res.status(500).json({
-                                custom: {
-                                    message: err.message
-                                }
-                            });
-                        } else {
-                            console.log('Built-in Validation detected....');
-                            return res.status(500).json(err.errors)
-                        };
-                    })
-            }
-
-        });
-    },
-    // Login a user
-    login: function(req, res) {
-        console.log('Login Data Submitted:', req.body);
-
-        // Validate our login information by passing in all form data
-        // along with a callback function, which will run after validations
-        // complete.
-
-        User.schema.methods.validateLogin(req.body, function(err) {
-
-            // If there are any errors send them:
-            if (Object.keys(err.errors).length > 0) {
-                console.log("Errors logging user in:", err.errors);
-                return res.status(500).json(err.errors);
+            if (Object.keys(validated.errors).length > 0) {
+                console.log("Errors logging user in:", validated.errors);
+                return res.status(500).json(validated.errors);
             }
 
             // If no errors, see if verified user was returned:
             else {
                 // Check for validatd user object:
-                if (err.validated) {
+                if (validated.validatedUser) {
                     // If validated property exists, user has been validated.
                     // Setup session for validated user and send user back:
-                    req.session.userId = err.validated._id;
-                    return res.json(err.validated);
+                    req.session.userId = validated.validatedUser._id;
+                    return res.json(validated.validatedUser);
                 }
                 // Else, if validated object is not found, an unexpected error has occurred:
                 else {
                     // Add unexpected error and send it:
-                    err.errors.unexpectedErr = {
-                        message: "An unexpected error has occurred. Please contact site administrator with the error message: LOGIN VALIDATE ERROR."
+                    validated.errors.unexpectedErr = {
+                        message: "An unexpected server error has occurred. Please contact site administrator with the error message: LOGIN VALIDATE ERROR."
                     };
-                    return res.status(500).json(err.errors);
+                    return res.status(500).json(validated.errors);
                 }
-
             }
-
         });
     },
-    // Update a user
     update: function(req, res) {
+        /*
+        Validates and updates an existing User's data, or returns errors.
 
-        // Lookup user by session and validate User update:
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
 
-        // Show data submitted:
-        console.log('Updating user :', req.body);
+        console.log('Starting update user validation...Data submitted:', req.body);
 
-        // Find user based upon session so we can compare existing
-        // document values to those submitted for validation:
-        User.findOne({ _id: req.session.userId })
+        // Find user based upon session so we can compare existing document values to those submitted for validation (to validate for what has changed as not all fields are required):
+        User.findOne({
+                _id: req.session.userId // look up user based upon session data
+            })
             .then(function(foundUser) {
                 /*
-                    Note: When we run our validation instance method below,
-                    we have to pass a callback into the validation function.
-                    This code will run after our queries finish retrieving data.
-                    Promises are not available to us here.
+                Returns our found User.
 
-                    If we didn't pass the callback function in, we'd receive an `undefined`, as our queries cannot complete by the time our javascript interpreter moves onto the next line. Thus, our lovely callback spiral..
+                Parameters:
+                - `foundUser` - found User object with all user data.
                 */
 
-                // Validate our user update, and pass in our callback which runs after validations finish:
-                foundUser.validateUpdate(req.body, function(validationErrors){
+                foundUser.validateUpdate(req.body, function(validated) {
+                    /*
+                    Runs model User update validation method; returns `validated` object which contains either errors or messages (success messages).
 
-                    /* >> NOTE: THE CODE BELOW IS THE CALLBACK << */
-                    /* This code only runs AFTER all our validators finish! */
+                    Parameters:
+                    - `req.body` - User update object data from update user function in user factory.
+                    - `callback(validated)` - Callback function which runs after validations in models file has completed. Returns an object with `errors` or success `messages`.
+                    */
 
                     // Returned errors object:
-                    console.log(validationErrors);
+                    console.log(validated);
 
                     // If there are any errors send them:
-                    if (Object.keys(validationErrors.errors).length > 0) {
-                        console.log("Errors updating user:", validationErrors.errors);
-                        return res.status(500).json(validationErrors.errors);
+                    if (Object.keys(validated.errors).length > 0) {
+                        console.log("Errors updating user:", validated.errors);
+                        return res.status(500).json(validated.errors);
                     }
 
-                    // Else if no errors, send back new user:
+                    // Else if no errors, check for messages:
                     else {
-
-                        // Check if any messages:
-                        if (validationErrors.messages) {
+                        // If messages, send back validate object containing them:
+                        if (validated.messages) {
                             console.log("No changes detected.")
-                            return res.json(validationErrors);
+                            return res.json(validated);
                         }
 
-                        // If no errors just send back user:
+                        // Else if no errors, send back validated object with empty errors and empty messages:
                         else {
-                            return res.json(foundUser);
+                            return res.json(validated);
                         }
-
-                    }
-
+                    };
                 });
-
             })
-            .catch(function(err) { // Catch any errors if our query fails.
+            .catch(function(err) {
+                /*
+                Catch any errors when querying for findOne using session value.
+
+                Parameters:
+                - `err` - Errors object with error messages.
+                */
+
+                // Send any query errors back:
                 console.log(err);
                 return res.status(500).json(err)
             })
 
     },
-    // Authorize a user by checking for session data:
     auth: function(req, res) {
-        if (typeof(req.session.userId) == 'undefined') { // if no session return false
+        /*
+        Checks for a user's session to authorize angular's needs when displaying views and also to provide user data for certain navigation or page items.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+
+        Notes:
+        - This is not the only level of security. Each API route is also secured to verify a session in order to prevent spoofed data from being sent to the server or database.
+        */
+
+        // If session data is undefined, send back a False status (to be assessed in our Angular controller):
+        if (typeof(req.session.userId) == 'undefined') {
             return res.status(500).json({
                 status: false
             });
-        } else { // if valid session, return true along with validated user
-            User.findOne({_id: req.session.userId})
+        }
+
+        // Else, if session data is found, retreive the found user:
+        else {
+            // Find a user by session data:
+            User.findOne({
+                    _id: req.session.userId // Find one user by session data
+                })
                 .then(function(foundUser) {
-                    console.log(foundUser);
+                    /*
+                    Returns a found User.
+
+                    Parameters:
+                    - `foundUser` - User object.
+                    */
+
+                    // Send back found User and a True status (to be assessed in our Angular controller):
                     return res.json({
                         user: foundUser,
                         status: true
                     })
                 })
                 .catch(function(err) {
+                    /*
+                    Catches any errors if our findOne query fails.
+                    */
+
+                    // Log and return errors:
                     console.log(err);
                     return res.status(500).json(err);
                 })
         }
     },
-    // Set welcome message to false:
     welcomeSetFalse: function(req, res) {
-        User.findOneAndUpdate({_id: req.session.userId}, {welcome_msg_status: false})
+        /*
+        Sets a user's welcome message status to false, preventing the user from ever see the welcome message again.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+
+        Notes:
+        - Once this is run, there is no present way for the User to reverse the status and see the message once again.
+        */
+
+        // Finds user by session and updates property:
+        User.findOneAndUpdate({
+                _id: req.session.userId // Finds a user by session data
+            }, {
+                welcome_msg_status: false // Updates user property to False
+            })
             .then(function(foundUser) {
+                /*
+                    Returns found user.
+
+                    Paramters:
+                    - `foundUser` - User object.
+                */
+
+                // Log user and send a confirmation text:
                 console.log(foundUser);
                 return res.json('User welcome message updated.');
             })
             .catch(function(err) {
+                /*
+                Catches any error if findOne query fails:
+
+                Parameters:
+                - `err` - Errors object.
+                */
+
+                // Send errors:
                 console.log(err);
                 return res.status(500).json(err);
             })
 
     },
-    // Logout a user
     logout: function(req, res) {
-        console.log('Logging out user...');
-        // Destroy session:
+        /*
+        Logs out a User with a current session.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        console.log('Logging out user process starting...');
+
+        // Destroy session and send confirmation:
         req.session.destroy();
         console.log('Session destroyed.');
         return res.json("User logged out.");

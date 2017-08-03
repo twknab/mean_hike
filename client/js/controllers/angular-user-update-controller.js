@@ -1,4 +1,4 @@
-app.controller('accountController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
+app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -24,19 +24,19 @@ app.controller('accountController', ['$scope', 'userFactory', 'userMessages', '$
             $scope.successAlerts = userMessages.getAlerts();
         },
         // Runs after $scope.updateUser() function completes:
-        update: function(updatedUserOrMessage) {
+        update: function(validated) {
             // Clear any existing alerts from last time:
             userMessages.clearAlerts();
 
             // Check if any success messages sent:
-            if (Object.keys(updatedUserOrMessage.messages).length > 0) {
+            if (Object.keys(validated.messages).length > 0) {
                 console.log("Messages found.");
 
                 // Send each message to the `userMessages` service to be added as an alert.
-                for (var key in updatedUserOrMessage.messages) {
-                    if (updatedUserOrMessage.messages.hasOwnProperty(key)) {
-                        console.log(updatedUserOrMessage.messages[key]);
-                        userMessages.addAlert({ type: 'success', hdr: updatedUserOrMessage.messages[key].hdr, msg: updatedUserOrMessage.messages[key].msg });
+                for (var key in validated.messages) {
+                    if (validated.messages.hasOwnProperty(key)) {
+                        console.log(validated.messages[key]);
+                        userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                     }
                 }
             }

@@ -52,10 +52,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-
-	+ Finished re-organizing the login and registration validation methods. Nuked the pre-validate module which was garbage.
-
-	+ Cleaned up all commenting and functional doc strings in Controller. Do the same for the User Model now, then do the same for your Controllers, Factories and Services up until now. This is a pain, but will make things a lot easier as you go along, sets a good precedent and will help yourself and others better understand your project.
+	+ Clean up all commenting and doc strings in your Angular Controllers, Factories and Services. This is a PITA, but will make things a lot easier as you go along, sets a good precedent and will help yourself and others better understand your project.
 
 	+ Secure your Authorize Function:
 

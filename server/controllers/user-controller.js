@@ -232,7 +232,7 @@ module.exports = {
         User.findOneAndUpdate({
                 _id: req.session.userId // Finds a user by session data
             }, {
-                welcome_msg_status: false // Updates user property to False
+                WelcomeMsgStatus: false // Updates user property to False
             })
             .then(function(foundUser) {
                 /*

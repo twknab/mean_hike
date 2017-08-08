@@ -1,7 +1,7 @@
 # Setup Directions:
-1. `npm install`
-2. `bower install`
-
+1. Git clone project.
+2. `npm install` all packages.
+3. `bower install` all packages.
 
 # About:
 
@@ -10,6 +10,7 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ## Completed Improvements:
 
++ 8/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
 + 8/01/17 - Added User Account Update feature and added User Messages.
 + 7/23/17 - Created separate `navController`, which handles all back-end navigation actions.
 + 7/22/17 - Moved bulk sum of User validations to Models file.
@@ -17,9 +18,9 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 + 7/20/17 - Cleaned up modal controllers.
 + 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
-## Future Feature Ideas / Improvements:
+## Wish List:
 
-	+ Add a feature where the error message returned from the server (ie, `user`, or `password` in the error object) is passed through some conditional statement where then, that field becomes selected using a bootstrap field selection. This would be useful for the user so they're able to instantly see the field that flagged the error. Would be a nice cleaner way to show off error objects. Basically this allows fields that need to be fixed to be highlighted. (medium-priority)
+	+ Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 
 	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`) (low-priority)
 
@@ -43,19 +44,11 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (high-priority)
 
-	+ Change the way that error messages are generated in our model instance methods. Right now, you have to do some comparison in your server controller, to detect the difference between errors returned from built-in validators VS your custom instance methods. This just adds an extra layer of complexity to your server controller and you may be better suited just formatting it all on the back-end, and handing back a nice clean list to iterate through simply. This stuff just makes things more confusing, but understand you took the approach you did as it was a solution at the time. We can improve this solution now that we understand the problem from a greater context. (low-to-medium priority)
-
-
 
 ## Development Issues Log:
 
 
 ### Where I Left Off:
-
-	+ Clean up all commenting and doc strings in your Angular Controllers, Factories and Services:
-		- Still have to clean `angular-user-controller.js`
-		- Still have to clean up all factories.
-		- Still have to clean up all services.
 
 	+ Secure your Authorize Function:
 
@@ -68,4 +61,5 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 		+ What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)
 
 	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
+
 		- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.

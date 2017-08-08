@@ -49,8 +49,6 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
 
             Parameters:
             - `validated` - Object returned from API request containing a `messages` object, which contains any success messages.
-
-            Notes: This function clears any existing alerts and generates new alerts if they were returned from our API request. `$scope.getUser()` runs after success messages are generated. Because currently an account is viewed by the url, `account/{{username}}`, our `getUser()` function will ensure if the username was updated, that the appropriate URL is redirected to (ie, `account/{{newUsername}}`).
             */
 
             // Clear any existing alerts from last time:
@@ -142,9 +140,7 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
         - `index` - Index value of success alert to be removed.
         */
 
-        // Remove alert from $scope:
-        $scope.successAlerts.splice(index, 1);
-        // Runs service to remove alert from alerts array within service:
-        userMessages.removeAlert(index);
+        // Remove alert and update `$scope.successAlerts` to most recent:
+        $scope.successAlerts = userMessages.removeAlert(index);
     };
 }]);

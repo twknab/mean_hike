@@ -36,7 +36,7 @@
             <!-- Page Title and Icon -->
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>{{user.username}}'s Dashboard</em></small></h1>
             <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
-            <span ng-if="user.welcome_msg_status === true">
+            <span ng-if="user.WelcomeMsgStatus === true">
                 <!-- Welcome Message (Angular UI Bootstrap) -->
                 <div uib-alert ng-repeat="alert in weclomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
             </span>

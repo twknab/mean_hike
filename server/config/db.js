@@ -1,11 +1,15 @@
-// Setup our dependencies for our DB (Mongo) and the connection to Mongoose.
-var mongoose = require('mongoose'),
-    path = require('path'), // for reaching our models folder
-    fs = require('fs'), // for reaching our models folder
-    modelsPath = path.join(__dirname, './../models'), // gives direct access to our models folder
-    dbName = 'hikeDB'; // your database name must go here!
+/*
+This file sets up our mongoDB database and our connection to Mongoose.
+*/
 
-// Iterate through Models folder and load each file:
+// Setup our dependencies:
+var mongoose = require('mongoose'), // grab `mongoose` module
+    path = require('path'), // grab `path` for working with file tree
+    fs = require('fs'), // utilize `fs` (file system) for accessing file system
+    modelsPath = path.join(__dirname, './../models'), // provide access to our models folder
+    dbName = 'hikeDB'; // name of our database to be utilized in this application
+
+// Iterate through Models folder and load each JS file:
 fs.readdirSync(modelsPath).forEach(function(file) {
     if (file.indexOf('.js') > 0) {
         require(modelsPath + '/' + file);

@@ -3,6 +3,9 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
     //----------------------------------//
+    /*
+    The callback functions below only runs if one of the $scope methods below utilizes a factory method. The callback is sent to the factory, and will run after the factory receives a response from the server API. Please see individual callback functions for how each work.
+    */
     var cb = {
         // Runs after $scope.login() function completes:
         login: function(foundUser) {

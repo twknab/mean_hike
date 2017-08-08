@@ -52,7 +52,10 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 ### Where I Left Off:
 
-	+ Clean up all commenting and doc strings in your Angular Controllers, Factories and Services. This is a PITA, but will make things a lot easier as you go along, sets a good precedent and will help yourself and others better understand your project.
+	+ Clean up all commenting and doc strings in your Angular Controllers, Factories and Services:
+		- Still have to clean `angular-user-controller.js`
+		- Still have to clean up all factories.
+		- Still have to clean up all services.
 
 	+ Secure your Authorize Function:
 

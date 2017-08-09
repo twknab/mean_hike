@@ -32,11 +32,8 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
 
     // Close Success Alert:
     $scope.closeSuccessAlert = function(index) {
-        // Removes alert on page:
-        $scope.successAlerts.splice(index, 1);
-
-        // Runs service to remove alert:
-        userMessages.removeAlert(index);
+        // Run service to remove alert and update data binding:
+        $scope.successAlerts = userMessages.removeAlert(index);
     };
 
     //--------------------------//

@@ -21,26 +21,28 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     */
     var cb = {
         // Sets $scope.user to retrieved logged in user:
-        user: function(auth) {
+        user: function(authValidation) {
             /*
-            Runs after `$scope.getUser` completes; checks if session is valid, and if so sets `$scope.user` to validated User object.
+            Runs after `$scope.auth()` completes; checks if session is valid, and if so sets `$scope.user` to authValidation User object.
 
             Parameters:
-            - `auth` - An authorization object containing (1) a `status` property containing `true` or `false` in regards to authorization status, and (2) a `user` property will contain the validated User object.
+            - `authStatus` - An object returned from our factory, via a response from our API, containing the following properties:
+                - `status` - a `true` or `false` value of session validity.
+                - `user` - an object containing the User object, if the session is validated.
             */
 
             // If authorization status is false, redirect to index:
-            if (!auth.status) {
+            if (!authValidation.status) {
                 console.log('Session invalid.');
                 // Redirect home:
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', auth.user);
+                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
-                $scope.user = auth.user;
+                $scope.user = authValidation.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
             }
@@ -52,25 +54,25 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
             console.log("Attempting to reload page...");
             // Get a fresh copy of the User for Angular:
-            $scope.getUser();
+            $scope.auth();
         },
     };
 
-    //----------------------------------//
-    //---------- AUTHORIZE USER --------//
-    //----------------------------------//
+    //---------------------------------//
+    //-------- PAGE LOAD ACTIONS ------//
+    //---------------------------------//
 
-    $scope.getUser = function() {
+    $scope.auth = function() {
         /*
-        Gets validated User based upon session and runs `cb.user` callback afterwards.
+        Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Get logged in user...");
+        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
-    // Run getUser() on login:
-    $scope.getUser();
+    // Run auth() on login:
+    $scope.auth();
 
     //-----------------------------------------//
     //------- ANGULAR UI ALERT ACTIONS  -------//

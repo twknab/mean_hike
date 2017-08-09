@@ -21,12 +21,12 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
     var cb = {
         auth: function(authStatus) {
             /*
-            Runs after `$scope.auth()` function completes, ensuring a user is authorized before setting `$scope.user` to retrieved user.
+            Runs after `$scope.auth()` completes; checks if session is valid, and if so sets `$scope.user` to authValidation User object.
 
             Parameters:
             - `authStatus` - An object returned from our factory, via a response from our API, containing the following properties:
                 - `status` - a `true` or `false` value of session validity.
-                - `authStatus` - an object containing the User object, if the session is validated.
+                - `user` - an object containing the User object, if the session is validated.
             */
 
             if (!authStatus.status) {
@@ -60,20 +60,17 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         },
     };
 
-    //----------------------------------//
-    //---------- AUTHORIZE USER --------//
-    //----------------------------------//
-    /*
-    Development Note: Presently, we run a quick session check to authorize our user before making any navigation actions available to them. This strategy may be altered in the future as I button up security within most API routes themselves, however this functionality may be preserved in order to validate any navigation actions which do not communicate with the server (ie, scope methods that run the $location service only, without pinging the API routes for data).
-    */
+    //---------------------------------------//
+    //---------- NAVBAR LOAD ACTIONS --------//
+    //---------------------------------------//
 
     $scope.auth = function() {
         /*
-        Authorize a user prior to setting `$scope.user`.
+        Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing user...");
-        // Run `auth` factory method and pass in the `auth` callback function above to run when complete:
+        console.log("Authorizing user for navbar...");
+        // Run `auth` factory method passing in the `auth` callback function above to run when complete:
         userFactory.auth(cb.auth);
     };
     // Run Authorize function on Login:

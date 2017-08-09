@@ -95,16 +95,16 @@ app.factory('userFactory', ['$http', function($http) {
         - `authCallback` - Callback to run after session status has been determined.
         */
         $http.get('/api/user/auth')
-            .then(function(authStatus) {
+            .then(function(authValidation) {
                 /*
-                Returns `authStatus` object if query is successful:
+                Returns `authValidation` object if query is successful:
 
                 Parameters:
-                - `authStatus` - Object contianing `status` property with `true` or `false` status depending upon User session status, and `user` object, containing authorized User object if successful.
+                - `authValidation` - Object contianing `status` property with `true` or `false` status depending upon User session status, and `user` object, containing authorized User object if successful.
                 */
 
-                console.log("Does user have a valid session?:", authStatus.data.status);
-                authCallback(authStatus.data);
+                console.log("Does user have a valid session?:", authValidation.data.status);
+                authCallback(authValidation.data);
             })
             .catch(function(err) {
                 console.log('Error authorizing user:', err.data);
@@ -173,7 +173,6 @@ app.factory('userFactory', ['$http', function($http) {
             })
     };
 
-    // Logout:
     factory.logout = function(logoutCallback) {
         /*
         Runs logout function on server API.

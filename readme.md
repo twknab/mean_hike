@@ -5,11 +5,11 @@
 
 # About:
 
-This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked, along with the ability
-to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
+This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked, along with the ability to create gear lists. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
 ## Completed Improvements:
 
++ 8/08/17 - Secured API routes and Angular routes for valid session user only.
 + 8/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
 + 8/01/17 - Added User Account Update feature and added User Messages.
 + 7/23/17 - Created separate `navController`, which handles all back-end navigation actions.
@@ -44,22 +44,17 @@ to create gear lists. This will ensure a more prepared mind when departing. Upon
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (high-priority)
 
+	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own) (high-priority)
 
 ## Development Issues Log:
 
-
 ### Where I Left Off:
+	- Should you simplify your Dashboard navigation? Right now @ mobile resolution the navbar is 2 lines and a bit funky.
 
-	+ Secure your Authorize Function:
-
-		+ There might be a security risk in your authorize function. Think of it this way: right now, you packaged that into your navbar. What if someone downloads your HTML and tries to use your code, but just chops out the navbar code? Because all the other controller functions on each page will run, without any auth (because they are assuming the navController will take care of that), it means a person could query data if the naBar wasn't present. So my suggestion is to go back to your original strategy: for each Controller, build an auth function that queries for auth status (you should not have to rebuild your server side controller, just your angular controller). Then, ANY controller that runs, will automatically authorize your user, even if the navbar was removed -- and no core content could be obtained, as the other queries ONLY run after things have been authorized. **OR if you can find a way to secure them in the backend, then you won't have to do this -- as any query at all to those functions would require a valid session....you might have to think this one out....**
-
-
-	+ Secure your API Routes:
-
-		+ Technically your api routes are still open to non-session users
-		+ What would be the best way to handle securing each route, by checking for session? (like you were doing in Python...)  [IDEA: What about using something in your middleware to check for a sesssion?] (maybe just if no session send 404, although we can do better.)
-
-	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own)
-
-		- Maybe do this AFTER you've built all your models to better know all the bases you have to cover.
+### Remaining Features:
+	- Add Hike Feature
+	- Edit Hike Feature
+	- Add Pre-Trip Feature
+	- Add Post-Trip Feature
+	- Add Full Report Feature
+	- Show Recent Hikes Feature

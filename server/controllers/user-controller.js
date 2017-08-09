@@ -105,65 +105,72 @@ module.exports = {
         - `res`: Response object.
         */
 
-        console.log('Starting update user validation...Data submitted:', req.body);
+        // If not a valid session, redirect home, else begin update process:
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log('Starting update user validation...Data submitted:', req.body);
 
-        // Find user based upon session so we can compare existing document values to those submitted for validation (to validate for what has changed as not all fields are required):
-        User.findOne({
-                _id: req.session.userId // look up user based upon session data
-            })
-            .then(function(foundUser) {
-                /*
-                Returns our found User.
-
-                Parameters:
-                - `foundUser` - found User object with all user data.
-                */
-
-                foundUser.validateUpdate(req.body, function(validated) {
+            // Find user based upon session so we can compare existing document values to those submitted for validation (to validate for what has changed as not all fields are required):
+            User.findOne({
+                    _id: req.session.userId // look up user based upon session data
+                })
+                .then(function(foundUser) {
                     /*
-                    Runs model User update validation method; returns `validated` object which contains either errors or messages (success messages).
+                    Returns our found User.
 
                     Parameters:
-                    - `req.body` - User update object data from update user function in user factory.
-                    - `callback(validated)` - Callback function which runs after validations in models file has completed. Returns an object with `errors` or success `messages`.
+                    - `foundUser` - found User object with all user data.
                     */
 
-                    // Returned errors object:
-                    console.log(validated);
+                    foundUser.validateUpdate(req.body, function(validated) {
+                        /*
+                        Runs model User update validation method; returns `validated` object which contains either errors or messages (success messages).
 
-                    // If there are any errors send them:
-                    if (Object.keys(validated.errors).length > 0) {
-                        console.log("Errors updating user:", validated.errors);
-                        return res.status(500).json(validated.errors);
-                    }
+                        Parameters:
+                        - `req.body` - User update object data from update user function in user factory.
+                        - `callback(validated)` - Callback function which runs after validations in models file has completed. Returns an object with `errors` or success `messages`.
+                        */
 
-                    // Else if no errors, check for messages:
-                    else {
-                        // If messages, send back validate object containing them:
-                        if (validated.messages) {
-                            console.log("No changes detected.")
-                            return res.json(validated);
+                        // Returned errors object:
+                        console.log(validated);
+
+                        // If there are any errors send them:
+                        if (Object.keys(validated.errors).length > 0) {
+                            console.log("Errors updating user:", validated.errors);
+                            return res.status(500).json(validated.errors);
                         }
 
-                        // Else if no errors, send back validated object with empty errors and empty messages:
+                        // Else if no errors, check for messages:
                         else {
-                            return res.json(validated);
-                        }
-                    };
-                });
-            })
-            .catch(function(err) {
-                /*
-                Catch any errors when querying for findOne using session value.
+                            // If messages, send back validate object containing them:
+                            if (validated.messages) {
+                                console.log("No changes detected.")
+                                return res.json(validated);
+                            }
 
-                Parameters:
-                - `err` - Errors object with error messages.
-                */
+                            // Else if no errors, send back validated object with empty errors and empty messages:
+                            else {
+                                return res.json(validated);
+                            }
+                        };
+                    });
+                })
+                .catch(function(err) {
+                    /*
+                    Catch any errors when querying for findOne using session value.
 
-                // Send any query errors back:
-                console.log(err);
-                return res.status(500).json(err)
-            })
+                    Parameters:
+                    - `err` - Errors object with error messages.
+                    */
+
+                    // Send any query errors back:
+                    console.log(err);
+                    return res.status(500).json(err)
+                })
+        }
+
 
     },
     auth: function(req, res) {
@@ -228,18 +235,23 @@ module.exports = {
         - Once this is run, there is no present way for the User to reverse the status and see the message once again.
         */
 
-        // Finds user by session and updates property:
-        User.findOneAndUpdate({
+        // If not a valid session, redirect home, else begin update process:
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            // Finds user by session and updates property:
+            User.findOneAndUpdate({
                 _id: req.session.userId // Finds a user by session data
             }, {
                 WelcomeMsgStatus: false // Updates user property to False
             })
             .then(function(foundUser) {
                 /*
-                    Returns found user.
+                Returns found user.
 
-                    Paramters:
-                    - `foundUser` - User object.
+                Paramters:
+                - `foundUser` - User object.
                 */
 
                 // Log user and send a confirmation text:
@@ -258,6 +270,8 @@ module.exports = {
                 console.log(err);
                 return res.status(500).json(err);
             })
+        }
+
 
     },
     logout: function(req, res) {
@@ -269,11 +283,17 @@ module.exports = {
         - `res`: Response object.
         */
 
-        console.log('Logging out user process starting...');
+        // If not a valid session, redirect home, else begin update process:
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log('Logging out user process starting...');
 
-        // Destroy session and send confirmation:
-        req.session.destroy();
-        console.log('Session destroyed.');
-        return res.json("User logged out.");
+            // Destroy session and send confirmation:
+            req.session.destroy();
+            console.log('Session destroyed.');
+            return res.json("User logged out.");
+        }
     },
 };

@@ -45,6 +45,8 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $scope.user = authValidation.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
+                // Get recent Hikes on page load:
+                // $scope.recentHikes();
             }
         },
         welcomeSetFalse: function() {
@@ -66,6 +68,17 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Get a recent hikes again:
             /* call $scope function here */
         },
+        recentHikes: function(validatedHike) {
+            /*
+            Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
+            */
+
+            console.log(validatedHike);
+            console.log("Updating recent hikes with new Hike...");
+
+            // Get a recent hikes again:
+            /* call $scope function here */
+        },
         hikeError: function(err) {
             /*
             Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
@@ -77,6 +90,32 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
         },
     };
+
+    //-----------------------------------//
+    //-------- PAGE LOAD FUNCTIONS ------//
+    //-----------------------------------//
+
+    $scope.auth = function() {
+        /*
+        Authorize a user session, and if successful, set User with valid session to `$scope.user`.
+        */
+
+        console.log("Authorizing logged in user (and fetch them)...");
+        userFactory.auth(cb.user);
+    };
+
+    $scope.recentHikes = function() {
+        /*
+        Gets 3 most recent hikes.
+        */
+
+        console.log("Getting 3 most recent hikes...");
+        hikeFactory.getRecent(cb.recentHikes)
+
+    };
+
+    // Run auth() on page load:
+    $scope.auth();
 
     //----------------------------//
     //-------- ADD NEW HIKE ------//
@@ -97,23 +136,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         console.log($scope.newHike);
         console.log('$$$$$$$$$$$$$$$');
     };
-
-
-    //---------------------------------//
-    //-------- PAGE LOAD ACTIONS ------//
-    //---------------------------------//
-
-    $scope.auth = function() {
-        /*
-        Authorize a user session, and if successful, set User with valid session to `$scope.user`.
-        */
-
-        console.log("Authorizing logged in user (and fetch them)...");
-        userFactory.auth(cb.user);
-    };
-
-    // Run auth() on login:
-    $scope.auth();
 
     //-----------------------------------------//
     //------- ANGULAR UI ALERT ACTIONS  -------//

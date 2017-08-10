@@ -1,0 +1,579 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'getlorem' ]
+2 info using npm@3.10.3
+3 info using node@v6.7.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData getlorem
+8 silly fetchNamedPackageData getlorem
+9 silly mapToRegistry name getlorem
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'getlorem',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'getlorem',
+12 silly mapToRegistry   name: 'getlorem',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/getlorem
+14 verbose request uri https://registry.npmjs.org/getlorem
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 12:24:07 AM
+17 verbose request id 5eddc6c96d61fdbb
+18 http request GET https://registry.npmjs.org/getlorem
+19 http 200 https://registry.npmjs.org/getlorem
+20 verbose headers { server: 'nginx/1.10.1',
+20 verbose headers   'content-type': 'application/json',
+20 verbose headers   'last-modified': 'Tue, 17 Jan 2017 18:08:38 GMT',
+20 verbose headers   etag: 'W/"587e5da6-1416"',
+20 verbose headers   'content-encoding': 'gzip',
+20 verbose headers   'cache-control': 'max-age=300',
+20 verbose headers   'content-length': '1688',
+20 verbose headers   'accept-ranges': 'bytes',
+20 verbose headers   date: 'Thu, 10 Aug 2017 07:24:07 GMT',
+20 verbose headers   via: '1.1 varnish',
+20 verbose headers   age: '0',
+20 verbose headers   connection: 'keep-alive',
+20 verbose headers   'x-served-by': 'cache-bur17521-BUR',
+20 verbose headers   'x-cache': 'MISS',
+20 verbose headers   'x-cache-hits': '0',
+20 verbose headers   'x-timer': 'S1502349848.778069,VS0,VE200',
+20 verbose headers   vary: 'Accept-Encoding, Accept' }
+21 silly get cb [ 200,
+21 silly get   { server: 'nginx/1.10.1',
+21 silly get     'content-type': 'application/json',
+21 silly get     'last-modified': 'Tue, 17 Jan 2017 18:08:38 GMT',
+21 silly get     etag: 'W/"587e5da6-1416"',
+21 silly get     'content-encoding': 'gzip',
+21 silly get     'cache-control': 'max-age=300',
+21 silly get     'content-length': '1688',
+21 silly get     'accept-ranges': 'bytes',
+21 silly get     date: 'Thu, 10 Aug 2017 07:24:07 GMT',
+21 silly get     via: '1.1 varnish',
+21 silly get     age: '0',
+21 silly get     connection: 'keep-alive',
+21 silly get     'x-served-by': 'cache-bur17521-BUR',
+21 silly get     'x-cache': 'MISS',
+21 silly get     'x-cache-hits': '0',
+21 silly get     'x-timer': 'S1502349848.778069,VS0,VE200',
+21 silly get     vary: 'Accept-Encoding, Accept' } ]
+22 verbose get saving getlorem to /Users/timotree/.npm/registry.npmjs.org/getlorem/.cache.json
+23 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+24 silly install normalizeTree
+25 silly loadCurrentTree Finishing
+26 silly loadIdealTree Starting
+27 silly install loadIdealTree
+28 silly cloneCurrentTree Starting
+29 silly install cloneCurrentTreeToIdealTree
+30 silly cloneCurrentTree Finishing
+31 silly loadShrinkwrap Starting
+32 silly install loadShrinkwrap
+33 silly loadShrinkwrap Finishing
+34 silly loadAllDepsIntoIdealTree Starting
+35 silly install loadAllDepsIntoIdealTree
+36 silly resolveWithNewModule getlorem@1.0.1 checking installable status
+37 silly cache add args [ 'getlorem', null ]
+38 verbose cache add spec getlorem
+39 silly cache add parsed spec Result {
+39 silly cache add   raw: 'getlorem',
+39 silly cache add   scope: null,
+39 silly cache add   escapedName: 'getlorem',
+39 silly cache add   name: 'getlorem',
+39 silly cache add   rawSpec: '',
+39 silly cache add   spec: 'latest',
+39 silly cache add   type: 'tag' }
+40 silly addNamed getlorem@latest
+41 verbose addNamed "latest" is being treated as a dist-tag for getlorem
+42 info addNameTag [ 'getlorem', 'latest' ]
+43 silly mapToRegistry name getlorem
+44 silly mapToRegistry using default registry
+45 silly mapToRegistry registry https://registry.npmjs.org/
+46 silly mapToRegistry data Result {
+46 silly mapToRegistry   raw: 'getlorem',
+46 silly mapToRegistry   scope: null,
+46 silly mapToRegistry   escapedName: 'getlorem',
+46 silly mapToRegistry   name: 'getlorem',
+46 silly mapToRegistry   rawSpec: '',
+46 silly mapToRegistry   spec: 'latest',
+46 silly mapToRegistry   type: 'tag' }
+47 silly mapToRegistry uri https://registry.npmjs.org/getlorem
+48 verbose addNameTag registry:https://registry.npmjs.org/getlorem not in flight; fetching
+49 verbose get https://registry.npmjs.org/getlorem not expired, no request
+50 silly addNameTag next cb for getlorem with tag latest
+51 silly addNamed getlorem@1.0.1
+52 verbose addNamed "1.0.1" is a plain semver version for getlorem
+53 silly mapToRegistry name getlorem
+54 silly mapToRegistry using default registry
+55 silly mapToRegistry registry https://registry.npmjs.org/
+56 silly mapToRegistry data Result {
+56 silly mapToRegistry   raw: 'getlorem',
+56 silly mapToRegistry   scope: null,
+56 silly mapToRegistry   escapedName: 'getlorem',
+56 silly mapToRegistry   name: 'getlorem',
+56 silly mapToRegistry   rawSpec: '',
+56 silly mapToRegistry   spec: 'latest',
+56 silly mapToRegistry   type: 'tag' }
+57 silly mapToRegistry uri https://registry.npmjs.org/getlorem
+58 verbose addRemoteTarball https://registry.npmjs.org/getlorem/-/getlorem-1.0.1.tgz not in flight; adding
+59 verbose addRemoteTarball [ 'https://registry.npmjs.org/getlorem/-/getlorem-1.0.1.tgz',
+59 verbose addRemoteTarball   'e592bb961c2b588c77fe74c215eb58f49d1941e6' ]
+60 info retry fetch attempt 1 at 12:24:08 AM
+61 info attempt registry request try #1 at 12:24:08 AM
+62 http fetch GET https://registry.npmjs.org/getlorem/-/getlorem-1.0.1.tgz
+63 http fetch 200 https://registry.npmjs.org/getlorem/-/getlorem-1.0.1.tgz
+64 silly fetchAndShaCheck shasum e592bb961c2b588c77fe74c215eb58f49d1941e6
+65 verbose addTmpTarball /var/folders/1q/zh8r9crx3wg9mp330bm9wgyw0000gn/T/npm-9138-31e1a149/registry.npmjs.org/getlorem/-/getlorem-1.0.1.tgz not in flight; adding
+66 verbose addTmpTarball already have metadata; skipping unpack for getlorem@1.0.1
+67 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+68 silly cache afterAdd getlorem@1.0.1
+69 verbose afterAdd /Users/timotree/.npm/getlorem/1.0.1/package/package.json not in flight; writing
+70 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+71 verbose afterAdd /Users/timotree/.npm/getlorem/1.0.1/package/package.json written
+72 silly fetchNamedPackageData optimist
+73 silly mapToRegistry name optimist
+74 silly mapToRegistry using default registry
+75 silly mapToRegistry registry https://registry.npmjs.org/
+76 silly mapToRegistry data Result {
+76 silly mapToRegistry   raw: 'optimist',
+76 silly mapToRegistry   scope: null,
+76 silly mapToRegistry   escapedName: 'optimist',
+76 silly mapToRegistry   name: 'optimist',
+76 silly mapToRegistry   rawSpec: '',
+76 silly mapToRegistry   spec: 'latest',
+76 silly mapToRegistry   type: 'tag' }
+77 silly mapToRegistry uri https://registry.npmjs.org/optimist
+78 verbose request uri https://registry.npmjs.org/optimist
+79 verbose request no auth needed
+80 info attempt registry request try #1 at 12:24:08 AM
+81 http request GET https://registry.npmjs.org/optimist
+82 http 200 https://registry.npmjs.org/optimist
+83 verbose headers { server: 'nginx/1.10.3',
+83 verbose headers   'content-type': 'application/json',
+83 verbose headers   'last-modified': 'Tue, 08 Aug 2017 10:03:10 GMT',
+83 verbose headers   etag: 'W/"59898c5e-b823"',
+83 verbose headers   'content-encoding': 'gzip',
+83 verbose headers   'cache-control': 'max-age=300',
+83 verbose headers   'content-length': '8346',
+83 verbose headers   'accept-ranges': 'bytes',
+83 verbose headers   date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+83 verbose headers   via: '1.1 varnish',
+83 verbose headers   age: '86',
+83 verbose headers   connection: 'keep-alive',
+83 verbose headers   'x-served-by': 'cache-bur17521-BUR',
+83 verbose headers   'x-cache': 'HIT',
+83 verbose headers   'x-cache-hits': '1',
+83 verbose headers   'x-timer': 'S1502349848.339465,VS0,VE0',
+83 verbose headers   vary: 'Accept-Encoding, Accept' }
+84 silly get cb [ 200,
+84 silly get   { server: 'nginx/1.10.3',
+84 silly get     'content-type': 'application/json',
+84 silly get     'last-modified': 'Tue, 08 Aug 2017 10:03:10 GMT',
+84 silly get     etag: 'W/"59898c5e-b823"',
+84 silly get     'content-encoding': 'gzip',
+84 silly get     'cache-control': 'max-age=300',
+84 silly get     'content-length': '8346',
+84 silly get     'accept-ranges': 'bytes',
+84 silly get     date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+84 silly get     via: '1.1 varnish',
+84 silly get     age: '86',
+84 silly get     connection: 'keep-alive',
+84 silly get     'x-served-by': 'cache-bur17521-BUR',
+84 silly get     'x-cache': 'HIT',
+84 silly get     'x-cache-hits': '1',
+84 silly get     'x-timer': 'S1502349848.339465,VS0,VE0',
+84 silly get     vary: 'Accept-Encoding, Accept' } ]
+85 verbose get saving optimist to /Users/timotree/.npm/registry.npmjs.org/optimist/.cache.json
+86 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+87 silly resolveWithNewModule optimist@0.6.1 checking installable status
+88 silly cache add args [ 'optimist@^0.6.1', null ]
+89 verbose cache add spec optimist@^0.6.1
+90 silly cache add parsed spec Result {
+90 silly cache add   raw: 'optimist@^0.6.1',
+90 silly cache add   scope: null,
+90 silly cache add   escapedName: 'optimist',
+90 silly cache add   name: 'optimist',
+90 silly cache add   rawSpec: '^0.6.1',
+90 silly cache add   spec: '>=0.6.1 <0.7.0',
+90 silly cache add   type: 'range' }
+91 silly addNamed optimist@>=0.6.1 <0.7.0
+92 verbose addNamed ">=0.6.1 <0.7.0" is a valid semver range for optimist
+93 silly addNameRange { name: 'optimist', range: '>=0.6.1 <0.7.0', hasData: false }
+94 silly mapToRegistry name optimist
+95 silly mapToRegistry using default registry
+96 silly mapToRegistry registry https://registry.npmjs.org/
+97 silly mapToRegistry data Result {
+97 silly mapToRegistry   raw: 'optimist',
+97 silly mapToRegistry   scope: null,
+97 silly mapToRegistry   escapedName: 'optimist',
+97 silly mapToRegistry   name: 'optimist',
+97 silly mapToRegistry   rawSpec: '',
+97 silly mapToRegistry   spec: 'latest',
+97 silly mapToRegistry   type: 'tag' }
+98 silly mapToRegistry uri https://registry.npmjs.org/optimist
+99 verbose addNameRange registry:https://registry.npmjs.org/optimist not in flight; fetching
+100 verbose get https://registry.npmjs.org/optimist not expired, no request
+101 silly addNameRange number 2 { name: 'optimist', range: '>=0.6.1 <0.7.0', hasData: true }
+102 silly addNameRange versions [ 'optimist',
+102 silly addNameRange   [ '0.0.1',
+102 silly addNameRange     '0.0.2',
+102 silly addNameRange     '0.0.4',
+102 silly addNameRange     '0.0.5',
+102 silly addNameRange     '0.0.6',
+102 silly addNameRange     '0.0.7',
+102 silly addNameRange     '0.1.0',
+102 silly addNameRange     '0.1.1',
+102 silly addNameRange     '0.1.2',
+102 silly addNameRange     '0.1.3',
+102 silly addNameRange     '0.1.4',
+102 silly addNameRange     '0.1.5',
+102 silly addNameRange     '0.1.6',
+102 silly addNameRange     '0.1.7',
+102 silly addNameRange     '0.1.8',
+102 silly addNameRange     '0.1.9',
+102 silly addNameRange     '0.0.3',
+102 silly addNameRange     '0.2.0',
+102 silly addNameRange     '0.2.1',
+102 silly addNameRange     '0.2.2',
+102 silly addNameRange     '0.2.3',
+102 silly addNameRange     '0.2.4',
+102 silly addNameRange     '0.2.5',
+102 silly addNameRange     '0.2.6',
+102 silly addNameRange     '0.2.7',
+102 silly addNameRange     '0.2.8',
+102 silly addNameRange     '0.3.0',
+102 silly addNameRange     '0.3.1',
+102 silly addNameRange     '0.3.3',
+102 silly addNameRange     '0.3.4',
+102 silly addNameRange     '0.3.5',
+102 silly addNameRange     '0.3.6',
+102 silly addNameRange     '0.3.7',
+102 silly addNameRange     '0.4.0',
+102 silly addNameRange     '0.5.0',
+102 silly addNameRange     '0.5.1',
+102 silly addNameRange     '0.5.2',
+102 silly addNameRange     '0.6.0',
+102 silly addNameRange     '0.6.1' ] ]
+103 silly addNamed optimist@0.6.1
+104 verbose addNamed "0.6.1" is a plain semver version for optimist
+105 silly mapToRegistry name optimist
+106 silly mapToRegistry using default registry
+107 silly mapToRegistry registry https://registry.npmjs.org/
+108 silly mapToRegistry data Result {
+108 silly mapToRegistry   raw: 'optimist',
+108 silly mapToRegistry   scope: null,
+108 silly mapToRegistry   escapedName: 'optimist',
+108 silly mapToRegistry   name: 'optimist',
+108 silly mapToRegistry   rawSpec: '',
+108 silly mapToRegistry   spec: 'latest',
+108 silly mapToRegistry   type: 'tag' }
+109 silly mapToRegistry uri https://registry.npmjs.org/optimist
+110 verbose addRemoteTarball https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz not in flight; adding
+111 verbose addRemoteTarball [ 'https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz',
+111 verbose addRemoteTarball   'da3ea74686fa21a19a111c326e90eb15a0196686' ]
+112 info retry fetch attempt 1 at 12:24:08 AM
+113 info attempt registry request try #1 at 12:24:08 AM
+114 http fetch GET https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz
+115 http fetch 200 https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz
+116 silly fetchAndShaCheck shasum da3ea74686fa21a19a111c326e90eb15a0196686
+117 verbose addTmpTarball /var/folders/1q/zh8r9crx3wg9mp330bm9wgyw0000gn/T/npm-9138-31e1a149/registry.npmjs.org/optimist/-/optimist-0.6.1.tgz not in flight; adding
+118 verbose addTmpTarball already have metadata; skipping unpack for optimist@0.6.1
+119 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+120 silly cache afterAdd optimist@0.6.1
+121 verbose afterAdd /Users/timotree/.npm/optimist/0.6.1/package/package.json not in flight; writing
+122 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+123 verbose afterAdd /Users/timotree/.npm/optimist/0.6.1/package/package.json written
+124 silly fetchNamedPackageData wordwrap
+125 silly mapToRegistry name wordwrap
+126 silly mapToRegistry using default registry
+127 silly mapToRegistry registry https://registry.npmjs.org/
+128 silly mapToRegistry data Result {
+128 silly mapToRegistry   raw: 'wordwrap',
+128 silly mapToRegistry   scope: null,
+128 silly mapToRegistry   escapedName: 'wordwrap',
+128 silly mapToRegistry   name: 'wordwrap',
+128 silly mapToRegistry   rawSpec: '',
+128 silly mapToRegistry   spec: 'latest',
+128 silly mapToRegistry   type: 'tag' }
+129 silly mapToRegistry uri https://registry.npmjs.org/wordwrap
+130 silly fetchNamedPackageData minimist
+131 silly mapToRegistry name minimist
+132 silly mapToRegistry using default registry
+133 silly mapToRegistry registry https://registry.npmjs.org/
+134 silly mapToRegistry data Result {
+134 silly mapToRegistry   raw: 'minimist',
+134 silly mapToRegistry   scope: null,
+134 silly mapToRegistry   escapedName: 'minimist',
+134 silly mapToRegistry   name: 'minimist',
+134 silly mapToRegistry   rawSpec: '',
+134 silly mapToRegistry   spec: 'latest',
+134 silly mapToRegistry   type: 'tag' }
+135 silly mapToRegistry uri https://registry.npmjs.org/minimist
+136 verbose request uri https://registry.npmjs.org/wordwrap
+137 verbose request no auth needed
+138 info attempt registry request try #1 at 12:24:08 AM
+139 verbose etag W/"58c8cfca-1aee"
+140 verbose lastModified Wed, 15 Mar 2017 05:23:22 GMT
+141 http request GET https://registry.npmjs.org/wordwrap
+142 verbose request uri https://registry.npmjs.org/minimist
+143 verbose request no auth needed
+144 info attempt registry request try #1 at 12:24:08 AM
+145 verbose etag W/"595190c9-762b"
+146 verbose lastModified Mon, 26 Jun 2017 22:55:05 GMT
+147 http request GET https://registry.npmjs.org/minimist
+148 http 200 https://registry.npmjs.org/wordwrap
+149 verbose headers { server: 'nginx/1.10.3',
+149 verbose headers   'content-type': 'application/json',
+149 verbose headers   'last-modified': 'Tue, 08 Aug 2017 10:20:23 GMT',
+149 verbose headers   etag: 'W/"59899067-1b0e"',
+149 verbose headers   'content-encoding': 'gzip',
+149 verbose headers   'cache-control': 'max-age=300',
+149 verbose headers   'content-length': '1846',
+149 verbose headers   'accept-ranges': 'bytes',
+149 verbose headers   date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+149 verbose headers   via: '1.1 varnish',
+149 verbose headers   age: '173',
+149 verbose headers   connection: 'keep-alive',
+149 verbose headers   'x-served-by': 'cache-bur17521-BUR',
+149 verbose headers   'x-cache': 'HIT',
+149 verbose headers   'x-cache-hits': '2',
+149 verbose headers   'x-timer': 'S1502349848.485193,VS0,VE0',
+149 verbose headers   vary: 'Accept-Encoding, Accept' }
+150 silly get cb [ 200,
+150 silly get   { server: 'nginx/1.10.3',
+150 silly get     'content-type': 'application/json',
+150 silly get     'last-modified': 'Tue, 08 Aug 2017 10:20:23 GMT',
+150 silly get     etag: 'W/"59899067-1b0e"',
+150 silly get     'content-encoding': 'gzip',
+150 silly get     'cache-control': 'max-age=300',
+150 silly get     'content-length': '1846',
+150 silly get     'accept-ranges': 'bytes',
+150 silly get     date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+150 silly get     via: '1.1 varnish',
+150 silly get     age: '173',
+150 silly get     connection: 'keep-alive',
+150 silly get     'x-served-by': 'cache-bur17521-BUR',
+150 silly get     'x-cache': 'HIT',
+150 silly get     'x-cache-hits': '2',
+150 silly get     'x-timer': 'S1502349848.485193,VS0,VE0',
+150 silly get     vary: 'Accept-Encoding, Accept' } ]
+151 verbose get saving wordwrap to /Users/timotree/.npm/registry.npmjs.org/wordwrap/.cache.json
+152 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+153 silly resolveWithNewModule wordwrap@0.0.3 checking installable status
+154 silly cache add args [ 'wordwrap@~0.0.2', null ]
+155 verbose cache add spec wordwrap@~0.0.2
+156 silly cache add parsed spec Result {
+156 silly cache add   raw: 'wordwrap@~0.0.2',
+156 silly cache add   scope: null,
+156 silly cache add   escapedName: 'wordwrap',
+156 silly cache add   name: 'wordwrap',
+156 silly cache add   rawSpec: '~0.0.2',
+156 silly cache add   spec: '>=0.0.2 <0.1.0',
+156 silly cache add   type: 'range' }
+157 silly addNamed wordwrap@>=0.0.2 <0.1.0
+158 verbose addNamed ">=0.0.2 <0.1.0" is a valid semver range for wordwrap
+159 silly addNameRange { name: 'wordwrap', range: '>=0.0.2 <0.1.0', hasData: false }
+160 silly mapToRegistry name wordwrap
+161 silly mapToRegistry using default registry
+162 silly mapToRegistry registry https://registry.npmjs.org/
+163 silly mapToRegistry data Result {
+163 silly mapToRegistry   raw: 'wordwrap',
+163 silly mapToRegistry   scope: null,
+163 silly mapToRegistry   escapedName: 'wordwrap',
+163 silly mapToRegistry   name: 'wordwrap',
+163 silly mapToRegistry   rawSpec: '',
+163 silly mapToRegistry   spec: 'latest',
+163 silly mapToRegistry   type: 'tag' }
+164 silly mapToRegistry uri https://registry.npmjs.org/wordwrap
+165 verbose addNameRange registry:https://registry.npmjs.org/wordwrap not in flight; fetching
+166 verbose get https://registry.npmjs.org/wordwrap not expired, no request
+167 silly addNameRange number 2 { name: 'wordwrap', range: '>=0.0.2 <0.1.0', hasData: true }
+168 silly addNameRange versions [ 'wordwrap', [ '0.0.1', '0.0.2', '0.0.3', '1.0.0' ] ]
+169 silly addNamed wordwrap@0.0.3
+170 verbose addNamed "0.0.3" is a plain semver version for wordwrap
+171 silly mapToRegistry name wordwrap
+172 silly mapToRegistry using default registry
+173 silly mapToRegistry registry https://registry.npmjs.org/
+174 silly mapToRegistry data Result {
+174 silly mapToRegistry   raw: 'wordwrap',
+174 silly mapToRegistry   scope: null,
+174 silly mapToRegistry   escapedName: 'wordwrap',
+174 silly mapToRegistry   name: 'wordwrap',
+174 silly mapToRegistry   rawSpec: '',
+174 silly mapToRegistry   spec: 'latest',
+174 silly mapToRegistry   type: 'tag' }
+175 silly mapToRegistry uri https://registry.npmjs.org/wordwrap
+176 verbose addRemoteTarball https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz not in flight; adding
+177 verbose addRemoteTarball [ 'https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz',
+177 verbose addRemoteTarball   'a3d5da6cd5c0bc0008d37234bbaf1bed63059107' ]
+178 info retry fetch attempt 1 at 12:24:08 AM
+179 info attempt registry request try #1 at 12:24:08 AM
+180 http fetch GET https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz
+181 http fetch 200 https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz
+182 silly fetchAndShaCheck shasum a3d5da6cd5c0bc0008d37234bbaf1bed63059107
+183 verbose addTmpTarball /var/folders/1q/zh8r9crx3wg9mp330bm9wgyw0000gn/T/npm-9138-31e1a149/registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz not in flight; adding
+184 verbose addTmpTarball already have metadata; skipping unpack for wordwrap@0.0.3
+185 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+186 silly cache afterAdd wordwrap@0.0.3
+187 verbose afterAdd /Users/timotree/.npm/wordwrap/0.0.3/package/package.json not in flight; writing
+188 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+189 verbose afterAdd /Users/timotree/.npm/wordwrap/0.0.3/package/package.json written
+190 http 200 https://registry.npmjs.org/minimist
+191 verbose headers { server: 'nginx/1.10.1',
+191 verbose headers   'content-type': 'application/json',
+191 verbose headers   'last-modified': 'Tue, 08 Aug 2017 10:08:47 GMT',
+191 verbose headers   etag: 'W/"59898daf-7688"',
+191 verbose headers   'content-encoding': 'gzip',
+191 verbose headers   'cache-control': 'max-age=300',
+191 verbose headers   'content-length': '5886',
+191 verbose headers   'accept-ranges': 'bytes',
+191 verbose headers   date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+191 verbose headers   via: '1.1 varnish',
+191 verbose headers   age: '258',
+191 verbose headers   connection: 'keep-alive',
+191 verbose headers   'x-served-by': 'cache-bur17538-BUR',
+191 verbose headers   'x-cache': 'HIT',
+191 verbose headers   'x-cache-hits': '3',
+191 verbose headers   'x-timer': 'S1502349849.572833,VS0,VE0',
+191 verbose headers   vary: 'Accept-Encoding, Accept' }
+192 silly get cb [ 200,
+192 silly get   { server: 'nginx/1.10.1',
+192 silly get     'content-type': 'application/json',
+192 silly get     'last-modified': 'Tue, 08 Aug 2017 10:08:47 GMT',
+192 silly get     etag: 'W/"59898daf-7688"',
+192 silly get     'content-encoding': 'gzip',
+192 silly get     'cache-control': 'max-age=300',
+192 silly get     'content-length': '5886',
+192 silly get     'accept-ranges': 'bytes',
+192 silly get     date: 'Thu, 10 Aug 2017 07:24:08 GMT',
+192 silly get     via: '1.1 varnish',
+192 silly get     age: '258',
+192 silly get     connection: 'keep-alive',
+192 silly get     'x-served-by': 'cache-bur17538-BUR',
+192 silly get     'x-cache': 'HIT',
+192 silly get     'x-cache-hits': '3',
+192 silly get     'x-timer': 'S1502349849.572833,VS0,VE0',
+192 silly get     vary: 'Accept-Encoding, Accept' } ]
+193 verbose get saving minimist to /Users/timotree/.npm/registry.npmjs.org/minimist/.cache.json
+194 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+195 silly resolveWithNewModule minimist@0.0.10 checking installable status
+196 silly cache add args [ 'minimist@~0.0.1', null ]
+197 verbose cache add spec minimist@~0.0.1
+198 silly cache add parsed spec Result {
+198 silly cache add   raw: 'minimist@~0.0.1',
+198 silly cache add   scope: null,
+198 silly cache add   escapedName: 'minimist',
+198 silly cache add   name: 'minimist',
+198 silly cache add   rawSpec: '~0.0.1',
+198 silly cache add   spec: '>=0.0.1 <0.1.0',
+198 silly cache add   type: 'range' }
+199 silly addNamed minimist@>=0.0.1 <0.1.0
+200 verbose addNamed ">=0.0.1 <0.1.0" is a valid semver range for minimist
+201 silly addNameRange { name: 'minimist', range: '>=0.0.1 <0.1.0', hasData: false }
+202 silly mapToRegistry name minimist
+203 silly mapToRegistry using default registry
+204 silly mapToRegistry registry https://registry.npmjs.org/
+205 silly mapToRegistry data Result {
+205 silly mapToRegistry   raw: 'minimist',
+205 silly mapToRegistry   scope: null,
+205 silly mapToRegistry   escapedName: 'minimist',
+205 silly mapToRegistry   name: 'minimist',
+205 silly mapToRegistry   rawSpec: '',
+205 silly mapToRegistry   spec: 'latest',
+205 silly mapToRegistry   type: 'tag' }
+206 silly mapToRegistry uri https://registry.npmjs.org/minimist
+207 verbose addNameRange registry:https://registry.npmjs.org/minimist not in flight; fetching
+208 verbose get https://registry.npmjs.org/minimist not expired, no request
+209 silly addNameRange number 2 { name: 'minimist', range: '>=0.0.1 <0.1.0', hasData: true }
+210 silly addNameRange versions [ 'minimist',
+210 silly addNameRange   [ '0.0.0',
+210 silly addNameRange     '0.0.1',
+210 silly addNameRange     '0.0.2',
+210 silly addNameRange     '0.0.3',
+210 silly addNameRange     '0.0.4',
+210 silly addNameRange     '0.0.5',
+210 silly addNameRange     '0.0.6',
+210 silly addNameRange     '0.0.7',
+210 silly addNameRange     '0.0.8',
+210 silly addNameRange     '0.0.9',
+210 silly addNameRange     '0.0.10',
+210 silly addNameRange     '0.1.0',
+210 silly addNameRange     '0.2.0',
+210 silly addNameRange     '1.0.0',
+210 silly addNameRange     '1.1.0',
+210 silly addNameRange     '1.1.1',
+210 silly addNameRange     '1.1.2',
+210 silly addNameRange     '1.1.3',
+210 silly addNameRange     '1.2.0' ] ]
+211 silly addNamed minimist@0.0.10
+212 verbose addNamed "0.0.10" is a plain semver version for minimist
+213 silly mapToRegistry name minimist
+214 silly mapToRegistry using default registry
+215 silly mapToRegistry registry https://registry.npmjs.org/
+216 silly mapToRegistry data Result {
+216 silly mapToRegistry   raw: 'minimist',
+216 silly mapToRegistry   scope: null,
+216 silly mapToRegistry   escapedName: 'minimist',
+216 silly mapToRegistry   name: 'minimist',
+216 silly mapToRegistry   rawSpec: '',
+216 silly mapToRegistry   spec: 'latest',
+216 silly mapToRegistry   type: 'tag' }
+217 silly mapToRegistry uri https://registry.npmjs.org/minimist
+218 verbose addRemoteTarball https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz not in flight; adding
+219 verbose addRemoteTarball [ 'https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz',
+219 verbose addRemoteTarball   'de3f98543dbf96082be48ad1a0c7cda836301dcf' ]
+220 info retry fetch attempt 1 at 12:24:08 AM
+221 info attempt registry request try #1 at 12:24:08 AM
+222 http fetch GET https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz
+223 http fetch 200 https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz
+224 silly fetchAndShaCheck shasum de3f98543dbf96082be48ad1a0c7cda836301dcf
+225 verbose addTmpTarball /var/folders/1q/zh8r9crx3wg9mp330bm9wgyw0000gn/T/npm-9138-31e1a149/registry.npmjs.org/minimist/-/minimist-0.0.10.tgz not in flight; adding
+226 verbose addTmpTarball already have metadata; skipping unpack for minimist@0.0.10
+227 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+228 silly cache afterAdd minimist@0.0.10
+229 verbose afterAdd /Users/timotree/.npm/minimist/0.0.10/package/package.json not in flight; writing
+230 verbose correctMkdir /Users/timotree/.npm correctMkdir not in flight; initializing
+231 verbose afterAdd /Users/timotree/.npm/minimist/0.0.10/package/package.json written
+232 silly loadAllDepsIntoIdealTree Finishing
+233 silly loadIdealTree Finishing
+234 silly currentTree lib
+235 silly idealTree lib
+235 silly idealTree └─┬ getlorem@1.0.1
+235 silly idealTree   ├── minimist@0.0.10
+235 silly idealTree   ├── optimist@0.6.1
+235 silly idealTree   └── wordwrap@0.0.3
+236 silly generateActionsToTake Starting
+237 silly install generateActionsToTake
+238 warn checkPermissions Missing write access to /usr/local/lib/node_modules
+239 silly rollbackFailedOptional Starting
+240 silly rollbackFailedOptional Finishing
+241 silly runTopLevelLifecycles Starting
+242 silly runTopLevelLifecycles Finishing
+243 silly install printInstalled
+244 verbose stack Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+244 verbose stack     at Error (native)
+245 verbose cwd /Users/timotree/Library/Mobile Documents/com~apple~CloudDocs/Development/coding-dojo/chapters/03-mean/06-full-mean/MEAN_hike
+246 error Darwin 16.7.0
+247 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "getlorem"
+248 error node v6.7.0
+249 error npm  v3.10.3
+250 error path /usr/local/lib/node_modules
+251 error code EACCES
+252 error errno -13
+253 error syscall access
+254 error Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+254 error     at Error (native)
+254 error  { Error: EACCES: permission denied, access '/usr/local/lib/node_modules'
+254 error     at Error (native)
+254 error   errno: -13,
+254 error   code: 'EACCES',
+254 error   syscall: 'access',
+254 error   path: '/usr/local/lib/node_modules' }
+255 error Please try running this command again as root/Administrator.
+256 verbose exit [ -13, true ]

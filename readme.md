@@ -38,8 +38,6 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add login validations where after 5 attempts account locks out for awhile. (medium-priority)
 
-	+ Add feature where if user name ends with `s` (but preserve the apostrophe), that the apostrophes on the Account page and Dashboard page (which use the username in plural sense), is removed, so that the language is proper english (low-priority).
-
 	+ Can you get a server log of user IP? (low-priority)
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (HIGH priority)
@@ -53,6 +51,7 @@ This application is designed to help others plan and prepare for their hiking ad
 ### Where I Left Off:
 	- Add New Hike Feature:
 		- Built $scope function in dashboardController, only partially. Created success and callback functions, but did not build out logic. Did not build out factory or any server controller methods yet. May need to get recent hikes list first, as you'll have to call this later.
+		- Trying to build get most recent hikes feature first -- hitting a weird issue will troubleshoot in AM.
 ### Remaining Features:
 	- Add Hike Feature
 	- Edit Hike Feature

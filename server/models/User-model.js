@@ -1,4 +1,6 @@
 /*
+This is the model file for `User`.
+
 To better understand what's contained in this file, please read the notes below:
 
 The roles of this file are to:
@@ -118,7 +120,7 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
     Validates full registration data utilizing private instance validation methods.
 
     Parameters:
-    - `formData` - Registration data object to be validated (for new User creation.
+    - `formData` - Registration data object to be validated (for new User creation).
     - `callback` - Callback function to run once validation completes (please see the `register()` method in `user-controller.js` to examine the callback function).
 
     The following is validated within this method:

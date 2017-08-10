@@ -1,5 +1,6 @@
 // Load Controllers:
 var UserController = require('./../controllers/user-controller');
+var HikeController = require('./../controllers/hike-controller');
 
 // Server-Side Routes:
 module.exports = function(app) {
@@ -10,4 +11,5 @@ module.exports = function(app) {
         .post('/api/user/update', UserController.update) // update a user
         .get('/api/user/welcome', UserController.welcomeSetFalse) // turn off welcome msg
         .post('/api/user/logout', UserController.logout) // logout a user
+        .get('/api/hike', HikeController.mostRecent) // gets 3 most recent hikes
 };

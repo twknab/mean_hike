@@ -56,7 +56,48 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Get a fresh copy of the User for Angular:
             $scope.auth();
         },
+        hike: function(validatedHike) {
+            /*
+            Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
+            */
+
+            console.log("Updating recent hikes with new Hike...");
+
+            // Get a recent hikes again:
+            /* call $scope function here */
+        },
+        hikeError: function(err) {
+            /*
+            Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
+            */
+
+            console.log("Errors from server attemping to create new Hike...", err);
+
+            // Clear errors and set $scope to errors:
+
+        },
     };
+
+    //----------------------------//
+    //-------- ADD NEW HIKE ------//
+    //----------------------------//
+
+    /*
+    Development note: attempting to create the model `newHike` below, via `ng-model="newHike.name"` for example, within the angular-ui accordian template was not taking. This was odd as defining the model simply in the template seemed to work in my login/registration angular controllers (I didn't have to first create an empty object.) Perhaps because this form is nested inside of an angular-ui accordian, there is something within the digest cycle that I do not understand. This all being said, simply defining the empty object `newHike` below resolved my model not sending data.
+    */
+
+    // Create empty `newHike` object:
+    $scope.newHike = {};
+
+    $scope.addHike = function() {
+        /*
+        Create a new Hike, sending it off for validation and creation, or for errors to be returned:
+        */
+        console.log('$$$$$$$$$$$$$$$');
+        console.log($scope.newHike);
+        console.log('$$$$$$$$$$$$$$$');
+    };
+
 
     //---------------------------------//
     //-------- PAGE LOAD ACTIONS ------//

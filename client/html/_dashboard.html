@@ -49,10 +49,12 @@
             <div>
                 <!-- Accordian -->
                 <uib-accordion close-others="oneAtATime">
-                    <!-- Recent Hikes -->
+                    <!------------------------->
+                    <!--     RECENT HIKES    -->
+                    <!------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen">
                         <uib-accordion-heading>
-                            <h3><span class="glyphicon glyphicon-time"></span> Recent Hikes</h3>
+                            <h3><span class="glyphicon glyphicon-time"></span> Recent Hikes <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i></h3>
                         </uib-accordion-heading>
                         <ul class="list-group no-list-margin">
                             <!-- Trip with Pre-Trip Completed -->
@@ -103,22 +105,24 @@
                         <!-- All Hikes Button -->
                         <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                     </div>
-                    <!-- Add New Hike -->
+                    <!------------------------->
+                    <!--     ADD NEW HIKE    -->
+                    <!------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.newHike">
                         <uib-accordion-heading>
-                            <h3><span class="glyphicon glyphicon-plus"></span> Hike</h3>
+                            <h3><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h3>
                         </uib-accordion-heading>
                         <!-- New Hike Errors -->
                         <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
                             <p><strong>Error!</strong> {{error.message}}</p>
                         </div>
                         <!-- New Hike Form -->
-                        <form ng-submit="create()" class="padding-left-sm padding-right-sm form-horizontal">
+                        <form ng-submit="addHike()" class="padding-left-sm padding-right-sm form-horizontal">
                             <!-- Hike Name Field -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <input type="text" name="name" id="name" ng-model="newHike.name" class="form-control input-lg" placeholder="Hike Name">
+                                    <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="newHike.name">
                                 </div>
                             </div>
                             <!-- Region Field -->
@@ -146,24 +150,26 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                                    <input type="text" name="location" id="location" ng-model="newUser.location" class="form-control input-lg" placeholder="Map URL">
+                                    <input type="text" name="location" id="location" ng-model="newHike.location" class="form-control input-lg" placeholder="Map URL">
                                 </div>
                             </div>
                             <!-- Hike Notes -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                    <textarea name="notes" id="notes" cols="30" rows="10" class="form-control" placeholder="Special Notes: logistics, driving or trailhead access"></textarea>
+                                    <textarea name="notes" id="notes" cols="30" rows="10" ng-model="newHike.notes" class="form-control" placeholder="Special Notes: logistics, permits, driving or trailhead access"></textarea>
                                 </div>
                             </div>
                             <!-- Add New Hike Button -->
                             <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
                         </form>
                     </div>
-                    <!-- Add New Pre-Trip -->
+                    <!--------------------------->
+                    <!--    ADD NEW PRE-TRIP   -->
+                    <!--------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.newPreTrip">
                         <uib-accordion-heading>
-                            <h3><span class="glyphicon glyphicon-plus"></span> Pre-Trip</h3>
+                            <h3><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h3>
                         </uib-accordion-heading>
                         <!-- Pre-Trip Hike Selector Dropdown Form -->
                         <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">

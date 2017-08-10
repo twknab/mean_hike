@@ -24,7 +24,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`) (low-priority)
 
-	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size. (high-priority)
+	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size. (medium-priority)
 
 	+ Add a feature where users can attach documents, such as a
 	PDF map to their hike. (medium-priority)
@@ -32,7 +32,7 @@ This application is designed to help others plan and prepare for their hiking ad
 	+ Add a feature where users can share their hike report or pre-trip data with another (including map PDF attachments, for example). (medium-priority)
 
 	+ Add a feature where a google map / alternative map embed is placed
-	into the hike. (high-priority)
+	into the hike. (medium-priority)
 
 	+ Add a buddy system where users can see other users and see their hikes. Messaging? (Everything these days must have a comment field eh...or must it...do we want people bickering and arguing? ...Maybe no messaging...) (low-priority)
 
@@ -42,15 +42,17 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Can you get a server log of user IP? (low-priority)
 
-	+ Check for session with all important API routes, and send back to homepage if not valid (high-priority)
+	+ Check for session with all important API routes, and send back to homepage if not valid (HIGH priority)
 
-	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own) (high-priority)
+	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own) (HIGH priority)
+
+	+ Fix dashboard mobile issues -- buttons do not have margin/padding when collapsed (HIGH priority).
 
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Should you simplify your Dashboard navigation? Right now @ mobile resolution the navbar is 2 lines and a bit funky.
-
+	- Add New Hike Feature:
+		- Built $scope function in dashboardController, only partially. Created success and callback functions, but did not build out logic. Did not build out factory or any server controller methods yet. May need to get recent hikes list first, as you'll have to call this later.
 ### Remaining Features:
 	- Add Hike Feature
 	- Edit Hike Feature

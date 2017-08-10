@@ -353,14 +353,14 @@ UserSchema.methods.validateLogin = function(formData, callback) {
 
             // Check if User exists by using login ID to lookup user by username first:
             User.findOne({
-                    username: formData.login_id
+                    username: formData.loginId
                 })
                 .then(function(foundUserByUsername) {
                     // If returned user is empty (no match):
                     if (!foundUserByUsername) {
                         // Check if User exists by using login ID to lookup user by email next:
                         User.findOne({
-                                email: formData.login_id
+                                email: formData.loginId
                             })
                             .then(function(foundUserByEmail) {
                                 // If empty user is returned (no match) add error to errors object:
@@ -834,10 +834,10 @@ UserSchema.methods.__checkAllLoginFields = function(loginFormData) {
     }
 
     /*
-    Else, check if the fields submitted are not empty objects and send error if so. Note: this is in the event the user submits login data, than erases both fields -- the empty `login_id` and `password` objects submitted will flag the error below:
+    Else, check if the fields submitted are not empty objects and send error if so. Note: this is in the event the user submits login data, than erases both fields -- the empty `loginId` and `password` objects submitted will flag the error below:
     */
     else {
-        if (Object.keys(loginFormData.login_id).length < 1 || Object.keys(loginFormData.password).length < 1) {
+        if (Object.keys(loginFormData.loginId).length < 1 || Object.keys(loginFormData.password).length < 1) {
             var err = new Error('All fields are required.');
             return err;
         }
@@ -866,7 +866,7 @@ UserSchema.methods.__checkLoginLength = function(loginFormData) {
     if (Object.keys(loginFormData).length > 0) {
         console.log("Login form submitted.")
         // If login ID length is less than 2 but greater than 30 characters, flag an error, OR if password length is less than 12 or greater than 50 characters, flag an error:
-        if (loginFormData.login_id.length < 2 || loginFormData.login_id.length > 30 || loginFormData.password.length < 12 || loginFormData.password.length > 50) {
+        if (loginFormData.loginId.length < 2 || loginFormData.loginId.length > 30 || loginFormData.password.length < 12 || loginFormData.password.length > 50) {
             var err = new Error('Username or Email must be between 2-30 characters. Password must be between 12-50.');
             return err;
         } else {

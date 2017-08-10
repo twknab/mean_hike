@@ -15,7 +15,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         },
         // Runs if errors after $scope.login() function completes:
         loginError: function(err) {
-            console.log('Errors returned from server:', err);
+            console.log('Errors returned attempting to log user in:', err);
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.loginErrors = {}; // resets errors if any already existing

@@ -52,7 +52,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 	- Add New Hike Feature:
-		- Having some weird issues trying to get success message to display after new hike is successfully created.
+		- Need to add validation so "                  " is not accepted.
 
 ### Remaining Features:
 	- Add Hike Feature

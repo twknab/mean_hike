@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, hikeFactory, userMessages, $location, $routeParams) {
+app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, dashboardFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
     /*
     Sets up `dashboardController` to handle Dashboard related needs and page actions:
 
@@ -49,8 +49,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $scope.user = authValidation.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
-                // Get recent Hikes on page load:
-                // $scope.recentHikes();
             }
         },
         welcomeSetFalse: function() {
@@ -62,7 +60,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Get a fresh copy of the User for Angular:
             $scope.auth();
         },
-        hike: function(validatedHike) {
+        hike: function(validated) {
             /*
             Runs after `$scope.addHike()` completes; shows proper messages and updates recent hikes.
             */
@@ -86,15 +84,19 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
                 // Get alert messages:
                 $scope.successAlerts = userMessages.getAlerts();
-                console.log('%%%%%%%%%%%');
                 console.log($scope.successAlerts);
-                console.log('%%%%%%%%%%%');
             }
 
-
+            // Sets first accordian to open:
+            $scope.status.isFirstOpen = true;
+            // Closes new hike accordian:
+            $scope.status.newHike = false;
 
             // !!!!!! Get a recent hikes again. !!!!!!!
-            // !!!!!! Take to recent hikes accordian. !!!!!!!
+            
+            // Scroll to recent Hikes:
+            $anchorScroll(recentHikes);
+
 
         },
         hikeError: function(err) {
@@ -110,17 +112,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
 
         },
-        // recentHikes: function(validatedHike) {
-        //     /*
-        //     Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
-        //     */
-        //
-        //     console.log(validatedHike);
-        //     console.log("Updating recent hikes with new Hike...");
-        //
-        //     // Get a recent hikes again:
-        //     /* call $scope function here */
-        // },
     };
 
     //-----------------------------------//
@@ -135,16 +126,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
-
-    // $scope.recentHikes = function() {
-    //     /*
-    //     Gets 3 most recent hikes.
-    //     */
-    //
-    //     console.log("Getting 3 most recent hikes...");
-    //     hikeFactory.getRecent(cb.recentHikes)
-    //
-    // };
 
     // Run auth() on page load:
     $scope.auth();
@@ -185,6 +166,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         Parameters:
         - `index` - Index value of alert to be removed.
         */
+
         // Remove alert and update `$scope.successAlerts` to most recent:
         $scope.successAlerts = userMessages.removeAlert(index);
     };
@@ -196,6 +178,18 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
         // Runs `welcomeMessageFalse` factory method to send an API request and update the User's `welcomeMsgStatus` property to `false`:
         userFactory.welcomeMessageFalse(cb.welcomeSetFalse)
+    };
+
+    $scope.closeSuccessAlert = function(index) {
+        /*
+        Close a success alert.
+
+        Parameters:
+        - `index` - Index value of success alert to be removed.
+        */
+
+        // Remove alert and update `$scope.successAlerts` to most recent:
+        $scope.successAlerts = userMessages.removeAlert(index);
     };
 
 

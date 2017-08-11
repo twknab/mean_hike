@@ -148,6 +148,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
         // Create hike if user has passed validation:
         Hike.create(formData)
             .then(function(createdHike) {
+                console.log('SUCCESSFUL CREATION IN MODEL');
                 // Create success message:
                 validated.messages.hikeCreated = {
                     hdr: "Hike Added!",
@@ -156,7 +157,8 @@ HikeSchema.methods.validateHike = function(formData, callback) {
                 callback(validated);
             })
             .catch(function(err) {
-                callback(err);
+                console.log('UNSUCCESSFUL CREATION IN MODEL', err);
+                callback(validated);
             })
     }
 

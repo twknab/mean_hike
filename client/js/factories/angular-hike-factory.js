@@ -9,40 +9,6 @@ app.factory('hikeFactory', ['$http', function($http) {
     // Setup empty factory object:
     var factory = {};
 
-    // factory.getRecent = function(getRecentCallback) {
-    //     /*
-    //     Gets 3 most recent hikes.
-    //     */
-    //
-    //     console.log('Get most recent Hikes process starting...');
-    //     $http.get('/api/hike')
-    //         .then(function(recentHikes) {
-    //             /*
-    //             Returns 3 most recent Hikes.
-    //
-    //             Parameters:
-    //             - `recentHikes` - 3 most recent hikes.
-    //             */
-    //
-    //             console.log(recentHikes.data);
-    //
-    //             // Run success callback:
-    //             getRecentCallback(recentHikes.data);
-    //         })
-    //         .catch(function(err) {
-    //             /*
-    //             Returns errors if newly created User is unsuccessful.
-    //
-    //             Parameters:
-    //             - `err` - Errors object containing errors.
-    //             */
-    //
-    //             console.log('Error getting recent hikes:', err.data);
-    //             // Run callback with errors:
-    //             getRecentCallback(err.data); // runs errors callback if errors
-    //         })
-    // };
-
     factory.newHike = function(newHike, newHikeCallback, errorsCallback) {
         /*
         Sends new Hike data to API for validation; runs a callback function depending upon if new Hike is created and returned, or if errors are returned.
@@ -55,19 +21,18 @@ app.factory('hikeFactory', ['$http', function($http) {
 
         console.log('Sending Hike data to API for validation and creation...');
         $http.post('/api/hike', newHike)
-            .then(function(newHike) {
+            .then(function(validated) {
                 /*
                 If new Hike is successfully created, the new Hike object will be returned.
 
                 Parameters:
-                - `newHike` - New Hike object.
+                - `validated` - Validation object containing success messages.
                 */
 
-                console.log(newHike.data);
                 console.log('SUCCESSSSS!');
 
                 // Run success callback:
-                newHikeCallback(newHike.data);
+                newHikeCallback(validated.data);
             })
             .catch(function(err) {
                 /*

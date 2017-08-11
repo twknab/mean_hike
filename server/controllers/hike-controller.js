@@ -55,12 +55,14 @@ module.exports = {
 
                 // If there are any errors send them:
                 if (Object.keys(validated.errors).length > 0) {
+                    console.log("ERRORS VALIDATING")
                     console.log("Errors creating Hike:", validated.errors);
                     return res.status(500).json(validated.errors);
                 }
 
                 // Else if no errors, send back validated object:
                 else {
+                    console.log('PASSED VALIDATION')
                     console.log('Successfuly created Hike.');
                     return res.json(validated);
                 };

@@ -10,7 +10,7 @@ module.exports = {
         - `res`: Response object.
         */
 
-        console.log('Starting new user validation....data submitted:', req.body);
+        console.log('Starting new user validation....');
 
         User.schema.methods.validateRegistration(req.body, function(validated) {
             /*
@@ -59,7 +59,7 @@ module.exports = {
         - `res`: Response object.
         */
 
-        console.log('Starting existing user login process...Data submitted:', req.body);
+        console.log('Starting existing user login process...');
 
         User.schema.methods.validateLogin(req.body, function(validated) {
             /*
@@ -146,7 +146,6 @@ module.exports = {
                         else {
                             // If messages, send back validate object containing them:
                             if (validated.messages) {
-                                console.log("No changes detected.")
                                 return res.json(validated);
                             }
 

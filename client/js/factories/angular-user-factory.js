@@ -37,7 +37,7 @@ app.factory('userFactory', ['$http', function($http) {
                 /*
                 Returns errors if newly created User is unsuccessful.
 
-                Paramters:
+                Parameters:
                 - `err` - Errors object containing errors.
                 */
 
@@ -76,7 +76,7 @@ app.factory('userFactory', ['$http', function($http) {
                 /*
                 Returns errors if retreived User attempt is unsuccessful.
 
-                Paramters:
+                Parameters:
                 - `err` - Errors object containing errors.
                 */
 
@@ -91,7 +91,7 @@ app.factory('userFactory', ['$http', function($http) {
         /*
         Authorize a User's session.
 
-        Paramters:
+        Parameters:
         - `authCallback` - Callback to run after session status has been determined.
         */
         $http.get('/api/user/auth')
@@ -116,7 +116,7 @@ app.factory('userFactory', ['$http', function($http) {
         /*
         Sets Welcome Message status to False.
 
-        Paramters:
+        Parameters:
         - `welcomeCallback` - Callback to run after welcome message status has been updated.
         */
 
@@ -125,8 +125,8 @@ app.factory('userFactory', ['$http', function($http) {
                 /*
                 Returns User whose WelcomeMsgStatus is now updated to False.
 
-                Parameter:
-                `updatedUser` - User object.
+                Parameters:
+                - `updatedUser` - User object.
                 */
 
                 console.log(updatedUser.data);
@@ -135,6 +135,9 @@ app.factory('userFactory', ['$http', function($http) {
             .catch(function(err) {
                 /*
                 Returns errors if unsuccessful.
+
+                Parameters:
+                - `err` - Errors object returned.
                 */
 
                 console.log('Error setting welcome message to false:', err.data);

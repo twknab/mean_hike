@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, userMessages, $location, $routeParams) {
+app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', function($scope, dashboardFactory, userFactory, hikeFactory, userMessages, $location, $routeParams) {
     /*
     Sets up `dashboardController` to handle Dashboard related needs and page actions:
 
@@ -34,6 +34,10 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
                 console.log('Session invalid.');
+                // Clear out any existing message alerts using `userMessages` service:
+                userMessages.clearAlerts();
+                // Send a logout success message using `userMessages` service:
+                userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: 'You must be logged in to view this page.' });
                 // Redirect home:
                 $location.url('/');
             } else {
@@ -60,24 +64,38 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         },
         hike: function(validatedHike) {
             /*
-            Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
+            Runs after `$scope.addHike()` completes; shows proper messages and updates recent hikes.
             */
 
-            console.log("Updating recent hikes with new Hike...");
+            // Clear form, old errors and any existing messages:
+            $scope.newHikeErrors = {};
+            $scope.newHike = {};
+            userMessages.clearAlerts();
 
-            // Get a recent hikes again:
-            /* call $scope function here */
-        },
-        recentHikes: function(validatedHike) {
-            /*
-            Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
-            */
+            // Check if any success messages sent, if so, iterate through the object and generate messages using `userMessages` service:
+            if (Object.keys(validated.messages).length > 0) {
+                console.log("Messages found.");
 
-            console.log(validatedHike);
-            console.log("Updating recent hikes with new Hike...");
+                // Send each message to the `userMessages` service to be added as an alert:
+                for (var key in validated.messages) {
+                    if (validated.messages.hasOwnProperty(key)) {
+                        console.log(validated.messages[key]);
+                        userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
+                    }
+                }
 
-            // Get a recent hikes again:
-            /* call $scope function here */
+                // Get alert messages:
+                $scope.successAlerts = userMessages.getAlerts();
+                console.log('%%%%%%%%%%%');
+                console.log($scope.successAlerts);
+                console.log('%%%%%%%%%%%');
+            }
+
+
+
+            // !!!!!! Get a recent hikes again. !!!!!!!
+            // !!!!!! Take to recent hikes accordian. !!!!!!!
+
         },
         hikeError: function(err) {
             /*
@@ -85,10 +103,24 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             */
 
             console.log("Errors from server attemping to create new Hike...", err);
+            // Reset any existing alerts
+            $scope.successAlerts = userMessages.clearAlerts();
+            $scope.newHikeErrors = {}; // resets errors if any already existing
+            $scope.newHikeErrors = err;
 
-            // Clear errors and set $scope to errors:
 
         },
+        // recentHikes: function(validatedHike) {
+        //     /*
+        //     Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
+        //     */
+        //
+        //     console.log(validatedHike);
+        //     console.log("Updating recent hikes with new Hike...");
+        //
+        //     // Get a recent hikes again:
+        //     /* call $scope function here */
+        // },
     };
 
     //-----------------------------------//
@@ -104,15 +136,15 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         userFactory.auth(cb.user);
     };
 
-    $scope.recentHikes = function() {
-        /*
-        Gets 3 most recent hikes.
-        */
-
-        console.log("Getting 3 most recent hikes...");
-        hikeFactory.getRecent(cb.recentHikes)
-
-    };
+    // $scope.recentHikes = function() {
+    //     /*
+    //     Gets 3 most recent hikes.
+    //     */
+    //
+    //     console.log("Getting 3 most recent hikes...");
+    //     hikeFactory.getRecent(cb.recentHikes)
+    //
+    // };
 
     // Run auth() on page load:
     $scope.auth();
@@ -132,9 +164,9 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         /*
         Create a new Hike, sending it off for validation and creation, or for errors to be returned:
         */
-        console.log('$$$$$$$$$$$$$$$');
-        console.log($scope.newHike);
-        console.log('$$$$$$$$$$$$$$$');
+
+        console.log('Attempting to validate and create new Hike...Data submitted:', $scope.newHike);
+        hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };
 
     //-----------------------------------------//

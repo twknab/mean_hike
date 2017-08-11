@@ -45,6 +45,8 @@
     <!-- Accordian Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
+            <!-- Success Alerts -->
+            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
             <!-- Angular UI Accordian -->
             <div>
                 <!-- Accordian -->
@@ -113,7 +115,7 @@
                             <h3><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h3>
                         </uib-accordion-heading>
                         <!-- New Hike Errors -->
-                        <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in errors">
+                        <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in newHikeErrors">
                             <p><strong>Error!</strong> {{error.message}}</p>
                         </div>
                         <!-- New Hike Form -->
@@ -136,14 +138,14 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                                    <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Hike Distance (mi)">
+                                    <input type="number" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Round Trip Dist. (mi)">
                                 </div>
                             </div>
                             <!-- Elevation Gain Field -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                                    <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Elevation Gain (ft)">
+                                    <input type="number" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Total Gain (ft)">
                                 </div>
                             </div>
                             <!-- Location URL Field -->
@@ -159,9 +161,9 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
                                     <textarea name="notes" id="notes" cols="30" rows="10" ng-model="newHike.notes" class="form-control" placeholder="Special Notes: logistics, permits, driving or trailhead access"></textarea>
                                 </div>
+                                <!-- Add New Hike Button -->
+                                <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
                             </div>
-                            <!-- Add New Hike Button -->
-                            <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
                         </form>
                     </div>
                     <!--------------------------->
@@ -183,9 +185,9 @@
                                         <option>Mt St Helens</option>
                                     </select>
                                 </div>
+                                <!-- Start Pre-Trip Button -->
+                                <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip Form</button>
                             </div>
-                            <!-- Start Pre-Trip Button -->
-                            <button type="submit" class="form-control btn btn-primary margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip Form</button>
                         </form>
                     </div>
                     <!-- End Accordian -->

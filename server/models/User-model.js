@@ -156,10 +156,9 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
     /*
     Run all validations and gather messages as an object. Please see each individual instance method at the bottom of this document to see how it works.
 
-    If the validation fails, an error objectis returned. If the validation passes, in most cases, `undefined` is returned.
+    In *most cases*, if the validation fails, an error object is returned. If the validation passes, `undefined` is returned.
     */
 
-    // Run phase one validations (all validations other than checking for duplicates):
     var validations = {
         allRegFields: self.__checkAllRegFields(formData),
         username: self.__alphaNum_Username(formData.username),

@@ -9,37 +9,77 @@ app.factory('hikeFactory', ['$http', function($http) {
     // Setup empty factory object:
     var factory = {};
 
-    factory.getRecent = function(getRecentCallback) {
+    // factory.getRecent = function(getRecentCallback) {
+    //     /*
+    //     Gets 3 most recent hikes.
+    //     */
+    //
+    //     console.log('Get most recent Hikes process starting...');
+    //     $http.get('/api/hike')
+    //         .then(function(recentHikes) {
+    //             /*
+    //             Returns 3 most recent Hikes.
+    //
+    //             Parameters:
+    //             - `recentHikes` - 3 most recent hikes.
+    //             */
+    //
+    //             console.log(recentHikes.data);
+    //
+    //             // Run success callback:
+    //             getRecentCallback(recentHikes.data);
+    //         })
+    //         .catch(function(err) {
+    //             /*
+    //             Returns errors if newly created User is unsuccessful.
+    //
+    //             Parameters:
+    //             - `err` - Errors object containing errors.
+    //             */
+    //
+    //             console.log('Error getting recent hikes:', err.data);
+    //             // Run callback with errors:
+    //             getRecentCallback(err.data); // runs errors callback if errors
+    //         })
+    // };
+
+    factory.newHike = function(newHike, newHikeCallback, errorsCallback) {
         /*
-        Gets 3 most recent hikes.
+        Sends new Hike data to API for validation; runs a callback function depending upon if new Hike is created and returned, or if errors are returned.
+
+        Parameters:
+        - `newHike` - New Hike object containing all form data.
+        - `newHikeCallback` - Callback which runs if new Hike creation is successful.
+        - `errorsCallback` - Callback which runs if errors are returned during User creation.
         */
 
-        console.log('Get most recent Hikes process starting...');
-        $http.get('/api/hike')
-            .then(function(recentHikes) {
+        console.log('Sending Hike data to API for validation and creation...');
+        $http.post('/api/hike', newHike)
+            .then(function(newHike) {
                 /*
-                Returns 3 most recent Hikes.
+                If new Hike is successfully created, the new Hike object will be returned.
 
                 Parameters:
-                - `recentHikes` - 3 most recent hikes.
+                - `newHike` - New Hike object.
                 */
 
-                console.log(recentHikes.data);
+                console.log(newHike.data);
+                console.log('SUCCESSSSS!');
 
                 // Run success callback:
-                getRecentCallback(recentHikes.data);
+                newHikeCallback(newHike.data);
             })
             .catch(function(err) {
                 /*
-                Returns errors if newly created User is unsuccessful.
+                Returns errors if newly created Hike is unsuccessful.
 
-                Paramters:
+                Parameters:
                 - `err` - Errors object containing errors.
                 */
 
-                console.log('Error getting recent hikes:', err.data);
+                console.log('Error attempting to create new Hike:', err.data);
                 // Run callback with errors:
-                getRecentCallback(err.data); // runs errors callback if errors
+                errorsCallback(err.data); // runs errors callback if errors
             })
     };
 

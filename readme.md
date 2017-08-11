@@ -42,6 +42,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Check for session with all important API routes, and send back to homepage if not valid (HIGH priority)
 
+	+ Regex patterns work for non-english names and places.
+
 	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own) (HIGH priority)
 
 	+ Fix dashboard mobile issues -- buttons do not have margin/padding when collapsed (HIGH priority).
@@ -52,6 +54,7 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Add New Hike Feature:
 		- Built $scope function in dashboardController, only partially. Created success and callback functions, but did not build out logic. Did not build out factory or any server controller methods yet. May need to get recent hikes list first, as you'll have to call this later.
 		- Trying to build get most recent hikes feature first -- hitting a weird issue will troubleshoot in AM.
+
 ### Remaining Features:
 	- Add Hike Feature
 	- Edit Hike Feature
@@ -59,3 +62,4 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Add Post-Trip Feature
 	- Add Full Report Feature
 	- Show Recent Hikes Feature
+	- Change Angular Controller Auth fail to use a service instead of duplicate code.

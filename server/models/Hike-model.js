@@ -37,23 +37,23 @@ var HikeSchema = new Schema({
         type: String,
         minlength: [2, 'Name must be at least 2 characters.'],
         maxlength: [150, 'Name must not be greater than 150 characters.'],
-        required: true,
+        required: [true, 'Name is required.'],
         trim: true,
     }, // end name field
     region: {
         type: String,
-        minlength: [5, 'Region must be at least 5 characters.'],
+        minlength: [2, 'Region must be at least 2 characters.'],
         maxlength: [50, 'Region must not be greater than 50 characters.'],
-        required: true,
+        required: [true, 'Region is required.'],
         trim: true,
     }, // end region field
     distance: {
         type: Number,
-        required: true,
+        required: [true, 'Round trip distance is required.'],
     }, // end distance field
     gain: {
         type: Number,
-        required: true,
+        required: [true, 'Elevation gain is required.'],
     }, // end gain field
     location: {
         type: String,
@@ -85,7 +85,7 @@ var HikeSchema = new Schema({
 /****************************************/
 /****************************************/
 
-HikeSchema.methods.validateNewHike = function(formData, callback) {
+HikeSchema.methods.validateHike = function(formData, callback) {
     /*
     Validates new Hike data utilizing private instance validation methods.
 
@@ -94,6 +94,12 @@ HikeSchema.methods.validateNewHike = function(formData, callback) {
     - `callback` - Callback function to run once validation completes.
 
     The following is validated within this method:
+        - name is required (using built in validators for all req'd)
+        - region is required.
+        - distance is a number and required.
+        - gain is a number and required.
+        - if location or notes field is an empty string, erase property prior to submission (note: this is because the user filled out the field, then erased it -- we only want to validate for fields containing content).
+        - please see the schema creation above to see min/max char's for various fields.
 
     Note: Please see the individual private instance functions for each specific validation.
     */
@@ -104,21 +110,57 @@ HikeSchema.methods.validateNewHike = function(formData, callback) {
     // Setup validates object to hold validation errors or validated Hike:
     var validated = {
         errors: {}, // will hold errors
-        validatedHike: {}, // will store validated user object
+        messages: {}, // will store messages
     };
 
     console.log("Beginning New Hike Validation now...");
 
-    /*
-    Run all validations and gather messages as an object. Please see each individual instance method at the bottom of this document to see how it works.
+    // Although we've ensured the `type="number"` on our `gain` and `distance` inputs, and we're doing a __checkNum validation below, let's just parseFloat our gain and distance values juat to be safe (and most likely our __checkNum should never be flagged---Development Note: Consider deleting said validation...as it now may be moot):
+    formData.distance = parseFloat(formData.distance);
+    formData.gain = parseFloat(formData.gain);
 
-    If the validation fails, an error objectis returned. If the validation passes, in most cases, `undefined` is returned.
-    */
-
-    // Run all validations and gather messages as a dictionary:
+    // Run all validations and gather messages as an object:
     var validations = {
-        // Insert validations here
+        numbCheck: self.__checkNum({'Distance': formData.distance, 'Gain': formData.gain})
+        // If distance is a number
+        // If gain is a number
     };
+
+    // Check if location is an empty string delete the property (see validation notes above):
+    if (formData.location == '') {
+        delete formData.location;
+    }
+
+    // Check if notes is an empty string delete the property:
+    if (formData.notes == '') {
+        delete formData.notes;
+    }
+
+    // Check if distance or gain failed numbers only validation:
+    if (validations.numbCheck) {
+        for (var i = 0; i < validations.numbCheck.length; i++) {
+            validated.errors['numbErr'+i.toString()] = {
+                message: validations.numbCheck[i].message,
+            };
+        }
+        callback(validated);
+    } else {
+        // Create hike if user has passed validation:
+        Hike.create(formData)
+            .then(function(createdHike) {
+                // Create success message:
+                validated.messages.hikeCreated = {
+                    hdr: "Hike Added!",
+                    msg: "Your hike was succesfully added.",
+                };
+                callback(validated);
+            })
+            .catch(function(err) {
+                callback(err);
+            })
+    }
+
+
 
     // Run if statements to generate errors
     // Look at User model and mimic same technique
@@ -130,36 +172,7 @@ HikeSchema.methods.validateNewHike = function(formData, callback) {
 /*******************************************/
 /*******************************************/
 
-HikeSchema.methods.validateHikeUpdate = function(formData, callback) {
-    /*
-    Validates full Hike update data utilizing private instance validation methods.
 
-    Parameters:
-    - `formData` - Hike data object to be validated prior to updating.
-    - `callback` - Callback function to run once validation completes.
-
-    The following is validated within this method:
-
-    Note: Please see the individual private instance functions for each specific validation.
-    */
-
-    // Save `this` as as self:
-    var self = this;
-
-    // Create validation object to hold any errors or validated user:
-    var validated = {
-        errors: {},
-        validatedHike: {},
-    };
-
-    console.log("Beginning Update Hike Validation now...");
-
-    // Run all validations and gather messages as a dictionary:
-    var validations = {
-
-    };
-
-};
 
 /*********************************************/
 /*********************************************/
@@ -167,9 +180,42 @@ HikeSchema.methods.validateHikeUpdate = function(formData, callback) {
 /*********************************************/
 /*********************************************/
 
-/*-------------------------------------*/
-/*---- Duplicate Check Validations ----*/
-/*-------------------------------------*/
+/*---------------------------------------------*/
+/*---- NUMERICAL CHECK FOR DISTANCE / GAIN ----*/
+/*---------------------------------------------*/
+
+HikeSchema.methods.__checkNum = function(fieldData) {
+    /*
+    Checks if fields are integers or not.
+
+    Parameters:
+    - `fieldData` - Object containing key value pairs of which values are evaluated for being numerical or not.
+    */
+
+    // Because this validation function can evaluate an object containing numerous properties, this empty errors array below will hold any errors we generate:
+    var errors = [];
+
+    // Iterate through each property of fieldData and evaluate it as being a number:
+    for (var property in fieldData) {
+        if (fieldData.hasOwnProperty(property)) {
+            // Check if each property value is a number:
+            if (typeof(fieldData[property]) != 'number') {
+                errors.push(new Error(property + ' must be an integer.'));
+            }
+        }
+    }
+
+    // If errors send them back:
+    if (errors.length > 0){
+        return errors;
+    } else {
+        return undefined;
+    }
+
+};
+
+
+
 
 /***************************************/
 /***************************************/

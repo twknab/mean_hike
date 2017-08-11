@@ -52,8 +52,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 	- Add New Hike Feature:
-		- Built $scope function in dashboardController, only partially. Created success and callback functions, but did not build out logic. Did not build out factory or any server controller methods yet. May need to get recent hikes list first, as you'll have to call this later.
-		- Trying to build get most recent hikes feature first -- hitting a weird issue will troubleshoot in AM.
+		- Having some weird issues trying to get success message to display after new hike is successfully created.
 
 ### Remaining Features:
 	- Add Hike Feature

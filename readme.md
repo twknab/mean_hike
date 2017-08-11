@@ -51,8 +51,10 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Add New Hike Feature:
-		- Need to add validation so "                  " is not accepted.
+	- Enhance New Hike Feature Validations:
+		- Need to add validation so name and region "                  " is not accepted.
+		- Gain must be greater than 1
+		- Distance must be greater than 1
 
 ### Remaining Features:
 	- Add Hike Feature

@@ -94,10 +94,12 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     - `callback` - Callback function to run once validation completes.
 
     The following is validated within this method:
-        - name is required (using built in validators for all req'd)
-        - region is required.
-        - distance is a number and required.
-        - gain is a number and required.
+        - name is required. (built-in validation).
+        - name cannot contain empty strings.
+        - region is required. (built-in validation).
+        - region cannot contain empty strings.
+        - distance is a number, required, and must be greater than 1.
+        - gain is a number, required, and must be greater than 1.
         - if location or notes field is an empty string, erase property prior to submission (note: this is because the user filled out the field, then erased it -- we only want to validate for fields containing content).
         - please see the schema creation above to see min/max char's for various fields.
 
@@ -122,8 +124,8 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     // Run all validations and gather messages as an object:
     var validations = {
         numbCheck: self.__checkNum({'Distance': formData.distance, 'Gain': formData.gain})
-        // If distance is a number
-        // If gain is a number
+        // distance must be greater than 1
+        // gain must be greater than 1
     };
 
     // Check if location is an empty string delete the property (see validation notes above):
@@ -148,7 +150,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
         // Create hike if user has passed validation:
         Hike.create(formData)
             .then(function(createdHike) {
-                console.log('SUCCESSFUL CREATION IN MODEL');
+                console.log('Hike created successfully.');
                 // Create success message:
                 validated.messages.hikeCreated = {
                     hdr: "Hike Added!",
@@ -157,7 +159,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
                 callback(validated);
             })
             .catch(function(err) {
-                console.log('UNSUCCESSFUL CREATION IN MODEL', err);
+                console.log('Error creating Hike.', err);
                 callback(validated);
             })
     }

@@ -51,10 +51,12 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
+	- Left off trying to fix empty string validations. Need to fix regex pattern.
+
 	- Enhance New Hike Feature Validations:
 		- Need to add validation so name and region "                  " is not accepted.
-		- Gain must be greater than 1
-		- Distance must be greater than 1
+
+	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 
 ### Remaining Features:
 	- Add Hike Feature

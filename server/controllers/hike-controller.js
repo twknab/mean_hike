@@ -2,29 +2,6 @@ var Hike = require('mongoose').model('Hike'); // grab our Mongoose models
 var User = require('mongoose').model('User');
 
 module.exports = {
-    // mostRecent: function(req, res) {
-    //     /*
-    //     Gets 3 most recent hikes.
-    //
-    //     Parameters:
-    //     - `req`: Request object.
-    //     - `res`: Response object.
-    //     */
-    //
-    //     console.log('Fetching 3 most recent hikes...');
-    //
-    //     Hike.find({})
-    //         .then(function(allHikes) {
-    //             console.log(allHikes);
-    //             return res.json(allHikes);
-    //         })
-    //         .catch(function(err) {
-    //             console.log(err);
-    //             return res.status(500).json(err);
-    //         })
-    //
-    //
-    // },
     addHike: function(req, res) {
         /*
         Validates and creates a new Hike, or returns errors.
@@ -56,7 +33,12 @@ module.exports = {
                 // If there are any errors send them:
                 if (Object.keys(validated.errors).length > 0) {
                     console.log("ERRORS VALIDATING")
-                    console.log("Errors creating Hike:", validated.errors);
+                    console.log("Errors creating Hike:");
+                    for (var property in validated.errors) {
+                        if (validated.errors.hasOwnProperty(property)) {
+                            console.log(validated.errors[property].message);
+                        }
+                    }
                     return res.status(500).json(validated.errors);
                 }
 

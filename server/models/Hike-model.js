@@ -37,23 +37,27 @@ var HikeSchema = new Schema({
         type: String,
         minlength: [2, 'Name must be at least 2 characters.'],
         maxlength: [150, 'Name must not be greater than 150 characters.'],
-        required: [true, 'Name is required.'],
+        required: [true, 'Hike name is required.'],
         trim: true,
     }, // end name field
     region: {
         type: String,
         minlength: [2, 'Region must be at least 2 characters.'],
         maxlength: [50, 'Region must not be greater than 50 characters.'],
-        required: [true, 'Region is required.'],
+        required: [true, 'Hiking region is required.'],
         trim: true,
     }, // end region field
     distance: {
         type: Number,
+        min: [1, 'Round trip distance must be at least 1 mile.'],
+        max: [24874, "Round trip distance must not exceed 24,874 miles -- this is the circumference of the Earth."],
         required: [true, 'Round trip distance is required.'],
     }, // end distance field
     gain: {
         type: Number,
-        required: [true, 'Elevation gain is required.'],
+        // note: no min value here has been added as some hikes may have no gain.
+        max: [29028 , 'Total gain must not exceed 29,028 feet -- this is the height of Mt. Everest.'],
+        required: [true, 'Total gain is required.'],
     }, // end gain field
     location: {
         type: String,
@@ -67,14 +71,6 @@ var HikeSchema = new Schema({
         maxlength: [5000, 'Notes must not be greater than 5000 characters.'],
         trim: true,
     }, // end notes field
-    // preTrip: { // holds hikes belonging to User
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'preTrip'
-    // }, // end pre-trip field
-    // postTrip: { // holds hikes belonging to User
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'postTrip'
-    // }, // end post-trip field
 }, {
     timestamps: true,
 });
@@ -116,17 +112,52 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     };
 
     console.log("Beginning New Hike Validation now...");
+    console.log('$$$$$$$$$$$$$$$$$$$$');
+    console.log(formData);
+    console.log('$$$$$$$$$$$$$$$$$$$$');
 
-    // Although we've ensured the `type="number"` on our `gain` and `distance` inputs, and we're doing a __checkNum validation below, let's just parseFloat our gain and distance values juat to be safe (and most likely our __checkNum should never be flagged---Development Note: Consider deleting said validation...as it now may be moot):
-    formData.distance = parseFloat(formData.distance);
-    formData.gain = parseFloat(formData.gain);
+    // If distance or gain values have been submitted, parseFloat these values (meaning convert them to a number). Development note: It might be good to also add a numerical regex check here prior to parsing for extra validation. We are using a `input=["number"]` on the front end, which will not allow strings to be submitted (if the browser supports the `input=["number"]` attribute).
 
-    // Run all validations and gather messages as an object:
-    var validations = {
-        numbCheck: self.__checkNum({'Distance': formData.distance, 'Gain': formData.gain})
-        // distance must be greater than 1
-        // gain must be greater than 1
-    };
+    // Validations object:
+    var validations = {};
+
+    // If distance or gain has been entered, run a regex check to ensure that they're positive numbers (floating point numbers accepted), and then convert them into a floating point number for database creation:
+    if (formData.distance || formData.gain) {
+        //
+        if (formData.distance) {
+            // Check if distance is valid positive floating point number:
+            numCheck = self.numCheck(formData.distance);
+
+            // If error is returned add it to errors:
+            if (numCheck) {
+                validated.errors.distanceNumErr = {
+                    message: 'Round trip distance ' + numCheck.message,
+                };
+            }
+
+            // Else, `parseFLoat()` the number and continue validating:
+            else {
+                formData.distance = parseFloat(formData.distance);
+            }
+        }
+
+
+        if (formData.gain) {
+            // Check if gain is valid positive floating point number:
+            numCheck = self.numCheck(formData.gain);
+
+            // If error is returned add it to errors:
+            if (numCheck) {
+                validated.errors.gainNumErr = {
+                    message: 'Total gain ' + numCheck.message,
+                };
+            }
+            // Else, `paseFloat()` the number and continue:
+            else {
+                formData.gain = parseFloat(formData.gain);
+            }
+        }
+    }
 
     // Check if location is an empty string delete the property (see validation notes above):
     if (formData.location == '') {
@@ -138,19 +169,23 @@ HikeSchema.methods.validateHike = function(formData, callback) {
         delete formData.notes;
     }
 
-    // Check if distance or gain failed numbers only validation:
-    if (validations.numbCheck) {
-        for (var i = 0; i < validations.numbCheck.length; i++) {
-            validated.errors['numbErr'+i.toString()] = {
-                message: validations.numbCheck[i].message,
-            };
-        }
+    // Check if any errors thus far in validation, if so send back:
+    // If there are any errors send back validated object containing them:
+    if (Object.keys(validated.errors).length > 0) {
+        console.log("Error creating new hike:", validated.errors);
         callback(validated);
-    } else {
-        // Create hike if user has passed validation:
+    }
+
+    // Else, attempt to create the hike (in which case Mongoose validators will return errors if they are found):
+    else {
         Hike.create(formData)
             .then(function(createdHike) {
+                /*
+                If user is successfully created, User object (`createdHike`) is returned.
+                */
+
                 console.log('Hike created successfully.');
+
                 // Create success message:
                 validated.messages.hikeCreated = {
                     hdr: "Hike Added!",
@@ -159,8 +194,11 @@ HikeSchema.methods.validateHike = function(formData, callback) {
                 callback(validated);
             })
             .catch(function(err) {
-                console.log('Error creating Hike.', err);
-                callback(validated);
+                /*
+                If error is returned, run callback passing it along.
+                */
+                console.log('Error creating Hike.');
+                callback(err);
             })
     }
 
@@ -184,40 +222,28 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 /*********************************************/
 /*********************************************/
 
-/*---------------------------------------------*/
-/*---- NUMERICAL CHECK FOR DISTANCE / GAIN ----*/
-/*---------------------------------------------*/
-
-HikeSchema.methods.__checkNum = function(fieldData) {
+HikeSchema.methods.numCheck = function(number) {
     /*
-    Checks if fields are integers or not.
+    Checks to ensure a received parameter is a positive floating point number (using regex); returns either an error or undefined, if the value passed.
 
     Parameters:
-    - `fieldData` - Object containing key value pairs of which values are evaluated for being numerical or not.
+    - `number` - This is the value to be tested.
     */
 
-    // Because this validation function can evaluate an object containing numerous properties, this empty errors array below will hold any errors we generate:
-    var errors = [];
-
-    // Iterate through each property of fieldData and evaluate it as being a number:
-    for (var property in fieldData) {
-        if (fieldData.hasOwnProperty(property)) {
-            // Check if each property value is a number:
-            if (typeof(fieldData[property]) != 'number') {
-                errors.push(new Error(property + ' must be an integer.'));
-            }
-        }
+    // If number does not pass regex test using pattern below, create an error:
+    if (!(/^([\d]*\.[\d]+|[\d]+)$/.test(number))) {
+        /*
+        Pattern checks for a number (ie, 123..), or a number followed by a decimal (ie, 123...123...), and must be greater than 0.
+        */
+        var err = new Error('must be a positive integer only.');
+        return err;
     }
 
-    // If errors send them back:
-    if (errors.length > 0){
-        return errors;
-    } else {
+    // Else, return `undefined` (no error):
+    else {
         return undefined;
     }
-
 };
-
 
 
 

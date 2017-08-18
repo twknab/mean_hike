@@ -54,6 +54,11 @@ module.exports = {
 
                             // Add hike ID to user's `hikes` array:
                             foundUser.addHike(validated.validatedHike._id);
+
+                            // Generate hiking time estimate:
+                            // Note: We send the distance and gain values from our validated hike to generate the travel time (from a custom built module that our model accesses). Please see the model's `genHikeTimeEst()` for more details. 
+                            validated.validatedHike.genHikeTimeEst(validated.validatedHike.distance, validated.validatedHike.gain);
+
                             console.log('Hike successfully added.');
 
                             // Send back validated object:

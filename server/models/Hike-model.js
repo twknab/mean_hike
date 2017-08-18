@@ -6,9 +6,13 @@ This is the model file for `Hike`.
 1. DEPENDENCIES
 2. SCHEMA
 3. NEW HIKE VALIDATION
+    - `validateHike()` - Validates a new hike.
 4. EDIT HIKE VALIDATION
 5. PRIVATE INSTANCE METHODS:
-
+    Note: Please see doc strings in each function for more info:
+    - `numCheck()` - Regex check if a value is a positive floating point num.
+    - `alphaNumCheck()` - Regex check if value contains alphanum and accepted characters.
+    - `genHikeTimeEst()` - Generates hiking time estimate and adds to hike.
 6. MODEL CREATION AND EXPORT
 
 --------------------------->>
@@ -22,7 +26,8 @@ This is the model file for `Hike`.
 
 // Setup dependencies:
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    estimator = require('../modules/hike-estimator');
 
 
 /***************************/
@@ -71,6 +76,10 @@ var HikeSchema = new Schema({
         maxlength: [5000, 'Notes must not be greater than 5000 characters.'],
         trim: true,
     }, // end notes field
+    timeEstimate: { // holds travel time estimate
+        type: String,
+        trim: true,
+    }, // end time estimate field
 }, {
     timestamps: true,
 });
@@ -286,7 +295,20 @@ HikeSchema.methods.alphaNumCheck = function(string) {
     }
 };
 
+HikeSchema.methods.genHikeTimeEst = function(totalDistance, totalGain) {
+    /*
+    Generates a hiking travel time estimation based upon the hike-estimator module; saves this value to our record.
 
+    Parameters:
+    - `totalDistance` - Number, total round trip hiking distance in miles.
+    - `totalGain` - Number, total hiking gain in feet.
+    */
+
+    // Run module and generate travel time:
+    this.timeEstimate = estimator.travelTime(totalDistance, totalGain);
+    this.save();
+    return undefined; // send undefined as success
+};
 
 /***************************************/
 /***************************************/

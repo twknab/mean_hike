@@ -60,7 +60,7 @@
                         </uib-accordion-heading>
                         <ul class="list-group no-list-margin" id="recentHikes">
                             <li class="list-group-item" ng-repeat="hike in recentHikes">
-                                <strong>{{hike.name}}</strong> - <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - X hours and X minutes - added {{hike.createdAt | date}}</a>
+                                <strong>{{hike.name}}</strong> - <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a>
                             </li>
                             <!-- Trip with Pre-Trip Completed -->
                             <li class="list-group-item">

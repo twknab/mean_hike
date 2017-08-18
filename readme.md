@@ -52,7 +52,7 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Finished Add Hike feature, now need to have dashboard show latest hikes...
+	- Working on Show Latest Hike Feature...need to build out the complexities (like the labels and the buttons, etc.)
 
 	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 

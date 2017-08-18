@@ -48,6 +48,33 @@ app.factory('hikeFactory', ['$http', function($http) {
             })
     };
 
+    factory.getRecent = function(recentHikesCallback) {
+        /*
+        Sends request to API to get recent hikes.
+
+        Parameters:
+        - `recentHikesCallback` - Callback which runs after recent hikes have been returned (see Dashboard Controller).
+        */
+
+        $http.get('/api/hike')
+            .then(function(recentHikes) {
+                /*
+                If recent hikes are successfully queried, will be returned as `recentHikes` object.
+                */
+
+                console.log(recentHikes);
+
+                // Run success callback passing along returned recent hikes:
+                recentHikesCallback(recentHikes.data);
+            })
+            .catch(function(err) {
+                /*
+                If errors occur trying to retrieve recent hikes, they will be caught and returned as `err` object.
+                */
+                console.log(err.data);
+            })
+    }
+
     // Return Factory Object:
     return factory;
 }]);

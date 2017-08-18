@@ -92,8 +92,9 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Closes new hike accordian:
             $scope.status.newHike = false;
 
-            // !!!!!! Get a recent hikes again. !!!!!!!
-            
+            // Get recent hikes again:
+            $scope.getRecentHikes();
+
             // Scroll to recent Hikes:
             $anchorScroll(recentHikes);
 
@@ -112,6 +113,14 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
 
         },
+        recentHikes: function(UserAndHikes) {
+            /*
+            Runs after `$scope.recentHikes()` completes; updates scope variable to recent hikes.
+            */
+
+            $scope.recentHikes = UserAndHikes.hikes;
+            console.log($scope.recentHikes);
+        },
     };
 
     //-----------------------------------//
@@ -129,6 +138,18 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
     // Run auth() on page load:
     $scope.auth();
+
+    $scope.getRecentHikes = function() {
+        /*
+        Get 3 most recent hikes for User.
+        */
+
+        console.log("Getting 3 most recent hikes...");
+        hikeFactory.getRecent(cb.recentHikes);
+    };
+
+    // Run getRecentHikes() on page load:
+    $scope.getRecentHikes();
 
     //----------------------------//
     //-------- ADD NEW HIKE ------//

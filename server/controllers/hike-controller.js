@@ -72,4 +72,32 @@ module.exports = {
             });
         };
     },
+    mostRecent: function(req, res) {
+        /*
+        Gets most recent hikes that have been created or updated.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        User.findOne({_id: req.session.userId})
+            .populate({
+                path: 'hikes',
+                options: {
+                    sort: '-updatedAt',
+                    limit: 3,
+                }
+            })
+            .exec()
+            .then(function(UserAndHikes) {
+                console.log('%%%%%%%%| USER AND HIKES |%%%%%%%%');
+                console.log(UserAndHikes);
+                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                return res.json(UserAndHikes);
+            })
+            .catch(function(err) {
+                return res.status(500).json(err);
+            })
+    }
 };

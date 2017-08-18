@@ -36,6 +36,7 @@ module.exports = {
                 if (validated.validatedUser) {
                     // Setup session for successfully validated user and send back:
                     req.session.userId = validated.validatedUser._id;
+                    console.log("User registration process completed successfully.");
                     return res.json(validated.validatedUser);
                 }
                 // Else, if validated object is not found, an unexpected error has occurred:
@@ -83,6 +84,7 @@ module.exports = {
                     // If validated property exists, user has been validated.
                     // Setup session for validated user and send user back:
                     req.session.userId = validated.validatedUser._id;
+                    console.log("User login process completed successfully.");
                     return res.json(validated.validatedUser);
                 }
                 // Else, if validated object is not found, an unexpected error has occurred:
@@ -142,17 +144,10 @@ module.exports = {
                             return res.status(500).json(validated.errors);
                         }
 
-                        // Else if no errors, check for messages:
+                        // Else if no errors, return validated (with messages if any):
                         else {
-                            // If messages, send back validate object containing them:
-                            if (validated.messages) {
-                                return res.json(validated);
-                            }
-
-                            // Else if no errors, send back validated object with empty errors and empty messages:
-                            else {
-                                return res.json(validated);
-                            }
+                            console.log("User updated process completed successfully.");
+                            return res.json(validated);
                         };
                     });
                 })
@@ -291,7 +286,7 @@ module.exports = {
 
             // Destroy session and send confirmation:
             req.session.destroy();
-            console.log('Session destroyed.');
+            console.log('User logout process successful, session destroyed.');
             return res.json("User logged out.");
         }
     },

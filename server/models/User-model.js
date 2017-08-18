@@ -47,6 +47,9 @@ Note: To help the reader, I've organized the code into the following headings. D
         - __verifyPassword() - Compares password to hash password on record.
         - __checkPassword() - If password is verified, returns validated User, else returns errors.
 
+    - Add Hike:
+        - addHike() - Adds a hike ID to user's `hikes` array.
+
 7. MODEL CREATION AND EXPORT
 
 --------------------------->>
@@ -1190,6 +1193,19 @@ UserSchema.methods.__checkPassword = function(userObj, password, validate, callb
             // Run callback:
             callback(validate);
         })
+};
+
+UserSchema.methods.addHike = function(hikeId) {
+    /*
+    Add hike ID to User's `hikes` array.
+
+    Parameters:
+    - `hikeId` - ID of hike object to be stored.
+    */
+    
+    this.hikes.push(hikeId);
+    this.save();
+    return true;
 };
 
 /***************************************/

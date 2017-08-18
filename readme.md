@@ -9,6 +9,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
++ 8/17/17 - Add New Hike feature completed with Validations.
 + 8/08/17 - Secured API routes and Angular routes for valid session user only.
 + 8/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
 + 8/01/17 - Added User Account Update feature and added User Messages.
@@ -51,15 +52,12 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Left off trying to fix empty string validations. Need to fix regex pattern.
-
-	- Enhance New Hike Feature Validations:
-		- Need to add validation so name and region "                  " is not accepted.
+	- Finished Add Hike feature, now need to have dashboard show latest hikes...
 
 	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 
 ### Remaining Features:
-	- Add Hike Feature
+	- Show Hikes on Dashboard
 	- Edit Hike Feature
 	- Add Pre-Trip Feature
 	- Add Post-Trip Feature

@@ -92,10 +92,12 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     The following is validated within this method:
         - name is required. (built-in validation).
         - name cannot contain empty strings.
+        - name must contain only letters, numbers and: `,.!@#*-` characters.
         - region is required. (built-in validation).
+        - region must contain only letters, numbers and: `,.!@#*-` characters.
         - region cannot contain empty strings.
-        - distance is a number, required, and must be greater than 1.
-        - gain is a number, required, and must be greater than 1.
+        - distance is a number, required, and must be positive integer greater than 1.
+        - gain is a number, required, and must be positive integer greater than 1.
         - if location or notes field is an empty string, erase property prior to submission (note: this is because the user filled out the field, then erased it -- we only want to validate for fields containing content).
         - please see the schema creation above to see min/max char's for various fields.
 
@@ -109,6 +111,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     var validated = {
         errors: {}, // will hold errors
         messages: {}, // will store messages
+        validatedHike: {}, // will hold validated Hike if successful
     };
 
     console.log("Beginning New Hike Validation now...");
@@ -118,15 +121,30 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 
     // If distance or gain values have been submitted, parseFloat these values (meaning convert them to a number). Development note: It might be good to also add a numerical regex check here prior to parsing for extra validation. We are using a `input=["number"]` on the front end, which will not allow strings to be submitted (if the browser supports the `input=["number"]` attribute).
 
-    // Validations object:
-    var validations = {};
+    // Check if hike name or hike region contains valid alphanumerical formatting with accepted punctuation (Development note: You may want to enhance your regex validations so it includes non-english characters):
+    var nameCheck = self.alphaNumCheck(formData.name);
+    var regionCheck = self.alphaNumCheck(formData.region);
+
+    // If name fails alphanumeric check, send error:
+    if (nameCheck) {
+        validated.errors.nameAlphaNumErr = {
+            message: 'Name ' + nameCheck.message,
+        }
+    }
+
+    // If region name fails alphanumeric check, send error:
+    if (regionCheck) {
+        validated.errors.regionAlphaNumErr = {
+            message: 'Region ' + regionCheck.message,
+        }
+    }
 
     // If distance or gain has been entered, run a regex check to ensure that they're positive numbers (floating point numbers accepted), and then convert them into a floating point number for database creation:
     if (formData.distance || formData.gain) {
         //
         if (formData.distance) {
             // Check if distance is valid positive floating point number:
-            numCheck = self.numCheck(formData.distance);
+            var numCheck = self.numCheck(formData.distance);
 
             // If error is returned add it to errors:
             if (numCheck) {
@@ -191,6 +209,11 @@ HikeSchema.methods.validateHike = function(formData, callback) {
                     hdr: "Hike Added!",
                     msg: "Your hike was succesfully added.",
                 };
+
+                // Add hike to validated object:
+                validated.validatedHike = createdHike;
+
+                // Run callback with validated object:
                 callback(validated);
             })
             .catch(function(err) {
@@ -202,10 +225,6 @@ HikeSchema.methods.validateHike = function(formData, callback) {
             })
     }
 
-
-
-    // Run if statements to generate errors
-    // Look at User model and mimic same technique
 };
 
 /*******************************************/
@@ -230,12 +249,34 @@ HikeSchema.methods.numCheck = function(number) {
     - `number` - This is the value to be tested.
     */
 
-    // If number does not pass regex test using pattern below, create an error:
+    // If number does *NOT* pass regex test using pattern below, create an error:
     if (!(/^([\d]*\.[\d]+|[\d]+)$/.test(number))) {
         /*
-        Pattern checks for a number (ie, 123..), or a number followed by a decimal (ie, 123...123...), and must be greater than 0.
+        Pattern checks for a number (ie, 123..), or a number followed by a decimal (ie, 123...123...), and must be greater than 0. Error only flags if pattern is NOT matched.
         */
         var err = new Error('must be a positive integer only.');
+        return err;
+    }
+
+    // Else, return `undefined` (no error):
+    else {
+        return undefined;
+    }
+};
+
+HikeSchema.methods.alphaNumCheck = function(string) {
+    /*
+    Checks to ensure a string contains only alphanumerical characters, including: `.,!@#*-`
+
+    Development note: You may want to enhance this regex to be able to include non-english characters.
+    */
+
+    // If string does *NOT* pass regex test using pattern below, create an error:
+    if (!(/^([A-Za-z0-9.,!@#*-]+\s?)*$/.test(string))) {
+        /*
+        Pattern checks for A-Z, a-z, 0-9, and the following: `.,!@#*`. Error only flags if pattern is NOT matched.
+        */
+        var err = new Error('must contain only letters, numbers, and the following characters: `.,!@#*-`');
         return err;
     }
 

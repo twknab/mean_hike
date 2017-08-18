@@ -32,7 +32,7 @@ module.exports = {
 
                 // If there are any errors send them:
                 if (Object.keys(validated.errors).length > 0) {
-                    console.log("ERRORS VALIDATING")
+                    console.log("Validation Failed.");
                     console.log("Errors creating Hike:");
                     for (var property in validated.errors) {
                         if (validated.errors.hasOwnProperty(property)) {
@@ -42,11 +42,32 @@ module.exports = {
                     return res.status(500).json(validated.errors);
                 }
 
-                // Else if no errors, send back validated object:
+                // Else if no errors, add hike to User's hike's array:
                 else {
-                    console.log('PASSED VALIDATION')
-                    console.log('Successfuly created Hike.');
-                    return res.json(validated);
+                    console.log('Validation Passed.');
+                    console.log('Hike created...Adding Hike to User\'s `hikes` array...');
+                    User.findOne({_id: req.session.userId})
+                        .then(function(foundUser) {
+                            /*
+                            Returns User object `foundUser` if user is successfully found.
+                            */
+
+                            // Add hike ID to user's `hikes` array:
+                            foundUser.addHike(validated.validatedHike._id);
+                            console.log('Hike successfully added.');
+
+                            // Send back validated object:
+                            console.log('Hike process completed successfully.')
+                            return res.json(validated);
+                        })
+                        .catch(function(err) {
+                            /*
+                            If error is returned when trying to query User, return it.
+                            */
+
+                            console.log('Errors finding user by session...');
+                            return res.status(500).json(err);
+                        })
                 };
             });
         };

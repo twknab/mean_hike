@@ -60,51 +60,50 @@
                         </uib-accordion-heading>
                         <ul class="list-group no-list-margin" id="recentHikes">
                             <li class="list-group-item" ng-repeat="hike in recentHikes">
-                                <strong>{{hike.name}}</strong> - <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a>
-                            </li>
-                            <!-- Trip with Pre-Trip Completed -->
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        <strong>Mt. Si</strong> -
-                                    </label>
-                                    <a href="#">8.0mi | 3,000ft gain - 7 hours 0 minutes - added 03/02/17</a> -
-                                    <span class="label label-success">Pre-Trip Completed</span>
-                                    <div class="margin-top-sm">
-                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                <!-- If Pre-Trip Incomplete -->
+                                <span ng-if="!hike.preTrip">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <span class="label label-warning">Pre-Trip Incomplete</span>
+                                        <div class="margin-top-sm">
+                                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <!-- Pre-Trip Incomplete Trips -->
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        <strong>Boulder River</strong> -
-                                    </label>
-                                    <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
-                                    <span class="label label-warning">Pre-Trip Incomplete</span>
-                                    <div class="margin-top-sm">
-                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                </span>
+                                <!-- If Pre-Trip Completed Only (not Post-Trip) -->
+                                <span ng-if="hike.preTrip && !hike.postTrip">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <span class="label label-success">Pre-Trip Completed</span>
+                                        <div class="margin-top-sm">
+                                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <!-- Completed Hikes -->
-                            <li class="list-group-item completed">
-                                <div class="checkbox disabled">
-                                    <label>
-                                        <input type="checkbox" value="" checked disabled>
-                                        <strong>Middle Fork Road</strong> -
-                                    </label>
-                                    <a href="#">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
-                                    <span class="label label-default">Completed</span>
-                                    <div class="margin-top-sm">
-                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                </span>
+                                <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
+                                <span ng-if="hike.preTrip && hike.postTrip">
+                                    <div class="checkbox disabled">
+                                        <label>
+                                            <input type="checkbox" value="" checked disabled>
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <span class="label label-default">Completed</span>
+                                        <div class="margin-top-sm">
+                                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </span>
                             </li>
                         </ul>
                         <!-- All Hikes Button -->
@@ -181,7 +180,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
-                                    <select class="form-control" id="selectedHike">
+                                    <select class="form-control" id="selectedHike" ng-model="selectedHike" ng-options="hike.name for hike in recentHikes">
                                         <option selected>Choose a Hike to Start</option>
                                         <option>Boulder River</option>
                                         <option>Mt Si</option>

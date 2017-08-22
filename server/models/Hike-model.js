@@ -80,6 +80,14 @@ var HikeSchema = new Schema({
         type: String,
         trim: true,
     }, // end time estimate field
+    preTrip: {
+        type: Schema.Types.ObjectId,
+        ref: 'PreTrip'
+    }, // end pre-trip field
+    postTrip: {
+        type: Schema.Types.ObjectId,
+        ref: 'PostTrip'
+    }, // end post-trip field
 }, {
     timestamps: true,
 });

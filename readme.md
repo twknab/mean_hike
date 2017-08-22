@@ -30,6 +30,12 @@ This application is designed to help others plan and prepare for their hiking ad
 	+ Add a feature where users can attach documents, such as a
 	PDF map to their hike. (medium-priority)
 
+	+ Input body metrics -- smartwatch data -- to post-trip (low-priority)
+
+	+ Add ability to add multi-day to hike pre-trip (low-priority)
+
+	+ Add meal plan feature (low-priority)
+
 	+ Add a feature where users can share their hike report or pre-trip data with another (including map PDF attachments, for example). (medium-priority)
 
 	+ Add a feature where a google map / alternative map embed is placed
@@ -41,13 +47,15 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Can you get a server log of user IP? (low-priority)
 
-	+ Check for session with all important API routes, and send back to homepage if not valid (HIGH priority)
+	+ Check for session with all important API routes , and send back to homepage if not valid (HIGH priority)
 
 	+ Regex patterns work for non-english names and places.
 
 	+ (Later) Allow User to Delete their account (along with all the hikes, gear lists, and pre and post-trips that they own) (HIGH priority)
 
 	+ Fix dashboard mobile issues -- buttons do not have margin/padding when collapsed (HIGH priority).
+
+	+ Add gear list feature (high-priority)
 
 ## Development Issues Log:
 

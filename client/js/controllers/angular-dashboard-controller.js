@@ -49,6 +49,10 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $scope.user = authValidation.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
+                // Run getRecentHikes() on page load:
+                $scope.getRecentHikes();
+                // Get hikes needing pre-trips (for dropdown):
+                $scope.getPreTripList();
             }
         },
         welcomeSetFalse: function() {
@@ -121,6 +125,13 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             $scope.recentHikes = UserAndHikes.hikes;
             console.log($scope.recentHikes);
         },
+        preTrip: function(PreTripHikes) {
+            /*
+            Runs after `$scope.startPreTrip()` completes; updates scope variable to hold hikes still waiting on a pre-trip.
+            */
+
+            $scope.incompletePreTrips = PreTripHikes.hikes;
+        },
     };
 
     //-----------------------------------//
@@ -148,8 +159,16 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         hikeFactory.getRecent(cb.recentHikes);
     };
 
-    // Run getRecentHikes() on page load:
-    $scope.getRecentHikes();
+    $scope.getPreTripList = function() {
+        /*
+        Get any trips whom do not currently have a pre-trip created; this is used to generate data for the pre-trip dropdown.
+        */
+
+        console.log("Getting hikes still needing a pre-trip....");
+        hikeFactory.getPreTrip(cb.preTrip);
+    };
+
+
 
     //----------------------------//
     //-------- ADD NEW HIKE ------//
@@ -169,6 +188,20 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
         console.log('Attempting to validate and create new Hike...Data submitted:', $scope.newHike);
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
+    };
+
+    //--------------------------------//
+    //-------- ADD NEW PRE-TRIP ------//
+    //--------------------------------//
+
+    /*
+    The functions in this section assist in handling the pre-trip drop down.
+    */
+
+    $scope.startPreTrip = function(selectedHike) {
+        console.log('Starting pre-trip process...');
+        console.log(selectedHike);
+        console.log('//////////-------///////////');
     };
 
     //-----------------------------------------//
@@ -231,4 +264,5 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         newHike: false,
         newPreTrip: false,
     };
+
 }]);

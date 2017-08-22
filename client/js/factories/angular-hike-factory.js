@@ -73,7 +73,34 @@ app.factory('hikeFactory', ['$http', function($http) {
                 */
                 console.log(err.data);
             })
-    }
+    };
+
+    factory.getPreTrip = function(preTripCallback) {
+        /*
+        Semds request to API to get hikes without a completed Pre-Trip.
+
+        Parameters:
+        - `preTripCallback` - Callback which runs after hikes without a completed Pre-Trip report are returned.
+        */
+
+        $http.get('/api/hike/pretrip')
+            .then(function(incompletePreTripHikes) {
+                /*
+                If hikes are successfully queried, will be returned as `incompletePreTripHikes` object.
+                */
+
+                console.log(incompletePreTripHikes);
+
+                // Run success callback passing along returned recent hikes:
+                preTripCallback(incompletePreTripHikes.data);
+            })
+            .catch(function(err) {
+                /*
+                If errors occur trying to retrieve hikes, they will be caught and returned as `err` object.
+                */
+                console.log(err.data);
+            })
+    };
 
     // Return Factory Object:
     return factory;

@@ -57,6 +57,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add gear list feature (high-priority)
 
+	+ Change "Recent Hikes" to "Hikes Pending" showing any hikes still awaiting a post-trip report. This might be helpful as a user whom adds many hikes may lose track of any hikes they started, but came home and forgot to complete. See what use experience is like and play around a bit. (medium-priority)
+
 ## Development Issues Log:
 
 ### Where I Left Off:

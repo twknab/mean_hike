@@ -176,15 +176,12 @@
                             <h3><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h3>
                         </uib-accordion-heading>
                         <!-- Pre-Trip Hike Selector Dropdown Form -->
-                        <form ng-submit="pretrip()" class="padding-left padding-right padding-top form-horizontal">
+                        <form ng-submit="startPreTrip(selectedHike)" class="padding-left padding-right padding-top form-horizontal">
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
-                                    <select class="form-control" id="selectedHike" ng-model="selectedHike" ng-options="hike.name for hike in recentHikes">
-                                        <option selected>Choose a Hike to Start</option>
-                                        <option>Boulder River</option>
-                                        <option>Mt Si</option>
-                                        <option>Mt St Helens</option>
+                                    <select class="form-control" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
+                                        <option value="">Choose a Hike...</option>
                                     </select>
                                 </div>
                                 <!-- Start Pre-Trip Button -->

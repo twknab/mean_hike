@@ -56,7 +56,7 @@ module.exports = {
                             foundUser.addHike(validated.validatedHike._id);
 
                             // Generate hiking time estimate:
-                            // Note: We send the distance and gain values from our validated hike to generate the travel time (from a custom built module that our model accesses). Please see the model's `genHikeTimeEst()` for more details. 
+                            // Note: We send the distance and gain values from our validated hike to generate the travel time (from a custom built module that our model accesses). Please see the model's `genHikeTimeEst()` for more details.
                             validated.validatedHike.genHikeTimeEst(validated.validatedHike.distance, validated.validatedHike.gain);
 
                             console.log('Hike successfully added.');
@@ -104,5 +104,33 @@ module.exports = {
             .catch(function(err) {
                 return res.status(500).json(err);
             })
-    }
+    },
+    incompletePreTrips: function(req, res) {
+        /*
+        Gets all hikes *without* a pre-trip completed.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        User.findOne({_id: req.session.userId})
+            .populate({
+                path: 'hikes',
+                match: { preTrip: {$exists: false}},
+                options: {
+                    sort: '-updatedAt',
+                }
+            })
+            .exec()
+            .then(function(UserPreTripHikes) {
+                console.log('%%%%%%%%| HIKES NEEDING PRE-TRIPS |%%%%%%%%');
+                console.log(UserPreTripHikes);
+                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                return res.json(UserPreTripHikes);
+            })
+            .catch(function(err) {
+                return res.status(500).json(err);
+            })
+    },
 };

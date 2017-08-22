@@ -13,5 +13,5 @@ module.exports = function(app) {
         .post('/api/user/logout', UserController.logout) // logout a user
         .post('/api/hike', HikeController.addHike) // creates new hike
         .get('/api/hike', HikeController.mostRecent) // gets 3 most recent hikes
-        .get('/api/hike/pretrip', HikeController.incompletePreTrips) // gets hikes with incomplete pre-trips
+        .get('/api/hike/pre-trip', HikeController.incompletePreTrips) // gets hikes with incomplete pre-trips
 };

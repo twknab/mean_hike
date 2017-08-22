@@ -86,7 +86,13 @@ module.exports = {
         - `res`: Response object.
         */
 
-        User.findOne({_id: req.session.userId})
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log("Getting most recent hikes...");
+
+            User.findOne({_id: req.session.userId})
             .populate({
                 path: 'hikes',
                 options: {
@@ -96,14 +102,13 @@ module.exports = {
             })
             .exec()
             .then(function(UserAndHikes) {
-                console.log('%%%%%%%%| USER AND HIKES |%%%%%%%%');
-                console.log(UserAndHikes);
-                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
                 return res.json(UserAndHikes);
             })
             .catch(function(err) {
                 return res.status(500).json(err);
             })
+        }
+
     },
     incompletePreTrips: function(req, res) {
         /*
@@ -114,7 +119,12 @@ module.exports = {
         - `res`: Response object.
         */
 
-        User.findOne({_id: req.session.userId})
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log("Getting all hikes without pre-trips started...");
+            User.findOne({_id: req.session.userId})
             .populate({
                 path: 'hikes',
                 match: { preTrip: {$exists: false}},
@@ -132,5 +142,7 @@ module.exports = {
             .catch(function(err) {
                 return res.status(500).json(err);
             })
+        }
+
     },
 };

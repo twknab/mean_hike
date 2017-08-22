@@ -119,12 +119,12 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         $scope.status.newHike = true;
     };
 
-    $scope.newPreTrip = function() {
+    $scope.preTrip = function() {
         /*
-        Opens pre-trip accordian when clicking `New Pre-Trip` from top dashboard navigation.
+        Loads current pre-trip page user is working on (for navigation purposes).
         */
 
-        $scope.status.newPreTrip = true;
+        $location.url('/hikes/' + routeParams.id + '/pre-trip');
     };
 
     $scope.logout = function() {

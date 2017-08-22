@@ -20,6 +20,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_dashboard.html', // dashboard page
             controller: 'dashboardController',
         })
+        .when('/hikes/:id/pre-trip', {
+            templateUrl: 'html/_pre-trip.html', // pre-trip page
+            controller: 'preTripController',
+        })
         // .when('/hikes', {
         //     templateUrl: 'html/_all-hikes.html', // all hikes page
         //     controller: 'allHikesController',
@@ -27,10 +31,6 @@ app.config(function($routeProvider, $locationProvider) {
         // .when('/hikes/:id/edit', {
         //     templateUrl: 'html/_edit-hike.html', // edit hike page
         //     controller: 'editHikeController',
-        // })
-        // .when('/hikes/:id/pre-trip', {
-        //     templateUrl: 'html/_pre-trip.html', // pre-trip page
-        //     controller: 'preTripController',
         // })
         // .when('/hikes/add-gear-list', {
         //     templateUrl: 'html/_add-gear-list.html', // add gear list page

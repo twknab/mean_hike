@@ -83,7 +83,7 @@ app.factory('hikeFactory', ['$http', function($http) {
         - `preTripCallback` - Callback which runs after hikes without a completed Pre-Trip report are returned.
         */
 
-        $http.get('/api/hike/pretrip')
+        $http.get('/api/hike/pre-trip')
             .then(function(incompletePreTripHikes) {
                 /*
                 If hikes are successfully queried, will be returned as `incompletePreTripHikes` object.

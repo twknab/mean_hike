@@ -1,14 +1,33 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse" ng-controller="navController">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+    </div>
+    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="" ng-click="preTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <button class="btn btn-default navbar-btn margin-right-sm" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Return to Dashboard</button>
+            </li>
+            <li>
+                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
 <!-- Begin Primary Container -->
 <div class="container">
     <!-- Page Title and Icon -->
-    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>MEAN_hike<br/><small><em>Pre-Trip</em></small></h1>
-    <!-- Dashboard and Logout Buttons -->
-    <div class="logout dashboard">
-        <div class="btn-group margin-bottom-sm">
-            <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</button>
-            <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-        </div>
-    </div>
+    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Start a Pre-Trip</em></small></h1>
     <!-- Hike Overview Panel -->
     <div class="panel panel-primary">
         <!-- Panel Title -->

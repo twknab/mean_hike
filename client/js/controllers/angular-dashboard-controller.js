@@ -130,6 +130,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             Runs after `$scope.startPreTrip()` completes; updates scope variable to hold hikes still waiting on a pre-trip.
             */
 
+            // Set incomplete hikes list to retreived hikes:
             $scope.incompletePreTrips = PreTripHikes.hikes;
         },
     };
@@ -198,10 +199,9 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     The functions in this section assist in handling the pre-trip drop down.
     */
 
-    $scope.startPreTrip = function(selectedHike) {
+    $scope.startPreTrip = function(hikeId) {
         console.log('Starting pre-trip process...');
-        console.log(selectedHike);
-        console.log('//////////-------///////////');
+        $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 
     //-----------------------------------------//

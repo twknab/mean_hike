@@ -14,7 +14,6 @@
           <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
           <li class=""><a href="" ng-click="recentHikes()"><span class="glyphicon glyphicon-time"></span> Recent Hikes</a></li>
           <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> Hike</a></li>
-          <li class=""><a href="" ng-click="newPreTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
           <li class=""><a href="" ng-click="allHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -179,7 +178,7 @@
                         <form ng-submit="startPreTrip(selectedHike)" class="padding-left padding-right padding-top form-horizontal">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tree-deciduous"></i></span>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-arrow-right"></i></span>
                                     <select class="form-control" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
                                         <option value="">Choose a Hike...</option>
                                     </select>

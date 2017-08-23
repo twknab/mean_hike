@@ -116,7 +116,7 @@
                             <h3><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h3>
                         </uib-accordion-heading>
                         <!-- New Hike Errors -->
-                        <div class="alert alert-danger margin-left-sm margin-right-sm margin-top-sm" ng-repeat="error in newHikeErrors">
+                        <div class="alert alert-danger margin-top-sm" ng-repeat="error in newHikeErrors">
                             <p><strong>Error!</strong> {{error.message}}</p>
                         </div>
                         <!-- New Hike Form -->

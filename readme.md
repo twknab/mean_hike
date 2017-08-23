@@ -66,7 +66,13 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Got time estimator working. Need to add some logic in to check for pre-trip, post-trip, and to show appropriate labels and buttons.
+	- Framed out pre-trip form page.
+	- Need to:
+		+ Populate data on pre-trip page.
+		+ Add auth check to pre-trip Angular controller.
+		+ Create pre-trip model and validations.
+
+	- Change `Add Hike` errors to show a single error if Name, Region, Distance and Gain are not filled out.
 
 	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 

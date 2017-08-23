@@ -59,7 +59,9 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Change "Recent Hikes" to "Hikes Pending" showing any hikes still awaiting a post-trip report. This might be helpful as a user whom adds many hikes may lose track of any hikes they started, but came home and forgot to complete. See what use experience is like and play around a bit. (medium-priority)
 
-	+ Add the nav header page code as separate includes
+	+ Add the nav header page code as separate HTML includes (medium-priority)
+
+	+ Add Progress Bar to Add Hike, Pre-Trip and Post-Trip pages (See: https://bootswatch.com/darkly/#typography)
 
 ## Development Issues Log:
 

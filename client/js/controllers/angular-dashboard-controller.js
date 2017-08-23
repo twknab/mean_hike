@@ -96,8 +96,11 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             // Closes new hike accordian:
             $scope.status.newHike = false;
 
-            // Get recent hikes again:
+            // Update recent hikes:
             $scope.getRecentHikes();
+
+            // Update hikes needing pre-trips (for dropdown):
+            $scope.getPreTripList();
 
             // Scroll to recent Hikes:
             $anchorScroll(recentHikes);

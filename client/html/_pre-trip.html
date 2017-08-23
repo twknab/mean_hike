@@ -1,209 +1,171 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse" ng-controller="navController">
-  <div class="container-fluid">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+            <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+        </div>
+        <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="" ng-click="preTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn btn-default navbar-btn margin-right-sm" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Return to Dashboard</button>
+                </li>
+                <li>
+                    <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="" ng-click="preTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <button class="btn btn-default navbar-btn margin-right-sm" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Return to Dashboard</button>
-            </li>
-            <li>
-                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-            </li>
-        </ul>
-    </div>
-  </div>
 </nav>
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Page Title and Icon -->
-    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Start a Pre-Trip</em></small></h1>
-    <!-- Hike Overview Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h4></div>
-        <div class="panel-body">
-            <h2 class="no-heading-margin">Boulder River</h2>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
-                <ul class="list-group custom-list no-list-margin">
-                    <li class="list-group-item"><strong>Date Added:</strong> 3/13/17</li>
-                    <li class="list-group-item"><strong>Region:</strong> Skagit Valley</li>
-                    <li class="list-group-item"><strong>Distance:</strong> 8.3 miles</li>
-                    <li class="list-group-item"><strong>Elevation Gain:</strong> 800 feet</li>
-                    <li class="list-group-item"><strong>Estimated Time:</strong> 4 hours 51 minutes</li>
-                    <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
-                </ul>
-            </div>
-            <div class="alert alert-info margin-top-sm">
-                <strong>Notes:</strong> Fallen tree in first mile after parking lot. Proceed cautiously, especially with pack.
+    <!-- Welcome Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Page Title and Icon -->
+            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Start a Pre-Trip</em></small></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Hike Overview Panel -->
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading">
+                    <h3><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h3></div>
+                <div class="panel-body">
+                    <h2 class="no-heading-margin">Boulder River</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong> Date Added:</strong> 3/13/17</li>
+                        <li class="list-group-item"><strong> Region:</strong> Skagit Valley</li>
+                        <li class="list-group-item"><strong> Distance:</strong> 8.3 miles</li>
+                        <li class="list-group-item"><strong> Elevation Gain:</strong> 800 feet</li>
+                        <li class="list-group-item"><strong>Estimated Time:</strong> 4 hours 51 minutes</li>
+                        <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
+                    </ul>
+                    <div class="alert alert-info margin-top-sm">
+                        <strong>Notes:</strong> Fallen tree in first mile after parking lot. Proceed cautiously, especially with pack.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Pre-Trip Report Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h4></div>
-        <!-- Panel Body -->
-        <div class="panel-body">
-            <!-- Pre-Trip Hike Form -->
-            <form ng-submit="pretrip()" class="padding-left padding-right form-horizontal">
-                <!-- Choose Gear List -->
-                <div class="form-group">
-                    <fieldset><legend>Choose a Gear List</legend>
-                        <!-- Choose Gear List -->
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
-                            <select class="form-control" id="selectedHike">
-                                <option selected>Choose a List</option>
-                                <option>Day Hike List</option>
-                                <option>Winter Day Hike List</option>
-                            </select>
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Pre-Trip Report Panel -->
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading">
+                    <h3><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h3>
+                </div>
+                <!-- Panel Body -->
+                <div class="panel-body">
+                    <!-- Pre-Trip Hike Form -->
+                    <form ng-submit="pretrip()" class="padding-left padding-right form-horizontal">
+                        <!-- Itinerary -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Itinerary</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+                                    <textarea class="form-control" rows="5" id="itinerary" placeholder="What are your goals each day? When will you reach each goal, the trailhead and home?"></textarea>
+                                </div>
+                            </fieldset>
                         </div>
+                        <!-- Weather Report -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Weather Report</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
+                                    <textarea class="form-control" rows="5" id="weather" placeholder="Enter (or copy and paste) a weather report for each day."></textarea>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- Sunset -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Sunset</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-adjust"></i></span>
+                                    <textarea class="form-control" rows="5" id="sunset" placeholder="What time is sunset each day?"></textarea>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- Potential Hazards -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Potential Hazards</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
+                                    <textarea class="form-control" rows="5" id="hazards" placeholder="What are possible hazards? Weather? Trail or route conditions or anything else?"></textarea>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- Additional Notes -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Additional Notes</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                    <textarea class="form-control" rows="5" id="notes" placeholder="Any additional notes since first adding your hike?"></textarea>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- Group Size -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Group Size</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <ul class="list-group no-list-margin">
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio">Solo Hike
+                                                    </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio">2-3 people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio">4-5 people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio">6+ people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </fieldset>
+                            <!-- Complete Pre-Trip and Cancel Buttons -->
+                            <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Complete Pre-Trip</button>
+                            <button class="form-control btn btn-link"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-                        <!-- Add New List and Edit List Buttons -->
-                        <div class="btn-group pull-right margin-top-sm gear-list-buttons">
-                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span> Add New List</button>
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit List</button>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Confirm Gear -->
-                <div class="form-group">
-                    <fieldset><legend>Confirm Gear in Pack</legend>
-                        <div class="alert alert-warning alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Attention!</strong> Check each item off only after visually confirming it in your pack!
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
-                            <ul class="list-group custom-list no-list-margin">
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="">warm hat</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="">gloves</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="">extra socks</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="">sunglasses</label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="">rain jacket</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Itinerary -->
-                <div class="form-group">
-                        <fieldset><legend>Itinerary</legend>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
-                                <textarea class="form-control" rows="5" id="itinerary" placeholder="What are your goals each day? When will you reach each goal, the trailhead and home?"></textarea>
-                            </div>
-                        </fieldset>
-                </div>
-                <!-- Weather Report -->
-                <div class="form-group">
-                    <fieldset><legend>Weather Report</legend>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
-                            <textarea class="form-control" rows="5" id="weather" placeholder="Enter (or copy and paste) a weather report for each day."></textarea>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Sunset -->
-                <div class="form-group">
-                    <fieldset><legend>Sunset</legend>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-adjust"></i></span>
-                            <textarea class="form-control" rows="5" id="sunset" placeholder="What time is sunset each day?"></textarea>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Potential Hazards -->
-                <div class="form-group">
-                    <fieldset><legend>Potential Hazards</legend>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
-                            <textarea class="form-control" rows="5" id="hazards" placeholder="What are possible hazards? Weather? Trail or route conditions or anything else?"></textarea>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Additional Notes -->
-                <div class="form-group">
-                    <fieldset><legend>Additional Notes</legend>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                            <textarea class="form-control" rows="5" id="notes" placeholder="Any additional notes since first adding your hike?"></textarea>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Group Size -->
-                <div class="form-group">
-                    <fieldset><legend>Group Size</legend>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <ul class="list-group custom-list no-list-margin">
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optradio">Solo Hike
-                                        </label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optradio">2-3 people
-                                        </label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optradio">4-5 people
-                                        </label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optradio">6+ people
-                                        </label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </fieldset>
-                </div>
-                <!-- Complete Pre-Trip and Cancel Buttons -->
-                <button type="submit" class="form-control btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span> Complete Pre-Trip</button>
-                <button class="form-control btn btn-link"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
-            </form>
         </div>
     </div>
-</div> <!-- End Primary Container -->
+</div>
+<!-- End Primary Container -->

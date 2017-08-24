@@ -18,7 +18,7 @@ Note: To help the reader, I've organized the code into the following headings. D
 3. LOGIN VALIDATION
 4. REGISTRATION VALIDATION
 5. UPDATE VALIDATION
-6. PRIVATE INSTANCE METHODS:
+6. INSTANCE METHODS:
 
     - Duplicate Check Validations:
         - __checkUsernameDuplicates() - Check for duplicate Username.
@@ -704,11 +704,11 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
 };
 
 
-/*********************************************/
-/*********************************************/
-/******** 6. PRIVATE INSTANCE METHODS ********/
-/*********************************************/
-/*********************************************/
+/*************************************/
+/*************************************/
+/******** 6. INSTANCE METHODS ********/
+/*************************************/
+/*************************************/
 
 /*-------------------------------------*/
 /*---- Duplicate Check Validations ----*/
@@ -1202,7 +1202,7 @@ UserSchema.methods.addHike = function(hikeId) {
     Parameters:
     - `hikeId` - ID of hike object to be stored.
     */
-    
+
     this.hikes.push(hikeId);
     this.save();
     return true;

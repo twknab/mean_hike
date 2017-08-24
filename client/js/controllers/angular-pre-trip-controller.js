@@ -1,4 +1,4 @@
-app.controller('preTripController', ['$scope', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, hikeFactory, userMessages, $location, $routeParams) {
+app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, preTripFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
 
     // Callbacks
     var cb = {
@@ -8,12 +8,10 @@ app.controller('preTripController', ['$scope', 'userFactory', 'hikeFactory', 'us
             Runs after `$scope.auth()` completes; checks if session is valid, and if so sets `$scope.user` to authValidation User object.
 
             Parameters:
-            - `authStatus` - An object returned from our factory, via a response from our API, containing the following properties:
+            - `authValidation` - An object returned from our factory, via a response from our API, containing the following properties:
                 - `status` - a `true` or `false` value of session validity.
                 - `user` - an object containing the User object, if the session is validated.
             */
-
-            console.log("%%%%%%%>>>>>>>>")
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
@@ -40,14 +38,39 @@ app.controller('preTripController', ['$scope', 'userFactory', 'hikeFactory', 'us
         hike: function(retrievedHike) {
             /*
             Runs after `$scope.getHike()` completes; sets hike to retrieved hike.
+
+            Parameters:
+            - `retrievedHike` - Hike object returned.
             */
 
             console.log('Successfully retrieved hike...', retrievedHike);
             $scope.hike = retrievedHike;
         },
-        error: function(err) {
-            console.log('Errors returned from server:', err);
-            $scope.errors = err;
+        newPreTrip: function(preTrip) {
+            /*
+            Runs if pre-trip is successfully created; returns to dashboard.
+
+            Parameters:
+            - `preTrip` - PreTrip object returned.
+            */
+
+            $location.url('/dashboard');
+        },
+        newPreTripError: function(err) {
+            /*
+            Runs if errors are returned after `$scope.preTrip()` from the server.
+
+            Parameters:
+            - `err` - Errors object returned.
+            */
+
+            console.log('Errors returned from server when trying to create pre-trip:', err);
+            // Reset amy existing errors:
+            $scope.newPreTripErrors = {};
+            // Set errors to whatever is returned:
+            $scope.newPreTripErrors = err;
+            // Scroll to errors:
+            $anchorScroll(preErrors);
         },
     };
 
@@ -74,6 +97,37 @@ app.controller('preTripController', ['$scope', 'userFactory', 'hikeFactory', 'us
 
         console.log("Getting current hike...", $routeParams.id);
         hikeFactory.getHike($routeParams.id, cb.hike);
+    };
+
+    //--------------------------------//
+    //-------- ADD NEW PRE-TRIP ------//
+    //--------------------------------//
+
+    $scope.addPreTrip = function() {
+        /*
+        Creates a new pretrip.
+        */
+
+        console.log("Starting new pre-trip validation process...");
+
+
+        if (($scope.preTrip == undefined) || (Object.keys($scope.preTrip).length < 1)) {
+            preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
+        }
+
+        else {
+            // Add Hike ID to Pre-Trip object for use on server:
+            $scope.preTrip.hikeId = $routeParams.id;
+
+            console.log('^%^%^%^%^%^%^%^%^%^%^%^%^');
+            console.log('ROUTE ID', $routeParams.id);
+            console.log('PreTrip', $scope.preTrip);
+            console.log('^%^%^%^%^%^%^%^%^%^%^%^%^');
+
+            preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
+        }
+
+
     };
 
 }]);

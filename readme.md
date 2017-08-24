@@ -66,11 +66,13 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Development Issues Log:
 
 ### Where I Left Off:
-	- Framed out pre-trip form page.
-	- Need to:
-		+ Populate data on pre-trip page.
-		+ Add auth check to pre-trip Angular controller.
-		+ Create pre-trip model and validations.
+
+	- Pre-Trip Built, but still some problems with Validations:
+		- Empty group size escapes Validation
+		- Success message does not display on dashboard
+		- Autoscroll not working on pre-trip page.
+
+	- Noticed some password hashes getting through also for recentHikes and preTripList -- what's the best way to approach deleting this password field?
 
 	- Change `Add Hike` errors to show a single error if Name, Region, Distance and Gain are not filled out.
 

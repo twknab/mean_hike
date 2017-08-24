@@ -9,14 +9,14 @@ app.factory('hikeFactory', ['$http', function($http) {
     // Setup empty factory object:
     var factory = {};
 
-    factory.newHike = function(newHike, newHikeCallback, errorsCallback) {
+    factory.newHike = function(newHike, success, error) {
         /*
         Sends new Hike data to API for validation; runs a callback function depending upon if new Hike is created and returned, or if errors are returned.
 
         Parameters:
         - `newHike` - New Hike object containing all form data.
-        - `newHikeCallback` - Callback which runs if new Hike creation is successful.
-        - `errorsCallback` - Callback which runs if errors are returned during User creation.
+        - `success` - Callback which runs if new Hike creation is successful.
+        - `error` - Callback which runs if errors are returned during User creation.
         */
 
         console.log('Sending Hike data to API for validation and creation...');
@@ -29,10 +29,8 @@ app.factory('hikeFactory', ['$http', function($http) {
                 - `validated` - Validation object containing success messages.
                 */
 
-                console.log('SUCCESSSSS!');
-
                 // Run success callback:
-                newHikeCallback(validated.data);
+                success(validated.data);
             })
             .catch(function(err) {
                 /*
@@ -44,16 +42,16 @@ app.factory('hikeFactory', ['$http', function($http) {
 
                 console.log('Error attempting to create new Hike:', err.data);
                 // Run callback with errors:
-                errorsCallback(err.data); // runs errors callback if errors
+                error(err.data); // runs errors callback if errors
             })
     };
 
-    factory.getRecent = function(recentHikesCallback) {
+    factory.getRecent = function(success) {
         /*
         Sends request to API to get recent hikes.
 
         Parameters:
-        - `recentHikesCallback` - Callback which runs after recent hikes have been returned (see Dashboard Controller).
+        - `success` - Callback which runs after recent hikes have been returned (see Dashboard Controller).
         */
 
         $http.get('/api/hike')
@@ -65,22 +63,23 @@ app.factory('hikeFactory', ['$http', function($http) {
                 console.log(recentHikes);
 
                 // Run success callback passing along returned recent hikes:
-                recentHikesCallback(recentHikes.data);
+                success(recentHikes.data);
             })
             .catch(function(err) {
                 /*
                 If errors occur trying to retrieve recent hikes, they will be caught and returned as `err` object.
                 */
+
                 console.log(err.data);
             })
     };
 
-    factory.getPreTrip = function(preTripCallback) {
+    factory.getPreTrip = function(success) {
         /*
         Sends request to API to get hikes without a completed Pre-Trip.
 
         Parameters:
-        - `preTripCallback` - Callback which runs after hikes without a completed Pre-Trip report are returned.
+        - `success` - Callback which runs after hikes without a completed Pre-Trip report are returned.
         */
 
         $http.get('/api/hike/pre-trip')
@@ -89,26 +88,25 @@ app.factory('hikeFactory', ['$http', function($http) {
                 If hikes are successfully queried, will be returned as `incompletePreTripHikes` object.
                 */
 
-                console.log(incompletePreTripHikes);
-
                 // Run success callback passing along returned recent hikes:
-                preTripCallback(incompletePreTripHikes.data);
+                success(incompletePreTripHikes.data);
             })
             .catch(function(err) {
                 /*
                 If errors occur trying to retrieve hikes, they will be caught and returned as `err` object.
                 */
+
                 console.log(err.data);
             })
     };
 
-    factory.getHike = function(id, hikeCallback) {
+    factory.getHike = function(id, success) {
         /*
         Gets hike for user bsaed upon ID and runs hikeCallback if successful.
 
         Parameters:
         - `id` - Id of hike to retrieve.
-        - `hikeCallback` - Callback which runs after hike is retrieved.
+        - `success` - Callback which runs after hike is sucessfully retrieved.
         */
 
         console.log("Factory getting current hike...ID:", id);
@@ -126,12 +124,13 @@ app.factory('hikeFactory', ['$http', function($http) {
                 console.log("Got hike successfully...", retrievedHike.data);
 
                 // Run success callback passing along returned current hike:
-                hikeCallback(retrievedHike.data);
+                success(retrievedHike.data);
             })
             .catch(function(err) {
                 /*
                 If errors occur trying to retrieve hike, they will be caught and returned as `err` object.
                 */
+
                 console.log(err.data);
             })
     };

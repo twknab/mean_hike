@@ -8,11 +8,12 @@ This is the model file for `Hike`.
 3. NEW HIKE VALIDATION
     - `validateHike()` - Validates a new hike.
 4. EDIT HIKE VALIDATION
-5. PRIVATE INSTANCE METHODS:
+5. INSTANCE METHODS:
     Note: Please see doc strings in each function for more info:
     - `numCheck()` - Regex check if a value is a positive floating point num.
     - `alphaNumCheck()` - Regex check if value contains alphanum and accepted characters.
     - `genHikeTimeEst()` - Generates hiking time estimate and adds to hike.
+    - `addPreTrip()` - Set PreTrip ID to pre-trip field.
 6. MODEL CREATION AND EXPORT
 
 --------------------------->>
@@ -216,7 +217,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
         Hike.create(formData)
             .then(function(createdHike) {
                 /*
-                If user is successfully created, User object (`createdHike`) is returned.
+                If create successful, Hike object (`createdHike`) is returned.
                 */
 
                 console.log('Hike created successfully.');
@@ -252,11 +253,11 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 
 
 
-/*********************************************/
-/*********************************************/
-/******** 5. PRIVATE INSTANCE METHODS ********/
-/*********************************************/
-/*********************************************/
+/*************************************/
+/*************************************/
+/******** 5. INSTANCE METHODS ********/
+/*************************************/
+/*************************************/
 
 HikeSchema.methods.numCheck = function(number) {
     /*
@@ -314,6 +315,19 @@ HikeSchema.methods.genHikeTimeEst = function(totalDistance, totalGain) {
 
     // Run module and generate travel time:
     this.timeEstimate = estimator.travelTime(totalDistance, totalGain);
+    this.save();
+    return undefined; // send undefined as success
+};
+
+HikeSchema.methods.addPreTrip = function(preTripId) {
+    /*
+    Sets PreTrip ID to `preTrip` field.
+
+    Parameters:
+    - `preTripId` - ID of a `PreTrip` object related to this hike instance.
+    */
+
+    this.preTrip = preTripId;
     this.save();
     return undefined; // send undefined as success
 };

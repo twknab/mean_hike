@@ -118,6 +118,10 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     margin: 15px;
 }
 
+.margin-bottom-none {
+    margin: 0px;
+}
+
 /*************************/
 /*    TOP NAVIGATION:    */
 /*************************/
@@ -127,14 +131,28 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     }
 }
 
-/**********************/
-/*    WELCOME LINK    */
-/**********************/
+/************************/
+/*     MODAL WINDOW:    */
+/************************/
+
+.close-modal {
+    font-size: 45px;
+};
+
+
+/*******************/
+/*    DASHBOARD    */
+/*******************/
 /* Make welcome link bold and underlined. */
 .alert_link {
     font-weight: bold;
     text-decoration: underline;
     color: #ffffff;
+};
+/* Bump up labels slightly */
+.dashboard-label {
+    position: relative;
+    bottom: 2px;
 };
 
 
@@ -149,6 +167,7 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 .completed label {
     color: grey;
 }
+
 /************************/
 /*   ALL HIKES STATS:   */
 /************************/

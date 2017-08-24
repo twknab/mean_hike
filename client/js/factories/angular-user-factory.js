@@ -9,14 +9,14 @@ app.factory('userFactory', ['$http', function($http) {
     // Setup empty factory object:
     var factory = {};
 
-    factory.register = function(user, registerCallback, errorsCallback) {
+    factory.register = function(user, success, error) {
         /*
         Sends registration data to API for validation; runs a callback function depending upon if new User is returned, or if errors are returned.
 
         Parameters:
         - `user` - User registration object containing all form data.
-        - `registerCallback` - Callback which runs if User creation is successful.
-        - `errorsCallback` - Callback which runs if errors are returned during User creation.
+        - `success` - Callback which runs if User creation is successful.
+        - `error` - Callback which runs if errors are returned during User creation.
         */
 
         console.log('Registration process starting...', user);
@@ -31,7 +31,7 @@ app.factory('userFactory', ['$http', function($http) {
 
                 console.log(newUser.data);
                 // Run registration success callback:
-                registerCallback(newUser.data); // runs callback if successful
+                success(newUser.data); // runs callback if successful
             })
             .catch(function(err) {
                 /*
@@ -44,18 +44,18 @@ app.factory('userFactory', ['$http', function($http) {
                 console.log(err);
                 console.log('Error registering user:', err.data);
                 // Run errors callback:
-                errorsCallback(err.data); // runs errors callback if errors
+                error(err.data); // runs errors callback if errors
             })
     };
 
-    factory.login = function(user, loginCallback, errorsCallback) {
+    factory.login = function(user, success, error) {
         /*
         Sends login data to API for validation; runs callback if retreived User is found and validated, else runs a callback with errors.
 
         Parameters:
         - `user` - Login registration object containing all form data.
-        - `registerCallback` - Callback which runs if User retrieval is successfully validated.
-        - `errorsCallback` - Callback which runs if errors are returned during User retrieval.
+        - `success` - Callback which runs if User retrieval is successfully validated.
+        - `error` - Callback which runs if errors are returned during User retrieval.
         */
 
         console.log('Login process starting...');
@@ -70,7 +70,7 @@ app.factory('userFactory', ['$http', function($http) {
 
                 console.log(foundUser.data);
                 // Run login success callback:
-                loginCallback(foundUser.data);
+                success(foundUser.data);
             })
             .catch(function(err) {
                 /*
@@ -83,16 +83,16 @@ app.factory('userFactory', ['$http', function($http) {
                 console.log(err);
                 console.log('Error logging in user:', err.data);
                 // Run errors callback:
-                errorsCallback(err.data);
+                error(err.data);
             })
     };
 
-    factory.auth = function(authCallback) {
+    factory.auth = function(authorized) {
         /*
         Authorize a User's session.
 
         Parameters:
-        - `authCallback` - Callback to run after session status has been determined.
+        - `authorized` - Callback to run after session status has been determined.
         */
         $http.get('/api/user/auth')
             .then(function(authValidation) {
@@ -105,20 +105,20 @@ app.factory('userFactory', ['$http', function($http) {
 
                 console.log("Does user have a valid session?:", authValidation.data.status);
                 console.log(authValidation.data);
-                authCallback(authValidation.data);
+                authorized(authValidation.data);
             })
             .catch(function(err) {
                 console.log('Error authorizing user:', err.data);
-                authCallback(err.data);
+                authorized(err.data);
             })
     };
 
-    factory.welcomeMessageFalse = function(welcomeCallback) {
+    factory.welcomeMessageFalse = function(welcome) {
         /*
         Sets Welcome Message status to False.
 
         Parameters:
-        - `welcomeCallback` - Callback to run after welcome message status has been updated.
+        - `welcome` - Callback to run after welcome message status has been updated.
         */
 
         $http.get('/api/user/welcome')
@@ -131,7 +131,7 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log(updatedUser.data);
-                welcomeCallback();
+                welcome();
             })
             .catch(function(err) {
                 /*
@@ -145,14 +145,14 @@ app.factory('userFactory', ['$http', function($http) {
             })
     };
 
-    factory.update = function(user, updateCallback, errorsCallback) {
+    factory.update = function(user, success, error) {
         /*
         Send update account data to API for validation.
 
         Parameters:
         - `user` - User account update form data.
-        - `updateCallback` - Callback which runs if update is succesful.
-        - `errorsCallback` - Callback which runs if errors.
+        - `success` - Callback which runs if update is succesful.
+        - `error` - Callback which runs if errors.
         */
 
         $http.post('/api/user/update', user)
@@ -165,7 +165,7 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log(validated.data);
-                updateCallback(validated.data);
+                success(validated.data);
             })
             .catch(function(err) {
                 /*
@@ -173,16 +173,16 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log('Error attempting update user:', err.data);
-                errorsCallback(err.data)
+                error(err.data)
             })
     };
 
-    factory.logout = function(logoutCallback) {
+    factory.logout = function(loggedOut) {
         /*
         Runs logout function on server API.
 
         Parameters:
-        - `logoutCallback` - Callback function to run after logout completes.
+        - `loggedOut` - Callback function to run after logout completes.
         */
         console.log('Logout process starting...');
         $http.post('/api/user/logout')
@@ -192,7 +192,7 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log('User has been successfully logged out.');
-                logoutCallback();
+                loggedOut();
             })
             .catch(function(err) {
                 /*

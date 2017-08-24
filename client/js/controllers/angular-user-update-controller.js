@@ -1,4 +1,4 @@
-app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
+app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, userFactory, userMessages, $location, $routeParams, $anchorScroll) {
     /*
     Sets up `userUpdateController` to handle User Account update page actions:
 
@@ -79,6 +79,8 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
             }
             // Run auth() to fetch updated User and to check account URL path:
             $scope.auth();
+            // Scroll to top of panel where success messages display:
+            $anchorScroll(updateUser);
         },
         updateError: function(err) {
             /*
@@ -93,6 +95,8 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
             userMessages.clearAlerts(); // resets any success messages existing
             // Set `$scope.updateErrors` to returned errors object from API request:
             $scope.updateErrors = err;
+            // Scroll to top of panel where error messages display:
+            $anchorScroll(updateUser);
         },
     };
 

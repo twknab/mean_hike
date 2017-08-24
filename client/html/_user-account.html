@@ -35,59 +35,67 @@
     <!-- User Account Responsive Row -->
     <div class="row">
         <!-- Update User Account -->
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="updateUser">
             <!-- Success Alerts -->
             <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a></div>
             <!-- Update User Errors -->
             <div class="alert alert-danger margin-top-sm" ng-repeat="error in updateErrors">
                 <p><strong>Error!</strong> {{error.message}}</p>
             </div>
-            <!-- Update Account Form -->
-            <form ng-submit="updateUser()" class="padding-left-sm padding-right-sm form-horizontal">
-                <!-- Update Password Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="username" id="username" ng-model="user.username" placeholder="New Username" class="form-control input-lg">
-                    </div>
-                    <span class="help-block margin-label">Update your username.</span>
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading">
+                    <h2><span class="glyphicon glyphicon-check"></span> Update Account</h2>
                 </div>
-                <!-- Update Email Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="email" id="email" ng-model="user.email" placeholder="New Email" class="form-control input-lg">
-                    </div>
-                    <span class="help-block margin-label">Update your email address.</span>
+                <div class="panel-body">
+                    <!-- Update Account Form -->
+                    <form ng-submit="updateUser()" class="padding-left-sm padding-right-sm form-horizontal">
+                        <!-- Update Password Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" name="username" id="username" ng-model="user.username" placeholder="New Username" class="form-control input-lg">
+                            </div>
+                            <span class="help-block margin-label">Update your username.</span>
+                        </div>
+                        <!-- Update Email Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" name="email" id="email" ng-model="user.email" placeholder="New Email" class="form-control input-lg">
+                            </div>
+                            <span class="help-block margin-label">Update your email address.</span>
+                        </div>
+                        <!-- Confirm Email Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" name="emailConfirm" id="emailConfirm" ng-model="user.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+                            </div>
+                            <span class="help-block margin-label">Confirm your updated email address.</span>
+                        </div>
+                        <!-- Update Password Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="New Password">
+                            </div>
+                            <span class="help-block margin-label">Set a new password.</span>
+                        </div>
+                        <!-- Confirm Password Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="passwordConfirm" ng-model="user.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+                            </div>
+                            <span class="help-block margin-label">Confirm your new password.</span>
+                            <!-- Update User and Cancel Buttons -->
+                            <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-check"></span> Update User</button>
+                            <button class="form-control btn btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- Confirm Email Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input type="email" name="emailConfirm" id="emailConfirm" ng-model="user.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
-                    </div>
-                    <span class="help-block margin-label">Confirm your updated email address.</span>
-                </div>
-                <!-- Update Password Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="New Password">
-                    </div>
-                    <span class="help-block margin-label">Set a new password.</span>
-                </div>
-                <!-- Confirm Password Field -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="passwordConfirm" ng-model="user.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
-                    </div>
-                    <span class="help-block margin-label">Confirm your new password.</span>
-                    <!-- Update User and Cancel Buttons -->
-                    <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-check"></span> Update User</button>
-                    <button class="form-control btn btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 

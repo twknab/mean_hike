@@ -77,7 +77,7 @@ app.factory('hikeFactory', ['$http', function($http) {
 
     factory.getPreTrip = function(preTripCallback) {
         /*
-        Semds request to API to get hikes without a completed Pre-Trip.
+        Sends request to API to get hikes without a completed Pre-Trip.
 
         Parameters:
         - `preTripCallback` - Callback which runs after hikes without a completed Pre-Trip report are returned.
@@ -97,6 +97,40 @@ app.factory('hikeFactory', ['$http', function($http) {
             .catch(function(err) {
                 /*
                 If errors occur trying to retrieve hikes, they will be caught and returned as `err` object.
+                */
+                console.log(err.data);
+            })
+    };
+
+    factory.getHike = function(id, hikeCallback) {
+        /*
+        Gets hike for user bsaed upon ID and runs hikeCallback if successful.
+
+        Parameters:
+        - `id` - Id of hike to retrieve.
+        - `hikeCallback` - Callback which runs after hike is retrieved.
+        */
+
+        console.log("Factory getting current hike...ID:", id);
+
+        var hikeId = {
+            id: id,
+        }
+
+        $http.post('/api/hike/current', hikeId)
+            .then(function(retrievedHike) {
+                /*
+                If hike is successfully queried, will be returned as `retrievedHike` object.
+                */
+
+                console.log("Got hike successfully...", retrievedHike.data);
+
+                // Run success callback passing along returned current hike:
+                hikeCallback(retrievedHike.data);
+            })
+            .catch(function(err) {
+                /*
+                If errors occur trying to retrieve hike, they will be caught and returned as `err` object.
                 */
                 console.log(err.data);
             })

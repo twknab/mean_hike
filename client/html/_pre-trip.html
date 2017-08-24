@@ -41,17 +41,17 @@
                 <div class="panel-heading">
                     <h3><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h3></div>
                 <div class="panel-body">
-                    <h2 class="no-heading-margin">Boulder River</h2>
+                    <h2 class="no-heading-margin">{{hike.name}}</h2>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong> Date Added:</strong> 3/13/17</li>
-                        <li class="list-group-item"><strong> Region:</strong> Skagit Valley</li>
-                        <li class="list-group-item"><strong> Distance:</strong> 8.3 miles</li>
-                        <li class="list-group-item"><strong> Elevation Gain:</strong> 800 feet</li>
-                        <li class="list-group-item"><strong>Estimated Time:</strong> 4 hours 51 minutes</li>
-                        <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
+                        <li class="list-group-item"><strong> Date Added:</strong> {{hike.createdAt | date}}</li>
+                        <li class="list-group-item"><strong> Region:</strong> {{hike.region}}</li>
+                        <li class="list-group-item"><strong> Distance:</strong> {{hike.distance}} miles</li>
+                        <li class="list-group-item"><strong> Elevation Gain:</strong> {{hike.gain}} feet</li>
+                        <li class="list-group-item"><strong>Estimated Time:</strong> {{hike.timeEstimate}}</li>
+                        <li class="list-group-item"><a ng-href="{{hike.location}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
                     </ul>
                     <div class="alert alert-info margin-top-sm">
-                        <strong>Notes:</strong> Fallen tree in first mile after parking lot. Proceed cautiously, especially with pack.
+                        <strong>Notes:</strong> {{hike.notes}}.
                     </div>
                 </div>
             </div>

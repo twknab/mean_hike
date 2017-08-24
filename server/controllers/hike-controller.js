@@ -93,20 +93,20 @@ module.exports = {
             console.log("Getting most recent hikes...");
 
             User.findOne({_id: req.session.userId})
-            .populate({
-                path: 'hikes',
-                options: {
-                    sort: '-updatedAt',
-                    limit: 3,
-                }
-            })
-            .exec()
-            .then(function(UserAndHikes) {
-                return res.json(UserAndHikes);
-            })
-            .catch(function(err) {
-                return res.status(500).json(err);
-            })
+                .populate({
+                    path: 'hikes',
+                    options: {
+                        sort: '-updatedAt',
+                        limit: 3,
+                    }
+                })
+                .exec()
+                .then(function(UserAndHikes) {
+                    return res.json(UserAndHikes);
+                })
+                .catch(function(err) {
+                    return res.status(500).json(err);
+                })
         }
 
     },
@@ -125,23 +125,46 @@ module.exports = {
         } else {
             console.log("Getting all hikes without pre-trips started...");
             User.findOne({_id: req.session.userId})
-            .populate({
-                path: 'hikes',
-                match: { preTrip: {$exists: false}},
-                options: {
-                    sort: '-updatedAt',
-                }
-            })
-            .exec()
-            .then(function(UserPreTripHikes) {
-                console.log('%%%%%%%%| HIKES NEEDING PRE-TRIPS |%%%%%%%%');
-                console.log(UserPreTripHikes);
-                console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-                return res.json(UserPreTripHikes);
-            })
-            .catch(function(err) {
-                return res.status(500).json(err);
-            })
+                .populate({
+                    path: 'hikes',
+                    match: { preTrip: {$exists: false}},
+                    options: {
+                        sort: '-updatedAt',
+                    }
+                })
+                .exec()
+                .then(function(UserPreTripHikes) {
+                    return res.json(UserPreTripHikes);
+                })
+                .catch(function(err) {
+                    return res.status(500).json(err);
+                })
+        }
+
+    },
+    getCurrentHike: function(req, res) {
+        /*
+        Gets current hike by ID.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log("Querying for current hike...", req.body);
+            Hike.findOne({_id: req.body.id})
+                .then(function(hike) {
+                    console.log("Hike found:", hike);
+                    return res.json(hike);
+                })
+                .catch(function(err) {
+                    console.log("Error retreiving hike:", err);
+                    return res.status(500).json(err);
+                })
         }
 
     },

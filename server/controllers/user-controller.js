@@ -200,11 +200,13 @@ module.exports = {
                     - `foundUser` - User object.
                     */
 
+                    console.log("User found for session.", foundUser);
                     // Send back found User and a True status (to be assessed in our Angular controller):
-                    return res.json({
+                    var auth = {
                         user: foundUser,
-                        status: true
-                    })
+                        status: true,
+                    };
+                    return res.json(auth);
                 })
                 .catch(function(err) {
                     /*

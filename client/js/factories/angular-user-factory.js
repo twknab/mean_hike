@@ -104,6 +104,7 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log("Does user have a valid session?:", authValidation.data.status);
+                console.log(authValidation.data);
                 authCallback(authValidation.data);
             })
             .catch(function(err) {

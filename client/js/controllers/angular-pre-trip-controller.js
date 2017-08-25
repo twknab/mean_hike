@@ -70,7 +70,8 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             // Set errors to whatever is returned:
             $scope.newPreTripErrors = err;
             // Scroll to errors:
-            $anchorScroll(preErrors);
+            $location.hash('preTripReport');
+            $anchorScroll();
         },
     };
 

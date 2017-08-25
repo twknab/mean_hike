@@ -59,24 +59,37 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Change "Recent Hikes" to "Hikes Pending" showing any hikes still awaiting a post-trip report. This might be helpful as a user whom adds many hikes may lose track of any hikes they started, but came home and forgot to complete. See what use experience is like and play around a bit. (medium-priority)
 
+	+ Setup other error messages to also utilize services (like PreTrip creation does), so that you can use `$autoScroll()` more.
+
 	+ Add the nav header page code as separate HTML includes (medium-priority)
 
 	+ Add Progress Bar to Add Hike, Pre-Trip and Post-Trip pages (See: https://bootswatch.com/darkly/#typography)
 
+	+ Add autoScroll so after dashboard navigation items are clicked, page is scrolled to that accordian. (high-priority)
+
+	+ Add `Add Hike` button to top and bottom accordian panes, so when clicked, opens the `+ Hike` accordian (and maybe even selects [ie, focus] the first field...) (high-priority)
+
 ## Development Issues Log:
+	- `$autoScroll()` re-renders DOM and re-executes Controller.
+	- When using `ngRoute`, `res.redirect('/')` does not change view.
+	- How do I delete a property from a Mongoose Object server-side, not in Angular (ie, password security)?
 
 ### Where I Left Off:
+	- Building out All Hikes page:
+		- Get Search Box to work.
+		- Fix Stats only after building post-trip feature.
 
+### Remaining Features:
+	- View Hike Feature -- Friday
+	- View All Hikes Feature -- Friday
+	- Add Post-Trip Feature -- Saturday
+	- Edit Hike Feature -- Sunday
+	- Delete Hike Feature -- Monday
+	- Checkbox Feature -- Tuesday
 
+### Things to Consider After Features Built:
 	- Noticed some password hashes getting through also for recentHikes and preTripList -- what's the best way to approach deleting this password field?
 
 	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 
-### Remaining Features:
-	- Show Hikes on Dashboard
-	- Edit Hike Feature
-	- Add Pre-Trip Feature
-	- Add Post-Trip Feature
-	- Add Full Report Feature
-	- Show Recent Hikes Feature
 	- Change Angular Controller Auth fail to use a service instead of duplicate code.

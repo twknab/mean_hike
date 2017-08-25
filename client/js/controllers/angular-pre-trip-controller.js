@@ -2,7 +2,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
 
     // Callbacks
     var cb = {
-        // Sets $scope.user to retrieved logged in user:
         user: function(authValidation) {
             /*
             Runs after `$scope.auth()` completes; checks if session is valid, and if so sets `$scope.user` to authValidation User object.

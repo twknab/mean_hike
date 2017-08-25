@@ -172,14 +172,12 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         hikeFactory.getPreTrip(cb.preTrip);
     };
 
-
-
     //----------------------------//
     //-------- ADD NEW HIKE ------//
     //----------------------------//
 
     /*
-    Development note: attempting to create the model `newHike` below, via `ng-model="newHike.name"` for example, within the angular-ui accordian template was not taking. This was odd as defining the model simply in the template seemed to work in my login/registration angular controllers (I didn't have to first create an empty object.) Perhaps because this form is nested inside of an angular-ui accordian, there is something within the digest cycle that I do not understand. This all being said, simply defining the empty object `newHike` below resolved my model not sending data.
+    Development note: I had to create an empty `newHike()` object below for my ng-model to take in the accordian.
     */
 
     // Create empty `newHike` object:

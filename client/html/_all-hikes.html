@@ -1,166 +1,122 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse" ng-controller="navController">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+    </div>
+    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+          <li class="active"><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Page Title and Icon -->
-    <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>MEAN_hike<br/><small><em>All Hikes</em></small></h1>
-    <!-- Dashboard and Logout Buttons -->
-    <div class="logout dashboard">
-        <div class="btn-group margin-bottom-sm">
-            <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</button>
-            <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+    <!-- Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Page Title and Icon -->
+            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>All Hikes</em></small></h1>
         </div>
     </div>
-    <!-- All Hikes Panel -->
-    <div class="panel panel-primary">
-        <!-- Panel Title -->
-        <div class="panel-heading"><h4><span class="glyphicon glyphicon-th-list"></span> All Hikes</h4></div>
-        <div class="panel-body">
-            <!-- Alert Info Message -->
-            <div class="alert alert-info alert-dismissable fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p><strong>Did You Know?</strong> You can view your <a href="#stats"><span class="glyphicon glyphicon-link"></span> full stats </a> for all of your combined hikes?</p>
+
+    <!-- Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- All Hikes Panel -->
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-th-list"></span> Hikes</h2></div>
+                <div class="panel-body">
+                    <!-- Search Box -->
+                    <div class="input-group margin-bottom-sm">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <input type="text" name="search" id="search" placeholder="Search hikes..." class="form-control input-lg">
+                    </div>
+                    <!-- Show All Hikes -->
+                    <!-- If Hikes -->
+                    <span ng-if="hikes.length > 0">
+                        <ul class="list-group no-list-margin" id="recentHikes">
+                            <li class="list-group-item" ng-repeat="hike in hikes">
+                                <!-- If Pre-Trip Incomplete -->
+                                <span ng-if="!hike.preTrip">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}</a> -
+                                        <span class="label label-warning">Pre-Trip Incomplete</span>
+                                    </div>
+                                </span>
+                                <!-- If Pre-Trip Completed Only (not Post-Trip) -->
+                                <span ng-if="hike.preTrip && !hike.postTrip">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <span class="label label-success">Pre-Trip Completed</span>
+                                    </div>
+                                </span>
+                                <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
+                                <span ng-if="hike.preTrip && hike.postTrip">
+                                    <div class="checkbox disabled">
+                                        <label>
+                                            <input type="checkbox" value="" checked disabled>
+                                            <strong>{{hike.name}}</strong> -
+                                        </label>
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <span class="label label-default">Completed</span>
+                                    </div>
+                                </span>
+                                <div class="margin-top-sm">
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Back to Dashboard Button -->
+                        <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                    </span>
+                    <span ng-if="hikes.length < 1">
+                        <h4 class="text-center margin-top">
+                            <em>You don't have any hikes!</em> 😞
+                            <!-- Back to Dashboard Button -->
+                            <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Add a Hike in the Dashboard</button>
+                        </h4>
+                    </span>
+                </div>
             </div>
-            <!-- Search Box -->
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                <input type="text" name="search" id="search" placeholder="Search All Hikes..." class="form-control input-lg">
-            </div>
-            <!-- All Hikes -->
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="">
-                            <strong>Boulder River</strong> -
-                        </label>
-                        <a href="#">8.3mi | 800ft gain - 4 hours 51 minutes - added 03/13/17</a> -
-                        <span class="label label-warning">Pre-Trip Incomplete</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                            <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="">
-                            <strong>Mt. Si</strong> -
-                        </label>
-                        <a href="#">8.0mi | 3,000ft gain - 7 hours - added 03/02/17</a> -
-                        <span class="label label-success">Pre-Trip Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Middle Fork Road</strong> -
-                        </label>
-                        <a href="#" class="">6.0mi | 500ft gain - 3 hours 30 minutes - added 02/16/17</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Mt St Helens, Wormflows Route</strong> -
-                        </label>
-                        <a href="#" class="">12.0mi | 4,000ft gain - 12 hours 30 minutes - added 02/02/17</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>St Edwards State Park</strong> -
-                        </label>
-                        <a href="#" class="">3.0mi | 500ft gain - 1 hours 30 minutes - added 01/16/17</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Granite Mountain</strong> -
-                        </label>
-                        <a href="#" class="">3.0mi | 1,000ft gain - 2 hours 0 minutes - added 11/20/16</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Mt Teneriffe</strong> -
-                        </label>
-                        <a href="#" class="">8.0mi | 1,000ft gain - 5 hours 0 minutes - added 10/26/16</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Snoqualmie Trail</strong> -
-                        </label>
-                        <a href="#" class="">4.0mi | 200ft gain - 2 hours 0 minutes - added 10/02/16</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item completed">
-                    <div class="checkbox disabled">
-                        <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <strong>Little Si</strong>
-                        </label>
-                        <a href="#" class="">6.0mi | 1,500ft gain - 4 hours 30 minutes - added 09/16/16</a> -
-                        <span class="label label-default">Completed</span>
-                        <div class="margin-top-sm">
-                            <button class="btn btn-link btn-sm"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <!-- Back to Dashboard Button -->
-            <button class="form-control btn btn-link"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
         </div>
     </div>
+
     <!-- Hiking Stats Panel -->
-    <div class="panel panel-primary" id="stats">
+    <div class="panel panel-default" id="stats">
         <!-- Panel Title -->
-        <div class="panel-heading"><h4><span class="glyphicon glyphicon-stats"></span> Hiking Stats</h4></div>
+        <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-stats"></span> Stats</h2></div>
         <!-- Panel Body -->
         <div class="panel-body">
             <!-- Total Distance Hiked -->
             <div class="well"><strong>Total Distance Hiked:</strong> 64.8 miles</div>
             <div class="well"><strong>Total Elev. Gained:</strong> 12,500 feet</div>
             <!-- Back to Dashboard Button -->
-            <button class="form-control btn btn-link"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+            <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
         </div>
     </div>
 </div> <!-- End Primary Container -->

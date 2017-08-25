@@ -168,4 +168,39 @@ module.exports = {
         }
 
     },
+    getAllHikes: function(req, res) {
+        /*
+        Gets all hikes for user with current session, includes populating all pre-trip and post-trip data.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            return res.status(500).redirect('/');
+        } else {
+            console.log("Querying for all Hikes and all Pre and PostTrip data...");
+            User.findOne({_id: req.session.userId})
+                .populate({
+                    path: 'hikes',
+                    populate: { path: 'preTrip' },
+                    // populate: { path: 'postTrip' },
+                    options: {
+                        sort: '-updatedAt',
+                    }
+                })
+                .exec()
+                .then(function(user) {
+                    console.log("User found:", user);
+                    return res.json(user);
+                })
+                .catch(function(err) {
+                    console.log("Error retreiving all Hikes for User:", err);
+                    return res.status(500).json(err);
+                })
+        }
+
+    },
 };

@@ -14,7 +14,7 @@
           <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
           <li class=""><a href="" ng-click="recentHikes()"><span class="glyphicon glyphicon-time"></span> Recent Hikes</a></li>
           <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> Hike</a></li>
-          <li class=""><a href="" ng-click="allHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+          <li class=""><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -69,11 +69,6 @@
                                             </label>
                                             <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}</a> -
                                             <span class="label label-warning">Pre-Trip Incomplete</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                            </div>
                                         </div>
                                     </span>
                                     <!-- If Pre-Trip Completed Only (not Post-Trip) -->
@@ -85,9 +80,6 @@
                                             </label>
                                             <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                             <span class="label label-success">Pre-Trip Completed</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                            </div>
                                         </div>
                                     </span>
                                     <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
@@ -99,20 +91,22 @@
                                             </label>
                                             <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                             <span class="label label-default">Completed</span>
-                                            <div class="margin-top-sm">
-                                                <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
-                                            </div>
                                         </div>
                                     </span>
+                                    <div class="margin-top-sm">
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                        <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                    </div>
                                 </li>
                             </ul>
                             <!-- All Hikes Button -->
-                            <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                            <button class="form-control btn btn-link margin-top-sm" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </span>
                         <span ng-if="recentHikes.length < 1">
-                            <p class="text-center">
+                            <h4 class="text-center margin-all">
                                 <em>You don't have any hikes yet! Add one below!</em> ⛺️
-                            </p>
+                            </h4>
                         </span>
                     </div>
                     <!------------------------->
@@ -197,9 +191,9 @@
                             </form>
                         </span>
                         <span ng-if="incompletePreTrips.length < 1">
-                            <p class="text-center">
+                            <h4 class="text-center margin-all">
                                 <em>You don't have any pending hikes! Add a new hike above!</em> 🏕
-                            </p>
+                            </h4>
                         </span>
                     </div>
                     <!-- End Accordian -->

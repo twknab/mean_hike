@@ -119,6 +119,15 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         $scope.status.newHike = true;
     };
 
+    $scope.viewAllHikes = function() {
+        /*
+        Views all Hikes.
+        */
+
+        console.log('Starting view all Hikes process...');
+        $location.url('/hikes');
+    };
+
     $scope.preTrip = function() {
         /*
         Loads current pre-trip page user is working on (for navigation purposes).

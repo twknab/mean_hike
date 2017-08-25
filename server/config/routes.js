@@ -16,5 +16,6 @@ module.exports = function(app) {
         .get('/api/hike', HikeController.mostRecent) // gets 3 most recent hikes
         .get('/api/hike/pre-trip', HikeController.incompletePreTrips) // gets hikes with incomplete pre-trips
         .post('/api/hike/pre-trip', PreTripController.addPreTrip) // creates new pre-trip
-        .post('/api/hike/current', HikeController.getCurrentHike) // gets hike by id
+        .post('/api/hike/show', HikeController.getCurrentHike) // gets hike by id
+        .get('/api/hike/show', HikeController.getAllHikes) // gets all hikes for user
 };

@@ -1,4 +1,4 @@
-app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$uibModal', '$log', function($scope, userFactory, userMessages, $location, $routeParams, $uibModal, $log) {
+app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$uibModal', '$log', '$window', function($scope, userFactory, userMessages, $location, $routeParams, $uibModal, $log, $window) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -7,15 +7,27 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     The callback functions below only runs if one of the $scope methods below utilizes a factory method. The callback is sent to the factory, and will run after the factory receives a response from the server API. Please see individual callback functions for how each work.
     */
     var cb = {
-        // Runs after $scope.login() function completes:
         login: function(foundUser) {
+            /*
+            Runs after `$scope.login()` function completes.
+
+            Parameters:
+            - `foundUser` - User object returned.
+            */
+
             $scope.loginErrors = {};
             $scope.user = {};
             userMessages.clearAlerts();
             $location.url('/dashboard');
         },
-        // Runs if errors after $scope.login() function completes:
         loginError: function(err) {
+            /*
+            Runs if errors after $scope.login() function completes.
+
+            Parameters:
+            - `err` - Login errors returned.
+            */
+
             console.log('Errors returned attempting to log user in:', err);
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
@@ -31,29 +43,52 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     // Update any alert messages:
     $scope.successAlerts = userMessages.getAlerts();
 
-    // Close Success Alert:
     $scope.closeSuccessAlert = function(index) {
+        /*
+        Close a success alert.
+
+        Parameters:
+        - `index` - Index value for alert to remove.
+        */
+
         // Run service to remove alert and update data binding:
         $scope.successAlerts = userMessages.removeAlert(index);
     };
 
-    //--------------------------//
-    //-------- NAVIGATION ------//
-    //--------------------------//
+    //-----------------------//
+    //-------- ACTIONS ------//
+    //-----------------------//
 
-    // Loads Homepage:
     $scope.home = function() {
+        /*
+        Loads homepage.
+        */
+
         $location.url('/');
     };
 
-    // Loads About Page:
     $scope.about = function() {
+        /*
+        Loads about page.
+        */
+
         $location.url('/about');
     };
 
-    // Login Existing User:
     $scope.login = function() {
+        /*
+        Login an existing user.
+        */
+
         userFactory.login($scope.user, cb.login, cb.loginError);
+    };
+
+    $scope.timHome = function() {
+        /*
+        Loads Tim's homepage.
+        */
+
+        $window.open('http://sasquat.ch', "_blank");
     };
 
 

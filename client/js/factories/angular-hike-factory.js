@@ -102,7 +102,7 @@ app.factory('hikeFactory', ['$http', function($http) {
 
     factory.getHike = function(id, success) {
         /*
-        Gets hike for user bsaed upon ID and runs hikeCallback if successful.
+        Gets hike for user based upon ID and runs callback if successful.
 
         Parameters:
         - `id` - Id of hike to retrieve.
@@ -115,7 +115,7 @@ app.factory('hikeFactory', ['$http', function($http) {
             id: id,
         }
 
-        $http.post('/api/hike/current', hikeId)
+        $http.post('/api/hike/show', hikeId)
             .then(function(retrievedHike) {
                 /*
                 If hike is successfully queried, will be returned as `retrievedHike` object.
@@ -125,6 +125,36 @@ app.factory('hikeFactory', ['$http', function($http) {
 
                 // Run success callback passing along returned current hike:
                 success(retrievedHike.data);
+            })
+            .catch(function(err) {
+                /*
+                If errors occur trying to retrieve hike, they will be caught and returned as `err` object.
+                */
+
+                console.log(err.data);
+            })
+    };
+
+    factory.allHikes = function(success) {
+        /*
+        Gets all hikes for user based upon ID and runs callback if successful.
+
+        Parameters:
+        - `success` - Callback which runs after all hikes are retrieved.
+        */
+
+        console.log("Factory getting all hikes...");
+
+        $http.get('/api/hike/show')
+            .then(function(userAllHikes) {
+                /*
+                If all hikes successfully queried, will be returned as  `userAllHikes` -- which is a `User` object containing a `hikes` array. Note: `preTrip` and `postTrip` fields are also populated.
+                */
+
+                console.log("Got all hikes successfully...", userAllHikes.data.hikes);
+
+                // Run success callback passing along data:
+                success(userAllHikes.data.hikes);
             })
             .catch(function(err) {
                 /*

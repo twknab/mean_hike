@@ -24,10 +24,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_pre-trip.html', // pre-trip page
             controller: 'preTripController',
         })
-        // .when('/hikes', {
-        //     templateUrl: 'html/_all-hikes.html', // all hikes page
-        //     controller: 'allHikesController',
-        // })
+        .when('/hikes', {
+            templateUrl: 'html/_all-hikes.html', // all hikes page
+            controller: 'allHikesController',
+        })
         // .when('/hikes/:id/edit', {
         //     templateUrl: 'html/_edit-hike.html', // edit hike page
         //     controller: 'editHikeController',

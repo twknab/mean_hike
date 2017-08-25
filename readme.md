@@ -68,8 +68,7 @@ This application is designed to help others plan and prepare for their hiking ad
 ### Where I Left Off:
 
 	- Pre-Trip Built, but still some problems with Validations:
-		- Empty group size escapes Validation.
-		- PreTrip should not be available if already registered.
+		- Error messages do not display correctly if `autoScroll()` used. Why?
 		- Success message does not display on dashboard.
 
 	- Noticed some password hashes getting through also for recentHikes and preTripList -- what's the best way to approach deleting this password field?

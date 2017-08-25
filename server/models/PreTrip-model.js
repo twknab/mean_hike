@@ -59,7 +59,7 @@ var PreTripSchema = new Schema({
         type: String,
         minlength: [2, 'Hazards must be at least 2 characters.'],
         maxlength: [5000, 'Hazards must not be greater than 5000 characters.'],
-        required: [true, 'Potential Hazards are required.'],
+        required: [true, 'Potential Hazards is required.'],
         trim: true,
     }, // end hazards field
     notes: {
@@ -72,6 +72,7 @@ var PreTripSchema = new Schema({
         type: String,
         minlength: [2, 'Group size must be at least 2 characters.'],
         maxlength: [500, 'Group size must not be greater than 500 characters.'],
+        required: [true, 'Group size is required.'],
         trim: true,
     }, // end groupSize field
 
@@ -119,7 +120,7 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
         };
     }
 
-    // Iterate through the object and if any properties sare less than 2 characters (excluding `notes` [optional field] property), generate error:
+    // Iterate through the object and if any properties are less than 2 characters (excluding `notes` [optional field] property), generate error:
     for (var property in formData) {
         if (formData.hasOwnProperty(property)) {
             if ((formData[property].length < 2) && (property != 'notes')) {
@@ -130,6 +131,7 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
         }
     };
 
+    // If `notes` property is empty, delete it (this happens if the user started to fill out notes then deleted them):
     if (formData.notes == '') {
         delete formData.notes;
     };

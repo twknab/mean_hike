@@ -65,13 +65,14 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             */
 
             console.log('Errors returned from server when trying to create pre-trip:', err);
-            // Reset amy existing errors:
+            // Scroll to errors:
+            // $location.hash('preTripReport');
+            // Reset any existing errors:
             $scope.newPreTripErrors = {};
             // Set errors to whatever is returned:
             $scope.newPreTripErrors = err;
-            // Scroll to errors:
-            $location.hash('preTripReport');
-            $anchorScroll();
+
+            $anchorScroll(BIG_ERRORS);
         },
     };
 
@@ -110,7 +111,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         */
 
         console.log("Starting new pre-trip validation process...");
-
 
         if (($scope.preTrip == undefined) || (Object.keys($scope.preTrip).length < 1)) {
             preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);

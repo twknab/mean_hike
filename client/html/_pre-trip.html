@@ -73,7 +73,7 @@
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <!-- New Pre-Trip Errors -->
-                    <div class="alert alert-danger margin-top-sm" ng-repeat="error in newPreTripErrors">
+                    <div class="alert alert-danger margin-top-sm" ng-repeat="error in newPreTripErrors" id="BIG_ERRORS">
                         <p><strong>Error!</strong> {{error.message}}</p>
                     </div>
                     <!-- Pre-Trip Hike Form -->
@@ -138,7 +138,7 @@
                                         <li class="list-group-item">
                                             <div class="radio">
                                                 <label>
-                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike">Solo Hike
+                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike" ng-value="True">Solo Hike
                                                     </label>
                                             </div>
                                         </li>

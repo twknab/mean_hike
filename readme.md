@@ -77,7 +77,7 @@ This application is designed to help others plan and prepare for their hiking ad
 ### Where I Left Off:
 	- Building out All Hikes page:
 		- Get Search Box to work.
-		- Fix Stats only after building post-trip feature.
+		- Fix Stats only after building post-trip feature (maybe get box-ticking functions to work).
 
 ### Remaining Features:
 	- View Hike Feature -- Friday

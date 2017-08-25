@@ -39,7 +39,7 @@
             <div class="panel panel-default">
                 <!-- Panel Title -->
                 <div class="panel-heading">
-                    <h2><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h2></div>
+                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h2></div>
                 <div class="panel-body">
                     <h1>{{hike.name}}</h1>
                     <ul class="list-group">
@@ -68,14 +68,16 @@
             <div class="panel panel-default" id="preTripReport">
                 <!-- Panel Title -->
                 <div class="panel-heading">
-                    <h2><span class="glyphicon glyphicon-arrow-right"></span>Pre-Trip Report</h2>
+                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span>Pre-Trip Report</h2>
                 </div>
                 <!-- Panel Body -->
                 <div class="panel-body">
+                    <!-- PreTrip Alerts -->
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- New Pre-Trip Errors -->
-                    <div class="alert alert-danger margin-top-sm" ng-repeat="error in newPreTripErrors" id="BIG_ERRORS">
+                    <!-- <div class="alert alert-danger margin-top-sm" ng-repeat="error in newPreTripErrors" id="BIG_ERRORS">
                         <p><strong>Error!</strong> {{error.message}}</p>
-                    </div>
+                    </div> -->
                     <!-- Pre-Trip Hike Form -->
                     <form ng-submit="addPreTrip()" class="padding-left padding-right form-horizontal">
                         <!-- Itinerary -->
@@ -138,8 +140,8 @@
                                         <li class="list-group-item">
                                             <div class="radio">
                                                 <label>
-                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike" ng-value="True">Solo Hike
-                                                    </label>
+                                                    <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike">Solo Hike
+                                                </label>
                                             </div>
                                         </li>
                                         <li class="list-group-item">

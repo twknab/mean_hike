@@ -19,7 +19,6 @@ app.factory('preTripFactory', ['$http', function($http) {
                 success(newPreTrip.data);
             })
             .catch(function(err) {
-                console.log(err);
                 console.log('Error from DB when creating new pre-trip:', err.data);
                 error(err.data);
             })

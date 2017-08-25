@@ -11,6 +11,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         login: function(foundUser) {
             $scope.loginErrors = {};
             $scope.user = {};
+            userMessages.clearAlerts();
             $location.url('/dashboard');
         },
         // Runs if errors after $scope.login() function completes:

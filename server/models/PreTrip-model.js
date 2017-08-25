@@ -155,8 +155,8 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
 
                 // Create success message:
                 validated.messages.hikeCreated = {
-                    hdr: "Pre-Trip Created!",
-                    msg: "Your Pre-Trip was succesfully created.",
+                    hdr: "Pre-Trip Completed!",
+                    msg: "Have a safe hike and be sure to complete a post-trip when you get back!.",
                 };
 
                 // Add PreTrip to validated object:

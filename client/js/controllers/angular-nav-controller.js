@@ -124,7 +124,7 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         Loads current pre-trip page user is working on (for navigation purposes).
         */
 
-        $location.url('/hikes/' + routeParams.id + '/pre-trip');
+        $location.url('/hikes/' + $routeParams.id + '/pre-trip');
     };
 
     $scope.logout = function() {

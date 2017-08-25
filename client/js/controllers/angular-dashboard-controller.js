@@ -43,8 +43,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
                 console.log('Session valid.', authValidation.user);
-                // Clear out any existing user messages:
-                userMessages.clearAlerts();
                 // Set User Data:
                 $scope.user = authValidation.user;
                 // Deletes password hash from front end
@@ -53,6 +51,8 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $scope.getRecentHikes();
                 // Get hikes needing pre-trips (for dropdown):
                 $scope.getPreTripList();
+                // Get any alerts:
+                $scope.successAlerts = userMessages.getAlerts();
             }
         },
         welcomeSetFalse: function() {
@@ -212,8 +212,8 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     //-----------------------------------------//
 
     // Generate a Welcome Alert:
-    $scope.weclomeAlerts = [
-        { type: 'info', hdr: 'What Now?', msg: 'Add a New Hike to queue up a new hike. Prep for your trip before you go, by ticking the box to initiate a Pre-Trip report. When you get back, tick the box again to fill out a Post-Trip report and to mark the hike completed. View a Hike Report to see all your info in one place.' }
+    $scope.welcomeAlerts = [
+        { type: 'info', hdr: 'Instructions:', msg: 'Add a New Hike below. Prepare for your trip by ticking the box to start a Pre-Trip report. When you return, tick the box again to fill out a Post-Trip report. View the hike to see everything in one place.' }
     ];
 
     $scope.closeWelcomeAlert = function(index) {
@@ -224,8 +224,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         - `index` - Index value of alert to be removed.
         */
 
-        // Remove alert and update `$scope.successAlerts` to most recent:
-        $scope.successAlerts = userMessages.removeAlert(index);
+        $scope.welcomeAlerts.splice(index, 1);
     };
 
     $scope.welcomeMessageFalse = function() {

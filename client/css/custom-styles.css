@@ -122,6 +122,13 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     margin: 0px;
 }
 
+/***********************/
+/*    TEXT EFFECTS:    */
+/***********************/
+.heading-shadow {
+    text-shadow: 2px 2px 2px #0b0b0b;
+}
+
 /*************************/
 /*    TOP NAVIGATION:    */
 /*************************/
@@ -145,15 +152,26 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 /*******************/
 /* Make welcome link bold and underlined. */
 .alert_link {
-    font-weight: bold;
-    text-decoration: underline;
+	font-weight: bold;
     color: #ffffff;
-};
+    text-decoration: underline;
+}
+.alert_link.ng-scope {
+	font-weight: bold;
+	color: #ffffff;
+    text-decoration: underline;
+}
+a.alert_link.ng-scope:visited {
+	color: #ffffff;
+}
+a.alert_link.ng-scope:hover {
+	text-decoration: none;
+}
 /* Bump up labels slightly */
 .dashboard-label {
     position: relative;
     bottom: 2px;
-};
+}
 
 
 /*************************/

@@ -45,14 +45,24 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
 
             console.log('Successfully retrieved hike...', retrievedHike);
             $scope.hike = retrievedHike;
+
+            // Get alert messages:
+            $scope.alerts = userMessages.getAlerts();
         },
-        newPreTrip: function(preTrip) {
+        newPreTrip: function(validated) {
             /*
             Runs if pre-trip is successfully created; returns to dashboard.
 
             Parameters:
-            - `preTrip` - PreTrip object returned.
+            - `validated` - Returns validated object cotaning `messages` and `validatedPreTrip` properties. Also contains `errors` property but shoudl be empty.
             */
+
+            for (var key in validated.messages) {
+                if (validated.messages.hasOwnProperty(key)) {
+                    console.log(validated.messages[key]);
+                    userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
+                }
+            }
 
             $location.url('/dashboard');
         },
@@ -65,14 +75,18 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             */
 
             console.log('Errors returned from server when trying to create pre-trip:', err);
-            // Scroll to errors:
-            // $location.hash('preTripReport');
-            // Reset any existing errors:
-            $scope.newPreTripErrors = {};
-            // Set errors to whatever is returned:
-            $scope.newPreTripErrors = err;
 
-            $anchorScroll(BIG_ERRORS);
+            for (var key in err) {
+                if (err.hasOwnProperty(key)) {
+                    console.log(err[key]);
+                    userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: err[key].message });
+                }
+            }
+
+            $scope.alerts = userMessages.getAlerts();
+
+            // Scroll to errors:
+            $anchorScroll('preTripReport');
         },
     };
 
@@ -101,6 +115,27 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
+    $scope.groupSizes = [
+        {
+            size: 'Solo Hike',
+            description: 'Solo Hike',
+        },
+        {
+            size: '2-3 people',
+            description: '2-3 people',
+        },
+        {
+            size: '4-5 people',
+            description: '4-5 people',
+        },
+        {
+            size: '6+ people',
+            description: '6+ people',
+        }
+    ];
+
+    // $scope.preTrip.groupSize = "2-3 people"
+
     //--------------------------------//
     //-------- ADD NEW PRE-TRIP ------//
     //--------------------------------//
@@ -110,7 +145,11 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         Creates a new pretrip.
         */
 
+        // Clear any old alerts:
+        userMessages.clearAlerts();
+
         console.log("Starting new pre-trip validation process...");
+
 
         if (($scope.preTrip == undefined) || (Object.keys($scope.preTrip).length < 1)) {
             preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
@@ -119,16 +158,23 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         else {
             // Add Hike ID to Pre-Trip object for use on server:
             $scope.preTrip.hikeId = $routeParams.id;
-
-            console.log('^%^%^%^%^%^%^%^%^%^%^%^%^');
-            console.log('ROUTE ID', $routeParams.id);
-            console.log('PreTrip', $scope.preTrip);
-            console.log('^%^%^%^%^%^%^%^%^%^%^%^%^');
-
             preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
         }
+    };
 
+    //-----------------------------//
+    //-------- ALERT ACTIONS ------//
+    //-----------------------------//
+    $scope.closeAlert = function(index) {
+        /*
+        Close an alert.
 
+        Parameters:
+        - `index` - Index value of success alert to be removed.
+        */
+
+        // Remove alert and update `$scope.successAlerts` to most recent:
+        $scope.alerts = userMessages.removeAlert(index);
     };
 
 }]);

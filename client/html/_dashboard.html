@@ -37,7 +37,7 @@
             <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
             <span ng-if="user.WelcomeMsgStatus === true">
                 <!-- Welcome Message (Angular UI Bootstrap) -->
-                <div uib-alert ng-repeat="alert in weclomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
+                <div uib-alert ng-repeat="alert in welcomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
             </span>
         </div>
     </div>
@@ -55,7 +55,7 @@
                     <!------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen">
                         <uib-accordion-heading>
-                            <h2><span class="glyphicon glyphicon-time"></span> Recent <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i></h2>
+                            <h2 class="heading-shadow"><span class="glyphicon glyphicon-time"></span> Recent <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i></h2>
                         </uib-accordion-heading>
                         <span ng-if="recentHikes.length >= 1">
                             <ul class="list-group no-list-margin" id="recentHikes">
@@ -110,7 +110,9 @@
                             <button class="form-control btn btn-link margin-top-sm"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </span>
                         <span ng-if="recentHikes.length < 1">
-                            <em>You don't have any hikes yet! Add one below!</em>
+                            <p class="text-center">
+                                <em>You don't have any hikes yet! Add one below!</em> ⛺️
+                            </p>
                         </span>
                     </div>
                     <!------------------------->
@@ -118,7 +120,7 @@
                     <!------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.newHike">
                         <uib-accordion-heading>
-                            <h2><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h2>
+                            <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h2>
                         </uib-accordion-heading>
                         <!-- New Hike Errors -->
                         <div class="alert alert-danger margin-top-sm" ng-repeat="error in newHikeErrors">
@@ -177,7 +179,7 @@
                     <!--------------------------->
                     <div uib-accordion-group class="panel-default" is-open="status.newPreTrip">
                         <uib-accordion-heading>
-                            <h2><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h2>
+                            <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h2>
                         </uib-accordion-heading>
                         <span ng-if="incompletePreTrips.length >= 1">
                             <!-- Pre-Trip Hike Selector Dropdown Form -->
@@ -195,7 +197,9 @@
                             </form>
                         </span>
                         <span ng-if="incompletePreTrips.length < 1">
-                            <em>You don't have any pending hikes! Add a new hike above!</em>
+                            <p class="text-center">
+                                <em>You don't have any pending hikes! Add a new hike above!</em> 🏕
+                            </p>
                         </span>
                     </div>
                     <!-- End Accordian -->

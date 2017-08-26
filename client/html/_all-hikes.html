@@ -44,13 +44,13 @@
                     <!-- Search Box -->
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        <input type="text" name="search" id="search" placeholder="Search hikes..." class="form-control input-lg">
+                        <input type="text" name="search" id="search" placeholder="Search hikes..." class="form-control input-lg" ng-model="searchBox">
                     </div>
                     <!-- Show All Hikes -->
                     <!-- If Hikes -->
                     <span ng-if="hikes.length > 0">
                         <ul class="list-group no-list-margin" id="recentHikes">
-                            <li class="list-group-item" ng-repeat="hike in hikes">
+                            <li class="list-group-item" ng-repeat="hike in hikes | filter:searchBox">
                                 <!-- If Pre-Trip Incomplete -->
                                 <span ng-if="!hike.preTrip">
                                     <div class="checkbox">
@@ -58,7 +58,7 @@
                                             <input type="checkbox" value="">
                                             <strong>{{hike.name}}</strong> -
                                         </label>
-                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}</a> -
+                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}- added {{hike.createdAt | date}}</a> -
                                         <span class="label label-warning">Pre-Trip Incomplete</span>
                                     </div>
                                 </span>

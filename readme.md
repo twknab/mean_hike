@@ -81,8 +81,6 @@ This application is designed to help others plan and prepare for their hiking ad
 		- Fix Stats only after building post-trip feature (maybe get box-ticking functions to work).
 
 ### Remaining Features:
-	- View Hike Feature -- Friday
-
 	- Add Post-Trip Feature -- Saturday
 	- Edit Hike Feature -- Sunday
 	- Delete Hike Feature -- Monday

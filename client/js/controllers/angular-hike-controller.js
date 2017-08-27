@@ -30,19 +30,21 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
                 $scope.user = authValidation.user;
                 // Deletes password hash from front end
                 delete $scope.user.password;
+                // Get Hike:
+                $scope.getHike();
 
             }
         },
-        all: function(allHikes) {
+        hike: function(hike) {
             /*
-            Runs after `$scope.getAllHikes()` completes; returns `allHikes` object which contains all hikes for user including all pre-trip and post-trip data, sorted by `updatedAt`.
+            Runs after `$scope.getHike()` completes; returns `hike` object which contains all hike data including pre-trip and post-trip data, sorted by `updatedAt`.
 
             Parameters:
-            - `allHikes` - An object returned from our factory, via a response from our API, containing all hikes.
+            - `hike` - An object returned from our factory, via a response from our API, containing all hikes.
             */
 
-            console.log("All hikes returned to controller:", allHikes);
-            $scope.hikes = allHikes;
+            console.log("Hike returned to controller:", hike);
+            $scope.hike = hike;
         },
     };
 
@@ -60,5 +62,23 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
     };
 
     $scope.auth();
+
+    $scope.getHike = function() {
+        /*
+        Get current hike (by route parameter) and return it (including pre and post-trip data).
+        */
+
+        console.log("Getting hike process started....");
+        hikeFactory.getHike($routeParams.id, cb.hike);
+    };
+
+    //---------------------------//
+    //-------- PAGE ACTIONS------//
+    //---------------------------//
+
+    $scope.startPreTrip = function(hikeId) {
+        console.log('Starting pre-trip process...');
+        $location.url('/hikes/' + hikeId + '/pre-trip');
+    };
 
 }]);

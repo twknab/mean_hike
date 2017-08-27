@@ -42,7 +42,7 @@
                 <!-- Panel Title -->
                 <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h2></div>
                 <div class="panel-body">
-                    <h1>Name Of Hike{{hike.name}}</h1>
+                    <h1>{{hike.name}}</h1>
                     <ul class="list-group">
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Region:</strong> {{hike.region}}</li>
@@ -75,44 +75,46 @@
                 <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> 3/22/17</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Group Size:</strong> Solo hike</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Sunset Time:</strong> 7:02PM</li>
-                    </ul>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Weather Report:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where the weather will go.</em>
-                            </p>
+                    <span ng-if="hike.postTrip">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> {{hike.preTrip.createdAt | date}}</li>
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Group Size:</strong> {{hike.preTrip.groupSize}}</li>
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Sunset Time:</strong> {{hike.preTrip.sunset}}</li>
+                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Weather Report:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.preTrip.weather}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Itinerary:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where the itinerary will go.</em>
-                            </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Itinerary:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.preTrip.itinerary}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Potential Hazards:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where potential hazards go.</em>
-                            </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Potential Hazards:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.preTrip.hazards}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Notes:</strong></div>
-                        <div class="panel-body">
-                            <span ng-if="!hike.notes">
-                                <em>There aren't any notes for this hike.</em>
-                            </span>
-                            <span ng-if="hike.notes">{{hike.notes}}</span>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Notes:</strong></div>
+                            <div class="panel-body">
+                                <span ng-if="!hike.preTrip.notes">
+                                    <em>There aren't any Pre-Trip notes for this hike.</em>
+                                </span>
+                                <span ng-if="hike.preTrip.notes">{{hike.preTrip.notes}}</span>
+                            </div>
                         </div>
-                    </div>
+                    </span>
+                    <span ng-if="!hike.postTrip">
+                        <h4 class="text-center margin-all">
+                            <em>You haven't completed a Pre-Trip!</em> 🏕
+                            <p class="text-center margin-top"><a class="btn btn-danger btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
+                        </h4>
+                    </span>
                     <!-- Back to Dashboard Button -->
                     <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                 </div>
@@ -128,44 +130,48 @@
                 <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Post-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> 3/22/17</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Actual Hiking Time:</strong> Solo hike</li>
-                    </ul>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Weather:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where the weather experienced will go.</em>
-                            </p>
+                    <span ng-if="hike.postTrip">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> {{hike.postTrip.createdAt | date}}</li>
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Actual Hiking Time:</strong> {{hike.postTrip.actualTime}}</li>
+                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Weather:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.postTrip.weather}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Itinerary:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where the itinerary will go.</em>
-                            </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Hazards:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.postTrip.hazards}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Hazards:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where experienced hazards go.</em>
-                            </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Flora & Fauna:</strong></div>
+                            <div class="panel-body">
+                                <p>{{hike.postTrip.floraFauna}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>Flora & Fauna:</strong></div>
-                        <div class="panel-body">
-                            <p>
-                                <em>This is where flora and fauna will go.</em>
-                            </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Post-Trip Notes:</strong></div>
+                            <div class="panel-body">
+                                <span ng-if="!hike.postTrip.notes">
+                                    <em>There aren't any Post-Trip notes for this hike.</em>
+                                </span>
+                                <span ng-if="hike.postTrip.notes">{{hike.postTrip.notes}}</span>
+                            </div>
                         </div>
-                    </div>
+                    </span>
+                    <span ng-if="!hike.postTrip">
+                        <h4 class="text-center margin-all">
+                            <em>You haven't completed a Post-Trip!</em> 🏕
+                            <p class="text-center margin-top"><a class="btn btn-danger btn-lg" ng-click="home()"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
+                        </h4>
+                    </span>
                     <!-- Back to Dashboard Button -->
                     <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+
                 </div>
             </div>
         </div>

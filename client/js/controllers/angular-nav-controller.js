@@ -97,6 +97,8 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         Loads dashboard page.
         */
 
+        // Clear any messages:
+        userMessages.clearAlerts();
         $location.url('/dashboard');
     };
 

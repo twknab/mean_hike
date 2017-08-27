@@ -157,6 +157,9 @@ module.exports = {
         } else {
             console.log("Querying for current hike...", req.body);
             Hike.findOne({_id: req.body.id})
+                .populate('preTrip')
+                // .populate('postTrip')
+                .exec()
                 .then(function(hike) {
                     console.log("Hike found:", hike);
                     return res.json(hike);

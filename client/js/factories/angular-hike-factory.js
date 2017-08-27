@@ -118,7 +118,7 @@ app.factory('hikeFactory', ['$http', function($http) {
         $http.post('/api/hike/show', hikeId)
             .then(function(retrievedHike) {
                 /*
-                If hike is successfully queried, will be returned as `retrievedHike` object.
+                If hike is successfully queried, will be returned as `retrievedHike` object including post-trip and pre-trip data.
                 */
 
                 console.log("Got hike successfully...", retrievedHike.data);

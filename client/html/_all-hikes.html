@@ -58,7 +58,7 @@
                                             <input type="checkbox" value="">
                                             <strong>{{hike.name}}</strong> -
                                         </label>
-                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}- added {{hike.createdAt | date}}</a> -
+                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}- added {{hike.createdAt | date}}</a> -
                                         <span class="label label-warning">Pre-Trip Incomplete</span>
                                     </div>
                                 </span>
@@ -69,7 +69,7 @@
                                             <input type="checkbox" value="">
                                             <strong>{{hike.name}}</strong> -
                                         </label>
-                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                         <span class="label label-success">Pre-Trip Completed</span>
                                     </div>
                                 </span>
@@ -80,19 +80,19 @@
                                             <input type="checkbox" value="" checked disabled>
                                             <strong>{{hike.name}}</strong> -
                                         </label>
-                                        <a href="#" alt="{{hike.name}}">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                         <span class="label label-default">Completed</span>
                                     </div>
                                 </span>
                                 <div class="margin-top-sm">
-                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-folder-close"></span> View Report</button>
+                                    <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
                                     <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                                     <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                 </div>
                             </li>
                         </ul>
                         <!-- Back to Dashboard Button -->
-                        <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                        <button class="form-control btn btn-link margin-top-sm" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                     </span>
                     <span ng-if="hikes.length < 1">
                         <h4 class="text-center margin-top">

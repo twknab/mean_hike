@@ -1,6 +1,6 @@
 app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
     /*
-    Sets up `navController` to handle logged-in User dashboard-side navigation actions:
+    Sets up `navController` to handle logged-in User dashboard-side navigation actions (including some page actions which navigate to other pages):
 
     Dependencies:
     - `$scope` - Angular scope object.
@@ -117,6 +117,18 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         */
 
         $scope.status.newHike = true;
+    };
+
+    $scope.viewHike = function(id) {
+        /*
+        Takes user to View Hike page.
+
+        Parameters:
+        - `id` - Id of hike to view.
+        */
+
+        console.log("Taking you to hike...");
+        $location.url('/hikes/' + id);
     };
 
     $scope.viewAllHikes = function() {

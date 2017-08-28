@@ -9,6 +9,10 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
++ 8/28/17 - PostTrip feature with validations added.
++ 8/27/17 - View Hike feature added.
++ 8/27/17 - All Hikes feature and Search added.
++ 8/26/17 - PreTrip feature with validations added.
 + 8/17/17 - Add New Hike feature completed with Validations.
 + 8/08/17 - Secured API routes and Angular routes for valid session user only.
 + 8/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
@@ -65,11 +69,11 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add Progress Bar to Add Hike, Pre-Trip and Post-Trip pages (See: https://bootswatch.com/darkly/#typography)
 
-	+ Add autoScroll so after dashboard navigation items are clicked, page is scrolled to that accordian. (high-priority)
+	+ Add autoScroll so after dashboard navigation items are clicked, page is scrolled to that accordion. (high-priority)
 
-	+ Add `Add Hike` button to top and bottom accordian panes, so when clicked, opens the `+ Hike` accordian (and maybe even selects [ie, focus] the first field...) (high-priority)
+	+ Add `Add Hike` button to top and bottom accordion panes, so when clicked, opens the `+ Hike` accordion (and maybe even selects [ie, focus] the first field...) (high-priority)
 
-	+ Turn Hike View page panes into Accordians like on Dashboard page (high-priority)
+	+ Turn Hike View page panes into Accordions like on Dashboard page (high-priority)
 
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
@@ -77,11 +81,9 @@ This application is designed to help others plan and prepare for their hiking ad
 	- How do I delete a property from a Mongoose Object server-side, not in Angular (ie, password security)?
 
 ### Where I Left Off:
-	- Building out All Hikes page:
-		- Fix Stats only after building post-trip feature (maybe get box-ticking functions to work).
+	- Post-Trip page added. Need to build check list functions, and edit and delete functions.
 
 ### Remaining Features:
-	- Add Post-Trip Feature -- Saturday
 	- Edit Hike Feature -- Sunday
 	- Delete Hike Feature -- Monday
 	- Checkbox Feature -- Tuesday

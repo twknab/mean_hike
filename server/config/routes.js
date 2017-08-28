@@ -2,6 +2,7 @@
 var UserController = require('./../controllers/user-controller');
 var HikeController = require('./../controllers/hike-controller');
 var PreTripController = require('./../controllers/pre-trip-controller');
+var PostTripController = require('./../controllers/post-trip-controller');
 
 // Server-Side Routes:
 module.exports = function(app) {
@@ -16,6 +17,7 @@ module.exports = function(app) {
         .get('/api/hike', HikeController.mostRecent) // gets 3 most recent hikes
         .get('/api/hike/pre-trip', HikeController.incompletePreTrips) // gets hikes with incomplete pre-trips
         .post('/api/hike/pre-trip', PreTripController.addPreTrip) // creates new pre-trip
+        .post('/api/hike/post-trip', PostTripController.addPostTrip) // creates new post-trip
         .post('/api/hike/show', HikeController.getCurrentHike) // gets hike by id
         .get('/api/hike/show', HikeController.getAllHikes) // gets all hikes for user
 };

@@ -75,7 +75,7 @@
                 <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
-                    <span ng-if="hike.postTrip">
+                    <span ng-if="hike.preTrip">
                         <ul class="list-group">
                             <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> {{hike.preTrip.createdAt | date}}</li>
                             <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Group Size:</strong> {{hike.preTrip.groupSize}}</li>
@@ -109,10 +109,10 @@
                             </div>
                         </div>
                     </span>
-                    <span ng-if="!hike.postTrip">
+                    <span ng-if="!hike.preTrip">
                         <h4 class="text-center margin-all">
                             <em>You haven't completed a Pre-Trip!</em> 🏕
-                            <p class="text-center margin-top"><a class="btn btn-danger btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
+                            <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
                         </h4>
                     </span>
                     <!-- Back to Dashboard Button -->
@@ -133,7 +133,7 @@
                     <span ng-if="hike.postTrip">
                         <ul class="list-group">
                             <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Date Created:</strong> {{hike.postTrip.createdAt | date}}</li>
-                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Actual Hiking Time:</strong> {{hike.postTrip.actualTime}}</li>
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-menu-right"></span> Actual Hiking Time:</strong> {{hike.postTrip.time}}</li>
                         </ul>
                         <div class="panel panel-default">
                             <div class="panel-heading"><strong>Weather:</strong></div>
@@ -142,15 +142,25 @@
                             </div>
                         </div>
                         <div class="panel panel-default">
-                            <div class="panel-heading"><strong>Hazards:</strong></div>
+                            <div class="panel-heading"><strong>Experienced Hazards:</strong></div>
                             <div class="panel-body">
-                                <p>{{hike.postTrip.hazards}}</p>
+                                <span ng-if="!hike.postTrip.hazards">
+                                    <em>There weren't any experienced hazards noted for this hike.</em>
+                                </span>
+                                <span ng-if="hike.postTrip.hazards">
+                                    <p>{{hike.postTrip.hazards}}</p>
+                                </span>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading"><strong>Flora & Fauna:</strong></div>
                             <div class="panel-body">
-                                <p>{{hike.postTrip.floraFauna}}</p>
+                                <span ng-if="!hike.postTrip.floraFauna">
+                                    <em>There weren't any Flora or Fauna sightings noted for this hike.</em>
+                                </span>
+                                <span ng-if="hike.postTrip.floraFauna">
+                                    <p>{{hike.postTrip.floraFauna}}</p>
+                                </span>
                             </div>
                         </div>
                         <div class="panel panel-default">
@@ -163,15 +173,19 @@
                             </div>
                         </div>
                     </span>
-                    <span ng-if="!hike.postTrip">
+                    <span ng-if="!hike.preTrip && !hike.postTrip">
+                        <h4 class="text-center margin-all">
+                            <em>You must complete a Pre-Trip first!</em> ⛺️
+                        </h4>
+                    </span>
+                    <span ng-if="hike.preTrip && !hike.postTrip">
                         <h4 class="text-center margin-all">
                             <em>You haven't completed a Post-Trip!</em> 🏕
-                            <p class="text-center margin-top"><a class="btn btn-danger btn-lg" ng-click="home()"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
+                            <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
                         </h4>
                     </span>
                     <!-- Back to Dashboard Button -->
                     <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
-
                 </div>
             </div>
         </div>

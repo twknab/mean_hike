@@ -74,10 +74,6 @@
                 <div class="panel-body">
                     <!-- PreTrip Alerts -->
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
-                    <!-- New Pre-Trip Errors -->
-                    <!-- <div class="alert alert-danger margin-top-sm" ng-repeat="error in newPreTripErrors" id="BIG_ERRORS">
-                        <p><strong>Error!</strong> {{error.message}}</p>
-                    </div> -->
                     <!-- Pre-Trip Hike Form -->
                     <form ng-submit="addPreTrip()" class="padding-left padding-right form-horizontal">
                         <!-- Itinerary -->

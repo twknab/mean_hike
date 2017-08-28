@@ -14,6 +14,7 @@ This is the model file for `Hike`.
     - `alphaNumCheck()` - Regex check if value contains alphanum and accepted characters.
     - `genHikeTimeEst()` - Generates hiking time estimate and adds to hike.
     - `addPreTrip()` - Set PreTrip ID to pre-trip field.
+    - `addPostTrip()` - Set PostTrip ID to post-trip field.
 6. MODEL CREATION AND EXPORT
 
 --------------------------->>
@@ -328,6 +329,19 @@ HikeSchema.methods.addPreTrip = function(preTripId) {
     */
 
     this.preTrip = preTripId;
+    this.save();
+    return undefined; // send undefined as success
+};
+
+HikeSchema.methods.addPostTrip = function(postTripId) {
+    /*
+    Sets PostTrip ID to `postTrip` field.
+
+    Parameters:
+    - `postTripId` - ID of a `PostTrip` object related to this hike instance.
+    */
+
+    this.postTrip = postTripId;
     this.save();
     return undefined; // send undefined as success
 };

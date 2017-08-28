@@ -144,10 +144,18 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
 
     $scope.preTrip = function() {
         /*
-        Loads current pre-trip page user is working on (for navigation purposes).
+        Loads current pre-trip page user is working on (for navigation purposes on Pre-Trip page).
         */
 
         $location.url('/hikes/' + $routeParams.id + '/pre-trip');
+    };
+
+    $scope.postTrip = function() {
+        /*
+        Loads current post-trip page user is working on (for navigation purposes on Post-Trip page).
+        */
+
+        $location.url('/hikes/' + $routeParams.id + '/post-trip');
     };
 
     $scope.logout = function() {

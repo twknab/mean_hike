@@ -1,4 +1,4 @@
-app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, preTripFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
+app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, postTripFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
 
     // Callbacks
     var cb = {
@@ -42,20 +42,21 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             - `retrievedHike` - Hike object returned.
             */
 
-            console.log('Successfully retrieved hike...', retrievedHike);
+            console.log('Successfully retrieved hike for post-trip page...', retrievedHike);
             $scope.hike = retrievedHike;
 
             // Get alert messages:
             $scope.alerts = userMessages.getAlerts();
         },
-        newPreTrip: function(validated) {
+        newPostTrip: function(validated) {
             /*
-            Runs if pre-trip is successfully created; returns to dashboard.
+            Runs if post-trip is successfully created; returns to dashboard.
 
             Parameters:
-            - `validated` - Returns validated object cotaning `messages` and `validatedPreTrip` properties. Also contains `errors` property but should be empty.
+            - `validated` - Returns validated object cotaning `messages` and `validatedPostTrip` properties. Also contains `errors` property but should be empty.
             */
 
+            // Iterate through messages and add them to alerts:
             for (var key in validated.messages) {
                 if (validated.messages.hasOwnProperty(key)) {
                     console.log(validated.messages[key]);
@@ -65,16 +66,17 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
 
             $location.url('/dashboard');
         },
-        newPreTripError: function(err) {
+        newPostTripError: function(err) {
             /*
-            Runs if errors are returned after `$scope.preTrip()` from the server.
+            Runs if errors are returned after `$scope.postTrip()` from the server.
 
             Parameters:
             - `err` - Errors object returned.
             */
 
-            console.log('Errors returned from server when trying to create pre-trip:', err);
+            console.log('Errors returned from server when trying to create post-trip:', err);
 
+            // Iterate through errors and add them to alerts:
             for (var key in err) {
                 if (err.hasOwnProperty(key)) {
                     console.log(err[key]);
@@ -85,7 +87,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('preTripReport');
+            $anchorScroll('postTripReport');
         },
     };
 
@@ -114,48 +116,29 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
-    $scope.groupSizes = [
-        {
-            size: 'Solo Hike',
-            description: 'Solo Hike',
-        },
-        {
-            size: '2-3 people',
-            description: '2-3 people',
-        },
-        {
-            size: '4-5 people',
-            description: '4-5 people',
-        },
-        {
-            size: '6+ people',
-            description: '6+ people',
-        }
-    ];
+    //---------------------------------//
+    //-------- ADD NEW POST-TRIP ------//
+    //---------------------------------//
 
-    //--------------------------------//
-    //-------- ADD NEW PRE-TRIP ------//
-    //--------------------------------//
-
-    $scope.addPreTrip = function() {
+    $scope.addPostTrip = function() {
         /*
-        Creates a new Pre-Trip.
+        Creates a new Post-Trip.
         */
 
         // Clear any old alerts:
         userMessages.clearAlerts();
 
-        console.log("Starting new pre-trip validation process...");
+        console.log("Starting new post-trip validation process...");
 
-
-        if (($scope.preTrip == undefined) || (Object.keys($scope.preTrip).length < 1)) {
-            preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
+        // If post-trip form is empty, run validation without sending hike ID (as it will fail for being empty):
+        if (($scope.postTrip == undefined) || (Object.keys($scope.postTrip).length < 1)) {
+            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
         }
 
         else {
-            // Add Hike ID to Pre-Trip object for use on server:
-            $scope.preTrip.hikeId = $routeParams.id;
-            preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
+            // Else, add Hike ID to Post-Trip object for use on server:
+            $scope.postTrip.hikeId = $routeParams.id;
+            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
         }
     };
 
@@ -173,5 +156,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         // Remove alert and update `$scope.successAlerts` to most recent:
         $scope.alerts = userMessages.removeAlert(index);
     };
+
 
 }]);

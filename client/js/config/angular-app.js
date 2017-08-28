@@ -32,6 +32,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_hike.html', // hike page
             controller: 'hikeController',
         })
+        .when('/hikes/:id/post-trip', {
+            templateUrl: 'html/_post-trip.html', // post trip page
+            controller: 'postTripController',
+        })
         // .when('/hikes/:id/edit', {
         //     templateUrl: 'html/_edit-hike.html', // edit hike page
         //     controller: 'editHikeController',
@@ -43,10 +47,6 @@ app.config(function($routeProvider, $locationProvider) {
         // .when('/hikes/edit-gear-list', {
         //     templateUrl: 'html/_edit-gear-list.html', // edit gear list pages
         //     controller: 'editGearListController',
-        // })
-        // .when('/hikes/:id/post-trip', {
-        //     templateUrl: 'html/_post-trip.html', // post trip page
-        //     controller: 'postTripController',
         // })
         .otherwise({
             redirectTo: '/', // otherise load root

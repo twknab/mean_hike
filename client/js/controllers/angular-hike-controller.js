@@ -81,4 +81,11 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 
+    $scope.startPostTrip = function(hikeId) {
+        console.log('Starting post-trip process...');
+        $location.url('/hikes/' + hikeId + '/post-trip');
+    };
+
+
+
 }]);

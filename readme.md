@@ -75,6 +75,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Turn Hike View page panes into Accordions like on Dashboard page (high-priority)
 
+	- Add icons to view hike, pre-trip and post-trip pages (high-priority).
+
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
 	- When using `ngRoute`, `res.redirect('/')` does not change view.
@@ -82,11 +84,18 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 	- Post-Trip page added. Need to build check list functions, and edit and delete functions.
+	- How can I preserve multiple lines in the DB (ie, paragraphs?). Try adding a bunch of paragraphs in a row and you'll see how they get printed all out as a single line in Angular.
 
 ### Remaining Features:
-	- Edit Hike Feature -- Sunday
-	- Delete Hike Feature -- Monday
 	- Checkbox Feature -- Tuesday
+	- Edit Hike Feature -- Tuesday
+	- Delete Hike Feature -- Tuesday
+	- Edit Pre-Trip Feature -- Wednesday
+	- Delete Pre-Trip Feature -- Wednesday
+	- Edit Post-Trip Feature -- Wednesday
+	- Delete Post-Trip Feature -- Wednesday
+	- Delete User Account Feature -- Thursday
+	- Build Stats Feature -- Friday 
 
 ### Things to Consider After Features Built:
 	- Noticed some password hashes getting through also for recentHikes and preTripList -- what's the best way to approach deleting this password field?
@@ -94,3 +103,5 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Regarding your API route security, you may want to send back something and do a check in the factory loading the proper view
 
 	- Change Angular Controller Auth fail to use a service instead of duplicate code.
+
+	- Clear out all of your console log messages (which can be revealing)

@@ -102,23 +102,28 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         $location.url('/dashboard');
     };
 
-    $scope.recentHikes = function() {
-        /*
-        Opens recent hikes accordian when clicking `Recent Hikes` from dashboard top navigation.
-        */
-
-        // Sets first accordian to open:
-        $scope.status.isFirstOpen = true;
-        // Closes new hike accordian:
-        $scope.status.newHike = false;
-    };
-
     $scope.newHike = function() {
         /*
-        Opens new hike accordian when clicking `New Hike` from dashboard top navigation.
+        Opens new hike accordian when clicking `+ Hike` from dashboard top navigation.
         */
 
         $scope.status.newHike = true;
+    };
+
+    $scope.newPreTrip = function() {
+        /*
+        Opens new Pre-Trip accordian when clicking `+ Pre-Trip` from dashboard top navigation.
+        */
+
+        $scope.status.newPreTrip = true;
+    };
+
+    $scope.recentHikes = function() {
+        /*
+        Opens new Recent accordian when clicking `Recent Hikes` from dashboard top navigation.
+        */
+
+        $scope.status.isFirstOpen = true;
     };
 
     $scope.viewHike = function(id) {

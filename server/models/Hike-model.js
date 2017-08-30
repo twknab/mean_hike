@@ -50,7 +50,7 @@ var HikeSchema = new Schema({
     region: {
         type: String,
         minlength: [2, 'Region must be at least 2 characters.'],
-        maxlength: [50, 'Region must not be greater than 50 characters.'],
+        maxlength: [150, 'Region must not be greater than 150 characters.'],
         required: [true, 'Hiking region is required.'],
         trim: true,
     }, // end region field

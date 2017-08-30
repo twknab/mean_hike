@@ -11,12 +11,10 @@
         </div>
         <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
+                <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
                 <li class="active"><a href="" ng-click="postTrip()"><span class="glyphicon glyphicon-plus"></span> Post-Trip</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class="btn btn-default navbar-btn margin-right-sm" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Return to Dashboard</button>
-                </li>
                 <li>
                     <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                 </li>
@@ -39,12 +37,11 @@
             <!-- Hike Overview Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h2></div>
+                <div class="panel-heading"><pre><h2 class="heading-shadow"><span class="glyphicon glyphicon-map-marker"></span> {{hike.name}}</h2></pre></div>
                 <div class="panel-body">
-                    <h1>{{hike.name}}</h1>
                     <ul class="list-group">
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> {{hike.region}}</li>
+                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> <pre>{{hike.region}}</pre></li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-horizontal"></span> Distance:</strong> {{hike.distance}} miles</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-vertical"></span> Elevation Gain:</strong> {{hike.gain}} feet</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> {{hike.timeEstimate}}</li>
@@ -54,9 +51,17 @@
                         <div class="panel-heading"><strong><span class="glyphicon glyphicon-pencil"></span> Notes:</strong></div>
                         <div class="panel-body">
                             <span ng-if="!hike.notes">
-                                <em>There aren't any notes for this hike.</em>
+                                <em><pre>There aren't any notes for this hike.</pre></em>
                             </span>
-                            <span ng-if="hike.notes">{{hike.notes}}</span>
+                            <span ng-if="hike.notes"><pre>{{hike.notes}}</pre></span>
+                        </div>
+                    </div>
+                    <!-- All Hikes / Edit / Delete Buttons -->
+                    <div class='wrapper text-center'>
+                        <div class="btn-group">
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
                     </div>
                 </div>
@@ -75,24 +80,24 @@
                     <ul class="list-group">
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Created:</strong> {{hike.preTrip.createdAt | date}}</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-user"></span> Group Size:</strong> {{hike.preTrip.groupSize}}</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-adjust"></span> Sunset Time:</strong> {{hike.preTrip.sunset}}</li>
+                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-adjust"></span> Sunset Time:</strong> <pre>{{hike.preTrip.sunset}}</pre></li>
                     </ul>
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><span class="glyphicon glyphicon-cloud"></span> Weather Report:</strong></div>
                         <div class="panel-body">
-                            <p>{{hike.preTrip.weather}}</p>
+                            <pre>{{hike.preTrip.weather}}</pre>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><span class="glyphicon glyphicon-tasks"></span> Itinerary:</strong></div>
                         <div class="panel-body">
-                            <p>{{hike.preTrip.itinerary}}</p>
+                            <pre>{{hike.preTrip.itinerary}}</pre>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading"><strong><span class="glyphicon glyphicon-warning-sign"></span> Potential Hazards:</strong></div>
                         <div class="panel-body">
-                            <p>{{hike.preTrip.hazards}}</p>
+                            <pre>{{hike.preTrip.hazards}}</pre>
                         </div>
                     </div>
                     <div class="panel panel-default">
@@ -101,7 +106,15 @@
                             <span ng-if="!hike.preTrip.notes">
                                 <em>There aren't any Pre-Trip notes for this hike.</em>
                             </span>
-                            <span ng-if="hike.preTrip.notes">{{hike.preTrip.notes}}</span>
+                            <span ng-if="hike.preTrip.notes"><pre>{{hike.preTrip.notes}}</pre></span>
+                        </div>
+                    </div>
+                    <!-- All Hikes / Edit / Delete Buttons -->
+                    <div class='wrapper text-center'>
+                        <div class="btn-group">
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                         </div>
                     </div>
                 </div>
@@ -114,7 +127,7 @@
             <!-- Post-Trip Report Panel -->
             <div class="panel panel-default" id="postTripReport">
                 <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Post-Trip Report</h2></div>
+                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-left"></span> Post-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <!-- PreTrip Alerts -->

@@ -75,7 +75,9 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Turn Hike View page panes into Accordions like on Dashboard page (high-priority)
 
-	- Add icons to view hike, pre-trip and post-trip pages (high-priority).
+	+ Add icons to view hike, pre-trip and post-trip pages (high-priority).
+
+	+ Add `+ Post-Trip` to nav menu
 
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
@@ -83,8 +85,12 @@ This application is designed to help others plan and prepare for their hiking ad
 	- How do I delete a property from a Mongoose Object server-side, not in Angular (ie, password security)?
 
 ### Where I Left Off:
-	- Post-Trip page added. Need to build check list functions, and edit and delete functions.
+
 	- How can I preserve multiple lines in the DB (ie, paragraphs?). Try adding a bunch of paragraphs in a row and you'll see how they get printed all out as a single line in Angular.
+		- Addressed this mostly;
+			Figured out that using <pre> will convert the `/n` that mongoose embeds into the HTML. However, there are a few fields, such as Region, Sunset Time, etc, which are not displaying as desired. May need to do some more customizing to the HTML.
+
+	- Post-Trip page added. Need to build check list functions, and edit and delete functions.
 
 ### Remaining Features:
 	- Checkbox Feature -- Tuesday
@@ -95,7 +101,7 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Edit Post-Trip Feature -- Wednesday
 	- Delete Post-Trip Feature -- Wednesday
 	- Delete User Account Feature -- Thursday
-	- Build Stats Feature -- Friday 
+	- Build Stats Feature -- Friday
 
 ### Things to Consider After Features Built:
 	- Noticed some password hashes getting through also for recentHikes and preTripList -- what's the best way to approach deleting this password field?

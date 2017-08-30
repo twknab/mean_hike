@@ -11,12 +11,10 @@
         </div>
         <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
+                <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
                 <li class="active"><a href="" ng-click="preTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class="btn btn-default navbar-btn margin-right-sm" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Return to Dashboard</button>
-                </li>
                 <li>
                     <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                 </li>
@@ -39,12 +37,11 @@
             <div class="panel panel-default">
                 <!-- Panel Title -->
                 <div class="panel-heading">
-                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-info-sign"></span> Hike Overview</h2></div>
+                    <pre><h2 class="heading-shadow"><span class="glyphicon glyphicon-map-marker"></span> {{hike.name}}</h2></pre></div>
                 <div class="panel-body">
-                    <h1>{{hike.name}}</h1>
                     <ul class="list-group">
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> {{hike.region}}</li>
+                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> <pre>{{hike.region}}</pre></li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-horizontal"></span> Distance:</strong> {{hike.distance}} miles</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-vertical"></span> Elevation Gain:</strong> {{hike.gain}} feet</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> {{hike.timeEstimate}}</li>
@@ -56,7 +53,15 @@
                             <span ng-if="!hike.notes">
                                 <em>There aren't any notes for this hike.</em>
                             </span>
-                            <span ng-if="hike.notes">{{hike.notes}}</span>
+                            <span ng-if="hike.notes"><pre>{{hike.notes}}</pre></span>
+                        </div>
+                    </div>
+                    <!-- All Hikes / Edit / Delete Buttons -->
+                    <div class='wrapper text-center'>
+                        <div class="btn-group">
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
                     </div>
                 </div>

@@ -90,6 +90,8 @@ This application is designed to help others plan and prepare for their hiking ad
 		- Addressed this mostly;
 			Figured out that using <pre> will convert the `/n` that mongoose embeds into the HTML. However, there are a few fields, such as Region, Sunset Time, etc, which are not displaying as desired. May need to do some more customizing to the HTML.
 
+			Could you try this: The solution is to replace all \n with <br /> tags? (Lookup how to do this with javascript...);
+
 	- Post-Trip page added. Need to build check list functions, and edit and delete functions.
 
 ### Remaining Features:

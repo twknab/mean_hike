@@ -1,5 +1,7 @@
 var Hike = require('mongoose').model('Hike'); // grab our Mongoose models
 var User = require('mongoose').model('User');
+var PreTrip = require('mongoose').model('PreTrip');
+var PostTrip = require('mongoose').model('PostTrip');
 module.exports = {
     addHike: function(req, res) {
         /*
@@ -229,6 +231,47 @@ module.exports = {
                     res.json({message: "Success updating."});
                 };
             });
+        }
+
+    },
+    destroy: function(req, res) {
+        /*
+        Destroys a hike and all associated pre/post trips.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        if (typeof(req.session.userId) == 'undefined') {
+            return res.status(401).send({ redirect:"/"});
+        } else {
+            Hike.findOne({_id: req.body.id})
+                .populate('preTrip')
+                .populate('postTrip')
+                .exec()
+                .then(function(foundHike) {
+                    // If Post-Trip, delete it:
+                    if (foundHike.postTrip) {
+                        var deletePostTrip = PostTrip.findOneAndRemove({_id: foundHike.postTrip._id})
+                        deletePostTrip.exec();
+                    }
+
+                    // If Pre-Trip, delete it:
+                    if (foundHike.preTrip) {
+                        var deletePreTrip = PreTrip.findOneAndRemove({_id: foundHike.preTrip._id})
+                        deletePreTrip.exec();
+                    }
+
+                    var deleteHike = Hike.findOneAndRemove({_id: foundHike._id})
+                    deleteHike.exec();
+                    return res.json({message: "Success deleting hike."});
+                })
+                .catch(function(err) {
+                    console.log("Error querying for hike for deletion:", err);
+                    return res.status(500).json(err);
+                })
+
         }
 
     },

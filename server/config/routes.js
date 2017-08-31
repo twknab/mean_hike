@@ -21,4 +21,5 @@ module.exports = function(app) {
         .post('/api/hike/show', HikeController.getCurrentHike) // gets hike by id
         .get('/api/hike/show', HikeController.getAllHikes) // gets all hikes for user
         .post('/api/hike/update', HikeController.update) // update a hike
+        .post('/api/hike/destroy', HikeController.destroy) // destroy a hike & all associated pre/post trips
 };

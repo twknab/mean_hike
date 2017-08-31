@@ -12,7 +12,6 @@ var express = require('express'),
     server-side controller.
 */
 router.use(function apiChecker (req, res, next) {
-    console.log('API Request Detected:', req.originalUrl);
     var regex = /(\/api\/)/g; // pattern which checks for `/api/` in the URL
     if (regex.test(req.originalUrl)) { // if the URL contains the pattern, then `next()`
         next();

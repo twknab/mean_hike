@@ -65,6 +65,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Setup other error messages to also utilize services (like PreTrip creation does), so that you can use `$autoScroll()` more.
 
+	- Change Angular Controller Auth fail to use a service instead of duplicate code.
+
 	+ Add the nav header page code as separate HTML includes (medium-priority)
 
 	+ Add Progress Bar to Add Hike, Pre-Trip and Post-Trip pages (See: https://bootswatch.com/darkly/#typography)
@@ -90,38 +92,27 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 
-	- Edit Hike Feature:
-		- Built angular routes, controller and factory methods.
-		- Built HTML view.
-		- Built part of server controller method.
-		- Must finish server controller method -- and model validations -- and update feature.
-			- Use existing validations as a model.
-			- Use the technique in your update user as an example.
-			- Retrieve existing hike, then check if field has been modified and run validation if so.
-
 	- GET RID OF CHECKBOX FEATURE ON ALL PAGES:
 		- DASHBOARD
 		- ALL HIKES
 		- This feature does not behave as a normal checkbox would, and will let you focus on the CRUD operations (more important) and to get things launched.
 
 ### Remaining Features:
-	- Edit Hike Feature -- Tuesday
-	- Delete Hike Feature -- Tuesday
-	- Edit Pre-Trip Feature -- Wednesday
-	- Delete Pre-Trip Feature -- Wednesday
-	- Edit Post-Trip Feature -- Wednesday
-	- Delete Post-Trip Feature -- Wednesday
-	- Delete User Account Feature -- Thursday
-	- Build Stats Feature (only for completed hikes) -- Friday
-	- Launch and Deploy.
-	- Setup `hiking.tools` URL.
+	- Edit Pre-Trip Feature -- Thursday
+	- Delete Pre-Trip Feature -- Thursday
 
-	- Double check that location urls are working.
+	- Edit Post-Trip Feature -- Thursday
+	- Delete Post-Trip Feature -- Thursday
 
-	- Create licensing document for GitHub
+	- Delete User Account Feature -- Thursday (if Time)
+
+	- Build Stats Feature (only for completed hikes) -- Thursday
+
+	- Launch and Deploy -- Friday or Monday.
+	- Setup `hiking.tools` URL -- Friday or Monday.
+	- Create licensing document for GitHub -- Friday or Monday.
 
 ### Things to Consider After Features Built:
 
-	- Change Angular Controller Auth fail to use a service instead of duplicate code.
 
 	- Clear out all of your console log messages (which can be revealing)

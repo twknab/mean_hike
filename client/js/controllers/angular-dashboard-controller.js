@@ -195,7 +195,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
     // Generate a Welcome Alert:
     $scope.welcomeAlerts = [
-        { type: 'info', hdr: 'Instructions:', msg: 'Add a New Hike below. Prepare for your trip by ticking the box to start a Pre-Trip report. When you return, tick the box again to fill out a Post-Trip report. View the hike to see everything in one place.' }
+        { type: 'info', hdr: 'Instructions:', msg: 'Add a New Hike below. Prepare for your trip by completing a Pre-Trip report. When you return, complete a Post-Trip report. View your full report to improve with each experience!' }
     ];
 
     $scope.closeWelcomeAlert = function(index) {

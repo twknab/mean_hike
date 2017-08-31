@@ -39,6 +39,7 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 - `err` - Errors object containing errors.
                 */
 
+
                 // If user fails to have valid session:
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
@@ -204,6 +205,38 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 }
                 // Otherwise run error callback with errors:
                 error(err.data);
+            })
+    };
+
+    factory.destroyHike = function(id, success) {
+        /*
+        Send API request to destroy hike and all pre-trips and post-trips associated with it by `id`.
+
+        Parameters:
+        - `id` - Id of hike to destroy.
+        - `success` - Callback which runs after hike and all associated pre/post trips are destroyed.
+        */
+
+        $http.post('/api/hike/destroy', id)
+            .then(function() {
+                /*
+                Runs after hike is successfully destroyed.
+                */
+
+                // Run success callback:
+                success();
+            })
+            .catch(function(err) {
+                /*
+                Returns errors if unsuccessful.
+                */
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+                // Otherwise log errors
+                console.log(err.data);
             })
     };
 

@@ -146,7 +146,7 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
                 If create successful, PreTrip object (`createdPreTrip`) is returned.
                 */
 
-                console.log('PreTrip created successfully.');
+                console.log('PreTrip created successfully:', createdPreTrip);
 
                 // Create success message:
                 validated.messages.hikeCreated = {

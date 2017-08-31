@@ -28,7 +28,6 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
             - `err` - Login errors returned.
             */
 
-            console.log('Errors returned attempting to log user in:', err);
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.loginErrors = {}; // resets errors if any already existing

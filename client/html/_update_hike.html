@@ -46,7 +46,7 @@
                 <!-- Begin Panel Content -->
                 <div class="panel-body">
                     <!-- Update Hike Alerts -->
-                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)" id="updateHikeErrors"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Update Hike Form -->
                     <form ng-submit="updateHike()" class="padding-left-sm padding-right-sm form-horizontal">
                         <!-- Hike Name Field -->

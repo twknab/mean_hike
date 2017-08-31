@@ -1,4 +1,4 @@
-app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', function($scope, userFactory, userMessages, $location, $routeParams) {
+app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$window', '$route', function($scope, userFactory, hikeFactory, userMessages, $location, $routeParams, $window, $route) {
     /*
     Sets up `navController` to handle logged-in User dashboard-side navigation actions (including some page actions which navigate to other pages):
 
@@ -40,6 +40,15 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
                 // Set User Data:
                 $scope.user = authStatus.user;
             }
+        },
+        hikeDestroyed: function() {
+            /*
+            Runs after `$scope.deleteHike()` successfully completes.
+            */
+
+            userMessages.addAlert({ type: 'success', hdr: 'Hike Deleted!', msg: 'Your hike has been deleted.', });
+            $location.url('/dashboard');
+            $route.reload();
         },
         logout: function() {
             /*
@@ -139,6 +148,27 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         */
 
         $location.url('/hikes/' + id + '/edit');
+    };
+
+    $scope.deleteHike = function(id) {
+        /*
+        Delete a hike and all pre-trips and post-trips associated with it.
+
+        Parameters:
+        - `id` - Id of hike to completely destroy.
+        */
+
+        // Delete any existing alerts:
+        userMessages.clearAlerts();
+
+        var confirm = $window.confirm('Are you sure you want to delete this hike? Note: Any pre-trip or post-trip reports will also be deleted.');
+
+        if (confirm) {
+            var hikeId = {
+                id: id,
+            }
+            hikeFactory.destroyHike(hikeId, cb.hikeDestroyed);
+        }
     };
 
     $scope.viewAllHikes = function() {

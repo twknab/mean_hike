@@ -100,17 +100,13 @@ This application is designed to help others plan and prepare for their hiking ad
 ### Remaining Features:
 	- Edit Pre-Trip Feature -- Thursday
 	- Delete Pre-Trip Feature -- Thursday
-
 	- Edit Post-Trip Feature -- Thursday
 	- Delete Post-Trip Feature -- Thursday
-
 	- Delete User Account Feature -- Thursday (if Time)
-
 	- Build Stats Feature (only for completed hikes) -- Thursday
-
-	- Launch and Deploy -- Friday or Monday.
-	- Setup `hiking.tools` URL -- Friday or Monday.
-	- Create licensing document for GitHub -- Friday or Monday.
+	- Launch and Deploy -- Thursday
+	- Setup `hiking.tools` URL -- Thursday
+	- Create licensing document for GitHub -- Thursday
 
 ### Things to Consider After Features Built:
 

@@ -41,9 +41,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     //----------------------//
 
     // Update any alert messages:
-    console.log("GETTING ALERTS")
     $scope.successAlerts = userMessages.getAlerts();
-    console.log($scope.successAlerts);
 
     $scope.closeSuccessAlert = function(index) {
         /*
@@ -93,6 +91,14 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         $window.open('http://sasquat.ch', "_blank");
     };
 
+    $scope.contact = function() {
+        /*
+        Loads personal contact page
+        */
+
+        $window.open('http://sasquatchcreative.com/contact/', "_blank");
+    };
+
 
 }]);
 
@@ -127,7 +133,7 @@ angular.module('ui.bootstrap').controller('ModalRegisterCtrl', function($uibModa
         // Runs after modal window is closed:
         modalInstance.result.then(function() {
         }, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+            // $log.info('Modal dismissed at: ' + new Date());
         });
     };
 });
@@ -156,7 +162,6 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
          },
          // Runs if registration errors after $ctrl.register():
          regError: function(err) {
-             console.log('Errors returned from server:', err);
              $scope.regErrors = {};
              $scope.regErrors = err;
          },
@@ -164,8 +169,6 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
 
     // Registers new user:
     $ctrl.register = function() {
-        console.log("Attemping to register new user...");
-        console.log("Data submitted:", $scope.newUser);
         userFactory.register($scope.newUser, cb.register, cb.regError);
     };
 

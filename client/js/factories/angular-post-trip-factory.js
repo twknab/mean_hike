@@ -12,10 +12,8 @@ app.factory('postTripFactory', ['$http', function($http) {
         - `error` - Callback which runs if errors are returned.
         */
 
-        console.log('Post-trip process querying server...', postTrip);
         $http.post('/api/hike/post-trip', postTrip)
             .then(function(newPostTrip) {
-                console.log(newPostTrip.data);
                 success(newPostTrip.data);
             })
             .catch(function(err) {
@@ -25,7 +23,6 @@ app.factory('postTripFactory', ['$http', function($http) {
                     $window.location.href = err.data.redirect;
                 }
 
-                console.log('Error from DB when creating new post-trip:', err.data);
                 error(err.data);
             })
     };

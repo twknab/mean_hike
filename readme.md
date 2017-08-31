@@ -108,7 +108,9 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Delete User Account Feature -- Thursday
 	- Build Stats Feature (only for completed hikes) -- Friday
 	- Launch and Deploy.
-	- Setup `hikeing.tool` URL.
+	- Setup `hiking.tools` URL.
+
+	- Double check that location urls are working.
 
 ### Things to Consider After Features Built:
 

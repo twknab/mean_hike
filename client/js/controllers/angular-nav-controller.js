@@ -30,7 +30,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
             */
 
             if (!authStatus.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -38,7 +37,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
                 // Redirect home:
                 $location.url('/');
             } else {
-                console.log('Session valid.', authStatus.user);
                 // Set User Data:
                 $scope.user = authStatus.user;
             }
@@ -48,7 +46,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
             Runs after `$scope.logout()` function completes; redirects to index.
             */
 
-            console.log("Redirecting home...");
             // Clear out any existing message alerts:
             userMessages.clearAlerts();
             // Send a logout success message:
@@ -67,7 +64,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing user for navbar...");
         // Run `auth` factory method passing in the `auth` callback function above to run when complete:
         userFactory.auth(cb.auth);
     };
@@ -86,7 +82,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         - `username` - a valid username of whose account to display.
         */
 
-        console.log('Loading User Account...');
         $location.url('/account/' + username);
     };
 
@@ -132,7 +127,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         - `id` - Id of hike to view.
         */
 
-        console.log("Taking you to hike...");
         $location.url('/hikes/' + id);
     };
 
@@ -152,7 +146,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         Views all Hikes.
         */
 
-        console.log('Starting view all Hikes process...');
         $location.url('/hikes');
     };
 
@@ -177,7 +170,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         Log out a user when clicking `Logout` from top navigation.
         */
 
-        console.log('Logout process starting...', $scope.user);
         // Run `logout` factory method, passing in `logout` callback above to run when complete:
         userFactory.logout(cb.logout);
     };

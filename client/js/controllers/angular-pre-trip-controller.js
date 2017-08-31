@@ -14,7 +14,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -23,7 +22,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
@@ -40,7 +38,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             - `retrievedHike` - Hike object returned.
             */
 
-            console.log('Successfully retrieved hike...', retrievedHike);
             $scope.hike = retrievedHike;
 
             // Get alert messages:
@@ -71,11 +68,9 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             - `err` - Errors object returned.
             */
 
-            console.log('Errors returned from server when trying to create pre-trip:', err);
 
             for (var key in err) {
                 if (err.hasOwnProperty(key)) {
-                    console.log(err[key]);
                     userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: err[key].message });
                 }
             }
@@ -96,7 +91,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -108,7 +102,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         Gets hike based upon current route parameter.
         */
 
-        console.log("Getting current hike...", $routeParams.id);
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
@@ -143,7 +136,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         // Clear any old alerts:
         userMessages.clearAlerts();
 
-        console.log("Starting new pre-trip validation process...");
 
 
         if (($scope.preTrip == undefined) || (Object.keys($scope.preTrip).length < 1)) {

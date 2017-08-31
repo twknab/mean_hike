@@ -181,8 +181,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
         - `error` - Callback which runs if errors validating/updating.
         */
 
-        console.log("Factory updating hike...");
-
         $http.post('/api/hike/update', hike)
             .then(function(validated) {
                 /*
@@ -191,8 +189,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 Parameters:
                 - `validated` - Object containing `messages` property with object containing messages.
                 */
-
-                console.log("Hike updated successfully...");
 
                 // Run success callback passing along data:
                 success(validated.data);

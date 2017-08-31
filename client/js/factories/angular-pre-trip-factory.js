@@ -12,10 +12,8 @@ app.factory('preTripFactory', ['$http', function($http) {
         - `error` - Callback which runs if errors are returned.
         */
 
-        console.log('Pre-trip process querying server...', preTrip);
         $http.post('/api/hike/pre-trip', preTrip)
             .then(function(newPreTrip) {
-                console.log(newPreTrip.data);
                 success(newPreTrip.data);
             })
             .catch(function(err) {
@@ -25,7 +23,6 @@ app.factory('preTripFactory', ['$http', function($http) {
                     $window.location.href = err.data.redirect;
                 }
 
-                console.log('Error from DB when creating new pre-trip:', err.data);
                 error(err.data);
             })
     };

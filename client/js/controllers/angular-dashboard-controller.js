@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, dashboardFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
+app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
     /*
     Sets up `dashboardController` to handle Dashboard related needs and page actions:
 
@@ -33,7 +33,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -42,7 +41,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Set User Data:
                 $scope.user = authValidation.user;
                 // Run getRecentHikes() on page load:
@@ -58,7 +56,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             Set user's Welcome Message Status to false so welcome message is no longer displayed.
             */
 
-            console.log("Attempting to reload page...");
             // Get a fresh copy of the User for Angular:
             $scope.auth();
         },
@@ -74,19 +71,15 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
 
             // Check if any success messages sent, if so, iterate through the object and generate messages using `userMessages` service:
             if (Object.keys(validated.messages).length > 0) {
-                console.log("Messages found.");
-
                 // Send each message to the `userMessages` service to be added as an alert:
                 for (var key in validated.messages) {
                     if (validated.messages.hasOwnProperty(key)) {
-                        console.log(validated.messages[key]);
                         userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                     }
                 }
 
                 // Get alert messages:
                 $scope.successAlerts = userMessages.getAlerts();
-                console.log($scope.successAlerts);
             }
 
             // Sets first accordian to open:
@@ -110,8 +103,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             Runs after `$scope.addHike()` completes; clears form and updates recent hikes list.
             */
 
-            console.log("Errors from server attemping to create new Hike...", err);
-
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.newHikeErrors = {}; // resets errors if any already existing
@@ -125,7 +116,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             */
 
             $scope.recentHikes = UserAndHikes.hikes;
-            console.log($scope.recentHikes);
         },
         preTrip: function(PreTripHikes) {
             /*
@@ -146,7 +136,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -158,7 +147,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         Get 3 most recent hikes for User.
         */
 
-        console.log("Getting 3 most recent hikes...");
         hikeFactory.getRecent(cb.recentHikes);
     };
 
@@ -167,7 +155,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         Get any trips whom do not currently have a pre-trip created; this is used to generate data for the pre-trip dropdown.
         */
 
-        console.log("Getting hikes still needing a pre-trip....");
         hikeFactory.getPreTrip(cb.preTrip);
     };
 
@@ -187,7 +174,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
         Create a new Hike, sending it off for validation and creation, or for errors to be returned:
         */
 
-        console.log('Attempting to validate and create new Hike...Data submitted:', $scope.newHike);
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };
 
@@ -200,7 +186,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
     */
 
     $scope.startPreTrip = function(hikeId) {
-        console.log('Starting pre-trip process...');
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 

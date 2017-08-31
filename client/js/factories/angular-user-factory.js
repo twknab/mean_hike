@@ -19,7 +19,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
         - `error` - Callback which runs if errors are returned during User creation.
         */
 
-        console.log('Registration process starting...', user);
         $http.post('/api/user/register', user) // sends `user`
             .then(function(newUser) {
                 /*
@@ -29,7 +28,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `newUser` - Newly created User object.
                 */
 
-                console.log(newUser.data);
                 // Run registration success callback:
                 success(newUser.data); // runs callback if successful
             })
@@ -41,8 +39,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `err` - Errors object containing errors.
                 */
 
-                console.log(err);
-                console.log('Error registering user:', err.data);
                 // Run errors callback:
                 error(err.data); // runs errors callback if errors
             })
@@ -58,7 +54,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
         - `error` - Callback which runs if errors are returned during User retrieval.
         */
 
-        console.log('Login process starting...');
         $http.post('/api/user/login', user) // sends `user`
             .then(function(foundUser) {
                 /*
@@ -68,7 +63,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `foundUser` - User object.
                 */
 
-                console.log(foundUser.data);
                 // Run login success callback:
                 success(foundUser.data);
             })
@@ -80,8 +74,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `err` - Errors object containing errors.
                 */
 
-                console.log(err);
-                console.log('Error logging in user:', err.data);
                 // Run errors callback:
                 error(err.data);
             })
@@ -103,12 +95,9 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `authValidation` - Object contianing `status` property with `true` or `false` status depending upon User session status, and `user` object, containing authorized User object if successful.
                 */
 
-                console.log("Does user have a valid session?:", authValidation.data.status);
-                console.log(authValidation.data);
                 authorized(authValidation.data);
             })
             .catch(function(err) {
-                console.log('Error authorizing user:', err.data);
                 authorized(err.data);
             })
     };
@@ -130,7 +119,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `updatedUser` - User object.
                 */
 
-                console.log(updatedUser.data);
                 welcome();
             })
             .catch(function(err) {
@@ -147,7 +135,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                     $window.location.href = err.data.redirect;
                 }
 
-                console.log('Error setting welcome message to false:', err.data);
 
             })
     };
@@ -171,7 +158,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `validated` - Object containing `messages` property with object containing messages.
                 */
 
-                console.log(validated.data);
                 success(validated.data);
             })
             .catch(function(err) {
@@ -184,7 +170,6 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                     $window.location.href = err.data.redirect;
                 }
 
-                console.log('Error attempting update user:', err.data);
                 error(err.data)
             })
     };
@@ -196,14 +181,12 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
         Parameters:
         - `loggedOut` - Callback function to run after logout completes.
         */
-        console.log('Logout process starting...');
         $http.post('/api/user/logout')
             .then(function() {
                 /*
                 Runs logout callback.
                 */
 
-                console.log('User has been successfully logged out.');
                 loggedOut();
             })
             .catch(function(err) {
@@ -211,14 +194,12 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 Returns errors if unsuccessful.
                 */
 
-                console.log(err);
 
                 // If user fails to have valid session:
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
                 }
-                
-                console.log('Error logging out:', err.data);
+
             })
     };
 

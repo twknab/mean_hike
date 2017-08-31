@@ -14,7 +14,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -23,7 +22,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
@@ -40,7 +38,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             - `retrievedHike` - Hike object returned.
             */
 
-            console.log('Successfully retrieved hike for post-trip page...', retrievedHike);
             $scope.hike = retrievedHike;
 
             // Get alert messages:
@@ -57,7 +54,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             // Iterate through messages and add them to alerts:
             for (var key in validated.messages) {
                 if (validated.messages.hasOwnProperty(key)) {
-                    console.log(validated.messages[key]);
                     userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                 }
             }
@@ -72,7 +68,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             - `err` - Errors object returned.
             */
 
-            console.log('Errors returned from server when trying to create post-trip:', err);
 
             // Iterate through errors and add them to alerts:
             for (var key in err) {
@@ -98,7 +93,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -110,7 +104,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         Gets hike based upon current route parameter.
         */
 
-        console.log("Getting current hike...", $routeParams.id);
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
@@ -126,7 +119,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         // Clear any old alerts:
         userMessages.clearAlerts();
 
-        console.log("Starting new post-trip validation process...");
 
         // If post-trip form is empty, run validation without sending hike ID (as it will fail for being empty):
         if (($scope.postTrip == undefined) || (Object.keys($scope.postTrip).length < 1)) {

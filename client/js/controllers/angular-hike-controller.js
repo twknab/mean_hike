@@ -14,7 +14,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -23,7 +22,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
@@ -41,7 +39,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
             - `hike` - An object returned from our factory, via a response from our API, containing all hikes.
             */
 
-            console.log("Hike returned to controller:", hike);
             $scope.hike = hike;
 
         },
@@ -56,7 +53,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -67,7 +63,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
         Get current hike (by route parameter) and return it (including pre and post-trip data).
         */
 
-        console.log("Getting hike process started....");
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
@@ -76,12 +71,10 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
     //---------------------------//
 
     $scope.startPreTrip = function(hikeId) {
-        console.log('Starting pre-trip process...');
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 
     $scope.startPostTrip = function(hikeId) {
-        console.log('Starting post-trip process...');
         $location.url('/hikes/' + hikeId + '/post-trip');
     };
 

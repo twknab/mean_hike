@@ -14,7 +14,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -23,7 +22,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
                 $location.url('/');
             } else {
                 // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
@@ -40,7 +38,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
             - `allHikes` - An object returned from our factory, via a response from our API, containing all hikes.
             */
 
-            console.log("All hikes returned to controller:", allHikes);
             $scope.hikes = allHikes;
         },
     };
@@ -54,7 +51,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -65,7 +61,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
         Gets all hikes for a user and if successful sets `$scope.hikes` to user's hikes.
         */
 
-        console.log('Getting all hikes...');
         hikeFactory.allHikes(cb.all);
     };
 
@@ -74,7 +69,6 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
     //-----------------------//
 
     $scope.stats = function() {
-        console.log("SCROLLING")
         $anchorScroll(stats);
     };
 

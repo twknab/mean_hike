@@ -14,7 +14,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
 
             // If authorization status is false, redirect to index:
             if (!authValidation.status) {
-                console.log('Session invalid.');
                 // Clear out any existing message alerts using `userMessages` service:
                 userMessages.clearAlerts();
                 // Send a logout success message using `userMessages` service:
@@ -22,8 +21,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
                 // Redirect home:
                 $location.url('/');
             } else {
-                // Else clear alerts, set `$scope.user` to the validated user and remove the password property:
-                console.log('Session valid.', authValidation.user);
                 // Clear out any existing user messages:
                 userMessages.clearAlerts();
                 // Set User Data:
@@ -40,7 +37,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
             - `retrievedHike` - Hike object returned.
             */
 
-            console.log('Successfully retrieved hike for post-trip page...', retrievedHike);
             $scope.hike = retrievedHike;
 
             // Get alert messages:
@@ -57,7 +53,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
             // Iterate through messages and add them to alerts:
             for (var key in validated.messages) {
                 if (validated.messages.hasOwnProperty(key)) {
-                    console.log(validated.messages[key]);
                     userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                 }
             }
@@ -72,12 +67,10 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
             - `err` - Errors object returned.
             */
 
-            console.log('Errors returned from server when trying to update hike:', err);
 
             // Iterate through errors and add them to alerts:
             for (var key in err) {
                 if (err.hasOwnProperty(key)) {
-                    console.log(err[key]);
                     userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: err[key].message });
                 }
             }
@@ -98,7 +91,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
         Authorize a user session, and if successful, set User with valid session to `$scope.user`.
         */
 
-        console.log("Authorizing logged in user (and fetch them)...");
         userFactory.auth(cb.user);
     };
 
@@ -110,7 +102,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
         Gets hike based upon current route parameter.
         */
 
-        console.log("Getting current hike...", $routeParams.id);
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 

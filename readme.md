@@ -97,8 +97,12 @@ This application is designed to help others plan and prepare for their hiking ad
 			- Use the technique in your update user as an example.
 			- Retrieve existing hike, then check if field has been modified and run validation if so.
 
+	- GET RID OF CHECKBOX FEATURE ON ALL PAGES:
+		- DASHBOARD
+		- ALL HIKES
+		- This feature does not behave as a normal checkbox would, and will let you focus on the CRUD operations (more important) and to get things launched.
+
 ### Remaining Features:
-	- Checkbox Feature -- Tuesday
 	- Edit Hike Feature -- Tuesday
 	- Delete Hike Feature -- Tuesday
 	- Edit Pre-Trip Feature -- Wednesday
@@ -111,6 +115,8 @@ This application is designed to help others plan and prepare for their hiking ad
 	- Setup `hiking.tools` URL.
 
 	- Double check that location urls are working.
+
+	- Create licensing document for GitHub
 
 ### Things to Consider After Features Built:
 

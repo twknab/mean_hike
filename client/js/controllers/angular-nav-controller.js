@@ -41,8 +41,6 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
                 console.log('Session valid.', authStatus.user);
                 // Set User Data:
                 $scope.user = authStatus.user;
-                // Deletes password hash from front end
-                delete $scope.user.password;
             }
         },
         logout: function() {

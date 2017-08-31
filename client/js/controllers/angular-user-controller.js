@@ -41,7 +41,9 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     //----------------------//
 
     // Update any alert messages:
+    console.log("GETTING ALERTS")
     $scope.successAlerts = userMessages.getAlerts();
+    console.log($scope.successAlerts);
 
     $scope.closeSuccessAlert = function(index) {
         /*

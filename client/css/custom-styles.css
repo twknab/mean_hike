@@ -129,12 +129,11 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     text-shadow: 2px 2px 2px #0b0b0b;
 }
 
-/*  Remove pre formatting */
-pre {
-	font-family: inherit;
-	color: inherit;
-	background-color: initial;
-	border: none;
+/*  Setup Pre-Formatting for any text containing `/n` Characters. */
+.fix-line-break {
+    white-space: pre-wrap;
+    word-break: break-all;
+    display: inline;
 }
 
 /*************************/

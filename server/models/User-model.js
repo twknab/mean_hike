@@ -260,6 +260,7 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
 
                                 // Hash password:
                                 newUser.__hashPassword(newUser.password);
+
                                 // Add validated user to validated object:
                                 validated.validatedUser = newUser;
                                 // Send back validated object with validated user attached:

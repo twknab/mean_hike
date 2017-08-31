@@ -16,7 +16,7 @@ module.exports = {
         // If not a valid session, redirect home, else begin new PostTrip process:
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log('Starting new PostTrip validation...Data submitted:', req.body);
 

@@ -45,8 +45,6 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
                 console.log('Session valid.', authValidation.user);
                 // Set User Data:
                 $scope.user = authValidation.user;
-                // Deletes password hash from front end
-                delete $scope.user.password;
                 // Run getRecentHikes() on page load:
                 $scope.getRecentHikes();
                 // Get hikes needing pre-trips (for dropdown):
@@ -113,6 +111,7 @@ app.controller('dashboardController', ['$scope', 'dashboardFactory', 'userFactor
             */
 
             console.log("Errors from server attemping to create new Hike...", err);
+
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.newHikeErrors = {}; // resets errors if any already existing

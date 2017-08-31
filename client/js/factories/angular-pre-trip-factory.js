@@ -19,6 +19,12 @@ app.factory('preTripFactory', ['$http', function($http) {
                 success(newPreTrip.data);
             })
             .catch(function(err) {
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log('Error from DB when creating new pre-trip:', err.data);
                 error(err.data);
             })

@@ -28,8 +28,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
                 userMessages.clearAlerts();
                 // Set User Data:
                 $scope.user = authValidation.user;
-                // Deletes password hash from front end
-                delete $scope.user.password;
                 // Get current hike:
                 $scope.getHike();
             }

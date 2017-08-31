@@ -1,4 +1,4 @@
-app.factory('userFactory', ['$http', function($http) {
+app.factory('userFactory', ['$http', '$window', function($http, $window) {
     /*
     This `userFactory`, handles all User related API requests.
 
@@ -141,7 +141,14 @@ app.factory('userFactory', ['$http', function($http) {
                 - `err` - Errors object returned.
                 */
 
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log('Error setting welcome message to false:', err.data);
+
             })
     };
 
@@ -172,6 +179,11 @@ app.factory('userFactory', ['$http', function($http) {
                 Returns errors if unsuccessful.
                 */
 
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log('Error attempting update user:', err.data);
                 error(err.data)
             })
@@ -200,6 +212,12 @@ app.factory('userFactory', ['$http', function($http) {
                 */
 
                 console.log(err);
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+                
                 console.log('Error logging out:', err.data);
             })
     };

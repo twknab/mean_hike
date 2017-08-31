@@ -28,8 +28,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
                 userMessages.clearAlerts();
                 // Set User Data:
                 $scope.user = authValidation.user;
-                // Deletes password hash from front end
-                delete $scope.user.password;
                 // Get Hike:
                 $scope.getHike();
 
@@ -45,6 +43,7 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
 
             console.log("Hike returned to controller:", hike);
             $scope.hike = hike;
+
         },
     };
 

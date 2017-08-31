@@ -23,7 +23,7 @@ app.service('userMessages', function () {
             /*
             Resets all alerts by setting alerts variable to an empty array.
             */
-
+            
             alerts = [];
             return alerts;
         },

@@ -19,6 +19,12 @@ app.factory('postTripFactory', ['$http', function($http) {
                 success(newPostTrip.data);
             })
             .catch(function(err) {
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log('Error from DB when creating new post-trip:', err.data);
                 error(err.data);
             })

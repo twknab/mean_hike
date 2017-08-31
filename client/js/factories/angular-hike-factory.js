@@ -1,4 +1,4 @@
-app.factory('hikeFactory', ['$http', function($http) {
+app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, $window, userMessages) {
     /*
     This `hikeFactory`, handles all Hike related API requests.
 
@@ -40,9 +40,16 @@ app.factory('hikeFactory', ['$http', function($http) {
                 - `err` - Errors object containing errors.
                 */
 
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log('Error attempting to create new Hike:', err.data);
+
                 // Run callback with errors:
                 error(err.data); // runs errors callback if errors
+
             })
     };
 
@@ -70,6 +77,11 @@ app.factory('hikeFactory', ['$http', function($http) {
                 If errors occur trying to retrieve recent hikes, they will be caught and returned as `err` object.
                 */
 
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log(err.data);
             })
     };
@@ -95,6 +107,11 @@ app.factory('hikeFactory', ['$http', function($http) {
                 /*
                 If errors occur trying to retrieve hikes, they will be caught and returned as `err` object.
                 */
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
 
                 console.log(err.data);
             })
@@ -131,6 +148,11 @@ app.factory('hikeFactory', ['$http', function($http) {
                 If errors occur trying to retrieve hike, they will be caught and returned as `err` object.
                 */
 
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
                 console.log(err.data);
             })
     };
@@ -160,6 +182,11 @@ app.factory('hikeFactory', ['$http', function($http) {
                 /*
                 If errors occur trying to retrieve hike, they will be caught and returned as `err` object.
                 */
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
 
                 console.log(err.data);
             })

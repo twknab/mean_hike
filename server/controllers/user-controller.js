@@ -34,6 +34,11 @@ module.exports = {
 
                 // Check for validatd user object:
                 if (validated.validatedUser) {
+                    // Convert mongoose object to regular JS object:
+                    validated.validatedUser = validated.validatedUser.toObject();
+                    // Delete password property before sending back:
+                    delete validated.validatedUser.password;
+
                     // Setup session for successfully validated user and send back:
                     req.session.userId = validated.validatedUser._id;
                     console.log("User registration process completed successfully.");
@@ -82,6 +87,12 @@ module.exports = {
                 // Check for validatd user object:
                 if (validated.validatedUser) {
                     // If validated property exists, user has been validated.
+
+                    // Convert mongoose object to regular JS object:
+                    validated.validatedUser = validated.validatedUser.toObject();
+                    // Delete password property before sending back:
+                    delete validated.validatedUser.password;
+
                     // Setup session for validated user and send user back:
                     req.session.userId = validated.validatedUser._id;
                     console.log("User login process completed successfully.");
@@ -110,7 +121,7 @@ module.exports = {
         // If not a valid session, redirect home, else begin update process:
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            res.status(401).send({ redirect:"/"});
         } else {
             console.log('Starting update user validation...Data submitted:', req.body);
 
@@ -132,7 +143,7 @@ module.exports = {
 
                         Parameters:
                         - `req.body` - User update object data from update user function in user factory.
-                        - `callback(validated)` - Callback function which runs after validations in models file has completed. Returns an object with `errors` or success `messages`.
+                        - `callback(validated)` - Callback function which runs after validations in models file has completed. Returns `validated` object which contains only `errors` or success `messages`. The user is never returned in the update method.
                         */
 
                         // Returned errors object:
@@ -181,7 +192,7 @@ module.exports = {
 
         // If session data is undefined, send back a False status (to be assessed in our Angular controller):
         if (typeof(req.session.userId) == 'undefined') {
-            return res.status(500).json({
+            return res.status(401).json({
                 status: false
             });
         }
@@ -201,6 +212,12 @@ module.exports = {
                     */
 
                     console.log("User found for session.", foundUser);
+
+                    // Convert mongoose object to regular JS object:
+                    foundUser = foundUser.toObject();
+                    // Delete password property before sending back:
+                    delete foundUser.password;
+
                     // Send back found User and a True status (to be assessed in our Angular controller):
                     var auth = {
                         user: foundUser,
@@ -234,7 +251,7 @@ module.exports = {
         // If not a valid session, redirect home, else begin update process:
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            res.status(401).send({ redirect:"/"});
         } else {
             // Finds user by session and updates property:
             User.findOneAndUpdate({
@@ -282,7 +299,7 @@ module.exports = {
         // If not a valid session, redirect home, else begin update process:
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            res.status(401).send({ redirect:"/"});
         } else {
             console.log('Logging out user process starting...');
 

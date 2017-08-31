@@ -48,8 +48,6 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
                 // Set `$scope.user` to User recieved from API request:
                 $scope.accountName = authValidation.user.username;
                 $scope.user = authValidation.user;
-                // Delete user password hash for security:
-                delete $scope.user.password;
                 // Update all alert messages in event of new alert:
                 $scope.successAlerts = userMessages.getAlerts();
             }

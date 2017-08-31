@@ -1,6 +1,5 @@
 var Hike = require('mongoose').model('Hike'); // grab our Mongoose models
 var User = require('mongoose').model('User');
-
 module.exports = {
     addHike: function(req, res) {
         /*
@@ -14,7 +13,7 @@ module.exports = {
         // If not a valid session, redirect home, else begin new Hike process:
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log('Starting new Hike validation...Data submitted:', req.body);
 
@@ -88,7 +87,7 @@ module.exports = {
 
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log("Getting most recent hikes...");
 
@@ -121,7 +120,7 @@ module.exports = {
 
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log("Getting all hikes without pre-trips started...");
             User.findOne({_id: req.session.userId})
@@ -153,7 +152,7 @@ module.exports = {
 
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log("Querying for current hike...", req.body);
             Hike.findOne({_id: req.body.id})
@@ -161,7 +160,6 @@ module.exports = {
                 .populate('postTrip')
                 .exec()
                 .then(function(hike) {
-                    console.log("Hike found:", hike);
                     return res.json(hike);
                 })
                 .catch(function(err) {
@@ -182,7 +180,7 @@ module.exports = {
 
         if (typeof(req.session.userId) == 'undefined') {
             console.log("This route is inaccessible without a valid session.");
-            return res.status(500).redirect('/');
+            return res.status(401).send({ redirect:"/"});
         } else {
             console.log("Querying for all Hikes and all Pre and PostTrip data...");
             User.findOne({_id: req.session.userId})

@@ -37,11 +37,11 @@
             <div class="panel panel-default">
                 <!-- Panel Title -->
                 <div class="panel-heading">
-                    <pre><h2 class="heading-shadow"><span class="glyphicon glyphicon-map-marker"></span> {{hike.name}}</h2></pre></div>
+                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span></h2></div>
                 <div class="panel-body">
                     <ul class="list-group">
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> <pre>{{hike.region}}</pre></li>
+                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> <span class="fix-line-break">{{hike.region}}</span></li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-horizontal"></span> Distance:</strong> {{hike.distance}} miles</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-vertical"></span> Elevation Gain:</strong> {{hike.gain}} feet</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> {{hike.timeEstimate}}</li>
@@ -53,7 +53,7 @@
                             <span ng-if="!hike.notes">
                                 <em>There aren't any notes for this hike.</em>
                             </span>
-                            <span ng-if="hike.notes"><pre>{{hike.notes}}</pre></span>
+                            <span ng-if="hike.notes"><p class="fix-line-break">{{hike.notes}}</p></span>
                         </div>
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->

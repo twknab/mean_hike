@@ -19,7 +19,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
         - `error` - Callback which runs if errors are returned during User creation.
         */
 
-        console.log('Sending Hike data to API for validation and creation...');
         $http.post('/api/hike', newHike)
             .then(function(validated) {
                 /*
@@ -45,8 +44,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                     $window.location.href = err.data.redirect;
                 }
 
-                console.log('Error attempting to create new Hike:', err.data);
-
                 // Run callback with errors:
                 error(err.data); // runs errors callback if errors
 
@@ -67,8 +64,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 If recent hikes are successfully queried, will be returned as `recentHikes` object.
                 */
 
-                console.log(recentHikes);
-
                 // Run success callback passing along returned recent hikes:
                 success(recentHikes.data);
             })
@@ -81,8 +76,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
                 }
-
-                console.log(err.data);
             })
     };
 
@@ -112,8 +105,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
                 }
-
-                console.log(err.data);
             })
     };
 
@@ -126,8 +117,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
         - `success` - Callback which runs after hike is sucessfully retrieved.
         */
 
-        console.log("Factory getting current hike...ID:", id);
-
         var hikeId = {
             id: id,
         }
@@ -137,8 +126,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 /*
                 If hike is successfully queried, will be returned as `retrievedHike` object including post-trip and pre-trip data.
                 */
-
-                console.log("Got hike successfully...", retrievedHike.data);
 
                 // Run success callback passing along returned current hike:
                 success(retrievedHike.data);
@@ -152,8 +139,6 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
                 }
-
-                console.log(err.data);
             })
     };
 
@@ -165,15 +150,11 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
         - `success` - Callback which runs after all hikes are retrieved.
         */
 
-        console.log("Factory getting all hikes...");
-
         $http.get('/api/hike/show')
             .then(function(userAllHikes) {
                 /*
                 If all hikes successfully queried, will be returned as  `userAllHikes` -- which is a `User` object containing a `hikes` array. Note: `preTrip` and `postTrip` fields are also populated.
                 */
-
-                console.log("Got all hikes successfully...", userAllHikes.data.hikes);
 
                 // Run success callback passing along data:
                 success(userAllHikes.data.hikes);
@@ -187,8 +168,46 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
                 if (err.data.redirect) {
                     $window.location.href = err.data.redirect;
                 }
+            })
+    };
 
-                console.log(err.data);
+    factory.updateHike = function(hike, success, error) {
+        /*
+        Send updated hike to API for validation.
+
+        Parameters:
+        - `hike` - Hike object containing data to update.
+        - `success` - Callback which runs after hike is updated.
+        - `error` - Callback which runs if errors validating/updating.
+        */
+
+        console.log("Factory updating hike...");
+
+        $http.post('/api/hike/update', hike)
+            .then(function(validated) {
+                /*
+                Returns `validated` object containing messages if update is successful.
+
+                Parameters:
+                - `validated` - Object containing `messages` property with object containing messages.
+                */
+
+                console.log("Hike updated successfully...");
+
+                // Run success callback passing along data:
+                success(validated.data);
+            })
+            .catch(function(err) {
+                /*
+                Returns errors if unsuccessful.
+                */
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+                // Otherwise run error callback with errors:
+                error(err.data);
             })
     };
 

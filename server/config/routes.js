@@ -20,4 +20,5 @@ module.exports = function(app) {
         .post('/api/hike/post-trip', PostTripController.addPostTrip) // creates new post-trip
         .post('/api/hike/show', HikeController.getCurrentHike) // gets hike by id
         .get('/api/hike/show', HikeController.getAllHikes) // gets all hikes for user
+        .post('/api/hike/update', HikeController.update) // update a hike
 };

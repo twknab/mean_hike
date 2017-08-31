@@ -1,4 +1,4 @@
-app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, postTripFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
+app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
 
     // Callbacks
     var cb = {
@@ -46,12 +46,12 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             // Get alert messages:
             $scope.alerts = userMessages.getAlerts();
         },
-        newPostTrip: function(validated) {
+        updatedHike: function(validated) {
             /*
-            Runs if post-trip is successfully created; returns to dashboard.
+            Runs if hike updates successfully; returns to dashboard.
 
             Parameters:
-            - `validated` - Returns validated object containing `messages` and `validatedPostTrip` properties. Also contains `errors` property but should be empty.
+            - `validated` - Object returned from API request containing a `messages` object, which contains any success messages.
             */
 
             // Iterate through messages and add them to alerts:
@@ -64,15 +64,15 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
 
             $location.url('/dashboard');
         },
-        newPostTripError: function(err) {
+        updateHikeError: function(err) {
             /*
-            Runs if errors are returned after `$scope.postTrip()` from the server.
+            Runs if errors are returned after `$scope.updateHike()`.
 
             Parameters:
             - `err` - Errors object returned.
             */
 
-            console.log('Errors returned from server when trying to create post-trip:', err);
+            console.log('Errors returned from server when trying to update hike:', err);
 
             // Iterate through errors and add them to alerts:
             for (var key in err) {
@@ -85,7 +85,7 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('postTripReport');
+            $anchorScroll('updateHikeErrors');
         },
     };
 
@@ -114,30 +114,21 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         hikeFactory.getHike($routeParams.id, cb.hike);
     };
 
-    //---------------------------------//
-    //-------- ADD NEW POST-TRIP ------//
-    //---------------------------------//
+    //---------------------------//
+    //-------- UPDATE HIKE ------//
+    //---------------------------//
 
-    $scope.addPostTrip = function() {
+    $scope.updateHike = function() {
         /*
-        Creates a new Post-Trip.
+        Update a hike.
         */
 
         // Clear any old alerts:
         userMessages.clearAlerts();
 
-        console.log("Starting new post-trip validation process...");
+        console.log("Starting hike update validation process...");
 
-        // If post-trip form is empty, run validation without sending hike ID (as it will fail for being empty):
-        if (($scope.postTrip == undefined) || (Object.keys($scope.postTrip).length < 1)) {
-            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
-        }
-
-        else {
-            // Else, add Hike ID to Post-Trip object for use on server:
-            $scope.postTrip.hikeId = $routeParams.id;
-            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
-        }
+        hikeFactory.updateHike($scope.hike, cb.updatedHike, cb.updateHikeError);
     };
 
     //-----------------------------//

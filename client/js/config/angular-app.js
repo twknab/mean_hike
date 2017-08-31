@@ -9,7 +9,7 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'userController',
         })
         .when('/account/:username', {
-            templateUrl: 'html/_user-account.html', // user account page
+            templateUrl: 'html/_update_user.html', // user account page
             controller: 'userUpdateController',
         })
         .when('/about', {
@@ -25,7 +25,7 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'preTripController',
         })
         .when('/hikes', {
-            templateUrl: 'html/_all-hikes.html', // all hikes page
+            templateUrl: 'html/_all_hikes.html', // all hikes page
             controller: 'allHikesController',
         })
         .when('/hikes/:id', {
@@ -36,10 +36,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'html/_post-trip.html', // post trip page
             controller: 'postTripController',
         })
-        // .when('/hikes/:id/edit', {
-        //     templateUrl: 'html/_edit-hike.html', // edit hike page
-        //     controller: 'editHikeController',
-        // })
+        .when('/hikes/:id/edit', {
+            templateUrl: 'html/_update_hike.html', // edit hike page
+            controller: 'hikeUpdateController',
+        })
         // .when('/hikes/add-gear-list', {
         //     templateUrl: 'html/_add-gear-list.html', // add gear list page
         //     controller: 'addGearListController',

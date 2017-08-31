@@ -204,4 +204,23 @@ module.exports = {
         }
 
     },
+    update: function(req, res) {
+        /*
+        Validates updating a hike.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        if (typeof(req.session.userId) == 'undefined') {
+            return res.status(401).send({ redirect:"/"});
+        } else {
+            
+            // Do stuff here to validate and update hike.
+
+            res.send("Updated.");
+        }
+
+    },
 };

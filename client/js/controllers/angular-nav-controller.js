@@ -136,6 +136,17 @@ app.controller('navController', ['$scope', 'userFactory', 'userMessages', '$loca
         $location.url('/hikes/' + id);
     };
 
+    $scope.editHike = function(id) {
+        /*
+        Take user to Update Hike page.
+
+        Parameters:
+        - `id` - Id of hike to edit.
+        */
+
+        $location.url('/hikes/' + id + '/edit');
+    };
+
     $scope.viewAllHikes = function() {
         /*
         Views all Hikes.

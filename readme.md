@@ -79,6 +79,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add `+ Post-Trip` to nav menu
 
+	+ Setup user edit page and add hike page, etc, to also utilize messages service like you ended up doing on post-trip, pre-trip and edit hike pages...(use alerts universally across the app)
+
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
 	- When using `ngRoute`, `res.redirect('/')` does not change view.
@@ -86,7 +88,14 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 
-	- Finish remaining functions.
+	- Edit Hike Feature:
+		- Built angular routes, controller and factory methods.
+		- Built HTML view.
+		- Built part of server controller method.
+		- Must finish server controller method -- and model validations -- and update feature.
+			- Use existing validations as a model.
+			- Use the technique in your update user as an example.
+			- Retrieve existing hike, then check if field has been modified and run validation if so.
 
 ### Remaining Features:
 	- Checkbox Feature -- Tuesday

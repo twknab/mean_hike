@@ -1,0 +1,111 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse" ng-controller="navController">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+            <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+        </div>
+        <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+                <li class="active"><a href="" ng-click="editHike()"><span class="glyphicon glyphicon-edit"></span> Edit Hike</a></li>
+                <li class=""><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Begin Primary Container -->
+<div class="container">
+    <!-- Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Page Title and Icon -->
+            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Edit Hike</em></small></h1>
+        </div>
+    </div>
+    <!-- Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Edit Hike Panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">
+                        <!-- Panel Title -->
+                        <h2 class="heading-shadow"><span class="glyphicon glyphicon-edit"></span> Update</h2></a>
+                    </span>
+                </div>
+                <!-- Begin Panel Content -->
+                <div class="panel-body">
+                    <!-- Update Hike Alerts -->
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+                    <!-- Update Hike Form -->
+                    <form ng-submit="create()" class="padding-left-sm padding-right-sm form-horizontal">
+                        <!-- Hike Name Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="hike.name">
+                            </div>
+                            <span class="help-block margin-left-sm">Update the hike name.</span>
+                        </div>
+                        <!-- Region Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
+                                <input type="text" name="region" id="region" class="form-control input-lg" placeholder="Region" ng-model="hike.region">
+                            </div>
+                            <span class="help-block margin-left-sm">Update the hiking region.</span>
+                        </div>
+                        <!-- Hike Distance Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
+                                <input type="text" name="distance" id="distance" class="form-control input-lg" placeholder="Hike Distance (mi)" ng-model="hike.distance">
+                            </div>
+                            <span class="help-block margin-left-sm">Update the total rount-trip hiking distance in miles.</span>
+                        </div>
+                        <!-- Elevation Gain Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
+                                <input type="text" name="gain" id="gain" class="form-control input-lg" placeholder="Elevation Gain (ft)" ng-model="hike.gain">
+                            </div>
+                            <span class="help-block margin-left-sm">Update the total gain in feet.</span>
+                        </div>
+                        <!-- Location URL Field -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                <input type="text" name="location" id="location" class="form-control input-lg" placeholder="Map URL" ng-model="hike.location">
+                            </div>
+                            <span class="help-block margin-left-sm">Update the map URL location.</span>
+                        </div>
+                        <!-- Hike Notes -->
+                        <div class="form-group no-list-margin">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                <textarea name="notes" id="notes" cols="30" rows="10" class="form-control fix-line-break" ng-model="hike.notes"></textarea>
+                            </div>
+                        </div>
+                        <span class="help-block margin-left-sm">Update any logistical, permit or trailhead notes here.</span>
+                        <!-- Update Hike and Cancel Buttons -->
+                        <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Update Hike</button>
+                        <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+                    </form>
+                </div>
+                <!-- End Panel Content -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Primary Container -->

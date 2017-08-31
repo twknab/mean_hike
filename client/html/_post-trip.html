@@ -51,7 +51,7 @@
                         <div class="panel-heading"><strong><span class="glyphicon glyphicon-pencil"></span> Notes:</strong></div>
                         <div class="panel-body">
                             <span ng-if="!hike.notes">
-                                <em><pre>There aren't any notes for this hike.</pre></em>
+                                <em><p class="fix-line-break">There aren't any notes for this hike.</p></em>
                             </span>
                             <span ng-if="hike.notes"><p class="fix-line-break">{{hike.notes}}</p></span>
                         </div>
@@ -59,7 +59,7 @@
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class='wrapper text-center'>
                         <div class="btn-group">
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
                             <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
                             <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
@@ -130,7 +130,7 @@
                 <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-left"></span> Post-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
-                    <!-- PreTrip Alerts -->
+                    <!-- PostTrip Alerts -->
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Post-Trip Hike Form -->
                     <form ng-submit="addPostTrip()" class="padding-left padding-right form-horizontal">

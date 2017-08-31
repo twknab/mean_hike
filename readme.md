@@ -81,6 +81,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Setup user edit page and add hike page, etc, to also utilize messages service like you ended up doing on post-trip, pre-trip and edit hike pages...(use alerts universally across the app)
 
+	+ Add validation that Location URL must contain "http://"
+
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
 	- When using `ngRoute`, `res.redirect('/')` does not change view.

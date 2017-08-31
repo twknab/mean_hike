@@ -211,8 +211,6 @@ module.exports = {
                     - `foundUser` - User object.
                     */
 
-                    console.log("User found for session.", foundUser);
-
                     // Convert mongoose object to regular JS object:
                     foundUser = foundUser.toObject();
                     // Delete password property before sending back:
@@ -267,8 +265,7 @@ module.exports = {
                 - `foundUser` - User object.
                 */
 
-                // Log user and send a confirmation text:
-                console.log(foundUser);
+                // Send a confirmation text:
                 return res.json('User welcome message updated.');
             })
             .catch(function(err) {
@@ -301,8 +298,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             res.status(401).send({ redirect:"/"});
         } else {
-            console.log('Logging out user process starting...');
-
             // Destroy session and send confirmation:
             req.session.destroy();
             console.log('User logout process successful, session destroyed.');

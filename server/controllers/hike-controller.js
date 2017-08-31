@@ -15,8 +15,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             return res.status(401).send({ redirect:"/"});
         } else {
-            console.log('Starting new Hike validation...Data submitted:', req.body);
-
             Hike.schema.methods.validateHike(req.body, function(validated) {
                 /*
                 Performs Hike validation instance methods; returns either errors object or validated object containing validated Hike.
@@ -25,9 +23,6 @@ module.exports = {
                 - `req.body` - New Hike form object data from addHike() function in Angular Hike factory.
                 - `callback(validated)` - A callback function which runs after all validation methods have completed. `validated` object returns contains either `errors` object with errors, or `validated` object with successfully validated Hike.
                 */
-
-                // Returned errors object:
-                console.log(validated);
 
                 // If there are any errors send them:
                 if (Object.keys(validated.errors).length > 0) {
@@ -44,7 +39,6 @@ module.exports = {
                 // Else if no errors, add hike to User's hike's array:
                 else {
                     console.log('Validation Passed.');
-                    console.log('Hike created...Adding Hike to User\'s `hikes` array...');
                     User.findOne({_id: req.session.userId})
                         .then(function(foundUser) {
                             /*
@@ -57,8 +51,6 @@ module.exports = {
                             // Generate hiking time estimate:
                             // Note: We send the distance and gain values from our validated hike to generate the travel time (from a custom built module that our model accesses). Please see the model's `genHikeTimeEst()` for more details.
                             validated.validatedHike.genHikeTimeEst(validated.validatedHike.distance, validated.validatedHike.gain);
-
-                            console.log('Hike successfully added.');
 
                             // Send back validated object:
                             console.log('Hike process completed successfully.')
@@ -89,8 +81,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             return res.status(401).send({ redirect:"/"});
         } else {
-            console.log("Getting most recent hikes...");
-
             User.findOne({_id: req.session.userId})
                 .populate({
                     path: 'hikes',
@@ -122,7 +112,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             return res.status(401).send({ redirect:"/"});
         } else {
-            console.log("Getting all hikes without pre-trips started...");
             User.findOne({_id: req.session.userId})
                 .populate({
                     path: 'hikes',
@@ -154,7 +143,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             return res.status(401).send({ redirect:"/"});
         } else {
-            console.log("Querying for current hike...", req.body);
             Hike.findOne({_id: req.body.id})
                 .populate('preTrip')
                 .populate('postTrip')
@@ -182,7 +170,6 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             return res.status(401).send({ redirect:"/"});
         } else {
-            console.log("Querying for all Hikes and all Pre and PostTrip data...");
             User.findOne({_id: req.session.userId})
                 .populate({
                     path: 'hikes',
@@ -194,7 +181,6 @@ module.exports = {
                 })
                 .exec()
                 .then(function(user) {
-                    console.log("User found:", user);
                     return res.json(user);
                 })
                 .catch(function(err) {
@@ -216,10 +202,33 @@ module.exports = {
         if (typeof(req.session.userId) == 'undefined') {
             return res.status(401).send({ redirect:"/"});
         } else {
-            
-            // Do stuff here to validate and update hike.
 
-            res.send("Updated.");
+            Hike.schema.methods.validateUpdateHike(req.body, function(validated) {
+                /*
+                Performs update Hike validation instance methods; returns object containing `errors` and `messages`.
+
+                Parameters:
+                - `req.body` - Updated Hike form object data from updateHike() function in Angular Hike factory.
+                - `callback(validated)` - A callback function which runs after all validation methods have completed. `validated` object returns contains `errors` object with any errors and `messages` object with any messages.
+                */
+
+                // If there are any errors send them:
+                if (Object.keys(validated.errors).length > 0) {
+                    console.log("Validation Failed.");
+                    console.log("Errors updating Hike:");
+                    for (var property in validated.errors) {
+                        if (validated.errors.hasOwnProperty(property)) {
+                            console.log(validated.errors[property].message);
+                        }
+                    }
+                    return res.status(500).json(validated.errors);
+                }
+
+                // Else if no errors, return a success message:
+                else {
+                    res.json({message: "Success updating."});
+                };
+            });
         }
 
     },

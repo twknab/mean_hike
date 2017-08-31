@@ -12,11 +12,9 @@ var express = require('express'),
     server-side controller.
 */
 router.use(function apiChecker (req, res, next) {
-    console.log('/// ROUTER RUNNING ///');
-    console.log('URL:', req.originalUrl);
+    console.log('API Request Detected:', req.originalUrl);
     var regex = /(\/api\/)/g; // pattern which checks for `/api/` in the URL
     if (regex.test(req.originalUrl)) { // if the URL contains the pattern, then `next()`
-        console.log('YOU JUST PINGED THE API');
         next();
     } else { // if the URL does not contain `/api`:
         res.sendFile(path.join(__dirname, './../../client/index.html')); // deliver index.html which angular-route will then load appropriate partial

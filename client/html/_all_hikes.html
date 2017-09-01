@@ -53,33 +53,24 @@
                             <li class="list-group-item" ng-repeat="hike in hikes | filter:searchBox">
                                 <!-- If Pre-Trip Incomplete -->
                                 <span ng-if="!hike.preTrip">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            <strong>{{hike.name}}</strong> -
-                                        </label>
+                                    <div>
+                                        <strong>{{hike.name}}</strong> -
                                         <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}- added {{hike.createdAt | date}}</a> -
                                         <span class="label label-warning">Pre-Trip Incomplete</span>
                                     </div>
                                 </span>
                                 <!-- If Pre-Trip Completed Only (not Post-Trip) -->
                                 <span ng-if="hike.preTrip && !hike.postTrip">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            <strong>{{hike.name}}</strong> -
-                                        </label>
+                                    <div>
+                                        <strong>{{hike.name}}</strong> -
                                         <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                         <span class="label label-success">Pre-Trip Completed</span>
                                     </div>
                                 </span>
                                 <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
                                 <span ng-if="hike.preTrip && hike.postTrip">
-                                    <div class="checkbox disabled">
-                                        <label>
-                                            <input type="checkbox" value="" checked disabled>
-                                            <strong>{{hike.name}}</strong> -
-                                        </label>
+                                    <div>
+                                        <strong>{{hike.name}}</strong> -
                                         <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
                                         <span class="label label-default">Completed</span>
                                     </div>
@@ -112,9 +103,45 @@
         <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-stats"></span> Stats</h2></div>
         <!-- Panel Body -->
         <div class="panel-body">
-            <!-- Total Distance Hiked -->
-            <div class="well"><strong>Total Distance Hiked:</strong> 64.8 miles</div>
-            <div class="well"><strong>Total Elev. Gained:</strong> 12,500 feet</div>
+            <!-- Responsive Row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- Total Distance Hiked -->
+                    <div class="panel panel-default">
+                        <!-- Panel Title -->
+                        <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">Total Distance Completed (mi)</span></div>
+                        <div class="panel-body">
+                            <span ng-if="stats.distance">
+                                <h4 class="text-center">{{stats.distance}} miles</h4>
+                            </span>
+                            <span ng-if="!stats.distance">
+                                <h4 class="text-center">
+                                    0 miles
+                                </h4>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Responsive Row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <!-- Panel Title -->
+                        <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">Total Gain Completed (ft)</span></div>
+                        <div class="panel-body">
+                            <span ng-if="stats.gain">
+                                <h4 class="text-center">{{stats.gain}} feet</h4>
+                            </span>
+                            <span ng-if="!stats.gain">
+                                <h4 class="text-center">
+                                    0 feet
+                                </h4>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <p class="text-center"><em>Note: Stats are for fully completed hikes only.</em></p>
             <!-- Back to Dashboard Button -->
             <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>

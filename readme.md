@@ -85,6 +85,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add validation that Location URL must contain "http://"
 
+	- Delete User Account Feature -- Thursday (if Time)
+
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
 	- When using `ngRoute`, `res.redirect('/')` does not change view.
@@ -92,14 +94,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ### Where I Left Off:
 
-	- GET RID OF CHECKBOX FEATURE ON ALL PAGES:
-		- DASHBOARD
-		- ALL HIKES
-		- This feature does not behave as a normal checkbox would, and will let you focus on the CRUD operations (more important) and to get things launched.
-
 ### Remaining Features:
-	- Delete User Account Feature -- Thursday (if Time)
-	- Build Stats Feature (only for completed hikes) -- Thursday
+	- Mobile responsiveness - Thursday
 	- Launch and Deploy -- Thursday
 	- Setup `hiking.tools` URL -- Thursday
 	- Create licensing document for GitHub -- Thursday

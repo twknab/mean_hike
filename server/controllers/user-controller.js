@@ -315,7 +315,17 @@ module.exports = {
                     and `.gain` for totalGain (ft)
                     */
 
-                    return res.json({succes: 'SUCCESS!'});
+                    var stats = {
+                        distance: 0, // will hold total distance
+                        gain: 0, // will hold total gain
+                    };
+
+                    for (var i = 0; i < UserAndCompletePostTrips.hikes.length; i++) {
+                        stats.distance = (parseFloat(stats.distance) +  parseFloat(UserAndCompletePostTrips.hikes[i].distance)).toFixed(2);
+                        stats.gain = (parseFloat(stats.gain) + parseFloat(UserAndCompletePostTrips.hikes[i].gain)).toFixed(2);
+                    }
+
+                    return res.json(stats);
                 })
                 .catch(function(err) {
                     console.log(err);

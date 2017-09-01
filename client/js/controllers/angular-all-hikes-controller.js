@@ -44,14 +44,14 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
         },
         stats: function(allStats) {
             /*
-            Runs after `$scope.getStats()` completes; returns `allStats` object which contains all stats for completed hikes only. Returns `totalDistance` and `totalGain` objects.
+            Runs after `$scope.getStats()` completes; returns `allStats` object which contains all stats for completed hikes only. Returns `distance` and `gain` objects.
 
             Parameters:
-            - `allStats` - An object returned from our factory containing `totalDistance` and `totalGain` values.
+            - `allStats` - An object returned from our factory containing `distance` and `gain` values.
             */
 
-            $scope.totalDistance = allStats.totalDistance;
-            $scope.totalGain = allStats.totalGain;
+            $scope.stats.distance = allStats.distance;
+            $scope.stats.gain = allStats.gain;
         },
     };
 

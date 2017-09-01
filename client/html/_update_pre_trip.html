@@ -1,0 +1,150 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse" ng-controller="navController">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+            <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+        </div>
+        <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+                <li class="active"><a href="" ng-click="editPreTrip()"><span class="glyphicon glyphicon-edit"></span> Pre-Trip</a></li>
+                <li class=""><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Begin Primary Container -->
+<div class="container">
+    <!-- Welcome Responsive Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Page Title and Icon -->
+            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Edit Pre-Trip</em></small></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Hike Overview Panel -->
+            <div class="panel panel-default">
+                <!-- Panel Title -->
+                <div class="panel-heading">
+                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-edit"></span> <span class="fix-line-break"></span> Update Pre-Trip</h2></div>
+                <div class="panel-body">
+                    <!-- PreTrip Alerts -->
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)" id="preTripErrors"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+                    <!-- Pre-Trip Hike Form -->
+                    <form ng-submit="updatePreTrip(preTrip._id)" class="padding-left-sm padding-right-sm form-horizontal">
+                        <!-- Itinerary -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Itinerary:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+                                    <textarea class="form-control fix-line-break" ng-model="preTrip.itinerary" rows="5" id="itinerary" placeholder="What are your goals each day? When will you reach each goal, the trailhead and home?"></textarea>
+                                </div>
+                                <span class="help-block margin-label">Update the itinerary.</span>
+                            </fieldset>
+                        </div>
+                        <!-- Weather Report -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Weather Report:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
+                                    <textarea class="form-control fix-line-break" ng-model="preTrip.weather" rows="5" id="weather" placeholder="Enter (or copy and paste) a weather report for each day."></textarea>
+                                </div>
+                                <span class="help-block margin-label">Update the weather report.</span>
+                            </fieldset>
+                        </div>
+                        <!-- Sunset -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Sunset:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-adjust"></i></span>
+                                    <textarea class="form-control fix-line-break" ng-model="preTrip.sunset" rows="5" id="sunset" placeholder="What time is sunset each day?"></textarea>
+                                </div>
+                                <span class="help-block margin-label">Update the sunset time(s).</span>
+                            </fieldset>
+                        </div>
+                        <!-- Potential Hazards -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Potential Hazards:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
+                                    <textarea class="form-control fix-line-break" ng-model="preTrip.hazards" rows="5" id="hazards" placeholder="What are possible hazards? Weather? Trail or route conditions or anything else?"></textarea>
+                                </div>
+                                <span class="help-block margin-label">Update any potential hazards.</span>
+                            </fieldset>
+                        </div>
+                        <!-- Additional Notes -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Additional Notes:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                    <textarea class="form-control fix-line-break" ng-model="preTrip.notes" rows="5" id="notes" placeholder="Any additional notes since first adding your hike?"></textarea>
+                                </div>
+                                <span class="help-block margin-label">Update any additional pre-trip notes.</span>
+                            </fieldset>
+                        </div>
+                        <!-- Group Size -->
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Group Size:</legend>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <ul class="list-group no-list-margin">
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike">Solo Hike
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="2-3 people">2-3 people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="4-5 people">4-5 people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="radio">
+                                                <label>
+                                                        <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="6+ people">6+ people
+                                                    </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>                        <span class="help-block margin-label">Update the group size.</span>
+                            </fieldset>
+                            <!-- Complete Pre-Trip and Cancel Buttons -->
+                            <button type="submit" class="form-control btn btn-info margin-top"><span class="glyphicon glyphicon-arrow-right"></span> Complete Pre-Trip</button>
+                            <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Primary Container -->

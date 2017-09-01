@@ -8,6 +8,7 @@ This is the model file for `PostTrip`.
 3. NEW POST-TRIP VALIDATION
     - `validatePostTrip()` - Validates a new PostTrip.
 4. EDIT POST-TRIP VALIDATION
+    - `validateUpdatePostTrip()` - Validaes a PostTrip update.
 5. INSTANCE METHODS:
     Note: Please see doc strings in each function for more info:
 6. MODEL CREATION AND EXPORT
@@ -181,6 +182,105 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
 /************************************************/
 /************************************************/
 
+PostTripSchema.methods.validateUpdatePostTrip = function(formData, callback) {
+    /*
+    Validates updated PostTrip data prior to update.
+
+    Parameters:
+    - `formData` - PostTrip data object to be validated.
+    - `callback` - Callback function to run once validation completes.
+
+    The following is validated within this method:
+    - Hiking time and weather are required.
+    */
+
+    // Store `this` variable:
+    var self = this;
+
+    // Setup validates object to hold validation errors or messages:
+    var validated = {
+        errors: {}, // will hold errors
+        messages: {}, // will store messages
+    };
+
+    console.log("Beginning Update PostTrip Validation now...");
+    console.log('$$$$$$$$$$$$$$$$$$$$');
+    console.log(formData);
+    console.log('$$$$$$$$$$$$$$$$$$$$');
+
+    // If empty form is submitted throw an error:
+    if (Object.keys(formData).length < 1) {
+        validated.errors.requiredErr = {
+            message: 'Actual time and actual weather are both required fields.',
+        };
+    }
+
+    // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
+    for (var property in formData) {
+        if (formData.hasOwnProperty(property)) {
+            if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
+                validated.errors.requiredErr = {
+                    message: 'Actual time and actual weather are both required fields.',
+                };
+            }
+        }
+    };
+
+    // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them):
+    if (formData.hazards == '') {
+        delete formData.hazards;
+    };
+
+    if (formData.floraFauna == '') {
+        delete formData.floraFauna;
+    };
+
+    if (formData.notes == '') {
+        delete formData.notes;
+    };
+
+    // Check if any errors thus far in validation, if so send back:
+    // If there are any errors send back validated object containing them:
+    if (Object.keys(validated.errors).length > 0) {
+        console.log("Error updating PostTrip:", validated.errors);
+        callback(validated);
+    }
+
+    // Else, attempt to create the PostTrip:
+    else {
+
+        // Delete createdAt and updatedAt fields prior to update:
+        delete formData.createdAt;
+        delete formData.updatedAt;
+
+        PostTrip.findOneAndUpdate({_id: formData._id}, formData, { runValidators: true })
+            .then(function(initialPostTrip) {
+                /*
+                If update is successful, inital postTrip (the one originally queried) is returned.
+                */
+
+                console.log('PostTrip updated successfully.', initialPostTrip);
+
+                // Create success message:
+                validated.messages.postTripUpdated = {
+                    hdr: "Updated!",
+                    msg: "Your Post-Trip was succesfully updated.",
+                };
+
+                // Run callback with validated object:
+                callback(validated);
+            })
+            .catch(function(err) {
+                /*
+                If error is returned, run callback passing it along.
+                */
+
+                console.log('Error updating PostTrip.');
+                callback(err);
+            })
+    }
+
+};
 
 /*************************************/
 /*************************************/

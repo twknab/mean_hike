@@ -84,10 +84,10 @@
                                         <span class="label label-default">Completed</span>
                                     </div>
                                 </span>
-                                <div class="margin-top-sm">
-                                    <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
-                                    <button class="btn btn-link btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                    <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <div class="margin-top-sm" ng-controller="navController">
+                                    <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
+                                    <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                    <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                 </div>
                             </li>
                         </ul>
@@ -115,6 +115,7 @@
             <!-- Total Distance Hiked -->
             <div class="well"><strong>Total Distance Hiked:</strong> 64.8 miles</div>
             <div class="well"><strong>Total Elev. Gained:</strong> 12,500 feet</div>
+            <p class="text-center"><em>Note: Stats are for fully completed hikes only.</em></p>
             <!-- Back to Dashboard Button -->
             <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
         </div>

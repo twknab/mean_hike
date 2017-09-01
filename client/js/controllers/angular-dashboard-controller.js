@@ -117,7 +117,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
             $scope.recentHikes = UserAndHikes.hikes;
         },
-        preTrip: function(PreTripHikes) {
+        preTrips: function(PreTripHikes) {
             /*
             Runs after `$scope.startPreTrip()` completes; updates scope variable to hold hikes still waiting on a pre-trip.
             */
@@ -155,7 +155,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         Get any trips whom do not currently have a pre-trip created; this is used to generate data for the pre-trip dropdown.
         */
 
-        hikeFactory.getPreTrip(cb.preTrip);
+        hikeFactory.getIncompletePreTrips(cb.preTrips);
     };
 
     //----------------------------//

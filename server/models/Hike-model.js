@@ -372,32 +372,32 @@ HikeSchema.methods.validateUpdateHike = function(formData, callback) {
         delete formData.updatedAt;
 
         Hike.findOneAndUpdate({_id: formData._id}, formData, { runValidators: true })
-        .then(function(initialHike) {
-            /*
-            If update is successful, inital hike (the one originally queried) is returned.
-            */
+            .then(function(initialHike) {
+                /*
+                If update is successful, inital hike (the one originally queried) is returned.
+                */
 
-            // Update estimated hiking time:
-            initialHike.genHikeTimeEst(formData.distance, formData.gain);
+                // Update estimated hiking time:
+                initialHike.genHikeTimeEst(formData.distance, formData.gain);
 
-            console.log('Hike updated successfully.', initialHike);
+                console.log('Hike updated successfully.', initialHike);
 
-            // Create success message:
-            validated.messages.hikeCreated = {
-                hdr: "Hike Updated!",
-                msg: "Your hike was succesfully updated.",
-            };
+                // Create success message:
+                validated.messages.hikeUpdated = {
+                    hdr: "Updated!",
+                    msg: "Your hike was succesfully updated.",
+                };
 
-            // Run callback with validated object:
-            callback(validated);
-        })
-        .catch(function(err) {
-            /*
-            If error is returned, run callback passing it along.
-            */
-            console.log('Error creating Hike.');
-            callback(err);
-        })
+                // Run callback with validated object:
+                callback(validated);
+            })
+            .catch(function(err) {
+                /*
+                If error is returned, run callback passing it along.
+                */
+                console.log('Error updating Hike.');
+                callback(err);
+            })
     }
 
 };
@@ -482,6 +482,16 @@ HikeSchema.methods.addPreTrip = function(preTripId) {
     return undefined; // send undefined as success
 };
 
+HikeSchema.methods.removePreTrip = function() {
+    /*
+    Delete PreTrip ID from `preTrip` field (and delete field entirely).
+    */
+
+    this.preTrip = undefined;
+    this.save();
+    return undefined; // send undefined as success
+};
+
 HikeSchema.methods.addPostTrip = function(postTripId) {
     /*
     Sets PostTrip ID to `postTrip` field.
@@ -491,6 +501,16 @@ HikeSchema.methods.addPostTrip = function(postTripId) {
     */
 
     this.postTrip = postTripId;
+    this.save();
+    return undefined; // send undefined as success
+};
+
+HikeSchema.methods.removePostTrip = function() {
+    /*
+    Delete PostTrip ID from `postTrip` field (and delete field entirely).
+    */
+
+    this.postTrip = undefined;
     this.save();
     return undefined; // send undefined as success
 };

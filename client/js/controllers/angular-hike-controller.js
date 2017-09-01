@@ -63,7 +63,11 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
         Get current hike (by route parameter) and return it (including pre and post-trip data).
         */
 
-        hikeFactory.getHike($routeParams.id, cb.hike);
+        var hikeId = {
+            id: $routeParams.id,
+        };
+
+        hikeFactory.getHike(hikeId, cb.hike);
     };
 
     //---------------------------//

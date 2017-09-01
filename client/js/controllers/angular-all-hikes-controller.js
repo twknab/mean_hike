@@ -28,6 +28,8 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
                 $scope.user = authValidation.user;
                 // Get all hikes:
                 $scope.getAllHikes();
+                // Get stats:
+                $scope.getStats();
             }
         },
         all: function(allHikes) {
@@ -39,6 +41,17 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
             */
 
             $scope.hikes = allHikes;
+        },
+        stats: function(allStats) {
+            /*
+            Runs after `$scope.getStats()` completes; returns `allStats` object which contains all stats for completed hikes only. Returns `totalDistance` and `totalGain` objects.
+
+            Parameters:
+            - `allStats` - An object returned from our factory containing `totalDistance` and `totalGain` values.
+            */
+
+            $scope.totalDistance = allStats.totalDistance;
+            $scope.totalGain = allStats.totalGain;
         },
     };
 
@@ -62,6 +75,14 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
         */
 
         hikeFactory.allHikes(cb.all);
+    };
+
+    $scope.getStats = function() {
+        /*
+        Gets all stats for stats section.
+        */
+
+        userFactory.getStats(cb.stats);
     };
 
     //-----------------------//

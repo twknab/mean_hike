@@ -80,7 +80,7 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
             })
     };
 
-    factory.getPreTrip = function(success) {
+    factory.getIncompletePreTrips = function(success) {
         /*
         Sends request to API to get hikes without a completed Pre-Trip.
 
@@ -118,11 +118,7 @@ app.factory('hikeFactory', ['$http', '$window', 'userMessages', function($http, 
         - `success` - Callback which runs after hike is sucessfully retrieved.
         */
 
-        var hikeId = {
-            id: id,
-        }
-
-        $http.post('/api/hike/show', hikeId)
+        $http.post('/api/hike/show', id)
             .then(function(retrievedHike) {
                 /*
                 If hike is successfully queried, will be returned as `retrievedHike` object including post-trip and pre-trip data.

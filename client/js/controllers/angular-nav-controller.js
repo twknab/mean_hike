@@ -1,4 +1,4 @@
-app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$window', '$route', function($scope, userFactory, hikeFactory, userMessages, $location, $routeParams, $window, $route) {
+app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTripFactory', 'postTripFactory', 'userMessages', '$location', '$routeParams', '$window', '$route', '$anchorScroll', function($scope, userFactory, hikeFactory, preTripFactory, postTripFactory, userMessages, $location, $routeParams, $window, $route, $anchorScroll) {
     /*
     Sets up `navController` to handle logged-in User dashboard-side navigation actions (including some page actions which navigate to other pages):
 
@@ -46,7 +46,25 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMe
             Runs after `$scope.deleteHike()` successfully completes.
             */
 
-            userMessages.addAlert({ type: 'success', hdr: 'Hike Deleted!', msg: 'Your hike has been deleted.', });
+            userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your hike has been deleted.', });
+            $location.url('/dashboard');
+            $route.reload();
+        },
+        preTripDestroyed: function() {
+            /*
+            Runs after `$scope.deletePreTrip()` successfully completes.
+            */
+
+            userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your pre-trip has been deleted.', });
+            $location.url('/dashboard');
+            $route.reload();
+        },
+        postTripDestroyed: function() {
+            /*
+            Runs after `$scope.deletePostTrip()` successfully completes.
+            */
+
+            userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your post-trip has been deleted.', });
             $location.url('/dashboard');
             $route.reload();
         },
@@ -161,7 +179,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMe
         // Delete any existing alerts:
         userMessages.clearAlerts();
 
-        var confirm = $window.confirm('Are you sure you want to delete this hike? Note: Any pre-trip or post-trip reports will also be deleted.');
+        var confirm = $window.confirm('Are you sure you want to permanently delete this hike? Note: Any associated pre-trip or post-trip reports will also be permanently deleted.');
 
         if (confirm) {
             var hikeId = {
@@ -179,12 +197,44 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMe
         $location.url('/hikes');
     };
 
+
     $scope.preTrip = function() {
         /*
         Loads current pre-trip page user is working on (for navigation purposes on Pre-Trip page).
         */
 
         $location.url('/hikes/' + $routeParams.id + '/pre-trip');
+    };
+
+    $scope.editPreTrip = function() {
+        /*
+        Loads edit pre-trip page.
+        */
+
+        $location.url('/hikes/' + $routeParams.id + '/pre-trip/edit');
+    };
+
+    $scope.deletePreTrip = function(hikeId, preTripId) {
+        /*
+        Deletes a pre-trip based on id.
+
+        Parameters:
+        - `hikeId` - Id of hike to delete pre-trip from.
+        - `preTripId` - Id of pre-trip to delete
+        */
+
+        // Delete any existing alerts:
+        userMessages.clearAlerts();
+
+        var confirm = $window.confirm('Are you sure you want to permanently delete this pre-trip?');
+
+        if (confirm) {
+            var ids = {
+                hikeId: hikeId,
+                preTripId: preTripId,
+            }
+            preTripFactory.destroyPreTrip(ids, cb.preTripDestroyed);
+        }
     };
 
     $scope.postTrip = function() {
@@ -195,6 +245,37 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMe
         $location.url('/hikes/' + $routeParams.id + '/post-trip');
     };
 
+    $scope.editPostTrip = function() {
+        /*
+        Loads edit post-trip page.
+        */
+
+        $location.url('/hikes/' + $routeParams.id + '/post-trip/edit');
+    };
+
+    $scope.deletePostTrip = function(hikeId, postTripId) {
+        /*
+        Deletes a pre-trip based on id.
+
+        Parameters:
+        - `hikeId` - Id of hike to delete pre-trip from.
+        - `postTripId` - Id of post-trip to delete
+        */
+
+        // Delete any existing alerts:
+        userMessages.clearAlerts();
+
+        var confirm = $window.confirm('Are you sure you want to permanently delete this post-trip?');
+
+        if (confirm) {
+            var ids = {
+                hikeId: hikeId,
+                postTripId: postTripId,
+            }
+            postTripFactory.destroyPostTrip(ids, cb.postTripDestroyed);
+        }
+    };
+
     $scope.logout = function() {
         /*
         Log out a user when clicking `Logout` from top navigation.
@@ -203,5 +284,6 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'userMe
         // Run `logout` factory method, passing in `logout` callback above to run when complete:
         userFactory.logout(cb.logout);
     };
+
 
 }]);

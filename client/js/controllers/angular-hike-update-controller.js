@@ -78,7 +78,7 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('updateHikeErrors');
+            $anchorScroll($scope.alerts);
         },
     };
 
@@ -101,8 +101,11 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
         /*
         Gets hike based upon current route parameter.
         */
+        var hikeId = {
+            id: $routeParams.id,
+        };
 
-        hikeFactory.getHike($routeParams.id, cb.hike);
+        hikeFactory.getHike(hikeId, cb.hike);
     };
 
     //---------------------------//
@@ -116,8 +119,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
 
         // Clear any old alerts:
         userMessages.clearAlerts();
-
-        console.log("Starting hike update validation process...");
 
         hikeFactory.updateHike($scope.hike, cb.updatedHike, cb.updateHikeError);
     };

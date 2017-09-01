@@ -139,6 +139,45 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
             })
     };
 
+    factory.getStats = function(success) {
+        /*
+        Get completed hike stats.
+
+        Parameters:
+        - `success` - callback which runs if stats are retrieved successfully.
+        */
+
+        $http.get('/api/user/stats')
+            .then(function(stats) {
+                /*
+                Returns User whose WelcomeMsgStatus is now updated to False.
+
+                Parameters:
+                - `stats` - Stats object containing `totalGain` (in feet) and `totalDistance` (in miles).
+                */
+
+                success(stats.data);
+            })
+            .catch(function(err) {
+                /*
+                Returns errors if unsuccessful.
+
+                Parameters:
+                - `err` - Errors object returned.
+                */
+
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
+                console.log(err.data);
+
+
+            })
+    };
+
     factory.update = function(user, success, error) {
         /*
         Send update account data to API for validation.

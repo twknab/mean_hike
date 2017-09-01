@@ -58,10 +58,10 @@
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class='wrapper text-center'>
-                        <div class="btn-group">
-                            <button class="btn btn-link" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                        <div class="btn-group" ng-controller="navController">
+                            <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
+                            <button class="btn btn-link" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <!-- PreTrip Alerts -->
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Pre-Trip Hike Form -->
-                    <form ng-submit="addPreTrip()" class="padding-left padding-right form-horizontal">
+                    <form ng-submit="addPreTrip()" class="padding-left-sm padding-right-sm form-horizontal">
                         <!-- Itinerary -->
                         <div class="form-group">
                             <fieldset>

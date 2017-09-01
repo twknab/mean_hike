@@ -68,10 +68,10 @@
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class='wrapper text-center'>
-                        <div class="btn-group">
-                            <button class="btn btn-link" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                        <div class="btn-group" ng-controller="navController">
+                            <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
+                            <button class="btn btn-link" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
                     </div>
                 </div>
@@ -122,10 +122,10 @@
                         </div>
                         <!-- All Hikes / Edit / Delete Buttons -->
                         <div class='wrapper text-center'>
-                            <div class="btn-group">
-                                <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
-                                <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
-                                <button class="btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                            <div class="btn-group" ng-controller="navController">
+                                <button class="btn btn-link" ng-click="editPreTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
+                                <button class="btn btn-link" ng-click="deletePreTrip(hike._id, hike.preTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
+                                <button class="btn btn-link" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                             </div>
                         </div>
                     </span>
@@ -195,10 +195,10 @@
                         </div>
                         <!-- All Hikes / Edit / Delete Buttons -->
                         <div class='wrapper text-center'>
-                            <div class="btn-group">
-                                <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Post-Trip</button>
-                                <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Post-Trip</button>
-                                <button class="btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                            <div class="btn-group" ng-controller="navController">
+                                <button class="btn btn-link" ng-click="editPostTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Post-Trip</button>
+                                <button class="btn btn-link" ng-click="deletePostTrip(hike._id, hike.postTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Post-Trip</button>
+                                <button class="btn btn-link" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                             </div>
                         </div>
                     </span>

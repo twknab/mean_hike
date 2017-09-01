@@ -94,10 +94,10 @@
                                             <span class="label label-default">Completed</span>
                                         </div>
                                     </span>
-                                    <div class="margin-top-sm">
-                                        <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
-                                        <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                        <button class="btn btn-link btn-xs" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                    <div class="margin-top-sm" ng-controller="navController">
+                                        <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
+                                        <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                        <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                     </div>
                                 </li>
                             </ul>

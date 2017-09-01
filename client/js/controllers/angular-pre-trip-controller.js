@@ -53,7 +53,6 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
 
             for (var key in validated.messages) {
                 if (validated.messages.hasOwnProperty(key)) {
-                    console.log(validated.messages[key]);
                     userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                 }
             }
@@ -102,7 +101,11 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         Gets hike based upon current route parameter.
         */
 
-        hikeFactory.getHike($routeParams.id, cb.hike);
+        var hikeId = {
+            id: $routeParams.id,
+        };
+
+        hikeFactory.getHike(hikeId, cb.hike);
     };
 
     $scope.groupSizes = [

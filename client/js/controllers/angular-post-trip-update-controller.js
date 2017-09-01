@@ -1,4 +1,4 @@
-app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory', 'hikeFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, postTripFactory, userFactory, hikeFactory, userMessages, $location, $routeParams, $anchorScroll) {
+app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFactory', 'userMessages', '$location', '$routeParams', '$anchorScroll', function($scope, postTripFactory, userFactory, userMessages, $location, $routeParams, $anchorScroll) {
 
     // Callbacks
     var cb = {
@@ -26,53 +26,52 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
                 userMessages.clearAlerts();
                 // Set User Data:
                 $scope.user = authValidation.user;
-                // Get current hike:
-                $scope.getHike();
+                // Get current post-trip:
+                $scope.getPostTrip();
             }
         },
-        hike: function(retrievedHike) {
+        postTrip: function(retrievedPostTrip) {
             /*
-            Runs after `$scope.getHike()` completes; sets hike to retrieved hike.
+            Runs after `$scope.getPostTrip()` completes; sets postTrip to retrieved postTrip.
 
             Parameters:
-            - `retrievedHike` - Hike object returned.
+            - `retrievedPostTrip` - PreTrip object returned.
             */
 
-            $scope.hike = retrievedHike;
+            $scope.postTrip = retrievedPostTrip;
 
             // Get alert messages:
             $scope.alerts = userMessages.getAlerts();
         },
-        newPostTrip: function(validated) {
+        updatedPostTrip: function(validated) {
             /*
-            Runs if post-trip is successfully created; returns to dashboard.
+            Runs if post-trip is successfully updated; returns to dashboard.
 
             Parameters:
-            - `validated` - Returns validated object containing `messages` and `validatedPostTrip` properties. Also contains `errors` property but should be empty.
+            - `validated` - Returns validated object containing any success messages as 'messages' object.
             */
 
-            // Iterate through messages and add them to alerts:
+            // Iterate through success msgs and add them:
             for (var key in validated.messages) {
                 if (validated.messages.hasOwnProperty(key)) {
+                    console.log(validated.messages[key]);
                     userMessages.addAlert({ type: 'success', hdr: validated.messages[key].hdr, msg: validated.messages[key].msg });
                 }
             }
 
             $location.url('/dashboard');
         },
-        newPostTripError: function(err) {
+        updatePostTripError: function(err) {
             /*
-            Runs if errors are returned after `$scope.postTrip()` from the server.
+            Runs if errors are returned after `$scope.updatePostTrip()` runs.
 
             Parameters:
             - `err` - Errors object returned.
             */
 
 
-            // Iterate through errors and add them to alerts:
             for (var key in err) {
                 if (err.hasOwnProperty(key)) {
-                    console.log(err[key]);
                     userMessages.addAlert({ type: 'danger', hdr: 'Error!', msg: err[key].message });
                 }
             }
@@ -80,7 +79,7 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('postTripReport');
+            $anchorScroll($scope.alerts);
         },
     };
 
@@ -99,41 +98,31 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
     // Run auth() on page load:
     $scope.auth();
 
-    $scope.getHike = function() {
+    $scope.getPostTrip = function() {
         /*
-        Gets hike based upon current route parameter.
+        Sends API request to get current post-trip based on hike ID.
         */
 
         var hikeId = {
             id: $routeParams.id,
-        };
+        }
 
-        hikeFactory.getHike(hikeId, cb.hike);
+        postTripFactory.getPostTrip(hikeId, cb.postTrip);
     };
 
-    //---------------------------------//
-    //-------- ADD NEW POST-TRIP ------//
-    //---------------------------------//
+    //--------------------------------//
+    //-------- UPDATE POST-TRIP ------//
+    //--------------------------------//
 
-    $scope.addPostTrip = function() {
+    $scope.updatePostTrip = function() {
         /*
-        Creates a new Post-Trip.
+        Sends API request to validate and update a Post-Trip by Id.
         */
 
         // Clear any old alerts:
         userMessages.clearAlerts();
 
-
-        // If post-trip form is empty, run validation without sending hike ID (as it will fail for being empty):
-        if (($scope.postTrip == undefined) || (Object.keys($scope.postTrip).length < 1)) {
-            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
-        }
-
-        else {
-            // Else, add Hike ID to Post-Trip object for use on server:
-            $scope.postTrip.hikeId = $routeParams.id;
-            postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
-        }
+        postTripFactory.updatePostTrip($scope.postTrip, cb.updatedPostTrip, cb.updatePostTripError);
     };
 
     //-----------------------------//
@@ -150,6 +139,5 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         // Remove alert and update `$scope.successAlerts` to most recent:
         $scope.alerts = userMessages.removeAlert(index);
     };
-
 
 }]);

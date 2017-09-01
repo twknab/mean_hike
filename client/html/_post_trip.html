@@ -58,10 +58,10 @@
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class='wrapper text-center'>
-                        <div class="btn-group">
-                            <button class="btn btn-link" ng-controller="navController" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                        <div class="btn-group" ng-controller="navController">
+                            <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
+                            <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
+                            <button class="btn btn-link" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </div>
                     </div>
                 </div>
@@ -111,10 +111,10 @@
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class='wrapper text-center'>
-                        <div class="btn-group">
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
-                            <button class="btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                        <div class="btn-group" ng-controller="navController">
+                            <button class="btn btn-link" ng-click="editPreTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
+                            <button class="btn btn-link" ng-click="deletePreTrip(hike._id, hike.preTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
+                            <button class="btn btn-link" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <!-- PostTrip Alerts -->
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Post-Trip Hike Form -->
-                    <form ng-submit="addPostTrip()" class="padding-left padding-right form-horizontal">
+                    <form ng-submit="addPostTrip()" class="padding-left-sm padding-right-sm form-horizontal">
                         <!-- Actual Hiking Time -->
                         <div class="form-group">
                             <fieldset><legend>Actual Hiking Time:</legend>

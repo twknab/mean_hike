@@ -284,6 +284,47 @@ module.exports = {
 
 
     },
+    stats: function(req, res) {
+        /*
+        Gets stats for a user's completed hikes.
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+        */
+
+        // If not a valid session, redirect home, else begin update process:
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            res.status(401).send({ redirect:"/"});
+        } else {
+            // Find user by session id:
+            User.findOne({_id: req.session.userId})
+                .populate({
+                    path: 'hikes',
+                    match: { postTrip: {$exists: true}},
+                })
+                .exec()
+                .then(function(UserAndCompletePostTrips) {
+                    console.log('%%%%%%%%%%%%');
+                    console.log(UserAndCompletePostTrips.hikes);
+
+                    /*
+                    Iterate through each UserAndCompletePostTrips.hikes
+                    Add up each `.distance` for totalDistance (mi)
+                    and `.gain` for totalGain (ft)
+                    */
+
+                    return res.json({succes: 'SUCCESS!'});
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    return res.status(500).json(err);
+                })
+        }
+
+
+    },
     logout: function(req, res) {
         /*
         Logs out a User with a current session.

@@ -228,7 +228,7 @@ module.exports = {
 
                 // Else if no errors, return a success message:
                 else {
-                    res.json({message: "Success updating."});
+                    res.json(validated);
                 };
             });
         }

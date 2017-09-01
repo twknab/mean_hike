@@ -98,10 +98,6 @@ This application is designed to help others plan and prepare for their hiking ad
 		- This feature does not behave as a normal checkbox would, and will let you focus on the CRUD operations (more important) and to get things launched.
 
 ### Remaining Features:
-	- Edit Pre-Trip Feature -- Thursday
-	- Delete Pre-Trip Feature -- Thursday
-	- Edit Post-Trip Feature -- Thursday
-	- Delete Post-Trip Feature -- Thursday
 	- Delete User Account Feature -- Thursday (if Time)
 	- Build Stats Feature (only for completed hikes) -- Thursday
 	- Launch and Deploy -- Thursday

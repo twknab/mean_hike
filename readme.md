@@ -95,10 +95,12 @@ This application is designed to help others plan and prepare for their hiking ad
 
 
 ### Remaining Features:
-	- Mobile responsiveness - Thursday
-	- Launch and Deploy -- Thursday
-	- Setup `hiking.tools` URL -- Thursday
-	- Create licensing document for GitHub -- Thursday
+	- Mobile responsiveness - Friday
+		-- Still some anchor scrolling bugs...
+	- Clear out current DB entries...
+	- Launch and Deploy -- Friday
+	- Setup `hiking.tools` URL -- Friday
+	- Create licensing document for GitHub -- Friday
 
 ### Things to Consider After Features Built:
 

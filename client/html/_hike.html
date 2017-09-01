@@ -24,7 +24,6 @@
   </div>
 </nav>
 
-
 <!-- Begin Primary Container -->
 <div class="container">
     <!-- Responsive Row -->
@@ -40,7 +39,7 @@
             <!-- Hike Overview Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading">
+                <div class="panel-heading" id="viewSingleHike">
                     <h2 class="heading-shadow">
                         <span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span>
                     </h2>
@@ -67,7 +66,7 @@
                         </div>
                     </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
-                    <div class='wrapper text-center'>
+                    <div class="wrapper text-center">
                         <div class="btn-group" ng-controller="navController">
                             <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
                             <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
@@ -84,7 +83,7 @@
             <!-- Full Pre-Trip Report Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
+                <div class="panel-heading" id="addPreTrip"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <span ng-if="hike.preTrip">
@@ -121,7 +120,7 @@
                             </div>
                         </div>
                         <!-- All Hikes / Edit / Delete Buttons -->
-                        <div class='wrapper text-center'>
+                        <div class="wrapper text-center">
                             <div class="btn-group" ng-controller="navController">
                                 <button class="btn btn-link" ng-click="editPreTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
                                 <button class="btn btn-link" ng-click="deletePreTrip(hike._id, hike.preTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
@@ -193,7 +192,7 @@
                             </div>
                         </div>
                         <!-- All Hikes / Edit / Delete Buttons -->
-                        <div class='wrapper text-center'>
+                        <div class="wrapper text-center">
                             <div class="btn-group" ng-controller="navController">
                                 <button class="btn btn-link" ng-click="editPostTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Post-Trip</button>
                                 <button class="btn btn-link" ng-click="deletePostTrip(hike._id, hike.postTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Post-Trip</button>

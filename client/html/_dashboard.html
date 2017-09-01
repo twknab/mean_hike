@@ -44,7 +44,7 @@
     </div>
     <!-- Accordian Responsive Row -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="recent">
             <!-- Success Alerts -->
             <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
             <!-- Angular UI Accordian -->
@@ -59,7 +59,7 @@
                             <h2 class="heading-shadow"><span class="glyphicon glyphicon-time"></span> Recent <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i></h2>
                         </uib-accordion-heading>
                         <span ng-if="recentHikes.length >= 1">
-                            <ul class="list-group no-list-margin" id="recentHikes">
+                            <ul class="list-group no-list-margin">
                                 <li class="list-group-item" ng-repeat="hike in recentHikes">
                                     <!-- If Pre-Trip Incomplete -->
                                     <span ng-if="!hike.preTrip">
@@ -104,7 +104,7 @@
                     <!------------------------->
                     <!--     ADD NEW HIKE    -->
                     <!------------------------->
-                    <div uib-accordion-group class="panel-default" is-open="status.newHike">
+                    <div uib-accordion-group class="panel-default" is-open="status.newHike" id="newHike">
                         <uib-accordion-heading>
                             <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h2>
                         </uib-accordion-heading>
@@ -163,7 +163,7 @@
                     <!--------------------------->
                     <!--    ADD NEW PRE-TRIP   -->
                     <!--------------------------->
-                    <div uib-accordion-group class="panel-default" is-open="status.newPreTrip">
+                    <div uib-accordion-group class="panel-default" is-open="status.newPreTrip" id="newPreTrip">
                         <uib-accordion-heading>
                             <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h2>
                         </uib-accordion-heading>
@@ -184,7 +184,7 @@
                         </span>
                         <span ng-if="incompletePreTrips.length < 1">
                             <h4 class="text-center margin-all">
-                                <em>You don't have any pending hikes! Add a new hike above!</em> 🏕
+                                <em>You don't have any pending hikes! Add one above!</em> 🏕
                             </h4>
                         </span>
                     </div>

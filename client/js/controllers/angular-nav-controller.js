@@ -128,6 +128,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $scope.status.newHike = true;
+        $anchorScroll('newHike');
     };
 
     $scope.newPreTrip = function() {
@@ -136,6 +137,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $scope.status.newPreTrip = true;
+        $anchorScroll('newPreTrip');
     };
 
     $scope.recentHikes = function() {
@@ -144,6 +146,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $scope.status.isFirstOpen = true;
+        $anchorScroll('recentHikes');
     };
 
     $scope.viewHike = function(id) {
@@ -154,6 +157,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         - `id` - Id of hike to view.
         */
 
+        $anchorScroll();
         $location.url('/hikes/' + id);
     };
 
@@ -211,6 +215,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         Loads edit pre-trip page.
         */
 
+        $anchorScroll();
         $location.url('/hikes/' + $routeParams.id + '/pre-trip/edit');
     };
 

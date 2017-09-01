@@ -94,7 +94,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
             $scope.getPreTripList();
 
             // Scroll to recent Hikes:
-            $anchorScroll(recentHikes);
+            $anchorScroll('recent');
 
 
         },
@@ -107,6 +107,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.newHikeErrors = {}; // resets errors if any already existing
             $scope.newHikeErrors = err;
+            $anchorScroll('newHike');
 
 
         },

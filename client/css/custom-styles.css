@@ -144,7 +144,7 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 /*    TOP NAVIGATION:    */
 /*************************/
 @media only screen and (max-width: 782px)  {
-    .btn.btn-info.navbar-btn {
+    .navbar-btn {
     	margin-left: 15px;
     }
 }
@@ -178,12 +178,6 @@ a.alert_link.ng-scope:visited {
 a.alert_link.ng-scope:hover {
 	text-decoration: none;
 }
-/* Bump up labels slightly */
-.dashboard-label {
-    position: relative;
-    bottom: 2px;
-}
-
 
 /*************************/
 /*    COMPLETED HIKE:    */
@@ -203,61 +197,4 @@ a.alert_link.ng-scope:hover {
 
 .stats {
     font-size: 20px;
-}
-
-/***********************************/
-/*  LOGOUT AND DASHBOARD BUTTONS:  */
-/***********************************/
-
-.logout {
-    margin-left: auto;
-    display: block;
-}
-
-.dashboard {
-    width: 255px;
-}
-
-/* Mobile formatting for top nav */
-@media only screen and (max-width: 400px)  {
-    .dashboard {
-        margin-left: auto;
-        margin-right: auto;
-        width: 259px;
-    }
-}
-
-/*****************************/
-/*     HIKE REPORT PAGE:     */
-/*****************************/
-
-.custom-list li:nth-child(even) {
-	background-color: whitesmoke;
-}
-
-/*********************************/
-/*   PRE / POST / REPORT PAGE:   */
-/*********************************/
-
-.no-list-margin {
-	margin-bottom: 0px;
-}
-
-.no-heading-margin {
-	margin-top: 0px;
-}
-
-.gear-carried-list {
-    font-size: 12px;
-    list-style-type: none;
-    margin: 5px 0px 5px -19px;
-}
-@media only screen and (max-width: 400px)  {
-    .gear-list-buttons {
-        margin-left: auto;
-        margin-right: auto;
-        width: 222px;
-        position: relative;
-        left: 2px;
-    }
 }

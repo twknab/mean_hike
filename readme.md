@@ -9,6 +9,9 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
++ 9/01/17 - Stats feature added.
++ 8/31/17 - Delete Hike, Delete Post-Trip, Delete Pre-Trip features added.
++ 8/30/17 - Edit Hike, Edit Post-Trip, Edit Pre-Trip features added.
 + 8/28/17 - PostTrip feature with validations added.
 + 8/27/17 - View Hike feature added.
 + 8/27/17 - All Hikes feature and Search added.
@@ -27,12 +30,10 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 
-	+ Add a badge next to "Upcoming Hikes" which shows hike status (`pending` and `completed`) (low-priority)
-
-	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size. (medium-priority)
+	+ Add a feature where users can upload photos to each hike, a certain number and a certain file size. (medium-priority) -- Not sure about this one as it will eat up server space and increase AWS $$$$.
 
 	+ Add a feature where users can attach documents, such as a
-	PDF map to their hike. (medium-priority)
+	PDF map to their hike. (medium-priority) -- Not sure about this one as it will eat up server space and increase AWS $$$$.
 
 	+ Input body metrics -- smartwatch data -- to post-trip (low-priority)
 
@@ -77,15 +78,13 @@ This application is designed to help others plan and prepare for their hiking ad
 
 	+ Turn Hike View page panes into Accordions like on Dashboard page (high-priority)
 
-	+ Add icons to view hike, pre-trip and post-trip pages (high-priority).
+	+ Add `+ Post-Trip` to nav menu (high-priority)
 
-	+ Add `+ Post-Trip` to nav menu
+	+ Setup user edit page and add hike page, etc, to also utilize messages service like you ended up doing on post-trip, pre-trip and edit hike pages...(use alerts universally across the app) (medium-priority)
 
-	+ Setup user edit page and add hike page, etc, to also utilize messages service like you ended up doing on post-trip, pre-trip and edit hike pages...(use alerts universally across the app)
+	+ Add validation that Location URL must contain "http://" (high priority)
 
-	+ Add validation that Location URL must contain "http://"
-
-	- Delete User Account Feature -- Thursday (if Time)
+	- Delete User Account Feature -- Thursday (if Time) (high priority)
 
 ## Development Issues Log:
 	- `$autoScroll()` re-renders DOM and re-executes Controller.
@@ -93,6 +92,7 @@ This application is designed to help others plan and prepare for their hiking ad
 	- How do I delete a property from a Mongoose Object server-side, not in Angular (ie, password security)?
 
 ### Where I Left Off:
+
 
 ### Remaining Features:
 	- Mobile responsiveness - Thursday

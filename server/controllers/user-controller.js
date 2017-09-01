@@ -306,19 +306,18 @@ module.exports = {
                 })
                 .exec()
                 .then(function(UserAndCompletePostTrips) {
-                    console.log('%%%%%%%%%%%%');
-                    console.log(UserAndCompletePostTrips.hikes);
+
+                    // Setup stats object to hold stats:
+                    var stats = {
+                        distance: 0, // will hold total distance
+                        gain: 0, // will hold total gain
+                    };
 
                     /*
                     Iterate through each UserAndCompletePostTrips.hikes
                     Add up each `.distance` for totalDistance (mi)
                     and `.gain` for totalGain (ft)
                     */
-
-                    var stats = {
-                        distance: 0, // will hold total distance
-                        gain: 0, // will hold total gain
-                    };
 
                     for (var i = 0; i < UserAndCompletePostTrips.hikes.length; i++) {
                         stats.distance = (parseFloat(stats.distance) +  parseFloat(UserAndCompletePostTrips.hikes[i].distance)).toFixed(2);

@@ -150,10 +150,10 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
         $http.get('/api/user/stats')
             .then(function(stats) {
                 /*
-                Returns User whose WelcomeMsgStatus is now updated to False.
+                Returns object containing `distance` and `gain` properties (total values for completed hikes).
 
                 Parameters:
-                - `stats` - Stats object containing `totalGain` (in feet) and `totalDistance` (in miles).
+                - `stats` - Stats object containing `gain` (in feet) and `distance` (in miles) -- these are completed hike totals.
                 */
 
                 success(stats.data);

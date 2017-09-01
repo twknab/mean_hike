@@ -131,7 +131,6 @@
                     </span>
                     <span ng-if="!hike.preTrip">
                         <h4 class="text-center margin-all">
-                            <em>You haven't completed a Pre-Trip!</em> 🏕
                             <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
                         </h4>
                         <!-- Back To Dashboard -->
@@ -209,7 +208,6 @@
                     </span>
                     <span ng-if="hike.preTrip && !hike.postTrip">
                         <h4 class="text-center margin-all">
-                            <em>You haven't completed a Post-Trip!</em> 🏕
                             <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
                         </h4>
                         <!-- Back to Dashboard Button -->

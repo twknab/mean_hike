@@ -111,17 +111,6 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
         };
     }
 
-    // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
-    for (var property in formData) {
-        if (formData.hasOwnProperty(property)) {
-            if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
-                validated.errors.requiredErr = {
-                    message: 'Actual time and actual weather are both required fields.',
-                };
-            }
-        }
-    };
-
     // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them):
     if (formData.hazards == '') {
         delete formData.hazards;
@@ -134,6 +123,18 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
     if (formData.notes == '') {
         delete formData.notes;
     };
+
+    // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
+    for (var property in formData) {
+        if (formData.hasOwnProperty(property)) {
+            if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
+                validated.errors.requiredErr = {
+                    message: 'Actual time and actual weather are both required fields.',
+                };
+            }
+        }
+    };
+
 
     // Check if any errors thus far in validation, if so send back:
     // If there are any errors send back validated object containing them:
@@ -215,17 +216,6 @@ PostTripSchema.methods.validateUpdatePostTrip = function(formData, callback) {
         };
     }
 
-    // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
-    for (var property in formData) {
-        if (formData.hasOwnProperty(property)) {
-            if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
-                validated.errors.requiredErr = {
-                    message: 'Actual time and actual weather are both required fields.',
-                };
-            }
-        }
-    };
-
     // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them):
     if (formData.hazards == '') {
         delete formData.hazards;
@@ -238,6 +228,18 @@ PostTripSchema.methods.validateUpdatePostTrip = function(formData, callback) {
     if (formData.notes == '') {
         delete formData.notes;
     };
+
+    // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
+    for (var property in formData) {
+        if (formData.hasOwnProperty(property)) {
+            if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
+                validated.errors.requiredErr = {
+                    message: 'Actual time and actual weather are both required fields.',
+                };
+            }
+        }
+    };
+
 
     // Check if any errors thus far in validation, if so send back:
     // If there are any errors send back validated object containing them:

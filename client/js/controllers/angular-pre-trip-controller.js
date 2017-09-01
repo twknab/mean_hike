@@ -77,7 +77,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('preTripReport');
+            $anchorScroll($scope.alerts);
         },
     };
 

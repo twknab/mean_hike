@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" ng-controller="navController">
+<nav class="navbar navbar-inverse" ng-controller="navController" id="top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -33,15 +33,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-update-pretrip">
             <!-- Hike Overview Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading" id="editPreTrip">
+                <div class="panel-heading">
                     <h2 class="heading-shadow"><span class="glyphicon glyphicon-edit"></span> <span class="fix-line-break"></span> Update Pre-Trip</h2></div>
                 <div class="panel-body">
                     <!-- PreTrip Alerts -->
-                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)" id="preTripErrors"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Pre-Trip Hike Form -->
                     <form ng-submit="updatePreTrip(preTrip._id)" class="padding-left-sm padding-right-sm form-horizontal">
                         <!-- Itinerary -->

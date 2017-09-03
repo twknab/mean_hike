@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" ng-controller="navController">
+<nav class="navbar navbar-inverse" ng-controller="navController" id="top">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -35,7 +35,7 @@
     <!-- User Account Responsive Row -->
     <div class="row">
         <!-- Update User Account -->
-        <div class="col-sm-12" id="updateUser">
+        <div class="col-sm-12" id="top-update-user">
             <!-- Success Alerts -->
             <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a></div>
             <!-- Update User Errors -->

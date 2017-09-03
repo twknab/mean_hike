@@ -40,7 +40,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
             */
 
             $scope.hike = hike;
-
         },
     };
 
@@ -75,7 +74,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
     //---------------------------//
 
     $scope.startPreTrip = function(hikeId) {
-        $anchorScroll('addPreTrip');
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 
@@ -83,6 +81,20 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
         $location.url('/hikes/' + hikeId + '/post-trip');
     };
 
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
+    };
 
 
 }]);

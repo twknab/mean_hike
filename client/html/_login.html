@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" id="top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -37,7 +37,7 @@
     </div>
     <!-- Login -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-login">
             <h2><span class="glyphicon glyphicon-log-in"></span> User Login</h2>
             <!-- Success Alerts -->
             <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
@@ -74,7 +74,7 @@
     <script type="text/ng-template" id="_register.html">
         <!-- Modal content-->
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12" id="top-registration">
                 <div class="modal-content">
                     <div class="panel panel-default margin-bottom-none">
                         <div class="panel-heading"><button type="button" class="close close-modal" ng-click="$ctrl.cancel()">&times;</button>

@@ -93,8 +93,8 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
             // Update hikes needing pre-trips (for dropdown):
             $scope.getPreTripList();
 
-            // Scroll to recent Hikes:
-            $anchorScroll('recent');
+            // Scroll to top of page:
+            $scope.scrollTo('top');
 
 
         },
@@ -107,7 +107,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.newHikeErrors = {}; // resets errors if any already existing
             $scope.newHikeErrors = err;
-            $anchorScroll('newHike');
+            $anchorScroll('top-new-hike');
 
 
         },
@@ -178,6 +178,22 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };
 
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
+    };
+
+
     //--------------------------------//
     //-------- ADD NEW PRE-TRIP ------//
     //--------------------------------//
@@ -189,6 +205,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
     $scope.startPreTrip = function(hikeId) {
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
+
 
     //-----------------------------------------//
     //------- ANGULAR UI ALERT ACTIONS  -------//

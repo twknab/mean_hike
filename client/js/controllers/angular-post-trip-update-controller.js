@@ -60,6 +60,7 @@ app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFa
             }
 
             $location.url('/dashboard');
+            $scope.scrollTo('top');
         },
         updatePostTripError: function(err) {
             /*
@@ -76,10 +77,10 @@ app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFa
                 }
             }
 
-            $scope.alerts = userMessages.getAlerts();
+            $scope.getPostTrip();
 
             // Scroll to errors:
-            $anchorScroll($scope.alerts);
+            $scope.scrollTo('top-update-posttrip');
         },
     };
 
@@ -123,6 +124,21 @@ app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFa
         userMessages.clearAlerts();
 
         postTripFactory.updatePostTrip($scope.postTrip, cb.updatedPostTrip, cb.updatePostTripError);
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 
     //-----------------------------//

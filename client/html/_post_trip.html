@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" ng-controller="navController">
+<nav class="navbar navbar-inverse" ng-controller="navController" id="top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -31,6 +31,9 @@
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Complete a Post-Trip</em></small></h1>
         </div>
     </div>
+    <!---------------------->
+    <!--     HIKE INFO    -->
+    <!---------------------->
     <!-- Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
@@ -68,6 +71,9 @@
             </div>
         </div>
     </div>
+    <!-------------------------->
+    <!--     PRE-TRIP INFO    -->
+    <!-------------------------->
     <!-- Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
@@ -121,13 +127,16 @@
             </div>
         </div>
     </div>
+    <!-------------------------->
+    <!--    POST-TRIP INFO    -->
+    <!-------------------------->
     <!-- Responsive Row -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-posttrip">
             <!-- Post-Trip Report Panel -->
-            <div class="panel panel-default" id="postTripReport">
+            <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-left"></span> Post-Trip Report</h2></div>
+                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Post-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <!-- PostTrip Alerts -->

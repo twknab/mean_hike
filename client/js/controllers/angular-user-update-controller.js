@@ -73,8 +73,8 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
             }
             // Run auth() to fetch updated User and to check account URL path:
             $scope.auth();
-            // Scroll to top of panel where success messages display:
-            $anchorScroll(updateUser);
+            // Scroll to top:
+            $scope.scrollTo('top');
         },
         updateError: function(err) {
             /*
@@ -85,11 +85,12 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
             */
 
             $scope.updateErrors = {}; // resets errors if any already existing
-            userMessages.clearAlerts(); // resets any success messages existing
+            // userMessages.clearAlerts(); // resets any success messages existing
             // Set `$scope.updateErrors` to returned errors object from API request:
             $scope.updateErrors = err;
-            // Scroll to top of panel where error messages display:
-            $anchorScroll(updateUser);
+            $scope.auth();
+            // Scroll to top:
+            $scope.scrollTo('top-update-user');
         },
     };
 
@@ -131,6 +132,21 @@ app.controller('userUpdateController', ['$scope', 'userFactory', 'userMessages',
         */
 
         $location.url('/dashboard');
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 
     //----------------------------------//

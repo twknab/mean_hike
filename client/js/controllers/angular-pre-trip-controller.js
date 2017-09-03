@@ -28,6 +28,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
                 $scope.user = authValidation.user;
                 // Get current hike:
                 $scope.getHike();
+                $scope.scrollTo('top-pretrip');
             }
         },
         hike: function(retrievedHike) {
@@ -57,6 +58,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
                 }
             }
 
+            $scope.scrollTo('top');
             $location.url('/dashboard');
         },
         newPreTripError: function(err) {
@@ -77,7 +79,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll($scope.alerts);
+            $scope.scrollTo('top-pretrip');
         },
     };
 
@@ -150,6 +152,21 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
             $scope.preTrip.hikeId = $routeParams.id;
             preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
         }
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 
     //-----------------------------//

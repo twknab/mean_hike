@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" ng-controller="navController">
+<nav class="navbar navbar-inverse" ng-controller="navController" id="top">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -33,13 +33,26 @@
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>View Hike</em></small></h1>
         </div>
     </div>
+    <!-- Hike Nav Buttons -->
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="btn-group margin-bottom-sm" ng-controller="navController">
+                <button type="button" class="btn btn-link" ng-click="scrollHike()"><span class="glyphicon glyphicon-info-sign"></span> Hike Info</button>
+                <button type="button" class="btn btn-link" ng-click="scrollPreTrip()"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip</button>
+                <button type="button" class="btn btn-link" ng-click="scrollPostTrip()"><span class="glyphicon glyphicon-check"></span> Post-Trip</button>
+            </div>
+        </div>
+    </div>
+    <!---------------------->
+    <!--     HIKE INFO    -->
+    <!---------------------->
     <!-- Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
             <!-- Hike Overview Panel -->
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="top-hike">
                 <!-- Panel Title -->
-                <div class="panel-heading" id="viewSingleHike">
+                <div class="panel-heading">
                     <h2 class="heading-shadow">
                         <span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span>
                     </h2>
@@ -77,13 +90,16 @@
             </div>
         </div>
     </div>
+    <!-------------------------->
+    <!--     PRE-TRIP INFO    -->
+    <!-------------------------->
     <!-- Responsive Row -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-pretrip">
             <!-- Full Pre-Trip Report Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading" id="addPreTrip"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
+                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <span ng-if="hike.preTrip">
@@ -129,7 +145,7 @@
                         </div>
                     </span>
                     <span ng-if="!hike.preTrip">
-                        <h4 class="text-center margin-all">
+                        <h4 class="text-center">
                             <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
                         </h4>
                         <!-- Back To Dashboard -->
@@ -139,13 +155,16 @@
             </div>
         </div>
     </div>
+    <!--------------------------->
+    <!--     POST TRIP INFO    -->
+    <!--------------------------->
     <!-- Responsive Row -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-posttrip">
             <!-- Post-Trip Report Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-left"></span> Post-Trip Report</h2></div>
+                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Post-Trip Report</h2></div>
                 <!-- Panel Body -->
                 <div class="panel-body">
                     <span ng-if="hike.postTrip">
@@ -206,7 +225,7 @@
                         </h4>
                     </span>
                     <span ng-if="hike.preTrip && !hike.postTrip">
-                        <h4 class="text-center margin-all">
+                        <h4 class="text-center">
                             <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
                         </h4>
                         <!-- Back to Dashboard Button -->
@@ -216,6 +235,4 @@
             </div>
         </div>
     </div>
-
-
 </div> <!-- End Primary Container -->

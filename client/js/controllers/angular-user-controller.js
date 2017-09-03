@@ -1,4 +1,4 @@
-app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$uibModal', '$log', '$window', function($scope, userFactory, userMessages, $location, $routeParams, $uibModal, $log, $window) {
+app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$location', '$routeParams', '$uibModal', '$log', '$window', '$anchorScroll', function($scope, userFactory, userMessages, $location, $routeParams, $uibModal, $log, $window, $anchorScroll) {
 
     //----------------------------------//
     //-------- CALLBACK FUNCTIONS ------//
@@ -32,6 +32,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.loginErrors = {}; // resets errors if any already existing
             $scope.loginErrors = err;
+            $scope.scrollTo('top-login');
         },
     };
 
@@ -64,6 +65,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         */
 
         $location.url('/');
+        $scope.scrollTo('top');
     };
 
     $scope.about = function() {
@@ -72,6 +74,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         */
 
         $location.url('/about');
+        $scope.scrollTo('top');
     };
 
     $scope.login = function() {
@@ -80,6 +83,15 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         */
 
         userFactory.login($scope.user, cb.login, cb.loginError);
+    };
+
+    $scope.scrollLogin = function() {
+        /*
+        Scrolls to login page.
+        */
+
+        $location.url('/');
+        $scope.scrollTo('top-login');
     };
 
     $scope.timHome = function() {
@@ -98,8 +110,23 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
         $window.open('http://sasquatchcreative.com/contact/', "_blank");
     };
 
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
+    };
 
 }]);
+
 
 //--------------------------------------//
 //-------- ANGULAR UI MODAL SETUP ------//
@@ -145,7 +172,7 @@ angular.module('ui.bootstrap').controller('ModalRegisterCtrl', function($uibModa
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 // Create an angular controller to handle the functions our Modal should perform:
-angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModalInstance, $scope, userFactory, $location) {
+angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModalInstance, $scope, userFactory, $location, $anchorScroll) {
 
     // Gives us easy access to our instance by capturing `this` as `$ctrl`:
      var $ctrl = this;
@@ -163,6 +190,7 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
          regError: function(err) {
              $scope.regErrors = {};
              $scope.regErrors = err;
+             $ctrl.scrollTo('top-registration');
          },
      };
 
@@ -174,5 +202,20 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
     // Cancels registration and closes Modal window:
     $ctrl.cancel = function() {
         $uibModalInstance.dismiss('cancel');
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $ctrl.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 });

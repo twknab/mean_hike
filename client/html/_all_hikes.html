@@ -32,10 +32,17 @@
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>All Hikes</em></small></h1>
         </div>
     </div>
-
+    <!-- Hike Nav Buttons -->
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="btn-group margin-bottom-sm" ng-controller="navController">
+                <button type="button" class="btn btn-link" ng-click="scrollStats()"><span class="glyphicon glyphicon-stats"></span> Stats</button>
+            </div>
+        </div>
+    </div>
     <!-- Responsive Row -->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-all-hikes">
             <!-- All Hikes Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->
@@ -98,7 +105,7 @@
     </div>
 
     <!-- Hiking Stats Panel -->
-    <div class="panel panel-default" id="stats">
+    <div class="panel panel-default" id="top-stats">
         <!-- Panel Title -->
         <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-stats"></span> Stats</h2></div>
         <!-- Panel Body -->

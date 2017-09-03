@@ -58,6 +58,7 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
             }
 
             $location.url('/dashboard');
+            $scope.scrollTo('top');
         },
         updateHikeError: function(err) {
             /*
@@ -75,10 +76,10 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
                 }
             }
 
-            $scope.alerts = userMessages.getAlerts();
+            $scope.getHike();
 
             // Scroll to errors:
-            $anchorScroll($scope.alerts);
+            $scope.scrollTo('top-update-hike');
         },
     };
 
@@ -121,6 +122,21 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
         userMessages.clearAlerts();
 
         hikeFactory.updateHike($scope.hike, cb.updatedHike, cb.updateHikeError);
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 
     //-----------------------------//

@@ -48,6 +48,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
 
             userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your hike has been deleted.', });
             $location.url('/dashboard');
+            $scope.scrollTo('top');
             $route.reload();
         },
         preTripDestroyed: function() {
@@ -57,6 +58,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
 
             userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your pre-trip has been deleted.', });
             $location.url('/dashboard');
+            $scope.scrollTo('top');
             $route.reload();
         },
         postTripDestroyed: function() {
@@ -66,6 +68,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
 
             userMessages.addAlert({ type: 'success', hdr: 'Deleted!', msg: 'Your post-trip has been deleted.', });
             $location.url('/dashboard');
+            $scope.scrollTo('top');
             $route.reload();
         },
         logout: function() {
@@ -79,6 +82,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
             userMessages.addAlert({ type: 'success', hdr: 'Logout Success!', msg: 'You\'ve been successfully logged out.' });
             // Redirects home (login/registration page):
             $location.url('/');
+            $scope.scrollTo('top');
         },
     };
 
@@ -110,6 +114,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/account/' + username);
+        $scope.scrollTo('top');
     };
 
     $scope.home = function() {
@@ -120,6 +125,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         // Clear any messages:
         userMessages.clearAlerts();
         $location.url('/dashboard');
+        $scope.scrollTo('top');
     };
 
     $scope.newHike = function() {
@@ -128,16 +134,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $scope.status.newHike = true;
-        $anchorScroll('newHike');
-    };
-
-    $scope.newPreTrip = function() {
-        /*
-        Opens new Pre-Trip accordian when clicking `+ Pre-Trip` from dashboard top navigation.
-        */
-
-        $scope.status.newPreTrip = true;
-        $anchorScroll('newPreTrip');
+        $scope.scrollTo('top-new-hike');
     };
 
     $scope.recentHikes = function() {
@@ -146,7 +143,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $scope.status.isFirstOpen = true;
-        $anchorScroll('recentHikes');
+        $scope.scrollTo('top-recent-hikes')
     };
 
     $scope.viewHike = function(id) {
@@ -157,8 +154,15 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         - `id` - Id of hike to view.
         */
 
-        $anchorScroll();
         $location.url('/hikes/' + id);
+        $scope.scrollTo('top');
+    };
+
+    $scope.scrollHike = function() {
+        /*
+        Scrolls to hike when viewing Hike, Post or Pre Trip pages.
+        */
+        $scope.scrollTo('top-hike');
     };
 
     $scope.editHike = function(id) {
@@ -170,6 +174,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/hikes/' + id + '/edit');
+        $scope.scrollTo('top');
     };
 
     $scope.deleteHike = function(id) {
@@ -199,8 +204,18 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/hikes');
+        $scope.scrollTo('top');
     };
 
+
+    $scope.newPreTrip = function() {
+        /*
+        Opens new Pre-Trip accordian when clicking `+ Pre-Trip` from dashboard top navigation.
+        */
+
+        $scope.status.newPreTrip = true;
+        $scope.scrollTo('top-new-prerip');
+    };
 
     $scope.preTrip = function() {
         /*
@@ -208,15 +223,25 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/hikes/' + $routeParams.id + '/pre-trip');
+        $scope.scrollTo('top-pre-trip');
     };
+
+    $scope.scrollPreTrip = function() {
+        /*
+        Scrolls to PreTrip when viewing Hike, Post or Pre Trip pages.
+        */
+
+        $scope.scrollTo('top-pretrip');
+    };
+
 
     $scope.editPreTrip = function() {
         /*
         Loads edit pre-trip page.
         */
 
-        $anchorScroll();
         $location.url('/hikes/' + $routeParams.id + '/pre-trip/edit');
+        $scope.scrollTo('top');
     };
 
     $scope.deletePreTrip = function(hikeId, preTripId) {
@@ -248,6 +273,15 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/hikes/' + $routeParams.id + '/post-trip');
+        $scope.scrollTo('top');
+    };
+
+    $scope.scrollPostTrip = function() {
+        /*
+        Scrolls to PostTrip when viewing Hike, Post or Pre Trip pages.
+        */
+
+        $scope.scrollTo('top-posttrip');
     };
 
     $scope.editPostTrip = function() {
@@ -256,6 +290,7 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         */
 
         $location.url('/hikes/' + $routeParams.id + '/post-trip/edit');
+        $scope.scrollTo('top');
     };
 
     $scope.deletePostTrip = function(hikeId, postTripId) {
@@ -281,6 +316,14 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         }
     };
 
+    $scope.scrollStats = function() {
+        /*
+        Scrolls to stats portion on view all hikes page.
+        */
+
+        $scope.scrollTo('top-stats');
+    };
+
     $scope.logout = function() {
         /*
         Log out a user when clicking `Logout` from top navigation.
@@ -290,5 +333,19 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         userFactory.logout(cb.logout);
     };
 
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
+    };
 
 }]);

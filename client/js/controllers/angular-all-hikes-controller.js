@@ -85,12 +85,4 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
         userFactory.getStats(cb.stats);
     };
 
-    //-----------------------//
-    //-------- ACTIONS ------//
-    //-----------------------//
-
-    $scope.stats = function() {
-        $anchorScroll(stats);
-    };
-
 }]);

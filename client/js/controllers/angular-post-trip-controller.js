@@ -28,6 +28,7 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
                 $scope.user = authValidation.user;
                 // Get current hike:
                 $scope.getHike();
+                $scope.scrollTo('top-posttrip');
             }
         },
         hike: function(retrievedHike) {
@@ -59,6 +60,7 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             }
 
             $location.url('/dashboard');
+            $scope.scrollTo('top');
         },
         newPostTripError: function(err) {
             /*
@@ -80,7 +82,7 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             $scope.alerts = userMessages.getAlerts();
 
             // Scroll to errors:
-            $anchorScroll('postTripReport');
+            $scope.scrollTo('top-posttrip');
         },
     };
 
@@ -134,6 +136,21 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
             $scope.postTrip.hikeId = $routeParams.id;
             postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
         }
+    };
+
+    //------------------------------//
+    //------- ANCHOR SCROLL  -------//
+    //------------------------------//
+
+    $scope.scrollTo = function(htmlId) {
+        /*
+        Scrolls to an #id for an HTML element which is supplied.
+
+        Parameters:
+        - `htmlId` - HTML ID of element to scroll to.
+        */
+
+        $anchorScroll(htmlId);
     };
 
     //-----------------------------//

@@ -518,17 +518,17 @@ UserSchema.methods.validateUpdate = function(formData, callback) {
         console.log('Checking for min and max length of new username...');
         var minMaxValidate = self.__checkUsernameLength(formData.username);
 
-        // If username fails alphanumeric and underscore validation, add it to errors object:
-        if (alphaNum_validate) {
-            validated.errors.usernameAlphaNum_ = {
-                message: alphaNum_validate.message
-            }
-        }
-
         // If username fails minimum and maximum validation, add it to errors object:
         if (minMaxValidate) {
             validated.errors.usernameMinMax = {
                 message: minMaxValidate.message
+            }
+        } else {
+            // Else if username passed min and max validations, check if it passes alphanumeric check:
+            if (alphaNum_validate) {
+                validated.errors.usernameAlphaNum_ = {
+                    message: alphaNum_validate.message
+                }
             }
         }
     }

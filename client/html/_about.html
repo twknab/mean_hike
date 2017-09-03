@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" id="top">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -52,7 +52,7 @@
         </div>
     </div>
     <hr>
-    <p class="text-center"><a class="btn btn-danger btn-lg" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Login or Register</a></p>
+    <p class="text-center"><a class="btn btn-danger btn-lg" ng-click="scrollLogin()"><span class="glyphicon glyphicon-tree-conifer"></span> Login or Register</a></p>
     <hr>
     <p class="text-center"><a ng-click="contact()"><span class="glyphicon glyphicon-envelope"></span> Contact Me</a></p>
 
@@ -62,7 +62,7 @@
     <script type="text/ng-template" id="_register.html">
             <!-- Modal content-->
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12" id="top-registration">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" ng-click="$ctrl.cancel()">&times;</button>

@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-inverse" ng-controller="navController">
+<nav class="navbar navbar-inverse" ng-controller="navController" id="top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
@@ -31,6 +31,9 @@
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Start a Pre-Trip</em></small></h1>
         </div>
     </div>
+    <!---------------------->
+    <!--     HIKE INFO    -->
+    <!---------------------->
     <div class="row">
         <div class="col-sm-12">
             <!-- Hike Overview Panel -->
@@ -68,8 +71,11 @@
             </div>
         </div>
     </div>
+    <!------------------------->
+    <!--    PRE-TRIP INFO    -->
+    <!------------------------->
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="top-pretrip">
             <!-- Pre-Trip Report Panel -->
             <div class="panel panel-default">
                 <!-- Panel Title -->

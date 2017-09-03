@@ -1,5 +1,5 @@
 # ignore mockup:
-mockup.pdf
+.pdf
 
 # ignore node_modules folder:
 node_modules

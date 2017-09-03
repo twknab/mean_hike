@@ -86,16 +86,3 @@ into the hike. (medium-priority)
 + Add validation that Location URL must contain "http://" (high priority)
 
 + Delete User Account Feature -- Thursday (if Time) (high priority)
-
-
-### Where I Left Off:
-
-
-### Remaining:
-- Clear out current DB entries...
-- Launch and Deploy -- Friday
-- Check what IP you need for setting up to a domain...
-- Setup `hiking.tools` URL -- Friday
-- Create licensing document for GitHub -- Friday
-
-### Things to Consider After Features Built:

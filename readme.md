@@ -86,3 +86,6 @@ into the hike. (medium-priority)
 + Add validation that Location URL must contain "http://" (high priority)
 
 + Delete User Account Feature -- Thursday (if Time) (high priority)
+
+## Important Bug Fix:
+Right now dates are only being listed in PST time zone. A timezone feature needs to be added so that the server reflects the timezone of the user's timezone. Time and date stamps will be inaccurate for users outside of the West Coast/ PST zone.

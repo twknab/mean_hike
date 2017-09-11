@@ -87,5 +87,26 @@ into the hike. (medium-priority)
 
 + Delete User Account Feature -- Thursday (if Time) (high priority)
 
++ Add a weather API so that a zip code could be entered to get weather data?? (medium-priority)
+
+## Important Fixes:
+- On hike data fields, change `break-word` property, as this is causing the word to break mid-word, rather than to break after the word: ie,
+
+    `it bre
+    aks li
+    ke thi
+    s.`
+
+    `instead of:
+    it breaks
+    like
+    this.`
+
+- On dashboard / all hikes, instead of "added on..." change to "Updated on...", since this date is actually the updated at timestamp, and will change as pre/post trips are completed.
+
+- Edit pre-trip date and post-trip date (utilize updated_at) field. That way, if you had to add a hike from the past, you can do so and your pre-trip and post-trip data will be accurate. In your pre-trip form, have the field be "Date Hiked:" and in post-trip, have the field be, "Date Hiked:" -- does this seem right?
+
+- Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Are you equipped?
+
 ## Important Bug Fix:
 Right now dates are only being listed in PST time zone. A timezone feature needs to be added so that the server reflects the timezone of the user's timezone. Time and date stamps will be inaccurate for users outside of the West Coast/ PST zone.

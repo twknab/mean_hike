@@ -440,11 +440,11 @@ HikeSchema.methods.alphaNumCheck = function(string) {
     */
 
     // If string does *NOT* pass regex test using pattern below, create an error:
-    if (!(/^([A-Za-z0-9.,!@#&\'\"*-]+\s?)*$/.test(string))) {
+    if (!(/^([A-Za-z0-9.,!@#&\'\"*()-]+\s?)*$/.test(string))) {
         /*
         Pattern checks for A-Z, a-z, 0-9, and the following: `.,!@#*`. Error only flags if pattern is NOT matched.
         */
-        var err = new Error('must contain only letters, numbers, and the following characters: `.,!@#&*-\'\"`');
+        var err = new Error('must contain only letters, numbers, and the following characters: `.,!@#&*-\'\"()`');
         return err;
     }
 

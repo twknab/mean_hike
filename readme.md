@@ -108,5 +108,8 @@ into the hike. (medium-priority)
 
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Are you equipped?
 
-## Important Bug Fix:
-Right now dates are only being listed in PST time zone. A timezone feature needs to be added so that the server reflects the timezone of the user's timezone. Time and date stamps will be inaccurate for users outside of the West Coast/ PST zone.
+## Important Bugs:
+
+- Right now dates are only being listed in PST time zone. A timezone feature needs to be added so that the server reflects the timezone of the user's timezone. Time and date stamps will be inaccurate for users outside of the West Coast/ PST zone.
+
+- View Hike page top navigation has an odd break point when in portrait mode on my desktop monitor.

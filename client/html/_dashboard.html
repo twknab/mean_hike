@@ -73,7 +73,7 @@
                                     <span ng-if="hike.preTrip && !hike.postTrip">
                                         <div>
                                             <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
                                             <span class="label label-success">Pre-Trip Completed</span>
                                         </div>
                                     </span>
@@ -81,7 +81,7 @@
                                     <span ng-if="hike.preTrip && hike.postTrip">
                                         <div>
                                             <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
+                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
                                             <span class="label label-default">Completed</span>
                                         </div>
                                     </span>

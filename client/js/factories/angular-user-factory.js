@@ -155,7 +155,7 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 Parameters:
                 - `stats` - Stats object containing `gain` (in feet) and `distance` (in miles) -- these are completed hike totals.
                 */
-
+                console.log("SUCCESS");
                 success(stats.data);
             })
             .catch(function(err) {
@@ -166,6 +166,7 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `err` - Errors object returned.
                 */
 
+                console.log("FAILURE", err);
 
                 // If user fails to have valid session:
                 if (err.data.redirect) {

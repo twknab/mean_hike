@@ -50,6 +50,10 @@ app.controller('allHikesController', ['$scope', 'hikeFactory', 'userFactory', 'u
             - `allStats` - An object returned from our factory containing `distance` and `gain` values.
             */
 
+            // Setup stats object:
+            $scope.stats = {};
+
+            // Add stats value returned from server:
             $scope.stats.distance = allStats.distance;
             $scope.stats.gain = allStats.gain;
         },

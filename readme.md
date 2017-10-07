@@ -9,23 +9,24 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
-+ 9/03/17 - Add scrolls for user actions and troubleshooted any mobile issues.
-+ 9/01/17 - Stats feature added.
-+ 8/31/17 - Delete Hike, Delete Post-Trip, Delete Pre-Trip features added.
-+ 8/30/17 - Edit Hike, Edit Post-Trip, Edit Pre-Trip features added.
-+ 8/28/17 - PostTrip feature with validations added.
-+ 8/27/17 - View Hike feature added.
-+ 8/27/17 - All Hikes feature and Search added.
-+ 8/26/17 - PreTrip feature with validations added.
-+ 8/17/17 - Add New Hike feature completed with Validations.
-+ 8/08/17 - Secured API routes and Angular routes for valid session user only.
-+ 8/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
-+ 8/01/17 - Added User Account Update feature and added User Messages.
-+ 7/23/17 - Created separate `navController`, which handles all back-end navigation actions.
-+ 7/22/17 - Moved bulk sum of User validations to Models file.
-+ 7/21/17 - Added feature so username OR email allows for login validation.
-+ 7/20/17 - Cleaned up modal controllers.
-+ 7/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
++ 10/07/17 - Fixed bug with stats feature.
++ 09/03/17 - Add scrolls for user actions and troubleshooted any mobile issues.
++ 09/01/17 - Stats feature added.
++ 08/31/17 - Delete Hike, Delete Post-Trip, Delete Pre-Trip features added.
++ 08/30/17 - Edit Hike, Edit Post-Trip, Edit Pre-Trip features added.
++ 08/28/17 - PostTrip feature with validations added.
++ 08/27/17 - View Hike feature added.
++ 08/27/17 - All Hikes feature and Search added.
++ 08/26/17 - PreTrip feature with validations added.
++ 08/17/17 - Add New Hike feature completed with Validations.
++ 08/08/17 - Secured API routes and Angular routes for valid session user only.
++ 08/07/17 - Cleaned up all methods and added descriptive commenting / doc string notation.
++ 08/01/17 - Added User Account Update feature and added User Messages.
++ 07/23/17 - Created separate `navController`, which handles all back-end navigation actions.
++ 07/22/17 - Moved bulk sum of User validations to Models file.
++ 07/21/17 - Added feature so username OR email allows for login validation.
++ 07/20/17 - Cleaned up modal controllers.
++ 07/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
 ## Future Features Wish List:
 
@@ -89,6 +90,8 @@ into the hike. (medium-priority)
 
 + Add a weather API so that a zip code could be entered to get weather data?? (medium-priority)
 
++ Make trip, pre-trip and post-trip different colors, and have each bit of information be a unique shade as well based upon the general color its contained within (for example, if the trip section was blue, each trip sub-field would be a shade of blue that meshed with the overall design). The more you can visually break up your fields and data, the better. (medium-priority)
+
 ## Important Fixes:
 
 - Add "Start Date" to pre-trip creation and field to model.
@@ -101,5 +104,7 @@ into the hike. (medium-priority)
 ## Important Bugs:
 
 - Right now server time is incorrect...no timezones being accounted for...this needs fixing....!
+
+- Remove link underline on accordion headings on dashboard page.
 
 - View Hike page top navigation has an odd break point when in portrait mode on my desktop monitor.

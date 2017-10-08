@@ -104,7 +104,7 @@ into the hike. (medium-priority)
     - Add "Edit Start Date" field to pre-trip edit page.
     - Add "Edit End Date" field to pre-trip edit page.
 
-- Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Are you equipped?
+- Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
 

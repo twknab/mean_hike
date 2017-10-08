@@ -96,16 +96,17 @@ into the hike. (medium-priority)
 
 ## Important Fixes:
 
-- Add "Start Date" to pre-trip creation and field to model.
-- Add "End Date" to pre-trip creation and field model.
-- Add "Edit Start Date" field to pre-trip edit page.
-- Add "Edit End Date" field to pre-trip edit page.
+- Add trip date picker feature:
+    - Add "Start Date" to pre-trip creation and field to model.
+    - Add "End Date" to pre-trip creation and field model.
+
+- Add edit date picker feature:
+    - Add "Edit Start Date" field to pre-trip edit page.
+    - Add "Edit End Date" field to pre-trip edit page.
 
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Are you equipped?
 
 ## Important Bugs:
-
-- Right now server time is incorrect...no timezones being accounted for...this needs fixing....!
 
 - Remove link underline on accordion headings on dashboard page.
 

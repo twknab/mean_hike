@@ -150,6 +150,9 @@ module.exports = {
                 .populate('postTrip')
                 .exec()
                 .then(function(hike) {
+                    console.log("***** THIS IS THE HIKE *******");
+                    console.log(hike);
+                    console.log("******************************")
                     return res.json(hike);
                 })
                 .catch(function(err) {

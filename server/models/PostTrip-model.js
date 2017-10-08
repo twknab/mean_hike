@@ -261,7 +261,7 @@ PostTripSchema.methods.validateUpdatePostTrip = function(formData, callback) {
                 If update is successful, inital postTrip (the one originally queried) is returned.
                 */
 
-                console.log('PostTrip updated successfully.', initialPostTrip);
+                console.log('PostTrip updated successfully.');
 
                 // Create success message:
                 validated.messages.postTripUpdated = {

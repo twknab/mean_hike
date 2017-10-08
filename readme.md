@@ -92,6 +92,8 @@ into the hike. (medium-priority)
 
 + Make trip, pre-trip and post-trip different colors, and have each bit of information be a unique shade as well based upon the general color its contained within (for example, if the trip section was blue, each trip sub-field would be a shade of blue that meshed with the overall design). The more you can visually break up your fields and data, the better. (medium-priority)
 
++ Change hiking slugs to index value rather than id... (low-priority as may have to re-write some queries could be intense)
+
 ## Important Fixes:
 
 - Add "Start Date" to pre-trip creation and field to model.

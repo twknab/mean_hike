@@ -94,7 +94,7 @@ into the hike. (medium-priority)
 
 + Change hiking slugs to index value rather than id... (low-priority as may have to re-write some queries could be intense)
 
-## Important Fixes:
+## Important Needed Features:
 
 - Add trip date picker feature:
     - Add "Start Date" to pre-trip creation and field to model.

@@ -7,6 +7,17 @@
 
 This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
 
+## Features:
+
+- User login and registration, with validations and strong password.
+- User dashboard displaying recently updated hikes.
+- Create a new hike, recording round-trip distances and elevation gain.
+- Automatically receive a travel time estimate for your hike.
+- Create a pre-trip form, before you leave, to ensure better preparation and safety.
+- Create a post-trip form, upon return, recording your experiences and actual travel times.
+- See stats for fully completed hikes.
+- Edit your user profile (with validations).
+
 ## Completed Improvements:
 
 + 10/07/17 - Fixed bug with stats feature.

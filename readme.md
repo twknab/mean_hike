@@ -18,6 +18,15 @@ This application is designed to help others plan and prepare for their hiking ad
 - See stats for fully completed hikes.
 - Edit your user profile (with validations).
 
+## Technologies:
+
+- MongoDB
+- ExpressJS
+- Angular 1.x
+- Node
+- Bcrypt
+- Angular UI
+
 ## Completed Improvements:
 
 + 10/07/17 - Fixed bug with stats feature.

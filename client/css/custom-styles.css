@@ -179,6 +179,22 @@ a.alert_link.ng-scope:hover {
 	text-decoration: none;
 }
 
+/************************/
+/*    PRE-TRIP HIKE:    */
+/************************/
+
+.no-list-margin {
+  margin: 0px;
+}
+
+/*************************/
+/*    POST-TRIP HIKE:    */
+/*************************/
+
+.p-0 {
+  padding: 0px;
+}
+
 /*************************/
 /*    COMPLETED HIKE:    */
 /*************************/

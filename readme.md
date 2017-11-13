@@ -131,3 +131,12 @@ into the hike. (medium-priority)
 - Remove link underline on accordion headings on dashboard page.
 
 - View Hike page top navigation has an odd break point when in portrait mode on my desktop monitor.
+
+
+## Where I Left Off:
+Got the date fields all setup, need to hook in back end angular stuff.
+But the date fields seem appropriately formatted and setup.
+I also added start and end dates to the Post Trip model.
+Need to:
+  - Hook up angular portion.
+  - Setup validations (do you need any?)

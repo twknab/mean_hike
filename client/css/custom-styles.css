@@ -158,14 +158,6 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     font-size: 45px;
 };
 
-/************************/
-/*    INFO MESSAGES:    */
-/************************/
-.ng-scope.ng-isolate-scope.alert.alert-dismissible.user-updates.alert-warning {
-	background-color: #617dd7;
-	border-color: #617dd7;
-}
-
 /*******************/
 /*    DASHBOARD    */
 /*******************/

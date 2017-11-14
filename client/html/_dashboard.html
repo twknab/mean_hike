@@ -43,7 +43,7 @@
             <!-- If User's Info Messages Set to True, Show Info -->
             <span ng-if="user.infoMsgStatus === true">
               <!-- User Info Messages (Angular UI Bootstrap) -->
-              <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'user-updates alert-' + (alert.type || 'warning')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="infoMessageFalse()">Thanks, I've got it.</a></div>
+              <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'user-updates alert-' + (alert.type || 'success')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="infoMessageFalse()">Thanks, I've got it.</a></div>
             </span>
         </div>
     </div>

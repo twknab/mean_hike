@@ -226,7 +226,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
     // Generate Info Alerts:
     $scope.infoAlerts = [
-        { type: 'warning', hdr: 'New Feature! 💝', msg: 'Now you can edit or modify the date of your hike in your Post-Trip form!' }
+        { type: 'success', hdr: 'New Feature! 💝', msg: 'Now you can edit or modify the date of your hike in your Post-Trip form!' }
     ];
 
     $scope.closeWelcomeAlert = function(index) {

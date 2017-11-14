@@ -73,7 +73,7 @@
                                     <span ng-if="hike.preTrip && !hike.postTrip">
                                         <div>
                                             <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
+                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.preTrip.updatedAt | date}}</a> -
                                             <span class="label label-success">Pre-Trip Completed</span>
                                         </div>
                                     </span>
@@ -81,7 +81,7 @@
                                     <span ng-if="hike.preTrip && hike.postTrip">
                                         <div>
                                             <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
+                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.postTrip.updatedAt | date}}</a> -
                                             <span class="label label-default">Completed</span>
                                         </div>
                                     </span>
@@ -93,7 +93,7 @@
                                 </li>
                             </ul>
                             <!-- All Hikes Button -->
-                            <button class="form-control btn btn-link margin-top-sm" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
+                            <button class="btn-block btn-lg btn btn-link margin-top-sm" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
                         </span>
                         <span ng-if="recentHikes.length < 1">
                             <h4 class="text-center margin-all">
@@ -156,7 +156,7 @@
                                     <textarea name="notes" id="notes" cols="30" rows="10" ng-model="newHike.notes" class="form-control input-lg" placeholder="Special Notes: logistics, permits, driving or trailhead access"></textarea>
                                 </div>
                                 <!-- Add New Hike Button -->
-                                <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
+                                <button type="submit" class="btn-block btn-info btn-lg margin-top-sm"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
                             </div>
                         </form>
                     </div>
@@ -173,12 +173,12 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-arrow-right"></i></span>
-                                        <select class="form-control" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
+                                        <select class="form-control input-lg" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
                                             <option value="">Choose a Hike...</option>
                                         </select>
                                     </div>
                                     <!-- Start Pre-Trip Button -->
-                                    <button type="submit" class="form-control btn btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
+                                    <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
                                 </div>
                             </form>
                         </span>

@@ -58,10 +58,25 @@
                     </h2>
                 </div>
                 <div class="panel-body">
-                    <!-- <h1>{{hike.name}}</h1> -->
                     <ul class="list-group">
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
-                        <li class="list-group-item fix-line-break"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> {{hike.region}}</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span>
+                          <!-- If post trip is completed: -->
+                          <span ng-if="hike.postTrip">
+                            <!-- If a day trip -->
+                            <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
+                              <strong>Hiked:</strong> (Day Hike) {{hike.postTrip.start_date | date}}
+                            </span>
+                            <!-- If multi-day -->
+                            <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
+                              <strong>Hiked:</strong> (Multiday) {{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}
+                            </span>
+                          </span>
+                          <!-- If post-trip not completed: -->
+                          <span ng-if="!hike.postTrip">
+                            <strong>Date Added:</strong> {{hike.createdAt | date}}
+                          </span>
+                        </li>
+                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> {{hike.region}}</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-horizontal"></span> Distance:</strong> {{hike.distance}} miles</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-vertical"></span> Elevation Gain:</strong> {{hike.gain}} feet</li>
                         <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> {{hike.timeEstimate}}</li>
@@ -149,7 +164,7 @@
                             <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</a></p>
                         </h4>
                         <!-- Back To Dashboard -->
-                        <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                        <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                     </span>
                 </div>
             </div>
@@ -169,7 +184,14 @@
                 <div class="panel-body">
                     <span ng-if="hike.postTrip">
                         <ul class="list-group">
-                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Created:</strong> {{hike.postTrip.createdAt | date}}</li>
+                            <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Hiked:</strong>
+                              <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
+                                (Day Hike) {{hike.postTrip.start_date | date}}
+                              </span>
+                              <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
+                                (Multiday) {{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}
+                              </span>
+                            </li>
                             <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Actual Hiking Time:</strong> <span class="fix-line-break">{{hike.postTrip.time}}</span></li>
                         </ul>
                         <div class="panel panel-default">
@@ -226,10 +248,10 @@
                     </span>
                     <span ng-if="hike.preTrip && !hike.postTrip">
                         <h4 class="text-center">
-                            <p class="text-center margin-top"><a class="btn btn-info btn-lg" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
+                            <p class="text-center margin-top"><a class="btn btn-block btn-info btn-lg" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</a></p>
                         </h4>
                         <!-- Back to Dashboard Button -->
-                        <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                        <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                     </span>
                 </div>
             </div>

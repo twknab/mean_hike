@@ -134,9 +134,71 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
         else {
             // Else, add Hike ID to Post-Trip object for use on server:
             $scope.postTrip.hikeId = $routeParams.id;
+
+            // Submit post trip for validation:
             postTripFactory.newPostTrip($scope.postTrip, cb.newPostTrip, cb.newPostTripError);
         }
     };
+
+    //---------------------------------------//
+    //------- ANGULAR UI DATE PICKER  -------//
+    //---------------------------------------//
+    $scope.today = function() {
+      /*
+      Sets date to today.
+      */
+
+      $scope.self = new Date();
+    };
+
+    $scope.clear = function() {
+      /*
+      Clears date.
+      */
+
+      $scope.self = null;
+    };
+
+    $scope.dateOptions = {
+      /*
+      Datepicker options.
+      */
+
+      showWeeks: true
+    };
+
+    $scope.startDate = function() {
+      /*
+      Opens start date popup.
+      */
+
+      $scope.starting_date.opened = true;
+    };
+
+    $scope.endDate = function() {
+      /*
+      Opens end date popup.
+      */
+
+      $scope.ending_date.opened = true;
+    };
+
+    $scope.starting_date = {
+      /*
+      Starting date datepicker closed by default.
+      */
+
+      opened: false
+    };
+
+    $scope.ending_date = {
+      /*
+      Ending date datepicker closed by default.
+      */
+
+      opened: false
+    };
+
 
     //------------------------------//
     //------- ANCHOR SCROLL  -------//

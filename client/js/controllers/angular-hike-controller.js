@@ -39,7 +39,6 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
             - `hike` - An object returned from our factory, via a response from our API, containing all hikes.
             */
 
-            console.log(hike);
             $scope.hike = hike;
         },
     };

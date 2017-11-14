@@ -39,6 +39,7 @@ app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFa
             */
 
             $scope.postTrip = retrievedPostTrip;
+            $scope.setDate(retrievedPostTrip.start_date, retrievedPostTrip.end_date);
 
             // Get alert messages:
             $scope.alerts = userMessages.getAlerts();
@@ -124,6 +125,70 @@ app.controller('postTripUpdateController', ['$scope', 'postTripFactory', 'userFa
         userMessages.clearAlerts();
 
         postTripFactory.updatePostTrip($scope.postTrip, cb.updatedPostTrip, cb.updatePostTripError);
+    };
+
+    //---------------------------------------//
+    //------- ANGULAR UI DATE PICKER  -------//
+    //---------------------------------------//
+    $scope.today = function() {
+      /*
+      Sets date to today.
+      */
+
+      $scope.self = new Date();
+    };
+
+    $scope.clear = function() {
+      /*
+      Clears date.
+      */
+
+      $scope.self = null;
+    };
+
+    $scope.dateOptions = {
+      /*
+      Datepicker options.
+      */
+
+      showWeeks: true
+    };
+
+    $scope.startDate = function() {
+      /*
+      Opens start date popup.
+      */
+
+      $scope.starting_date.opened = true;
+    };
+
+    $scope.endDate = function() {
+      /*
+      Opens end date popup.
+      */
+
+      $scope.ending_date.opened = true;
+    };
+
+    $scope.starting_date = {
+      /*
+      Starting date datepicker closed by default.
+      */
+
+      opened: false
+    };
+
+    $scope.ending_date = {
+      /*
+      Ending date datepicker closed by default.
+      */
+
+      opened: false
+    };
+
+    $scope.setDate = function(start, end) {
+      $scope.postTrip.start_date = new Date(start);
+      $scope.postTrip.end_date = new Date(end);
     };
 
     //------------------------------//

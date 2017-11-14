@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-4 text-center">
             <div class="btn-group margin-bottom-sm" ng-controller="navController">
-                <button type="button" class="btn btn-link" ng-click="scrollStats()"><span class="glyphicon glyphicon-stats"></span> Stats</button>
+                <button type="button" class="btn btn-link" ng-click="scrollStats()"><span class="glyphicon glyphicon-stats"></span> Completed Hiking Stats</button>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                                 <span ng-if="hike.preTrip && !hike.postTrip">
                                     <div>
                                         <strong>{{hike.name}}</strong> -
-                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
+                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.preTrip.updatedAt | date}}</a> -
                                         <span class="label label-success">Pre-Trip Completed</span>
                                     </div>
                                 </span>
@@ -78,7 +78,7 @@
                                 <span ng-if="hike.preTrip && hike.postTrip">
                                     <div>
                                         <strong>{{hike.name}}</strong> -
-                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.updatedAt | date}}</a> -
+                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.postTrip.updatedAt | date}}</a> -
                                         <span class="label label-default">Completed</span>
                                     </div>
                                 </span>
@@ -90,7 +90,7 @@
                             </li>
                         </ul>
                         <!-- Back to Dashboard Button -->
-                        <button class="form-control btn btn-link margin-top-sm" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+                        <button class="btn btn-block btn-lg btn-link margin-top-sm" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
                     </span>
                     <span ng-if="hikes.length < 1">
                         <h4 class="text-center margin-top">
@@ -151,7 +151,7 @@
             </div>
             <p class="text-center"><em>Note: Stats are for fully completed hikes only.</em></p>
             <!-- Back to Dashboard Button -->
-            <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+            <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
         </div>
     </div>
 </div> <!-- End Primary Container -->

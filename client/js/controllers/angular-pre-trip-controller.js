@@ -150,6 +150,7 @@ app.controller('preTripController', ['$scope', 'preTripFactory', 'userFactory', 
         else {
             // Add Hike ID to Pre-Trip object for use on server:
             $scope.preTrip.hikeId = $routeParams.id;
+            
             preTripFactory.newPreTrip($scope.preTrip, cb.newPreTrip, cb.newPreTripError);
         }
     };

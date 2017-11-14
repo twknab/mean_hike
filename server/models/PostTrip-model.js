@@ -10,7 +10,7 @@ This is the model file for `PostTrip`.
 4. EDIT POST-TRIP VALIDATION
     - `validateUpdatePostTrip()` - Validaes a PostTrip update.
 5. INSTANCE METHODS:
-    Note: Please see doc strings in each function for more info:
+    Note: Currently all validation methods are contained within the methods above.
 6. MODEL CREATION AND EXPORT
 
 --------------------------->>
@@ -109,14 +109,14 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
 
   console.log("Beginning New PostTrip Validation now...");
 
-  // If empty form is submitted throw an error:
+  // If empty form is submitted, send error denoting required fields:
   if (Object.keys(formData).length < 1) {
     validated.errors.requiredErr = {
-      message: 'Actual time and actual weather are both required fields.',
+      message: 'Date started, date ended, hiking time and weather are all required fields.',
     };
   }
 
-  // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them):
+  // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them) -- these fields are not required and may be left empty:
   if (formData.hazards == '') {
     delete formData.hazards;
   };
@@ -129,17 +129,23 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
     delete formData.notes;
   };
 
-  // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
+  // Make sure start date is not after ending date (ie, that start and end date are chronological -- no Time Travelers allowed!):
+  if (formData.start_date > formData.end_date) {
+    validated.errors.hikingDates = {
+      message: 'Hiking end date cannot be earlier than starting date.',
+    };
+  }
+
+  // Iterate through the object and if any properties are less than or equal to 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
   for (var property in formData) {
     if (formData.hasOwnProperty(property)) {
       if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
         validated.errors.requiredErr = {
-          message: 'Actual time and actual weather are both required fields.',
+          message: 'Submitted fields must be at least 2 characters.',
         };
       }
     }
   };
-
 
   // Check if any errors thus far in validation, if so send back:
   // If there are any errors send back validated object containing them:
@@ -231,12 +237,19 @@ PostTripSchema.methods.validateUpdatePostTrip = function(formData, callback) {
     delete formData.notes;
   };
 
+  // Make sure start date is not after ending date (ie, that start and end date are chronological -- no Time Travelers allowed!):
+  if (formData.start_date > formData.end_date) {
+    validated.errors.hikingDates = {
+      message: 'Hiking end date cannot be earlier than starting date.',
+    };
+  }
+
   // Iterate through the object and if any properties are less than 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
   for (var property in formData) {
     if (formData.hasOwnProperty(property)) {
       if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
         validated.errors.requiredErr = {
-          message: 'Actual time and actual weather are both required fields.',
+          message: 'Submitted fields must be at least 2 characters.',
         };
       }
     }

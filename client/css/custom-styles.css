@@ -119,7 +119,7 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 }
 
 .margin-bottom-none {
-    margin-top: 0px;
+    margin-bottom: 0px !important;
 }
 
 .margin-top-none {
@@ -193,6 +193,17 @@ a.alert_link.ng-scope:hover {
 
 .p-0 {
   padding: 0px;
+}
+
+.hike-date-hdr {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 21px;
+  font-size: 22.5px;
+  line-height: inherit;
+  color: #ffffff;
+  border: 0;
+  border-bottom: 1px solid transparent
 }
 
 /*************************/

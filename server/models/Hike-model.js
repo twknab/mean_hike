@@ -135,9 +135,6 @@ HikeSchema.methods.validateHike = function(formData, callback) {
     };
 
     console.log("Beginning New Hike Validation now...");
-    console.log('$$$$$$$$$$$$$$$$$$$$');
-    console.log(formData);
-    console.log('$$$$$$$$$$$$$$$$$$$$');
 
     // If distance or gain values have been submitted, parseFloat these values (meaning convert them to a number). Development note: It might be good to also add a numerical regex check here prior to parsing for extra validation. We are using a `input=["number"]` on the front end, which will not allow strings to be submitted (if the browser supports the `input=["number"]` attribute).
 
@@ -286,9 +283,6 @@ HikeSchema.methods.validateUpdateHike = function(formData, callback) {
     };
 
     console.log("Beginning Update Hike Validation now...");
-    console.log('$$$$$$$$$$$$$$$$$$$$');
-    console.log(formData);
-    console.log('$$$$$$$$$$$$$$$$$$$$');
 
     // If distance or gain values have been submitted, parseFloat these values (meaning convert them to a number). Development note: It might be good to also add a numerical regex check here prior to parsing for extra validation. We are using a `input=["number"]` on the front end, which will not allow strings to be submitted (if the browser supports the `input=["number"]` attribute).
 

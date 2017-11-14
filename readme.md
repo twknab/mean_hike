@@ -29,6 +29,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
++ 11/13/17 - Can now add / edit hike start and end dates.
 + 10/07/17 - Fixed bug with stats feature.
 + 09/03/17 - Add scrolls for user actions and troubleshooted any mobile issues.
 + 09/01/17 - Stats feature added.
@@ -116,14 +117,6 @@ into the hike. (medium-priority)
 
 ## Important Needed Features:
 
-- Add trip date picker feature:
-    - Add "Start Date" to pre-trip creation and field to model.
-    - Add "End Date" to pre-trip creation and field model.
-
-- Add edit date picker feature:
-    - Add "Edit Start Date" field to pre-trip edit page.
-    - Add "Edit End Date" field to pre-trip edit page.
-
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
@@ -132,11 +125,5 @@ into the hike. (medium-priority)
 
 - View Hike page top navigation has an odd break point when in portrait mode on my desktop monitor.
 
-
-## Where I Left Off:
-Got the date fields all setup, need to hook in back end angular stuff.
-But the date fields seem appropriately formatted and setup.
-I also added start and end dates to the Post Trip model.
-Need to:
-  - Hook up angular portion.
-  - Setup validations (do you need any?)
+## Developer Note:
+- Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

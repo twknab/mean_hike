@@ -65,19 +65,18 @@
                   <h3 class="padding-left-sm"><em>{{hike.region}}</em></h3>
                 </span>
                 <!-- Distance and Elevation -->
-                <div class="row margin-top margin-bottom-sm">
-                    <div class="col-md-6 text-center">
+                <div class="row margin-top margin-bottom">
+                    <div class="col-md-3 text-center">
                       <h1>{{hike.distance}} miles</h1>
                       <h4>round-trip</h4>
                     </div>
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-3 text-center">
                       <h1>{{hike.gain}} feet</h1>
                       <h4>total gain</h4>
                     </div>
-                </div>
-                <div class="row padding-bottom-sm">
-                    <div class="col-md-12 text-center">
-                      <h2><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> <br>{{hike.timeEstimate}}</h2>
+                    <div class="col-md-6 text-center">
+                      <h1>{{hike.timeEstimate}}</h1>
+                      <h4>estimated time</h4>
                     </div>
                 </div>
                 <div class="row margin-bottom" ng-if="hike.location">
@@ -87,7 +86,7 @@
                 </div>
                 <div class="row padding-bottom-sm padding-left-sm">
                     <div class="col-md-12">
-                      <h3>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h3>
+                      <h4>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h4>
                       <hr>
                       <span ng-if="!hike.notes">
                           <em>There aren't any notes for this hike.</em>

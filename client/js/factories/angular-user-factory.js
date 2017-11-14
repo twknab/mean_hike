@@ -156,7 +156,7 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
                 - `updatedUser` - User object.
                 */
 
-                welcome();
+                success();
             })
             .catch(function(err) {
                 /*

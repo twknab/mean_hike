@@ -255,7 +255,7 @@ module.exports = {
             User.findOneAndUpdate({
                 _id: req.session.userId // Finds a user by session data
             }, {
-                WelcomeMsgStatus: false // Updates user property to False
+                welcomeMsgStatus: false // Updates user property to False
             })
             .then(function(foundUser) {
                 /*
@@ -301,11 +301,12 @@ module.exports = {
             console.log("This route is inaccessible without a valid session.");
             res.status(401).send({ redirect:"/"});
         } else {
+          console.log("SETTING INFO TO FALSE")
             // Finds user by session and updates property:
             User.findOneAndUpdate({
                 _id: req.session.userId // Finds a user by session data
             }, {
-                InfoMsgStatus: false // Updates user property to False
+                infoMsgStatus: false // Updates user property to False
             })
             .then(function(foundUser) {
                 /*

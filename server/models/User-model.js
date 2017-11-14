@@ -100,11 +100,11 @@ var UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Hike'
     }], // end hikes array
-    WelcomeMsgStatus: { // if true, welcome msg will display
+    welcomeMsgStatus: { // if true, welcome msg will display
         type: Boolean,
         default: true,
     }, // end welcome msg status
-    InfoMsgStatus: { // if true, info msgs will display
+    infoMsgStatus: { // if true, info msgs will display
         type: Boolean,
         default: true,
     }, // end info msg status

@@ -36,12 +36,15 @@
             <!-- Page Title and Icon -->
             <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>{{user.username}}'s Dashboard</em></small></h1>
             <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
-            <span ng-if="user.WelcomeMsgStatus === true">
+            <span ng-if="user.welcomeMsgStatus === true">
                 <!-- Welcome Message (Angular UI Bootstrap) -->
                 <div uib-alert ng-repeat="alert in welcomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
             </span>
-            <!-- User Info Messages (Angular UI Bootstrap) -->
-            <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="infoMessageFalse()">Thanks, I've got it.</a></div>
+            <!-- If User's Info Messages Set to True, Show Info -->
+            <span ng-if="user.infoMsgStatus === true">
+              <!-- User Info Messages (Angular UI Bootstrap) -->
+              <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'user-updates alert-' + (alert.type || 'warning')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="infoMessageFalse()">Thanks, I've got it.</a></div>
+            </span>
         </div>
     </div>
     <!-- Accordian Responsive Row -->

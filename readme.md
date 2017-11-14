@@ -116,11 +116,13 @@ into the hike. (medium-priority)
 + Change hiking slugs to index value rather than id... (low-priority as may have to re-write some queries could be intense)
 
 ## Important Needed Features:
+- Clean up visual display of information, add colors to help visually differentiate each information section.
+
+- Turn the view hike / post-trip / pre-trip into accordions, like the homepage, instead of the stacked cards like they are now.
 
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
-- Top-level text nav on Hike page is setup incorrectly -- you've got a 1/4 column setup and doesn't look right responsively.
 
 - Remove link underline on accordion headings on dashboard page.
 

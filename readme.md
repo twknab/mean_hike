@@ -124,9 +124,5 @@ into the hike. (medium-priority)
 
 ## Important Bugs:
 
-- Remove link underline on accordion headings on dashboard page.
-
-- View Hike page top navigation has an odd break point when in portrait mode on my desktop monitor.
-
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

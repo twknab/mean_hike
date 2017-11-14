@@ -11,6 +11,17 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /*************************/
+/*       GENERAL:        */
+/*************************/
+.notes-link {
+  color: #ffffff;
+
+}
+.notes-link:hover {
+  color: #0ce3ac;
+}
+
+/*************************/
 /*       PADDING:        */
 /*************************/
 
@@ -138,6 +149,10 @@ The stylings below are customized additions to the default Bootstrap CSS file.
     white-space: pre-wrap;
     word-break: break-word;
     display: inline;
+}
+
+.subdued {
+  color: #c4c4c4;
 }
 
 /*************************/

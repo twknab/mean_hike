@@ -120,6 +120,7 @@ into the hike. (medium-priority)
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
+- Top-level text nav on Hike page is setup incorrectly -- you've got a 1/4 column setup and doesn't look right responsively.
 
 - Remove link underline on accordion headings on dashboard page.
 

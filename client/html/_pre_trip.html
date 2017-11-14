@@ -34,33 +34,71 @@
     <!---------------------->
     <!--     HIKE INFO    -->
     <!---------------------->
+    <!-- Responsive Row -->
     <div class="row">
         <div class="col-sm-12">
             <!-- Hike Overview Panel -->
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="top-hike">
                 <!-- Panel Title -->
                 <div class="panel-heading">
-                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span></h2></div>
+                    <h2 class="heading-shadow">
+                        <span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span>
+                    </h2>
+                </div>
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.createdAt | date}}</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-screenshot"></span> Region:</strong> <span class="fix-line-break">{{hike.region}}</span></li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-horizontal"></span> Distance:</strong> {{hike.distance}} miles</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-resize-vertical"></span> Elevation Gain:</strong> {{hike.gain}} feet</li>
-                        <li class="list-group-item"><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> {{hike.timeEstimate}}</li>
-                        <li class="list-group-item"><a ng-href="{{hike.location}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a></li>
-                    </ul>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong><span class="glyphicon glyphicon-pencil"></span> Notes:</strong></div>
-                        <div class="panel-body">
-                            <span ng-if="!hike.notes">
-                                <em>There aren't any notes for this hike.</em>
-                            </span>
-                            <span ng-if="hike.notes"><p class="fix-line-break">{{hike.notes}}</p></span>
-                        </div>
-                    </div>
+                  <!-- If post trip is completed: -->
+                  <span ng-if="hike.postTrip">
+                    <!-- If a day trip -->
+                    <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
+                      <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
+                      <h3 class="padding-left-sm"><em>Dayhike @ {{hike.region}}</em></h3>
+                    </span>
+                    <!-- If multi-day -->
+                    <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
+                      <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
+                      <h4 class="padding-left-sm"><em>Multiday @ {{hike.region}}</em></h4>
+                    </span>
+                  </span>
+                  <!-- If post-trip not completed: -->
+                  <span ng-if="!hike.postTrip">
+                    <h3 class="subdued padding-left-sm"><em>Added {{hike.createdAt | date}}</em></h3>
+                    <h3 class="padding-left-sm"><em>{{hike.region}}</em></h3>
+                  </span>
+                  <!-- Distance and Elevation -->
+                  <div class="row margin-top margin-bottom-sm">
+                      <div class="col-md-6 text-center">
+                        <h1>{{hike.distance}} miles</h1>
+                        <h4>round-trip</h4>
+                      </div>
+                      <div class="col-md-6 text-center">
+                        <h1>{{hike.gain}} feet</h1>
+                        <h4>total gain</h4>
+                      </div>
+                  </div>
+                  <div class="row padding-bottom-sm">
+                      <div class="col-md-12 text-center">
+                        <h2><strong><span class="glyphicon glyphicon-time"></span> Estimated Time:</strong> <br>{{hike.timeEstimate}}</h2>
+                      </div>
+                  </div>
+                  <div class="row margin-bottom" ng-if="hike.location">
+                      <div class="col-md-12 text-center">
+                        <a ng-href="{{hike.location}}" target="_blank" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a>
+                      </div>
+                  </div>
+                  <div class="row padding-bottom-sm padding-left-sm">
+                      <div class="col-md-12">
+                        <h3>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h3>
+                        <hr>
+                        <span ng-if="!hike.notes">
+                            <em>There aren't any notes for this hike.</em>
+                        </span>
+                        <span ng-if="hike.notes">
+                            <p class="fix-line-break">{{hike.notes}}</p>
+                        </span>
+                      </div>
+                  </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
-                    <div class='wrapper text-center'>
+                    <div class="wrapper text-center">
                         <div class="btn-group" ng-controller="navController">
                             <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
                             <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>

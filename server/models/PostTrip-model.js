@@ -37,11 +37,11 @@ var mongoose = require('mongoose'),
 var PostTripSchema = new Schema({
   start_date: {
     type: Date,
-    default: Date.now
+    default: this.created_at
   }, // end hike start date field
   end_date: {
     type: Date,
-    default: Date.now
+    default: this.created_at
   }, // end hike end date field
   time: {
     type: String,

@@ -284,6 +284,56 @@ module.exports = {
 
 
     },
+    infoSetFalse: function(req, res) {
+        /*
+        Sets a user's info message status to false, preventing the user from seeing the info messages (unless reset by admins).
+
+        Parameters:
+        - `req`: Request object.
+        - `res`: Response object.
+
+        Notes:
+        - Once this is run, Users will no longer see info messages, until reset by admin (when new updates are sent).
+        */
+
+        // If not a valid session, redirect home, else begin update process:
+        if (typeof(req.session.userId) == 'undefined') {
+            console.log("This route is inaccessible without a valid session.");
+            res.status(401).send({ redirect:"/"});
+        } else {
+            // Finds user by session and updates property:
+            User.findOneAndUpdate({
+                _id: req.session.userId // Finds a user by session data
+            }, {
+                InfoMsgStatus: false // Updates user property to False
+            })
+            .then(function(foundUser) {
+                /*
+                Returns found user.
+
+                Paramters:
+                - `foundUser` - User object.
+                */
+
+                // Send a confirmation text:
+                return res.json('User info message updated.');
+            })
+            .catch(function(err) {
+                /*
+                Catches any error if findOne query fails:
+
+                Parameters:
+                - `err` - Errors object.
+                */
+
+                // Send errors:
+                console.log(err);
+                return res.status(500).json(err);
+            })
+        }
+
+
+    },
     stats: function(req, res) {
         /*
         Gets stats for a user's completed hikes.

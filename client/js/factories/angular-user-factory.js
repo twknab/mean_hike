@@ -139,6 +139,43 @@ app.factory('userFactory', ['$http', '$window', function($http, $window) {
             })
     };
 
+    factory.infoMessageFalse = function(success) {
+        /*
+        Sets Info Message status to False.
+
+        Parameters:
+        - `success` - Callback to run after status has been updated.
+        */
+
+        $http.get('/api/user/info')
+            .then(function(updatedUser) {
+                /*
+                Returns User whose WelcomeMsgStatus is now updated to False.
+
+                Parameters:
+                - `updatedUser` - User object.
+                */
+
+                welcome();
+            })
+            .catch(function(err) {
+                /*
+                Returns errors if unsuccessful.
+
+                Parameters:
+                - `err` - Errors object returned.
+                */
+
+
+                // If user fails to have valid session:
+                if (err.data.redirect) {
+                    $window.location.href = err.data.redirect;
+                }
+
+
+            })
+    };
+
     factory.getStats = function(success) {
         /*
         Get completed hike stats.

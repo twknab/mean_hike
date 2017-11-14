@@ -12,6 +12,7 @@ module.exports = function(app) {
         .get('/api/user/auth', UserController.auth) // authorize a user session
         .post('/api/user/update', UserController.update) // update a user
         .get('/api/user/welcome', UserController.welcomeSetFalse) // turn off welcome msg
+        .get('/api/user/info', UserController.infoSetFalse) // turn off info msg
         .get('/api/user/stats', UserController.stats) // get user completed hike stats
         .post('/api/user/logout', UserController.logout) // logout a user
         .post('/api/hike', HikeController.addHike) // creates new hike

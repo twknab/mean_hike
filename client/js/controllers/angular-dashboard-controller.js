@@ -59,6 +59,14 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
             // Get a fresh copy of the User for Angular:
             $scope.auth();
         },
+        infoSetFalse: function() {
+            /*
+            Set user's Info Message Status to false so info message is no longer displayed.
+            */
+
+            // Get a fresh copy of the User for Angular:
+            $scope.auth();
+        },
         hike: function(validated) {
             /*
             Runs after `$scope.addHike()` completes; shows proper messages and updates recent hikes.
@@ -216,6 +224,11 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         { type: 'info', hdr: 'Instructions:', msg: 'Add a New Hike below. Prepare for your trip by completing a Pre-Trip report. When you return, complete a Post-Trip report. View your full report to improve with each experience!' }
     ];
 
+    // Generate Info Alerts:
+    $scope.infoAlerts = [
+        { type: 'warning', hdr: 'New Feature! 💝', msg: 'Now you can edit or modify the date of your hike in your Post-Trip form!' }
+    ];
+
     $scope.closeWelcomeAlert = function(index) {
         /*
         Close welcome alert.
@@ -234,6 +247,26 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
         // Runs `welcomeMessageFalse` factory method to send an API request and update the User's `welcomeMsgStatus` property to `false`:
         userFactory.welcomeMessageFalse(cb.welcomeSetFalse)
+    };
+
+    $scope.closeInfoAlert = function(index) {
+        /*
+        Close info alert.
+
+        Parameters:
+        - `index` - Index value of alert to be removed.
+        */
+
+        $scope.infoAlerts.splice(index, 1);
+    };
+
+    $scope.infoMessageFalse = function() {
+        /*
+        Never show info message again.
+        */
+
+        // Runs `infoMessageFalse` factory method to send an API request and update the User's `infoMsgStatus` property to `false`:
+        userFactory.infoMessageFalse(cb.infoSetFalse)
     };
 
     $scope.closeSuccessAlert = function(index) {

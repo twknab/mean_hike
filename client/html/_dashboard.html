@@ -40,6 +40,8 @@
                 <!-- Welcome Message (Angular UI Bootstrap) -->
                 <div uib-alert ng-repeat="alert in welcomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
             </span>
+            <!-- User Info Messages (Angular UI Bootstrap) -->
+            <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="infoMessageFalse()">Thanks, I've got it.</a></div>
         </div>
     </div>
     <!-- Accordian Responsive Row -->

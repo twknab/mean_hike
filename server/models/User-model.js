@@ -104,6 +104,10 @@ var UserSchema = new Schema({
         type: Boolean,
         default: true,
     }, // end welcome msg status
+    InfoMsgStatus: { // if true, info msgs will display
+        type: Boolean,
+        default: true,
+    }, // end info msg status
 }, {
     timestamps: true,
 });

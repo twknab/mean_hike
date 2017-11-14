@@ -22,7 +22,7 @@
                 <button class="btn btn-default navbar-btn margin-right-sm" ng-click="userAccount(user.username)"><span class="glyphicon glyphicon-log-out"></span> {{user.username}}'s Account</button>
             </li>
             <li>
-                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
             </li>
         </ul>
     </div>
@@ -123,28 +123,28 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="newHike.name">
+                                    <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="newHike.name" ng-required="true">
                                 </div>
                             </div>
                             <!-- Region Field -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
-                                    <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
+                                    <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region" ng-required="true">
                                 </div>
                             </div>
                             <!-- Hike Distance Field -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                                    <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Rnd Trip Dist. (mi)">
+                                    <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Rnd Trip Dist. (mi)" ng-required="true">
                                 </div>
                             </div>
                             <!-- Elevation Gain Field -->
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                                    <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Total Gain (ft)">
+                                    <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Total Gain (ft)" ng-required="true">
                                 </div>
                             </div>
                             <!-- Location URL Field -->

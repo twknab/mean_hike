@@ -16,7 +16,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                 </li>
             </ul>
         </div>
@@ -51,32 +51,32 @@
                     <!-- If a day trip -->
                     <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
-                      <h3 class="padding-left-sm"><em>Dayhike @ {{hike.region}}</em></h3>
+                      <h4 class="padding-left-sm region-text"><em>Dayhike @ {{hike.region}}</em></h4>
                     </span>
                     <!-- If multi-day -->
                     <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
-                      <h4 class="padding-left-sm"><em>Multiday @ {{hike.region}}</em></h4>
+                      <h4 class="padding-left-sm region-text"><em>Multiday @ {{hike.region}}</em></h4>
                     </span>
                   </span>
                   <!-- If post-trip not completed: -->
                   <span ng-if="!hike.postTrip">
                     <h3 class="subdued padding-left-sm"><em>Added {{hike.createdAt | date}}</em></h3>
-                    <h3 class="padding-left-sm"><em>{{hike.region}}</em></h3>
+                    <h4 class="padding-left-sm region-text"><em>{{hike.region}}</em></h4>
                   </span>
-                  <!-- Distance and Elevation -->
-                  <div class="row margin-top margin-bottom">
+                  <!-- Distance, Elevation, Time Estimate -->
+                  <div class="row margin-top margin-bottom hike-info">
                       <div class="col-md-3 text-center">
                         <h1>{{hike.distance}} miles</h1>
-                        <h4>round-trip</h4>
+                        <h4 class="hike-info-subtext">round-trip</h4>
                       </div>
                       <div class="col-md-3 text-center">
                         <h1>{{hike.gain}} feet</h1>
-                        <h4>total gain</h4>
+                        <h4 class="hike-info-subtext">total gain</h4>
                       </div>
                       <div class="col-md-6 text-center">
                         <h1>{{hike.timeEstimate}}</h1>
-                        <h4>estimated time</h4>
+                        <h4 class="hike-info-subtext">estimated time</h4>
                       </div>
                   </div>
                   <div class="row margin-bottom" ng-if="hike.location">
@@ -182,28 +182,28 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                     <ul class="list-group no-list-margin">
-                                        <li class="list-group-item">
+                                        <li class="list-group-item preTrip">
                                             <div class="radio">
                                                 <label>
                                                     <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="Solo Hike">Solo Hike
                                                 </label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item preTrip">
                                             <div class="radio">
                                                 <label>
                                                         <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="2-3 people">2-3 people
                                                     </label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item preTrip">
                                             <div class="radio">
                                                 <label>
                                                         <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="4-5 people">4-5 people
                                                     </label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item preTrip">
                                             <div class="radio">
                                                 <label>
                                                         <input type="radio" name="optradio" ng-model="preTrip.groupSize" value="6+ people">6+ people

@@ -17,7 +17,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <button class="btn btn-danger navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
             </li>
         </ul>
     </div>
@@ -53,32 +53,32 @@
                     <!-- If a day trip -->
                     <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
-                      <h3 class="padding-left-sm"><em>Dayhike @ {{hike.region}}</em></h3>
+                      <h4 class="padding-left-sm region-text"><em>Dayhike @ {{hike.region}}</em></h4>
                     </span>
                     <!-- If multi-day -->
                     <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
-                      <h4 class="padding-left-sm"><em>Multiday @ {{hike.region}}</em></h4>
+                      <h4 class="padding-left-sm region-text"><em>Multiday @ {{hike.region}}</em></h4>
                     </span>
                   </span>
                   <!-- If post-trip not completed: -->
                   <span ng-if="!hike.postTrip">
                     <h3 class="subdued padding-left-sm"><em>Added {{hike.createdAt | date}}</em></h3>
-                    <h3 class="padding-left-sm"><em>{{hike.region}}</em></h3>
+                    <h4 class="padding-left-sm region-text"><em>{{hike.region}}</em></h4>
                   </span>
-                  <!-- Distance and Elevation -->
-                  <div class="row margin-top margin-bottom">
+                  <!-- Distance, Elevation, Time Estimate -->
+                  <div class="row margin-top margin-bottom hike-info">
                       <div class="col-md-3 text-center">
                         <h1>{{hike.distance}} miles</h1>
-                        <h4>round-trip</h4>
+                        <h4 class="hike-info-subtext">round-trip</h4>
                       </div>
                       <div class="col-md-3 text-center">
                         <h1>{{hike.gain}} feet</h1>
-                        <h4>total gain</h4>
+                        <h4 class="hike-info-subtext">total gain</h4>
                       </div>
                       <div class="col-md-6 text-center">
                         <h1>{{hike.timeEstimate}}</h1>
-                        <h4>estimated time</h4>
+                        <h4 class="hike-info-subtext">estimated time</h4>
                       </div>
                   </div>
                   <div class="row margin-bottom" ng-if="hike.location">

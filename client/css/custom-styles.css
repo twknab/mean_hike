@@ -18,8 +18,122 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 
 }
 .notes-link:hover {
-  color: #0ce3ac;
+  color: #a9deff;
 }
+
+.row.margin-top.margin-bottom.hike-info {
+	background-color: rgb(34, 34, 34);
+	padding: 20px;
+	margin-right: 30px;
+	margin-left: 30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.hike-info-subtext {
+  color: #e74c3c;
+}
+
+.navbar-inverse {
+	background-color: #2c7eb6;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+	background-color: #185b88;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+	border-color: #2c7eb6;
+}
+
+a {
+	color: rgba(211, 210, 217, 0.84);
+}
+a:hover, a:focus {
+	color: #fff;
+}
+
+.btn-link {
+	color:#dbfc4a;
+}
+
+.btn-link:hover {
+	color:#fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+	color: #95d6ff;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+	color:#95d6ff;
+}
+
+.accordion-toggle:hover {
+  text-decoration:none;
+	color:#dbfc4a;
+}
+
+.label-success {
+	background-color: #85ab24;
+	text-shadow: 0px 1px 1px black;
+}
+
+.label-warning {
+	background-color: #f3894c;
+	text-shadow: 0px 1px 1px black;
+}
+
+.label-default {
+	text-shadow: 0px 1px 1px black;
+}
+
+.alert-success {
+	background-color: #acdd2f;
+	border-color: #85ab24;
+	color: rgb(0, 112, 0);
+}
+
+.alert-danger {
+	text-shadow: 0px 1px 1px black;
+}
+
+.alert-info {
+	text-shadow: 0px 1px 1px black;
+}
+
+.input-group .form-control:focus {
+	z-index: 3;
+	border: 7px solid #85ab24;
+  background-color: white;
+  color: black;
+}
+
+.input-group .form-control {
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 100%;
+	margin-bottom: 0;
+	color: rgb(120, 120, 120);
+	background: rgb(34, 34, 34);
+}
+
+#selectedHike {
+	background: rgb(38, 38, 38);
+	color: white;
+}
+
+.list-group-item.preTrip {
+	background-color: rgb(34, 34, 34);
+}
+
+.list-group-item.preTrip:hover {
+	background-color: #85ab24;
+  text-shadow: 0px 1px 1px #000;
+}
+
 
 /*************************/
 /*       PADDING:        */
@@ -153,6 +267,10 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 
 .subdued {
   color: #c4c4c4;
+}
+
+.region-text {
+  color: rgb(143, 143, 143);
 }
 
 /*************************/

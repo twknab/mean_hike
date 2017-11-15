@@ -13,145 +13,101 @@ The stylings below are customized additions to the default Bootstrap CSS file.
 /*************************/
 /*       GENERAL:        */
 /*************************/
-.notes-link {
-  color: #ffffff;
 
-}
-.notes-link:hover {
-  color: #a9deff;
-}
-
-.row.margin-top.margin-bottom.hike-info {
-	background-color: rgb(34, 34, 34);
-	padding: 20px;
-	margin-right: 30px;
-	margin-left: 30px;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-
-.hike-info-subtext {
-  color: #e74c3c;
-}
-
-.navbar-inverse {
-	background-color: #2c7eb6;
-}
-
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-	background-color: #185b88;
-}
-
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-	border-color: #2c7eb6;
-}
-
+/* Style links, non-hover */
 a {
 	color: rgba(211, 210, 217, 0.84);
 }
+
+/* Style links, hover and focused */
 a:hover, a:focus {
 	color: #fff;
 }
 
+/* Style button link color */
 .btn-link {
 	color:#dbfc4a;
 }
 
+/* Style button link hover */
 .btn-link:hover {
 	color:#fff;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-	color: #95d6ff;
-}
-
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-	color:#95d6ff;
-}
-
+/* Style accordian hover color */
 .accordion-toggle:hover {
   text-decoration:none;
 	color:#dbfc4a;
 }
 
+/* Style success label color */
 .label-success {
 	background-color: #85ab24;
-	text-shadow: 0px 1px 1px black;
 }
 
+/* Style warning label color */
 .label-warning {
 	background-color: #f3894c;
-	text-shadow: 0px 1px 1px black;
 }
 
-.label-default {
-	text-shadow: 0px 1px 1px black;
-}
-
+/* Style success alert */
 .alert-success {
 	background-color: #acdd2f;
 	border-color: #85ab24;
 	color: rgb(0, 112, 0);
 }
 
-.alert-danger {
+/* Add text shadow to some alerts and some labels */
+.alert-danger, .alert-info, .label-default, .label-warning, .label-success {
 	text-shadow: 0px 1px 1px black;
 }
 
-.alert-info {
-	text-shadow: 0px 1px 1px black;
-}
-
+/* Style color of input fields focused */
 .input-group .form-control:focus, .form-control.input-lg.login:focus {
   z-index: 3;
-	background-color: rgb(15, 15, 15);
+	background: #0C0C0C !important;
 	color: white;
 	text-shadow: 0px 1px 1px black;
 	border-bottom: 4px solid #dbfc4a;
 }
 
+/* Style color of input field, non focused */
 .input-group .form-control {
-	position: relative;
-	z-index: 2;
-	float: left;
-	width: 100%;
-	margin-bottom: 0;
-	color: rgb(120, 120, 120);
-	background-color: rgb(26, 26, 26);
+	background: #1A1A1A;
+  color: rgb(120, 120, 120);
 }
 
+
+
+/* Hike select drop down will have color scheme to match other inputs */
 #selectedHike {
 	background: rgb(38, 38, 38);
 	color: white;
 }
 
+/* List items will have same background color as other panel items  */
 .list-group-item.preTrip {
 	background-color: rgb(34, 34, 34);
 }
 
+/* List items will hover similar colors to other input fields */
 .list-group-item.preTrip:hover {
-  background-color: rgb(15, 15, 15);
+  background-color: #0C0C0C !important;
   color: white;
   text-shadow: 0px 1px 1px black;
   border-bottom: 4px solid #dbfc4a;
 }
 
-.form-control.input-lg.login {
-	background-color: rgb(26, 26, 26);
+/* Style text area focus color */
+textarea.form-control.input-lg:focus {
+	background: black !important;
+}
+textarea:focus {
+  color: white;
+  background: black !important;
+  text-
 }
 
-input::-webkit-caps-lock-indicator {
-  color: white;
-}
-
-input::-webkit-credentials-auto-fill-button {
-  color: white;
-}
-
-input::-webkit-contacts-auto-fill-button {
-  color: white;
-}
 /*************************/
 /*       PADDING:        */
 /*************************/
@@ -299,6 +255,30 @@ input::-webkit-contacts-auto-fill-button {
     }
 }
 
+/* Style top nav */
+.navbar-inverse {
+	background-color: #2c7eb6;
+}
+
+/* Style selected nav item / active nav item color */
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+	background-color: #185b88;
+}
+
+/* Style nav border */
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+	border-color: #2c7eb6;
+}
+
+/* Style nav hover color */
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+	color: #95d6ff;
+}
+
+/* Style top nav color hover, brand icon */
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+	color:#95d6ff;
+}
 
 /************************/
 /*     MODAL WINDOW:    */
@@ -354,6 +334,36 @@ a.alert_link.ng-scope:hover {
   color: #ffffff;
   border: 0;
   border-bottom: 1px solid transparent
+}
+
+/********************/
+/*    VIEW HIKE:    */
+/********************/
+
+/* Style notes link */
+.notes-link {
+  color: #ffffff;
+
+}
+/* Style notes link hover */
+.notes-link:hover {
+  color: #a9deff;
+}
+
+/* Stylize hike information div */
+.row.margin-top.margin-bottom.hike-info {
+	background-color: rgb(34, 34, 34);
+	padding: 20px;
+	margin-right: 30px;
+	margin-left: 30px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+/* Style hike info sub text when viewing hike */
+.hike-info-subtext {
+  color: #e74c3c;
 }
 
 /*************************/

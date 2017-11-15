@@ -104,10 +104,11 @@ a:hover, a:focus {
 }
 
 .input-group .form-control:focus, .form-control.input-lg.login:focus {
-	z-index: 3;
-	border: 7px solid #85ab24;
-  background-color: white;
-  color: black;
+  z-index: 3;
+	background-color: rgb(15, 15, 15);
+	color: white;
+	text-shadow: 0px 1px 1px black;
+	border-bottom: 4px solid #dbfc4a;
 }
 
 .input-group .form-control {
@@ -117,7 +118,7 @@ a:hover, a:focus {
 	width: 100%;
 	margin-bottom: 0;
 	color: rgb(120, 120, 120);
-	background: rgb(34, 34, 34);
+	background-color: rgb(26, 26, 26);
 }
 
 #selectedHike {
@@ -130,15 +131,27 @@ a:hover, a:focus {
 }
 
 .list-group-item.preTrip:hover {
-	background-color: #85ab24;
-  text-shadow: 0px 1px 1px #000;
+  background-color: rgb(15, 15, 15);
+  color: white;
+  text-shadow: 0px 1px 1px black;
+  border-bottom: 4px solid #dbfc4a;
 }
 
 .form-control.input-lg.login {
-	background-color: rgb(22, 22, 22);
+	background-color: rgb(26, 26, 26);
 }
 
+input::-webkit-caps-lock-indicator {
+  color: white;
+}
 
+input::-webkit-credentials-auto-fill-button {
+  color: white;
+}
+
+input::-webkit-contacts-auto-fill-button {
+  color: white;
+}
 /*************************/
 /*       PADDING:        */
 /*************************/

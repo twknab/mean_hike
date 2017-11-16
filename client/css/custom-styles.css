@@ -77,8 +77,6 @@ a:hover, a:focus {
   color: rgb(120, 120, 120);
 }
 
-
-
 /* Hike select drop down will have color scheme to match other inputs */
 #selectedHike {
 	background: rgb(38, 38, 38);
@@ -384,4 +382,17 @@ a.alert_link.ng-scope:hover {
 
 .stats {
     font-size: 20px;
+}
+
+/************************************/
+/*   MEDIA QUERIES - BREAKPOINTS:   */
+/************************************/
+
+/* For 1006px and LESS screen widths */
+@media only screen and (max-width: 1006px)  {
+	/* Decrease padding for Hike Info on Hike Page */
+	.row.margin-top.margin-bottom.hike-info {
+		margin-left: 15px !important;
+		margin-right: 15px !important;
+	}
 }

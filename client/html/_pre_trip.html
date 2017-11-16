@@ -51,12 +51,12 @@
                     <!-- If a day trip -->
                     <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
-                      <h4 class="padding-left-sm region-text"><em>Dayhike @ {{hike.region}}</em></h4>
+                      <h4 class="padding-left-sm region-text"><em>Day Hike @ {{hike.region}}</em></h4>
                     </span>
                     <!-- If multi-day -->
                     <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
-                      <h4 class="padding-left-sm region-text"><em>Multiday @ {{hike.region}}</em></h4>
+                      <h4 class="padding-left-sm region-text"><em>Multi-Day @ {{hike.region}}</em></h4>
                     </span>
                   </span>
                   <!-- If post-trip not completed: -->

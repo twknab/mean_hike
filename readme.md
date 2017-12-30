@@ -49,6 +49,9 @@ This application is designed to help others plan and prepare for their hiking ad
 + 07/20/17 - Cleaned up modal controllers.
 + 07/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
+## Dugout (Next Feature):
++ Error field highlighting (see first bullet point below).
+
 ## Future Features Wish List:
 + Have error messages focus error'ed field with red outline (see bootstrap for the various styling options / classes)
 

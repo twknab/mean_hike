@@ -50,6 +50,7 @@ This application is designed to help others plan and prepare for their hiking ad
 + 07/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
 ## Future Features Wish List:
++ Have error messages focus error'ed field with red outline (see bootstrap for the various styling options / classes)
 
 + Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 

@@ -46,7 +46,7 @@
                 <p><strong>Error!</strong> {{error.message}}</p>
             </div>
             <!-- Login Form -->
-            <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal">
+            <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal" id="loginForm">
                 <div class="form-group">
                     <!-- Email Field -->
                     <div class="input-group">
@@ -60,11 +60,13 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg login" placeholder="Password">
                     </div>
-                    <!-- Login Button -->
-                    <button type="submit" class="btn-block btn-info btn-lg margin-top-sm"><span class="glyphicon glyphicon-log-in"></span> Login</button>
-                    <!-- Register Button -->
+                </div>
+                <div class="form-group">
+                  <!-- Login Button -->
+                  <button type="submit" class="btn-block btn-info btn-lg"><span class="glyphicon glyphicon-log-in"></span> Login</button>
                 </div>
             </form>
+            <!-- Register Button -->
             <button ng-controller="ModalRegisterCtrl as $ctrl" ng-click="$ctrl.open()" class="btn-block btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Create New Account</button>
         </div>
     </div>

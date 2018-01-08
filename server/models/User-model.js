@@ -374,8 +374,8 @@ UserSchema.methods.validateLogin = function(formData, callback) {
                             .then(function(foundUserByEmail) {
                                 // If empty user is returned (no match) add error to errors object:
                                 if (!foundUserByEmail) {
-                                    validated.errors.loginNotFound = {
-                                        message: new Error('Username or Email provided is not registered.').message
+                                    validated.errors.loginId = {
+                                        message: new Error('Username and password do not match, or the account does not exist.').message
                                     };
                                     // Run callback with errors:
                                     callback(validated);
@@ -394,7 +394,7 @@ UserSchema.methods.validateLogin = function(formData, callback) {
                                 Catches errors if findOne mongoose query fails while using login ID to query for email.
                                 */
                                 console.log('Error performing query for user by email.', err);
-                                validated.errors.email = {
+                                validated.errors.loginId = {
                                     message: new Error('There was a problem trying to find this user. Please contact administrator with error message: "FAIL BY EMAIL QUERY"').message
                                 };
                                 // Run callback with errors:
@@ -1192,8 +1192,8 @@ UserSchema.methods.__checkPassword = function(userObj, password, validate, callb
 
             // Generate a new error, attach it to errors object and run callback, passing it along:
             console.log("Password is incorrect. Access denied.");
-            validate.errors.passwordFail = {
-                message: new Error('Login failed. Please check your login credentials and try again.').message
+            validate.errors.password = {
+                message: new Error('Username and password do not match, or the account does not exist.').message
             };
             // Run callback:
             callback(validate);

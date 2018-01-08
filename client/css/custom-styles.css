@@ -61,6 +61,9 @@ a:hover, a:focus {
 .alert-danger, .alert-info, .label-default, .label-warning, .label-success {
 	text-shadow: 0px 1px 1px black;
 }
+.alert-success {
+	text-shadow: 0px 1px 1px #61f957;
+}
 
 /* Style color of input fields focused */
 .input-group .form-control:focus, .form-control.input-lg.login:focus {
@@ -134,12 +137,20 @@ textarea:focus {
     padding-top: 15px;
 }
 
+.padding-top-none {
+		padding-top: 0px;
+}
+
 .padding-bottom {
     padding-bottom: 35px;
 }
 
 .padding-bottom-sm {
     padding-bottom: 15px;
+}
+
+.padding-bottom-none {
+		padding-bottom: 0px;
 }
 
 .padding-all {
@@ -223,6 +234,15 @@ textarea:focus {
 }
 
 /***********************/
+/*       ERRORS:       */
+/***********************/
+.is-invalid {
+	border-bottom: 4px solid orange;
+	background-color: #ffeacf !important;
+}
+
+
+/***********************/
 /*    TEXT EFFECTS:    */
 /***********************/
 .heading-shadow {
@@ -304,6 +324,24 @@ a.alert_link.ng-scope:visited {
 	color: #ffffff;
 }
 a.alert_link.ng-scope:hover {
+	text-decoration: none;
+}
+
+/* Make info link bold and underlined. */
+.info_alert_link {
+	font-weight: bold;
+    color: darkgreen;
+    text-decoration: underline;
+}
+.info_alert_link.ng-scope {
+	font-weight: bold;
+	color: darkgreen;
+    text-decoration: underline;
+}
+a.info_alert_link.ng-scope:visited {
+	color: darkgreen;
+}
+a.info_alert_link.ng-scope:hover {
 	text-decoration: none;
 }
 

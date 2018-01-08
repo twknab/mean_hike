@@ -57,6 +57,12 @@ This application is designed to help others plan and prepare for their hiking ad
 
 + Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 
++ Bring in better icon set than glyphicon (woof)
+
++ Add footer to homepage(s)
+
++ Add Time Picker for Actual Travel Times? (day-hike only? think this one out a bit)
+
 + Add a feature where users can upload photos to each hike, a certain number and a certain file size. (medium-priority) -- Not sure about this one as it will eat up server space and increase AWS $$$$.
 
 + Add a feature where users can attach documents, such as a
@@ -127,6 +133,7 @@ into the hike. (medium-priority)
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
++ Found Bug 1/7/18: Submitting *password only* on login page causes an error to log to browser JS console, but no error to be shown on-page for user.
 
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

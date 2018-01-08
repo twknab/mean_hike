@@ -113,8 +113,16 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
             // Reset any existing alerts
             $scope.successAlerts = userMessages.clearAlerts();
-            $scope.newHikeErrors = {}; // resets errors if any already existing
-            $scope.newHikeErrors = err;
+
+            // Add error class to any field who was returned with error:
+            for (var key in err) {
+              if (err.hasOwnProperty(key)) {
+
+                // Uses jQlite (built-in) to grab DOM element and add a class:
+                angular.element( document.querySelector( '#'+key ) ).addClass('is-invalid').parent().after("<p class='margin-left-xsm '>" + err[key].message + "</p>");
+              }
+            };
+
             $anchorScroll('top-new-hike');
 
 
@@ -182,6 +190,9 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         /*
         Create a new Hike, sending it off for validation and creation, or for errors to be returned:
         */
+
+        // Clear out any `is-invalid` error classes already existing from past submissions. This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
+        angular.element( document.querySelector( '#addHikeForm' ) ).children().children().children().removeClass('is-invalid');
 
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };

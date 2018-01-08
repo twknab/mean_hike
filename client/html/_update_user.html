@@ -47,7 +47,7 @@
                 <div class="panel-heading">
                     <h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Update Account</h2>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body padding-bottom-none">
                     <!-- Update Account Form -->
                     <form ng-submit="updateUser()" class="padding-left-sm padding-right-sm form-horizontal">
                         <!-- Update Password Field -->
@@ -56,7 +56,6 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" name="username" id="username" ng-model="user.username" placeholder="New Username" class="form-control input-lg">
                             </div>
-                            <span class="help-block margin-label">Update your username.</span>
                         </div>
                         <!-- Update Email Field -->
                         <div class="form-group">
@@ -64,7 +63,6 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                                 <input type="email" name="email" id="email" ng-model="user.email" placeholder="New Email" class="form-control input-lg">
                             </div>
-                            <span class="help-block margin-label">Update your email address.</span>
                         </div>
                         <!-- Confirm Email Field -->
                         <div class="form-group">
@@ -72,7 +70,6 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                                 <input type="email" name="emailConfirm" id="emailConfirm" ng-model="user.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
                             </div>
-                            <span class="help-block margin-label">Confirm your updated email address.</span>
                         </div>
                         <!-- Update Password Field -->
                         <div class="form-group">
@@ -80,7 +77,6 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="New Password">
                             </div>
-                            <span class="help-block margin-label">Set a new password.</span>
                         </div>
                         <!-- Confirm Password Field -->
                         <div class="form-group">
@@ -88,10 +84,11 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" name="passwordConfirm" ng-model="user.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
                             </div>
-                            <span class="help-block margin-label">Confirm your new password.</span>
-                            <!-- Update User and Cancel Buttons -->
-                            <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm"><span class="glyphicon glyphicon-check"></span> Update User</button>
-                            <button class="btn btn-block btn-lg btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
+                        </div>
+                        <!-- Update User and Cancel Buttons -->
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-block btn-lg btn-info"><span class="glyphicon glyphicon-check"></span> Update User</button>
+                          <button class="btn btn-block btn-lg btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
                         </div>
                     </form>
                 </div>

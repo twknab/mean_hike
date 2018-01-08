@@ -32,9 +32,10 @@ module.exports = {
         if (Object.keys(validated.errors).length > 0) {
           console.log("Validation Failed.");
           console.log("Errors creating Hike:");
+          console.log(validated.errors);
           for (var property in validated.errors) {
             if (validated.errors.hasOwnProperty(property)) {
-              console.log(validated.errors[property].message);
+              // console.log(validated.errors[property]);
             }
           }
           return res.status(500).json(validated.errors);

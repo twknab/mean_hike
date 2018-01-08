@@ -32,6 +32,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
             $scope.successAlerts = userMessages.clearAlerts();
             $scope.loginErrors = {}; // resets errors if any already existing
             $scope.loginErrors = err;
+
             $scope.scrollTo('top-login');
         },
     };

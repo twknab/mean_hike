@@ -133,7 +133,7 @@ into the hike. (medium-priority)
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Important Bugs:
-+ Found Bug 1/7/18: Submitting *password only* on login page causes an error to log to browser JS console, but no error to be shown on-page for user.
++ Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
 
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

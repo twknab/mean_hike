@@ -41,10 +41,6 @@
             <h2><span class="glyphicon glyphicon-log-in"></span> User Login</h2>
             <!-- Success Alerts -->
             <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
-            <!-- Login Errors -->
-            <div class="alert alert-danger margin-top-sm" ng-repeat="error in loginErrors">
-                <p><strong>Error!</strong> {{error.message}}</p>
-            </div>
             <!-- Login Form -->
             <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal" id="loginForm">
                 <div class="form-group">

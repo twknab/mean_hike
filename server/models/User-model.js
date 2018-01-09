@@ -334,9 +334,14 @@ UserSchema.methods.validateLogin = function(formData, callback) {
     // If all fields error is returned, run callback and send errors right away, as other validations do not matter at this point:
     if (validations.allLoginFields) {
         console.log('Error: All login fields have not been submitted.');
-        validated.errors.allLoginFields = {
-            message: validations.allLoginFields.message
-        };
+
+        for (var error in validations.allLoginFields) {
+          if (validations.allLoginFields.hasOwnProperty(error)) {
+            validated.errors[validations.allLoginFields[error].field] = {
+                message: validations.allLoginFields[error].message
+            }
+          }
+        }
         callback(validated);
     }
 
@@ -347,9 +352,15 @@ UserSchema.methods.validateLogin = function(formData, callback) {
 
         // If login ID and password length fails validation, add error to errors object and send back errors right away (as we need proper login length to validate username):
         if (validations.loginLength) {
-            validated.errors.loginLength = {
-                message: validations.loginLength.message
+          // Loops through errors in validations.loginLength object:
+          for (var error in validations.loginLength) {
+            if (validations.loginLength.hasOwnProperty(error)) {
+              validated.errors[validations.loginLength[error].field] = {
+                  message: validations.loginLength[error].message
+              }
             }
+          }
+
             callback(validated);
         }
 
@@ -375,7 +386,7 @@ UserSchema.methods.validateLogin = function(formData, callback) {
                                 // If empty user is returned (no match) add error to errors object:
                                 if (!foundUserByEmail) {
                                     validated.errors.loginId = {
-                                        message: new Error('Username and password do not match, or the account does not exist.').message
+                                        message: new Error('Username or email does not exist.').message
                                     };
                                     // Run callback with errors:
                                     callback(validated);
@@ -835,27 +846,32 @@ UserSchema.methods.__checkAllLoginFields = function(loginFormData) {
     Parameters:
     - `loginFormData` - Login form data object sent from User controller.
     */
+    var errors = {};
 
-    // If less than 2 fields have been submitted, create error and return it:
-    if (Object.keys(loginFormData).length < 2) {
-        var err = new Error('All fields are required.');
-        return err;
+    if (!loginFormData.loginId) {
+      // Formulate error:
+      var err = new Error('Username or email is required.');
+      err.field = 'loginId';
+
+      // Add error to errors object:
+      errors.login = err;
     }
 
-    /*
-    Else, check if the fields submitted are not empty objects and send error if so. Note: this is in the event the user submits login data, than erases both fields -- the empty `loginId` and `password` objects submitted will flag the error below:
-    */
-    else {
-        if (Object.keys(loginFormData.loginId).length < 1 || Object.keys(loginFormData.password).length < 1) {
-            var err = new Error('All fields are required.');
-            return err;
-        }
+    if (!loginFormData.password) {
+      // Formulate error:
+      var err = new Error('Password is required.');
+      err.field = 'password';
 
-        // Else, return `undefined` (no error):
-        else {
-            return undefined;
-        }
+      // Add error to errors object:
+      errors.password = err;
     }
+
+    if (loginFormData.loginId && loginFormData.password) {
+      return undefined;
+    }
+
+    return errors;
+
 };
 
 UserSchema.methods.__checkLoginLength = function(loginFormData) {
@@ -872,21 +888,30 @@ UserSchema.methods.__checkLoginLength = function(loginFormData) {
     console.log('Login ID and password detected...checking length...');
 
     // Check if loginFormData contains keys:
-    if (Object.keys(loginFormData).length > 0) {
+    if (Object.keys(loginFormData).length > 1) {
         console.log("Login form submitted.")
-        // If login ID length is less than 2 but greater than 30 characters, flag an error, OR if password length is less than 12 or greater than 50 characters, flag an error:
-        if (loginFormData.loginId.length < 2 || loginFormData.loginId.length > 30 || loginFormData.password.length < 12 || loginFormData.password.length > 50) {
-            var err = new Error('Username or Email must be between 2-30 characters. Password must be between 12-50.');
-            return err;
-        } else {
-            // Else, return `undefined` (no error):
-            return undefined;
-        }
-    }
 
-    // Else, in the event this function runs with an empty object, send it off to check all req'd fields function (note: this is probably unnecessary but I chose to put this in to secure this function a bit more -- but it may be unnecessary. Development Note: Investigate this further.)
-    else {
-        self.__checkAllLoginFields(loginFormData);
+        var errors = {};
+
+        // If login ID length is less than 2 but greater than 30 characters, flag an error, OR if password length is less than 12 or greater than 50 characters, flag an error:
+        if (loginFormData.loginId.length < 2 || loginFormData.loginId.length > 30) {
+            var err = new Error('Username or Email must be between 2-30 characters.');
+            err.field = "loginId";
+            errors.login = err;
+        }
+
+        if (loginFormData.password.length < 12 || loginFormData.password.length > 50) {
+            var err = new Error('Password must be between 12-50 characters.');
+            err.field = "password";
+            errors.password = err;
+        }
+
+        if (Object.keys(errors).length < 1) {
+          // If no errors:
+          return undefined;
+        }
+
+        return errors;
     }
 };
 
@@ -1193,7 +1218,7 @@ UserSchema.methods.__checkPassword = function(userObj, password, validate, callb
             // Generate a new error, attach it to errors object and run callback, passing it along:
             console.log("Password is incorrect. Access denied.");
             validate.errors.password = {
-                message: new Error('Username and password do not match, or the account does not exist.').message
+                message: new Error('Password is incorrect.').message
             };
             // Run callback:
             callback(validate);

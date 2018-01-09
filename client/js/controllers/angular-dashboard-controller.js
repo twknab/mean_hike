@@ -121,10 +121,6 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
                 // Uses jQlite (built-in) to grab DOM element and add a class:
                 angular.element( document.querySelector( '#'+key ) ).addClass('is-invalid').parent().after("<p class='margin-left-xsm err-msg'>" + err[key].message + "</p>");
 
-                // Do something where you add a <span> tag containing an icon after each input field -- and then use CSS to position this over the input as seen in your stack overflow favorites. You would also have to remove this element when you re-submit the hike.
-
-                // Bug: Right now error text (new way) is shown 2x. You have to make sure you get rid of this when a new form is submitted.
-
               }
             };
 
@@ -201,8 +197,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         angular.element( document.querySelector( '#addHikeForm' ) ).children().children().children().removeClass('is-invalid');
 
         // Remove all error messages beneath flagged input fields:
-        var test = angular.element( document.querySelectorAll('.err-msg') ).remove();
-        console.log(test);
+        angular.element( document.querySelectorAll('.err-msg') ).remove();
 
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };

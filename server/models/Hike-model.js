@@ -144,14 +144,14 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 
     // If name fails alphanumeric check, send error:
     if (nameCheck) {
-        validated.errors.nameAlphaNumErr = {
+        validated.errors.name = {
             message: 'Name ' + nameCheck.message,
         }
     }
 
     // If region name fails alphanumeric check, send error:
     if (regionCheck) {
-        validated.errors.regionAlphaNumErr = {
+        validated.errors.region = {
             message: 'Region ' + regionCheck.message,
         }
     }
@@ -165,7 +165,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 
             // If error is returned add it to errors:
             if (numCheck) {
-                validated.errors.distanceNumErr = {
+                validated.errors.distance = {
                     message: 'Round trip distance ' + numCheck.message,
                 };
             }
@@ -183,7 +183,7 @@ HikeSchema.methods.validateHike = function(formData, callback) {
 
             // If error is returned add it to errors:
             if (numCheck) {
-                validated.errors.gainNumErr = {
+                validated.errors.gain = {
                     message: 'Total gain ' + numCheck.message,
                 };
             }

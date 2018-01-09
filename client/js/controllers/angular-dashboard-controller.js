@@ -119,7 +119,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
               if (err.hasOwnProperty(key)) {
 
                 // Uses jQlite (built-in) to grab DOM element and add a class:
-                angular.element( document.querySelector( '#'+key ) ).addClass('is-invalid').parent().after("<p class='margin-left-xsm '>" + err[key].message + "</p>");
+                angular.element( document.querySelector( '#'+key ) ).addClass('is-invalid').parent().after("<p class='margin-left-xsm err-msg'>" + err[key].message + "</p>");
 
                 // Do something where you add a <span> tag containing an icon after each input field -- and then use CSS to position this over the input as seen in your stack overflow favorites. You would also have to remove this element when you re-submit the hike.
 
@@ -196,8 +196,13 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
         Create a new Hike, sending it off for validation and creation, or for errors to be returned:
         */
 
-        // Clear out any `is-invalid` error classes already existing from past submissions. This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
+        // Clear out any `is-invalid` error classes already existing from past submissions.
+        // Note: This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
         angular.element( document.querySelector( '#addHikeForm' ) ).children().children().children().removeClass('is-invalid');
+
+        // Remove all error messages beneath flagged input fields:
+        var test = angular.element( document.querySelectorAll('.err-msg') ).remove();
+        console.log(test);
 
         hikeFactory.newHike($scope.newHike, cb.hike, cb.hikeError);
     };

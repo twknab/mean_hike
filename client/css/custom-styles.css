@@ -248,14 +248,11 @@ textarea:focus {
 	text-shadow: 0px 1px 1px white;
 }
 
-.errspan {
-		float: right;
-		margin-right: 6px;
-		margin-top: -20px;
-		position: relative;
-		z-index: 2;
-		color: red;
-};
+.err-msg {
+	color: orange;
+	font-weight: 400;
+	font-size: 1.2em;
+}
 
 
 /***********************/

@@ -50,10 +50,10 @@ This application is designed to help others plan and prepare for their hiking ad
 + 07/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
 ## Dugout (Next Feature):
-+ Error field highlighting (see first bullet point below).
++ Error field highlighting (see first bullet point below) [*In Progress*].
+  Notes: Have this mostly in place for the add hike form, but need to tweak any last changes and then roll it out across all the other (7+) forms.
 
 ## Future Features Wish List:
-+ Have error messages focus error'ed field with red outline (see bootstrap for the various styling options / classes)
 
 + Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 

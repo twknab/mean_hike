@@ -135,5 +135,7 @@ into the hike. (medium-priority)
 ## Important Bugs:
 + Found Bug 1/7/18: Submitting *password only* on login page causes an error to log to browser JS console, but no error to be shown on-page for user.
 
++ Bug with feature in progress: Error text displays 2x. Must remove this when new form is submitted.
+
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

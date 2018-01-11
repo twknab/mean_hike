@@ -177,10 +177,14 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
 
     // If all fields fail validation, run callback right away and send errors, as other validations do not matter if all fields are not filled out:
     if (validations.allRegFields) {
-        validated.errors.allRegFields = {
-            message: validations.allRegFields.message
+      for (var error in validations.allRegFields) {
+        if (validations.allRegFields.hasOwnProperty(error)) {
+          validated.errors[validations.allRegFields[error].field] = {
+              message: validations.allRegFields[error].message
+          }
         }
-        callback(validated);
+      }
+      callback(validated);
     }
 
     // Else, all fields are filled out -- begin all other validations:
@@ -198,25 +202,31 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
             validated.errors.email = {
                 message: validations.emailMatch.message
             }
+            validated.errors.emailConfirm = {
+                message: validations.emailMatch.message
+            }
         }
 
         // If email format validation failed, add error to errors object:
         if (validations.emailFormat) {
-            validated.errors.emailFormat = {
+            validated.errors.email = {
                 message: validations.emailFormat.message
             }
         }
 
         // If password and password confirmation match failed, add error to errors object:
         if (validations.pwdMatch) {
-            validated.errors.password = {
+            validated.errors.regPassword = {
+                message: validations.pwdMatch.message
+            }
+            validated.errors.passwordConfirm = {
                 message: validations.pwdMatch.message
             }
         }
 
         // If strong password validation failed, add error to errors object:
         if (validations.pwdStrong) {
-            validated.errors.passwordStrength = {
+            validated.errors.regPassword = {
                 message: validations.pwdStrong.message
             }
         }
@@ -233,7 +243,7 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
             self.__checkUsernameDuplicates(formData.username, function(usernameDuplicateError) {
                 // If duplicate username error is returned, add it to errors object:
                 if (usernameDuplicateError) {
-                    validated.errors.usernameDuplicate = {
+                    validated.errors.username = {
                         message: usernameDuplicateError.message,
                     }
                 }
@@ -242,7 +252,10 @@ UserSchema.methods.validateRegistration = function(formData, callback) {
                 self.__checkEmailDuplicates(formData.email, function(emailDuplicateError) {
                     // If duplicate email error is returned, add it to errors object:
                     if (emailDuplicateError) {
-                        validated.errors.emailDuplicate = {
+                        validated.errors.email = {
+                            message: emailDuplicateError.message,
+                        }
+                        validated.errors.emailConfirm = {
                             message: emailDuplicateError.message,
                         }
                     }
@@ -386,7 +399,7 @@ UserSchema.methods.validateLogin = function(formData, callback) {
                                 // If empty user is returned (no match) add error to errors object:
                                 if (!foundUserByEmail) {
                                     validated.errors.loginId = {
-                                        message: new Error('Username or email does not exist.').message
+                                        message: new Error('Email or username does not exist.').message
                                     };
                                     // Run callback with errors:
                                     callback(validated);
@@ -826,16 +839,44 @@ UserSchema.methods.__checkAllRegFields = function(regFormData) {
     - `regFormData` - Registration form data object sent from User controller.
     */
 
-    // If less than 5 fields have been submitted, create error and return it:
-    if (Object.keys(regFormData).length < 5) {
-        // Format Error Object for Angular:
-        var err = new Error('All fields are required.');
-        return err;
+    // Holds errors:
+    var errors = [];
+
+    if (!regFormData.username) {
+      var err = new Error("Username is required.");
+      err.field = 'username';
+      errors.push(err);
     }
 
-    // Else, return `undefined` (no error):
-    else {
+    if (!regFormData.email) {
+      var err = new Error("Email is required.");
+      err.field = 'email';
+      errors.push(err);
+    }
+
+    if (!regFormData.emailConfirm) {
+      var err = new Error("Email confirmation is required.");
+      err.field = 'emailConfirm';
+      errors.push(err);
+    }
+
+    if (!regFormData.password) {
+      var err = new Error("Password is required.");
+      err.field = 'regPassword';
+      errors.push(err);
+    }
+
+    if (!regFormData.passwordConfirm) {
+      var err = new Error("Password confirmation is required.");
+      err.field = 'passwordConfirm';
+      errors.push(err);
+    }
+
+    // If no errors are logged send back undefined:
+    if (Object.keys(errors).length < 1) {
         return undefined;
+    } else {
+      return errors; // Otherwise return errors
     }
 };
 
@@ -850,7 +891,7 @@ UserSchema.methods.__checkAllLoginFields = function(loginFormData) {
 
     if (!loginFormData.loginId) {
       // Formulate error:
-      var err = new Error('Username or email is required.');
+      var err = new Error('Email or username is required.');
       err.field = 'loginId';
 
       // Add error to errors object:
@@ -895,7 +936,7 @@ UserSchema.methods.__checkLoginLength = function(loginFormData) {
 
         // If login ID length is less than 2 but greater than 30 characters, flag an error, OR if password length is less than 12 or greater than 50 characters, flag an error:
         if (loginFormData.loginId.length < 2 || loginFormData.loginId.length > 30) {
-            var err = new Error('Username or Email must be between 2-30 characters.');
+            var err = new Error('Email or username must be between 2-30 characters.');
             err.field = "loginId";
             errors.login = err;
         }
@@ -996,7 +1037,7 @@ UserSchema.methods.__emailMatch = function(email, emailConfirm) {
 
     // If email and confiramtion email do not match, generate error and return it:
     if (email !== emailConfirm) {
-        var err = new Error('Email and Confirmation Email fields must match.');
+        var err = new Error('Email and Confirmation fields must match.');
         return err;
     }
 

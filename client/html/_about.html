@@ -23,7 +23,7 @@
     </div>
   </div>
 </nav>
-<div class="container">
+<div class="container margin-bottom">
     <!-- Jumbotron -->
     <div class="row">
         <div class="col-sm-12">
@@ -65,12 +65,8 @@
                             <h3 class="modal-title"><span class="glyphicon glyphicon-user"></span> Register</h3>
                         </div>
                         <div class="modal-body">
-                            <!-- Registration Errors -->
-                            <div class="alert alert-danger margin-top-sm" ng-repeat="error in regErrors">
-                                <p><strong>Error!</strong> {{error.message}}</p>
-                            </div>
                             <!-- Registration Form -->
-                            <form id="reg_form" ng-submit="register()" class="margin-left-sm margin-right-sm form-horizontal">
+                            <form id="registrationForm" ng-submit="register()" class="margin-left-sm margin-right-sm form-horizontal">
                                 <!-- Username Field -->
                                 <div class="form-group">
                                     <div class="input-group">
@@ -82,28 +78,28 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                        <input type="text" name="email-address" id="email-address" ng-model="newUser.email" class="form-control input-lg" placeholder="Email">
+                                        <input type="text" name="email" id="email" ng-model="newUser.email" class="form-control input-lg" placeholder="Email">
                                     </div>
                                 </div>
                                 <!-- Email Confirm Field -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                        <input type="text" name="email-confirm" id="email-confirm" ng-model="newUser.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+                                        <input type="text" name="emailConfirm" id="emailConfirm" ng-model="newUser.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
                                     </div>
                                 </div>
                                 <!-- Password Field -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                        <input type="password" name="chosen-password" id="chosen-password" ng-model="newUser.password" class="form-control input-lg" placeholder="Password">
+                                        <input type="password" name="regPassword" id="regPassword" ng-model="newUser.password" class="form-control input-lg" placeholder="Password">
                                     </div>
                                 </div>
                                 <!-- Confirm Password Field -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                        <input type="password" name="password-confirm" id="password-confirm" ng-model="newUser.passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+                                        <input type="password" name="passwordConfirm" id="passwordConfirm" ng-model="newUser.passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
                                     </div>
                                     <!-- Registration Button -->
                                     <button type="submit" formmethod="POST" form="reg_form" class="btn-block btn-info btn-lg margin-top-sm" ng-click="$ctrl.register()"><span class="glyphicon glyphicon-user"></span> Register</button>                                </div>

@@ -52,10 +52,24 @@ This application is designed to help others plan and prepare for their hiking ad
 ## Dugout (Next Feature):
 + Error field highlighting (see first bullet point below) [*In Progress*].
   Notes: Have this mostly in place for the add hike form, but need to tweak any last changes and then roll it out across all the other (7+) forms.
+    - Notes:
+      - Login form: DONE
+      - Registration forms (x2): DONE
+      - Add new hike form: DONE
+      - Edit account form:
+      - Edit hike form:
+      - Pre-trip form:
+      - Edit pre-trip form:
+      - Post-trip form:
+      - Edit post-trip form:
+
++ All Hikes: View all hikes should be sorted by hiked date (completed), or by pre-trip date.
 
 ## Future Features Wish List:
 
 + Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
+
++ Make stats feature able to restrict to timeframe... (high)
 
 + Bring in better icon set than glyphicon (woof)
 
@@ -134,6 +148,9 @@ into the hike. (medium-priority)
 
 ## Important Bugs:
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
+
++ Add New Hike: For Hike Region -- include the `/` and `\` characters to be allowed
++ Add New Hike: 150 character limit too small for URLs -- should be 300.
 
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

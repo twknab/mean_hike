@@ -203,8 +203,6 @@ angular.module('ui.bootstrap').controller('ModalInstanceCtrl', function($uibModa
     },
     // Runs if registration errors after $ctrl.register():
     regError: function(err) {
-      $scope.regErrors = {};
-      $scope.regErrors = err;
 
       // Add error class to any field who was returned with error:
       for (var key in err) {

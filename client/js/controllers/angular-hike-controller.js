@@ -74,6 +74,7 @@ app.controller('hikeController', ['$scope', 'hikeFactory', 'userFactory', 'userM
     //---------------------------//
 
     $scope.startPreTrip = function(hikeId) {
+
         $location.url('/hikes/' + hikeId + '/pre-trip');
     };
 

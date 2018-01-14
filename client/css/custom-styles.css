@@ -239,6 +239,7 @@ textarea:focus {
 .is-invalid {
 	border-bottom: 4px solid orange;
 	background-color: #fbd7ab !important;
+	color: grey !important;
 }
 
 .input-group .is-invalid:focus {

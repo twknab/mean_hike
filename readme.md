@@ -150,10 +150,9 @@ into the hike. (medium-priority)
 ## Important Bugs:
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
 
-+ "Add New Hike" form has "required" on HTML elements, but there is no back-end validation to make sure req'd fields are submitted (we do use built in mongoose validations but does not deliver a custom error message). Remove the `required` from the HTML elements and instead do a back-end validation that returns highlighted errors. This will create a cleaner UI/UX.
-
-+ Add New Hike: For Hike Region -- include the `/` and `\` characters to be allowed
 + Add New Hike: 150 character limit too small for URLs -- should be 300.
+
++ Add Location URL regex validation to make sure an actual URL is used (https:// and http:// validation);
 
 ## Developer Note:
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

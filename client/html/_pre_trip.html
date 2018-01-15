@@ -120,11 +120,11 @@
                     <h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span>Pre-Trip Report</h2>
                 </div>
                 <!-- Panel Body -->
-                <div class="panel-body">
+                <div class="panel-body padding-bottom-none">
                     <!-- PreTrip Alerts -->
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
                     <!-- Pre-Trip Hike Form -->
-                    <form ng-submit="addPreTrip()" class="padding-left-sm padding-right-sm form-horizontal">
+                    <form ng-submit="addPreTrip()" class="padding-left-sm padding-right-sm form-horizontal" id="addPreTripForm">
                         <!-- Itinerary -->
                         <div class="form-group">
                             <fieldset>
@@ -214,7 +214,7 @@
                                 </div>
                             </fieldset>
                             <!-- Complete Pre-Trip and Cancel Buttons -->
-                            <button type="submit" class="btn btn-block btn-lg btn-info margin-top"><span class="glyphicon glyphicon-arrow-right"></span> Complete Pre-Trip</button>
+                            <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Complete Pre-Trip</button>
                             <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
                         </div>
                     </form>

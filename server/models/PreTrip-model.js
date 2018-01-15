@@ -110,22 +110,22 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
     };
 
     // If empty form is submitted throw an error:
-    if (Object.keys(formData).length < 1) {
-        validated.errors.requiredErr = {
-            message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
-        };
-    }
+    // if (Object.keys(formData).length < 1) {
+    //     validated.errors.requiredErr = {
+    //         message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
+    //     };
+    // }
 
-    // Iterate through the object and if any properties are less than 2 characters (excluding `notes` [optional field] property), generate error:
-    for (var property in formData) {
-        if (formData.hasOwnProperty(property)) {
-            if ((formData[property].length < 2) && (property != 'notes')) {
-                validated.errors.requiredErr = {
-                    message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
-                };
-            }
-        }
-    };
+    // // Iterate through the object and if any properties are less than 2 characters (excluding `notes` [optional field] property), generate error:
+    // for (var property in formData) {
+    //     if (formData.hasOwnProperty(property)) {
+    //         if ((formData[property].length < 2) && (property != 'notes')) {
+    //             validated.errors.requiredErr = {
+    //                 message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
+    //             };
+    //         }
+    //     }
+    // };
 
     // If `notes` property is empty, delete it (this happens if the user started to fill out notes then deleted them):
     if (formData.notes == '') {

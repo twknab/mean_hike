@@ -147,7 +147,6 @@ app.controller('hikeUpdateController', ['$scope', 'userFactory', 'hikeFactory', 
     // Clear any old alerts:
     userMessages.clearAlerts();
 
-
     // Clear out any `is-invalid` error classes already existing from past submissions.
     // Note: This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
     angular.element(document.querySelector('#updateHikeForm')).children().children().children().removeClass('is-invalid');

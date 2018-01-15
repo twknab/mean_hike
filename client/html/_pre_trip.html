@@ -46,8 +46,8 @@
                     </h2>
                 </div>
                 <div class="panel-body">
-                  <!-- If post trip is completed: -->
-                  <span ng-if="hike.postTrip">
+                    <!-- If post trip is completed: -->
+                    <span ng-if="hike.postTrip">
                     <!-- If a day trip -->
                     <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
@@ -58,44 +58,44 @@
                       <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
                       <h4 class="padding-left-sm region-text"><em>Multi-Day @ {{hike.region}}</em></h4>
                     </span>
-                  </span>
-                  <!-- If post-trip not completed: -->
-                  <span ng-if="!hike.postTrip">
+                    </span>
+                    <!-- If post-trip not completed: -->
+                    <span ng-if="!hike.postTrip">
                     <h3 class="subdued padding-left-sm"><em>Added {{hike.createdAt | date}}</em></h3>
                     <h4 class="padding-left-sm region-text"><em>{{hike.region}}</em></h4>
                   </span>
-                  <!-- Distance, Elevation, Time Estimate -->
-                  <div class="row margin-top margin-bottom hike-info">
-                      <div class="col-md-3 text-center">
-                        <h1>{{hike.distance}} miles</h1>
-                        <h4 class="hike-info-subtext">round-trip</h4>
-                      </div>
-                      <div class="col-md-3 text-center">
-                        <h1>{{hike.gain}} feet</h1>
-                        <h4 class="hike-info-subtext">total gain</h4>
-                      </div>
-                      <div class="col-md-6 text-center">
-                        <h1>{{hike.timeEstimate}}</h1>
-                        <h4 class="hike-info-subtext">estimated time</h4>
-                      </div>
-                  </div>
-                  <div class="row margin-bottom" ng-if="hike.location">
-                      <div class="col-md-12 text-center">
-                        <a ng-href="{{hike.location}}" target="_blank" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a>
-                      </div>
-                  </div>
-                  <div class="row padding-bottom-sm padding-left-sm">
-                      <div class="col-md-12">
-                        <h4>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h4>
-                        <hr>
-                        <span ng-if="!hike.notes">
+                    <!-- Distance, Elevation, Time Estimate -->
+                    <div class="row margin-top margin-bottom hike-info">
+                        <div class="col-md-3 text-center">
+                            <h1>{{hike.distance}} miles</h1>
+                            <h4 class="hike-info-subtext">round-trip</h4>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h1>{{hike.gain}} feet</h1>
+                            <h4 class="hike-info-subtext">total gain</h4>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h1>{{hike.timeEstimate}}</h1>
+                            <h4 class="hike-info-subtext">estimated time</h4>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom" ng-if="hike.location">
+                        <div class="col-md-12 text-center">
+                            <a ng-href="{{hike.location}}" target="_blank" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a>
+                        </div>
+                    </div>
+                    <div class="row padding-bottom-sm padding-left-sm">
+                        <div class="col-md-12">
+                            <h4>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h4>
+                            <hr>
+                            <span ng-if="!hike.notes">
                             <em>There aren't any notes for this hike.</em>
                         </span>
-                        <span ng-if="hike.notes">
+                            <span ng-if="hike.notes">
                             <p class="fix-line-break">{{hike.notes}}</p>
                         </span>
-                      </div>
-                  </div>
+                        </div>
+                    </div>
                     <!-- All Hikes / Edit / Delete Buttons -->
                     <div class="wrapper text-center">
                         <div class="btn-group" ng-controller="navController">

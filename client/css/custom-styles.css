@@ -1,97 +1,122 @@
 /*************************/
+
 /*    CUSTOM STYLINGS:   */
+
 /*************************/
+
 /*
 The stylings below are customized additions to the default Bootstrap CSS file.
 */
 
 /*************************/
+
 /*     BOOTSTRAP FIX:    */
-/*************************/
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /*************************/
+
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+/*************************/
+
 /*       GENERAL:        */
+
 /*************************/
 
 /* Style links, non-hover */
+
 a {
-	color: rgba(211, 210, 217, 0.84);
+  color: rgba(211, 210, 217, 0.84);
 }
 
 /* Style links, hover and focused */
+
 a:hover, a:focus {
-	color: #fff;
+  color: #fff;
 }
 
 /* Style button link color */
+
 .btn-link {
-	color:#dbfc4a;
+  color: #dbfc4a;
 }
 
 /* Style button link hover */
+
 .btn-link:hover {
-	color:#fff;
+  color: #fff;
 }
 
 /* Style accordian hover color */
+
 .accordion-toggle:hover {
-  text-decoration:none;
-	color:#dbfc4a;
+  text-decoration: none;
+  color: #dbfc4a;
 }
 
 /* Style success label color */
+
 .label-success {
-	background-color: #85ab24;
+  background-color: #85ab24;
 }
 
 /* Style warning label color */
+
 .label-warning {
-	background-color: #f3894c;
+  background-color: #f3894c;
 }
 
 /* Style success alert */
+
 .alert-success {
-	background-color: #acdd2f;
-	border-color: #85ab24;
-	color: rgb(0, 112, 0);
+  background-color: #acdd2f;
+  border-color: #85ab24;
+  color: rgb(0, 112, 0);
 }
 
 /* Add text shadow to some alerts and some labels */
+
 .alert-danger, .alert-info, .label-default, .label-warning, .label-success {
-	text-shadow: 0px 1px 1px black;
+  text-shadow: 0px 1px 1px black;
 }
+
 .alert-success {
-	text-shadow: 0px 1px 1px #61f957;
+  text-shadow: 0px 1px 1px #61f957;
 }
 
 /* Style color of input fields focused */
+
 .input-group .form-control:focus, .form-control.input-lg.login:focus {
   z-index: 3;
-	background: #0C0C0C !important;
-	color: white;
-	text-shadow: 0px 1px 1px black;
-	border-bottom: 4px solid #dbfc4a;
+  background: #0C0C0C !important;
+  color: white;
+  text-shadow: 0px 1px 1px black;
+  border-bottom: 4px solid #dbfc4a;
 }
 
 /* Style color of input field, non focused */
+
 .input-group .form-control {
-	background: #1A1A1A;
+  background: #1A1A1A;
   color: rgb(120, 120, 120);
 }
 
 /* Hike select drop down will have color scheme to match other inputs */
+
 #selectedHike {
-	background: rgb(38, 38, 38);
-	color: white;
+  background: rgb(38, 38, 38);
+  color: white;
 }
 
 /* List items will have same background color as other panel items  */
+
 .list-group-item.preTrip {
-	background-color: rgb(34, 34, 34);
+  background-color: rgb(34, 34, 34);
 }
 
 /* List items will hover similar colors to other input fields */
+
 .list-group-item.preTrip:hover {
   background-color: #0C0C0C;
   color: white;
@@ -100,9 +125,11 @@ a:hover, a:focus {
 }
 
 /* Style text area focus color */
+
 textarea.form-control.input-lg:focus {
-	background: black;
+  background: black;
 }
+
 textarea:focus {
   color: white;
   background: black;
@@ -110,189 +137,205 @@ textarea:focus {
 }
 
 /*************************/
+
 /*       PADDING:        */
+
 /*************************/
 
 .padding-left {
-    padding-left: 35px;
+  padding-left: 35px;
 }
 
 .padding-left-sm {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
 .padding-right {
-    padding-right: 35px;
+  padding-right: 35px;
 }
 
 .padding-right-sm {
-    padding-right: 15px;
+  padding-right: 15px;
 }
 
 .padding-top {
-    padding-top: 35px;
+  padding-top: 35px;
 }
 
 .padding-top-sm {
-    padding-top: 15px;
+  padding-top: 15px;
 }
 
 .padding-top-none {
-		padding-top: 0px;
+  padding-top: 0px;
 }
 
 .padding-bottom {
-    padding-bottom: 35px;
+  padding-bottom: 35px;
 }
 
 .padding-bottom-sm {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .padding-bottom-none {
-		padding-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 .padding-all {
-    padding: 35px;
+  padding: 35px;
 }
 
 .padding-all-sm {
-    padding: 15px;
+  padding: 15px;
 }
 
 /*************************/
+
 /*       MARGIN:         */
+
 /*************************/
 
 .margin-label {
-    margin-left: 45px;
+  margin-left: 45px;
 }
 
 .margin-left {
-    margin-left: 35px;
+  margin-left: 35px;
 }
 
 .margin-left-sm {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .margin-left-xsm {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .margin-right {
-    margin-right: 35px;
+  margin-right: 35px;
 }
 
 .margin-right-sm {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .margin-right-xsm {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .margin-top {
-    margin-top: 35px;
+  margin-top: 35px;
 }
 
 .margin-top-sm {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .margin-top-xsm {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .margin-bottom {
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .margin-bottom-sm {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .margin-bottom-xsm {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .margin-all {
-    margin: 35px;
+  margin: 35px;
 }
 
 .margin-all-sm {
-    margin: 15px;
+  margin: 15px;
 }
 
 .margin-bottom-none {
-    margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .margin-top-none {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 /***********************/
+
 /*       ERRORS:       */
+
 /***********************/
+
 /* Failed validation */
+
 .is-invalid {
-	border-bottom: 4px solid orange;
-	background-color: #fbd7ab !important;
-	color: grey !important;
+  border-bottom: 4px solid orange;
+  background-color: #fbd7ab !important;
+  color: grey !important;
 }
 
 /* Stylize unordered lists */
+
 ul.is-invalid {
-	background-color: #fbd7ab !important;
-	border: none;
-	color: grey !important;
+  background-color: #fbd7ab !important;
+  border: none;
+  color: grey !important;
 }
 
 /* List items */
-.is-invalid > li {
-	background-color: #fbd7ab !important;
-	border-color: #ffc14e;
-	color: grey !important;
+
+.is-invalid>li {
+  background-color: #fbd7ab !important;
+  border-color: #ffc14e;
+  color: grey !important;
 }
 
 /* List items focus */
-.is-invalid > li.list-group-item.preTrip:hover {
-	background-color: #ffeacf !important;
-	border-bottom: 4px solid orange;
-	color: #484848;
-	text-shadow: 0px 1px 1px white;
+
+.is-invalid>li.list-group-item.preTrip:hover {
+  background-color: #ffeacf !important;
+  border-bottom: 4px solid orange;
+  color: #484848;
+  text-shadow: 0px 1px 1px white;
 }
 
 /* Standard input group focus */
+
 .input-group .is-invalid:focus {
-	background-color: #ffeacf !important;
-	border-bottom: 4px solid orange;
-	color: #484848;
-	text-shadow: 0px 1px 1px white;
+  background-color: #ffeacf !important;
+  border-bottom: 4px solid orange;
+  color: #484848;
+  text-shadow: 0px 1px 1px white;
 }
 
 /* Error text */
+
 .err-msg {
-	color: orange;
-	font-weight: 400;
-	font-size: 1.2em;
+  color: orange;
+  font-weight: 400;
+  font-size: 1.2em;
 }
 
+/***********************/
+
+/*    TEXT EFFECTS:    */
 
 /***********************/
-/*    TEXT EFFECTS:    */
-/***********************/
+
 .heading-shadow {
-    text-shadow: 2px 2px 2px #0b0b0b;
+  text-shadow: 2px 2px 2px #0b0b0b;
 }
 
 /*  Setup Pre-Formatting for any text containing `/n` Characters. */
+
 .fix-line-break {
-    white-space: pre-wrap;
-    word-break: break-word;
-    display: inline;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: inline;
 }
 
 .subdued {
@@ -304,88 +347,112 @@ ul.is-invalid {
 }
 
 /*************************/
+
 /*    TOP NAVIGATION:    */
+
 /*************************/
-@media only screen and (max-width: 782px)  {
-    .navbar-btn {
-    	margin-left: 15px;
-    }
+
+@media only screen and (max-width: 782px) {
+  .navbar-btn {
+    margin-left: 15px;
+  }
 }
 
 /* Style top nav */
+
 .navbar-inverse {
-	background-color: #2c7eb6;
+  background-color: #2c7eb6;
 }
 
 /* Style selected nav item / active nav item color */
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-	background-color: #185b88;
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+  background-color: #185b88;
 }
 
 /* Style nav border */
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-	border-color: #2c7eb6;
+  border-color: #2c7eb6;
 }
 
 /* Style nav hover color */
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-	color: #95d6ff;
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+  color: #95d6ff;
 }
 
 /* Style top nav color hover, brand icon */
+
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-	color:#95d6ff;
+  color: #95d6ff;
 }
 
 /************************/
+
 /*     MODAL WINDOW:    */
+
 /************************/
 
 .close-modal {
-    font-size: 45px;
-};
+  font-size: 45px;
+}
+
+;
+/*******************/
+
+/*    DASHBOARD    */
 
 /*******************/
-/*    DASHBOARD    */
-/*******************/
+
 /* Make welcome link bold and underlined. */
+
 .alert_link {
-	font-weight: bold;
-    color: #ffffff;
-    text-decoration: underline;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: underline;
 }
+
 .alert_link.ng-scope {
-	font-weight: bold;
-	color: #ffffff;
-    text-decoration: underline;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: underline;
 }
+
 a.alert_link.ng-scope:visited {
-	color: #ffffff;
+  color: #ffffff;
 }
+
 a.alert_link.ng-scope:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 /* Make info link bold and underlined. */
+
 .info_alert_link {
-	font-weight: bold;
-    color: darkgreen;
-    text-decoration: underline;
+  font-weight: bold;
+  color: darkgreen;
+  text-decoration: underline;
 }
+
 .info_alert_link.ng-scope {
-	font-weight: bold;
-	color: darkgreen;
-    text-decoration: underline;
+  font-weight: bold;
+  color: darkgreen;
+  text-decoration: underline;
 }
+
 a.info_alert_link.ng-scope:visited {
-	color: darkgreen;
+  color: darkgreen;
 }
+
 a.info_alert_link.ng-scope:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 /************************/
+
 /*    PRE-TRIP HIKE:    */
+
 /************************/
 
 .no-list-margin {
@@ -393,7 +460,9 @@ a.info_alert_link.ng-scope:hover {
 }
 
 /*************************/
+
 /*    POST-TRIP HIKE:    */
+
 /*************************/
 
 .p-0 {
@@ -412,64 +481,77 @@ a.info_alert_link.ng-scope:hover {
 }
 
 /********************/
+
 /*    VIEW HIKE:    */
+
 /********************/
 
 /* Style notes link */
+
 .notes-link {
   color: #ffffff;
-
 }
+
 /* Style notes link hover */
+
 .notes-link:hover {
   color: #a9deff;
 }
 
 /* Stylize hike information div */
+
 .row.margin-top.margin-bottom.hike-info {
-	background-color: rgb(34, 34, 34);
-	padding: 20px;
-	margin-right: 30px;
-	margin-left: 30px;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
+  background-color: rgb(34, 34, 34);
+  padding: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
 }
 
 /* Style hike info sub text when viewing hike */
+
 .hike-info-subtext {
   color: #e74c3c;
 }
 
 /*************************/
+
 /*    COMPLETED HIKE:    */
+
 /*************************/
 
 .completed a {
-    color: grey;
+  color: grey;
 }
 
 .completed label {
-    color: grey;
+  color: grey;
 }
 
 /************************/
+
 /*   ALL HIKES STATS:   */
+
 /************************/
 
 .stats {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 /************************************/
+
 /*   MEDIA QUERIES - BREAKPOINTS:   */
+
 /************************************/
 
 /* For 1006px and LESS screen widths */
-@media only screen and (max-width: 1006px)  {
-	/* Decrease padding for Hike Info on Hike Page */
-	.row.margin-top.margin-bottom.hike-info {
-		margin-left: 15px !important;
-		margin-right: 15px !important;
-	}
+
+@media only screen and (max-width: 1006px) {
+  /* Decrease padding for Hike Info on Hike Page */
+  .row.margin-top.margin-bottom.hike-info {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
 }

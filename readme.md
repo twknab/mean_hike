@@ -155,7 +155,7 @@ into the hike. (medium-priority)
 
 + Post-Trip is able to be completed for dates in the future.
 
-+ Edit Hike form does not alert user if "nothing has changed". If non-changed form is submitted, it says, "Hike successfully updated!". This is inaccurate. Can you better guide your users and do a check? How do you want to approach this? (Query for the hike and then compare it against formData?)
++ Edit Hike, Edit Pre-Trip form does not alert user if "nothing has changed". If non-changed form is submitted, it says, "Hike successfully updated!". This is inaccurate. Can you better guide your users and do a check? How do you want to approach this? (Query for the hike and then compare it against formData?)
 
 + Add Location URL regex validation to make sure an actual URL is used (https:// and http:// validation)
 

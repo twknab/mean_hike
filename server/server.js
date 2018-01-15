@@ -1,9 +1,9 @@
 // Setup App Dependencies:
 var express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    port = 8000;
+  app = express(),
+  bodyParser = require('body-parser'),
+  path = require('path'),
+  port = 8000;
 
 // Configure App, Setup Static Folders (possibly setup Session if using)
 require('./config/app')(express, app, bodyParser, path);
@@ -16,5 +16,5 @@ require('./config/routes')(app);
 
 // Setup Server to Listen and Run:
 app.listen(port, function() {
-    console.log('Server listening on port:', port);
+  console.log('Server listening on port:', port);
 });

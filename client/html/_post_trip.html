@@ -3,20 +3,32 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-      <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-        <li class="active"><a href="" ng-click="postTrip()"><span class="glyphicon glyphicon-plus"></span> Post-Trip</a></li>
+        <li class="">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-dashboard"></span>
+            Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="" ng-click="postTrip()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Post-Trip</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+          <button class="btn btn-primary navbar-btn" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Logout</button>
         </li>
       </ul>
     </div>
@@ -28,88 +40,125 @@
   <div class="row">
     <div class="col-sm-12">
       <!-- Page Title and Icon -->
-      <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Complete a Post-Trip</em></small></h1>
+      <h1 class="page-header">
+        <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/>
+        <small>
+          <em>Complete a Post-Trip</em>
+        </small>
+      </h1>
     </div>
   </div>
   <!---------------------->
-  <!--     HIKE INFO    -->
+  <!-- HIKE INFO -->
   <!---------------------->
   <!-- Responsive Row -->
   <div class="row">
-      <div class="col-sm-12">
-          <!-- Hike Overview Panel -->
-          <div class="panel panel-default" id="top-hike">
-              <!-- Panel Title -->
-              <div class="panel-heading">
-                  <h2 class="heading-shadow">
-                      <span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">{{hike.name}}</span>
-                  </h2>
-              </div>
-              <div class="panel-body">
-                <!-- If post trip is completed: -->
-                <span ng-if="hike.postTrip">
-                  <!-- If a day trip -->
-                  <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
-                    <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}}</em></h3>
-                    <h4 class="padding-left-sm region-text"><em>Day Hike @ {{hike.region}}</em></h4>
-                  </span>
-                  <!-- If multi-day -->
-                  <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
-                    <h3 class="subdued padding-left-sm"><em>{{hike.postTrip.start_date | date}} - {{hike.postTrip.end_date | date}}</em></h3>
-                    <h4 class="padding-left-sm region-text"><em>Multi-Day @ {{hike.region}}</em></h4>
-                  </span>
-                </span>
-                <!-- If post-trip not completed: -->
-                <span ng-if="!hike.postTrip">
-                  <h3 class="subdued padding-left-sm"><em>Added {{hike.createdAt | date}}</em></h3>
-                  <h4 class="padding-left-sm region-text"><em>{{hike.region}}</em></h4>
-                </span>
-                <!-- Distance, Elevation, Time Estimate -->
-                <div class="row margin-top margin-bottom hike-info">
-                    <div class="col-md-3 text-center">
-                      <h1>{{hike.distance}} miles</h1>
-                      <h4 class="hike-info-subtext">round-trip</h4>
-                    </div>
-                    <div class="col-md-3 text-center">
-                      <h1>{{hike.gain}} feet</h1>
-                      <h4 class="hike-info-subtext">total gain</h4>
-                    </div>
-                    <div class="col-md-6 text-center">
-                      <h1>{{hike.timeEstimate}}</h1>
-                      <h4 class="hike-info-subtext">estimated time</h4>
-                    </div>
-                </div>
-                <div class="row margin-bottom" ng-if="hike.location">
-                    <div class="col-md-12 text-center">
-                      <a ng-href="{{hike.location}}" target="_blank" class="btn btn-link btn-lg"><span class="glyphicon glyphicon-new-window"></span> <strong>Location Map URL</strong></a>
-                    </div>
-                </div>
-                <div class="row padding-bottom-sm padding-left-sm">
-                    <div class="col-md-12">
-                      <h4>Notes <a href="" class="notes-link"><span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a></h4>
-                      <hr>
-                      <span ng-if="!hike.notes">
-                          <em>There aren't any notes for this hike.</em>
-                      </span>
-                      <span ng-if="hike.notes">
-                          <p class="fix-line-break">{{hike.notes}}</p>
-                      </span>
-                    </div>
-                </div>
-                  <!-- All Hikes / Edit / Delete Buttons -->
-                  <div class="wrapper text-center">
-                      <div class="btn-group" ng-controller="navController">
-                          <button class="btn btn-link" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit Hike</button>
-                          <button class="btn btn-link" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete Hike</button>
-                          <button class="btn btn-link" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
-                      </div>
-                  </div>
-              </div>
+    <div class="col-sm-12">
+      <!-- Hike Overview Panel -->
+      <div class="panel panel-default" id="top-hike">
+        <!-- Panel Title -->
+        <div class="panel-heading">
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="fix-line-break">{{hike.name}}</span>
+          </h2>
+        </div>
+        <div class="panel-body">
+          <!-- If post trip is completed: -->
+          <span ng-if="hike.postTrip">
+            <!-- If a day trip -->
+            <span ng-if="hike.postTrip.start_date == hike.postTrip.end_date">
+              <h3 class="subdued padding-left-sm">
+                <em>{{hike.postTrip.start_date | date}}</em>
+              </h3>
+              <h4 class="padding-left-sm region-text">
+                <em>Day Hike @
+                  {{hike.region}}</em>
+              </h4>
+            </span>
+            <!-- If multi-day -->
+            <span ng-if="hike.postTrip.start_date != hike.postTrip.end_date">
+              <h3 class="subdued padding-left-sm">
+                <em>{{hike.postTrip.start_date | date}}
+                  -
+                  {{hike.postTrip.end_date | date}}</em>
+              </h3>
+              <h4 class="padding-left-sm region-text">
+                <em>Multi-Day @
+                  {{hike.region}}</em>
+              </h4>
+            </span>
+          </span>
+          <!-- If post-trip not completed: -->
+          <span ng-if="!hike.postTrip">
+            <h3 class="subdued padding-left-sm">
+              <em>Added
+                {{hike.createdAt | date}}</em>
+            </h3>
+            <h4 class="padding-left-sm region-text">
+              <em>{{hike.region}}</em>
+            </h4>
+          </span>
+          <!-- Distance, Elevation, Time Estimate -->
+          <div class="row margin-top margin-bottom hike-info">
+            <div class="col-md-3 text-center">
+              <h1>{{hike.distance}}
+                miles</h1>
+              <h4 class="hike-info-subtext">round-trip</h4>
+            </div>
+            <div class="col-md-3 text-center">
+              <h1>{{hike.gain}}
+                feet</h1>
+              <h4 class="hike-info-subtext">total gain</h4>
+            </div>
+            <div class="col-md-6 text-center">
+              <h1>{{hike.timeEstimate}}</h1>
+              <h4 class="hike-info-subtext">estimated time</h4>
+            </div>
           </div>
+          <div class="row margin-bottom" ng-if="hike.location">
+            <div class="col-md-12 text-center">
+              <a ng-href="{{hike.location}}" target="_blank" class="btn btn-link btn-lg">
+                <span class="glyphicon glyphicon-new-window"></span>
+                <strong>Location Map URL</strong>
+              </a>
+            </div>
+          </div>
+          <div class="row padding-bottom-sm padding-left-sm">
+            <div class="col-md-12">
+              <h4>Notes
+                <a href="" class="notes-link">
+                  <span class="glyphicon glyphicon-pencil" ng-controller="navController" ng-click="editHike(hike._id)"></span></a>
+              </h4>
+              <hr>
+              <span ng-if="!hike.notes">
+                <em>There aren't any notes for this hike.</em>
+              </span>
+              <span ng-if="hike.notes">
+                <p class="fix-line-break">{{hike.notes}}</p>
+              </span>
+            </div>
+          </div>
+          <!-- All Hikes / Edit / Delete Buttons -->
+          <div class="wrapper text-center">
+            <div class="btn-group" ng-controller="navController">
+              <button class="btn btn-link" ng-click="editHike(hike._id)">
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit Hike</button>
+              <button class="btn btn-link" ng-click="deleteHike(hike._id)">
+                <span class="glyphicon glyphicon-trash"></span>
+                Delete Hike</button>
+              <button class="btn btn-link" ng-click="viewAllHikes()">
+                <span class="glyphicon glyphicon-th-list"></span>
+                View All Hikes</button>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
   <!-------------------------->
-  <!--     PRE-TRIP INFO    -->
+  <!-- PRE-TRIP INFO -->
   <!-------------------------->
   <!-- Responsive Row -->
   <div class="row">
@@ -118,47 +167,86 @@
       <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-          <h2 class="heading-shadow"><span class="glyphicon glyphicon-arrow-right"></span> Pre-Trip Report</h2></div>
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-arrow-right"></span>
+            Pre-Trip Report</h2>
+        </div>
         <!-- Panel Body -->
         <div class="panel-body">
           <ul class="list-group">
-            <li class="list-group-item"><strong><span class="glyphicon glyphicon-calendar"></span> Date Added:</strong> {{hike.preTrip.createdAt | date}}</li>
-            <li class="list-group-item"><strong><span class="glyphicon glyphicon-user"></span> Group Size:</strong> {{hike.preTrip.groupSize}}</li>
-            <li class="list-group-item"><strong><span class="glyphicon glyphicon-adjust"></span> Sunset Time:</strong> <span class="fix-line-break">{{hike.preTrip.sunset}}</span></li>
+            <li class="list-group-item">
+              <strong>
+                <span class="glyphicon glyphicon-calendar"></span>
+                Date Added:</strong>
+              {{hike.preTrip.createdAt | date}}</li>
+            <li class="list-group-item">
+              <strong>
+                <span class="glyphicon glyphicon-user"></span>
+                Group Size:</strong>
+              {{hike.preTrip.groupSize}}</li>
+            <li class="list-group-item">
+              <strong>
+                <span class="glyphicon glyphicon-adjust"></span>
+                Sunset Time:</strong>
+              <span class="fix-line-break">{{hike.preTrip.sunset}}</span></li>
           </ul>
           <div class="panel panel-default">
-            <div class="panel-heading"><strong><span class="glyphicon glyphicon-cloud"></span> Weather Report:</strong></div>
+            <div class="panel-heading">
+              <strong>
+                <span class="glyphicon glyphicon-cloud"></span>
+                Weather Report:</strong>
+            </div>
             <div class="panel-body">
               <span class="fix-line-break">{{hike.preTrip.weather}}</span>
             </div>
           </div>
           <div class="panel panel-default">
-            <div class="panel-heading"><strong><span class="glyphicon glyphicon-tasks"></span> Itinerary:</strong></div>
+            <div class="panel-heading">
+              <strong>
+                <span class="glyphicon glyphicon-tasks"></span>
+                Itinerary:</strong>
+            </div>
             <div class="panel-body">
               <span class="fix-line-break">{{hike.preTrip.itinerary}}</span>
             </div>
           </div>
           <div class="panel panel-default">
-            <div class="panel-heading"><strong><span class="glyphicon glyphicon-warning-sign"></span> Potential Hazards:</strong></div>
+            <div class="panel-heading">
+              <strong>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                Potential Hazards:</strong>
+            </div>
             <div class="panel-body">
               <span class="fix-line-break">{{hike.preTrip.hazards}}</span>
             </div>
           </div>
           <div class="panel panel-default">
-            <div class="panel-heading"><strong><span class="glyphicon glyphicon-pencil"></span> Notes:</strong></div>
+            <div class="panel-heading">
+              <strong>
+                <span class="glyphicon glyphicon-pencil"></span>
+                Notes:</strong>
+            </div>
             <div class="panel-body">
               <span ng-if="!hike.preTrip.notes">
                 <em>There aren't any Pre-Trip notes for this hike.</em>
               </span>
-              <span ng-if="hike.preTrip.notes"><p class="fix-line-break">{{hike.preTrip.notes}}</p></span>
+              <span ng-if="hike.preTrip.notes">
+                <p class="fix-line-break">{{hike.preTrip.notes}}</p>
+              </span>
             </div>
           </div>
           <!-- All Hikes / Edit / Delete Buttons -->
           <div class='wrapper text-center'>
             <div class="btn-group" ng-controller="navController">
-              <button class="btn btn-link" ng-click="editPreTrip()"><span class="glyphicon glyphicon-edit"></span> Edit Pre-Trip</button>
-              <button class="btn btn-link" ng-click="deletePreTrip(hike._id, hike.preTrip._id)"><span class="glyphicon glyphicon-trash"></span> Delete Pre-Trip</button>
-              <button class="btn btn-link" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+              <button class="btn btn-link" ng-click="editPreTrip()">
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit Pre-Trip</button>
+              <button class="btn btn-link" ng-click="deletePreTrip(hike._id, hike.preTrip._id)">
+                <span class="glyphicon glyphicon-trash"></span>
+                Delete Pre-Trip</button>
+              <button class="btn btn-link" ng-click="home()">
+                <span class="glyphicon glyphicon-dashboard"></span>
+                Back To Dashboard</button>
             </div>
           </div>
         </div>
@@ -166,7 +254,7 @@
     </div>
   </div>
   <!-------------------------->
-  <!--    POST-TRIP INFO    -->
+  <!-- POST-TRIP INFO -->
   <!-------------------------->
   <!-- Responsive Row -->
   <div class="row">
@@ -175,11 +263,16 @@
       <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-          <h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Post-Trip Report</h2></div>
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-check"></span>
+            Post-Trip Report</h2>
+        </div>
         <!-- Panel Body -->
         <div class="panel-body">
           <!-- PostTrip Alerts -->
-          <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+          <div uib-alert="uib-alert" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)">
+            <strong>{{alert.hdr}}</strong>
+            {{alert.msg}}</div>
           <!-- Post-Trip Hike Form -->
           <form ng-submit="addPostTrip()" class="padding-left-sm padding-right-sm form-horizontal">
             <!-- Start and End Date of Hike -->
@@ -190,18 +283,32 @@
                     <h2 class="hike-date-hdr">Hiking Starting Date:</h2>
                     <p class="input-group">
                       <span class="input-group-addon">
-                          <button type="button" class="btn btn-default p-0" ng-click="startDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" datepicker-options="dateOptions" ng-model="postTrip.start_date" ng-click="startDate()" is-open="starting_date.opened" ng-required="true" close-text="Close" placeholder="Hiking Starting Date" />
+                        <button type="button" class="btn btn-default p-0" ng-click="startDate()">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control input-lg"
+                        uib-datepicker-popup="fullDate"
+                        datepicker-options="dateOptions"
+                        ng-model="postTrip.start_date"
+                        ng-click="startDate()"
+                        is-open="starting_date.opened"
+                        ng-required="true"
+                        close-text="Close"
+                        placeholder="Hiking Starting Date"/>
                     </p>
                   </div>
                   <div class="col-md-6">
                     <h2 class="hike-date-hdr">Hiking End Date:</h2>
                     <p class="input-group">
                       <span class="input-group-addon">
-                          <button type="button" class="btn btn-default p-0" ng-click="endDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="Hiking End Date" />
+                        <button type="button" class="btn btn-default p-0" ng-click="endDate()">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                      </span>
+                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="Hiking End Date"/>
                     </p>
                   </div>
                 </div>
@@ -212,7 +319,9 @@
               <fieldset>
                 <legend>Actual Hiking Time:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-time"></i>
+                  </span>
                   <input type="text" name="time" id="time" class="form-control input-lg" ng-model="postTrip.time" placeholder="Act. Hiking Time (or Best Guess)">
                 </div>
               </fieldset>
@@ -222,7 +331,9 @@
               <fieldset>
                 <legend>Actual Weather:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-cloud"></i>
+                  </span>
                   <textarea class="form-control input-lg" rows="5" id="weather" ng-model="postTrip.weather" placeholder="Describe the actual weather experienced (morning, afternoon and night), as best you can remember."></textarea>
                 </div>
               </fieldset>
@@ -232,7 +343,9 @@
               <fieldset>
                 <legend>Experienced Hazards:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                  </span>
                   <textarea class="form-control input-lg" ng-model="postTrip.hazards" rows="5" id="hazards" placeholder="Describe any hazards experienced."></textarea>
                 </div>
               </fieldset>
@@ -242,7 +355,9 @@
               <fieldset>
                 <legend>Flora and Fauna Sightings:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-leaf"></i>
+                  </span>
                   <textarea class="form-control input-lg" ng-model="postTrip.floraFauna" rows="5" id="wildlife" placeholder="Describe any interesting flora or fauna observed."></textarea>
                 </div>
               </fieldset>
@@ -252,13 +367,19 @@
               <fieldset>
                 <legend>Additional Notes:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-comment"></i>
+                  </span>
                   <textarea class="form-control input-lg" ng-model="postTrip.notes" rows="5" id="notes" placeholder="Describe any additional details which may aid in future or repeated endeavors."></textarea>
                 </div>
               </fieldset>
               <!-- Complete Post-Trip and Cancel Buttons -->
-              <button type="submit" class="btn btn-block btn-lg btn-info margin-top"><span class="glyphicon glyphicon-check"></span> Complete Post Trip</button>
-              <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+              <button type="submit" class="btn btn-block btn-lg btn-info margin-top">
+                <span class="glyphicon glyphicon-check"></span>
+                Complete Post Trip</button>
+              <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()">
+                <span class="glyphicon glyphicon-ban-circle"></span>
+                Cancel</button>
             </div>
           </form>
         </div>

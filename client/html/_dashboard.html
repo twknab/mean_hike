@@ -1,206 +1,314 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse" ng-controller="navController" id="top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-            <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
-        </div>
-        <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-                <li class=""><a href="" ng-click="newHike()"><span class="glyphicon glyphicon-plus"></span> Hike</a></li>
-                <li class=""><a href="" ng-click="newPreTrip()"><span class="glyphicon glyphicon-plus"></span> Pre-Trip</a></li>
-                <li class=""><a href="" ng-click="recentHikes()"><span class="glyphicon glyphicon-time"></span> Recent Hikes</a></li>
-                <li class=""><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class="btn btn-default navbar-btn margin-right-sm" ng-click="userAccount(user.username)"><span class="glyphicon glyphicon-log-out"></span> {{user.username}}'s Account</button>
-                </li>
-                <li>
-                    <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-                </li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
+    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-dashboard"></span>
+            Dashboard</a>
+        </li>
+        <li class="">
+          <a href="" ng-click="newHike()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Hike</a>
+        </li>
+        <li class="">
+          <a href="" ng-click="newPreTrip()">
+            <span class="glyphicon glyphicon-plus"></span>
+            Pre-Trip</a>
+        </li>
+        <li class="">
+          <a href="" ng-click="recentHikes()">
+            <span class="glyphicon glyphicon-time"></span>
+            Recent Hikes</a>
+        </li>
+        <li class="">
+          <a href="" ng-click="viewAllHikes()">
+            <span class="glyphicon glyphicon-th-list"></span>
+            All Hikes</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="btn btn-default navbar-btn margin-right-sm" ng-click="userAccount(user.username)">
+            <span class="glyphicon glyphicon-log-out"></span>
+            {{user.username}}'s Account</button>
+        </li>
+        <li>
+          <button class="btn btn-primary navbar-btn" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Welcome Responsive Row -->
-    <div class="row">
-        <div class="col-sm-12">
-            <!-- Page Title and Icon -->
-            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>{{user.username}}'s Dashboard</em></small></h1>
-            <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
-            <span ng-if="user.welcomeMsgStatus === true">
+  <!-- Welcome Responsive Row -->
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Page Title and Icon -->
+      <h1 class="page-header">
+        <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/>
+        <small>
+          <em>{{user.username}}'s Dashboard</em>
+        </small>
+      </h1>
+      <!-- If User Welcome Status Set to True (by default) Show Welcome Text: -->
+      <span ng-if="user.welcomeMsgStatus === true">
         <!-- Welcome Message (Angular UI Bootstrap) -->
-        <div uib-alert ng-repeat="alert in welcomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a></div>
+        <div uib-alert="uib-alert" ng-repeat="alert in welcomeAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeWelcomeAlert($index)">
+          <strong>{{alert.hdr}}</strong>
+          {{alert.msg}}
+          <a class="alert_link" href="" ng-click="welcomeMessageFalse()">Do not show me this again.</a>
+        </div>
       </span>
-            <!-- If User's Info Messages Set to True, Show Info -->
-            <span ng-if="user.infoMsgStatus === true">
+      <!-- If User's Info Messages Set to True, Show Info -->
+      <span ng-if="user.infoMsgStatus === true">
         <!-- User Info Messages (Angular UI Bootstrap) -->
-        <div uib-alert ng-repeat="alert in infoAlerts" ng-class="'user-updates alert-' + (alert.type || 'success')" close="closeInfoAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="info_alert_link" href="" ng-click="infoMessageFalse()">Thanks, you don't have to alert me again.</a></div>
+        <div uib-alert="uib-alert" ng-repeat="alert in infoAlerts" ng-class="'user-updates alert-' + (alert.type || 'success')" close="closeInfoAlert($index)">
+          <strong>{{alert.hdr}}</strong>
+          {{alert.msg}}
+          <a class="info_alert_link" href="" ng-click="infoMessageFalse()">Thanks, you don't have to alert me again.</a>
+        </div>
       </span>
-        </div>
     </div>
-    <!-- Accordian Responsive Row -->
-    <div class="row">
-        <div class="col-sm-12">
-            <!-- Success Alerts -->
-            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
-            <!-- Angular UI Accordian -->
-            <div>
-                <!-- Accordian -->
-                <uib-accordion close-others="oneAtATime">
-                    <!------------------------->
-                    <!--     RECENT HIKES    -->
-                    <!------------------------->
-                    <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen" id="top-recent-hikes">
-                        <uib-accordion-heading>
-                            <h2 class="heading-shadow"><span class="glyphicon glyphicon-time"></span> Recent <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i></h2>
-                        </uib-accordion-heading>
-                        <span ng-if="recentHikes.length >= 1">
-                            <ul class="list-group no-list-margin">
-                                <li class="list-group-item" ng-repeat="hike in recentHikes">
-                                    <!-- If Pre-Trip Incomplete -->
-                                    <span ng-if="!hike.preTrip">
-                                        <div>
-                                            <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - added {{hike.createdAt | date}}</a> -
-                                            <span class="label label-warning">Pre-Trip Incomplete</span>
+  </div>
+  <!-- Accordian Responsive Row -->
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Success Alerts -->
+      <div uib-alert="uib-alert" ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)">
+        <strong>{{alert.hdr}}</strong>
+        {{alert.msg}}</div>
+      <!-- Angular UI Accordian -->
+      <div>
+        <!-- Accordian -->
+        <uib-accordion close-others="oneAtATime">
+          <!------------------------->
+          <!-- RECENT HIKES -->
+          <!------------------------->
+          <div uib-accordion-group="uib-accordion-group" class="panel-default" is-open="status.isFirstOpen" id="top-recent-hikes">
+            <uib-accordion-heading>
+              <h2 class="heading-shadow">
+                <span class="glyphicon glyphicon-time"></span>
+                Recent
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i>
+              </h2>
+            </uib-accordion-heading>
+            <span ng-if="recentHikes.length >= 1">
+              <ul class="list-group no-list-margin">
+                <li class="list-group-item" ng-repeat="hike in recentHikes">
+                  <!-- If Pre-Trip Incomplete -->
+                  <span ng-if="!hike.preTrip">
+                    <div>
+                      <strong>{{hike.name}}</strong>
+                      -
+                      <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                        mi |
+                        {{hike.gain}}
+                        ft gain -
+                        {{hike.timeEstimate}}
+                        - added
+                        {{hike.createdAt | date}}</a>
+                      -
+                      <span class="label label-warning">Pre-Trip Incomplete</span>
                     </div>
+                  </span>
+                  <!-- If Pre-Trip Completed Only (not Post-Trip) -->
+                  <span ng-if="hike.preTrip && !hike.postTrip">
+                    <div>
+                      <strong>{{hike.name}}</strong>
+                      -
+                      <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                        mi |
+                        {{hike.gain}}
+                        ft gain -
+                        {{hike.timeEstimate}}
+                        - updated
+                        {{hike.preTrip.updatedAt | date}}</a>
+                      -
+                      <span class="label label-success">Pre-Trip Completed</span>
+                    </div>
+                  </span>
+                  <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
+                  <span ng-if="hike.preTrip && hike.postTrip">
+                    <div>
+                      <strong>{{hike.name}}</strong>
+                      -
+                      <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                        mi |
+                        {{hike.gain}}
+                        ft gain -
+                        {{hike.timeEstimate}}
+                        - updated
+                        {{hike.postTrip.updatedAt | date}}</a>
+                      -
+                      <span class="label label-default">Completed</span>
+                    </div>
+                  </span>
+                  <div class="margin-top-sm" ng-controller="navController">
+                    <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)">
+                      <span class="glyphicon glyphicon-folder-close"></span>
+                      View Hike</button>
+                    <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)">
+                      <span class="glyphicon glyphicon-trash"></span>
+                      Delete</button>
+                    <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)">
+                      <span class="glyphicon glyphicon-edit"></span>
+                      Edit</button>
+                    <span ng-if="!hike.preTrip">
+                      <button class="btn btn-link btn-xs" ng-click="startPreTrip(hike._id)">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        Start Pre-Trip</button>
                     </span>
-                    <!-- If Pre-Trip Completed Only (not Post-Trip) -->
                     <span ng-if="hike.preTrip && !hike.postTrip">
-                                        <div>
-                                            <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.preTrip.updatedAt | date}}</a> -
-                                            <span class="label label-success">Pre-Trip Completed</span>
-            </div>
+                      <button class="btn btn-link btn-xs" ng-click="startPostTrip(hike._id)">
+                        <span class="glyphicon glyphicon-check"></span>
+                        Complete Post-Trip</button>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+              <!-- All Hikes Button -->
+              <button class="btn-block btn-lg btn btn-link margin-top-sm" ng-controller="navController" ng-click="viewAllHikes()">
+                <span class="glyphicon glyphicon-th-list"></span>
+                View All Hikes</button>
             </span>
-            <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
-            <span ng-if="hike.preTrip && hike.postTrip">
-                                        <div>
-                                            <strong>{{hike.name}}</strong> -
-                                            <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.postTrip.updatedAt | date}}</a> -
-                                            <span class="label label-default">Completed</span>
-        </div>
-        </span>
-        <div class="margin-top-sm" ng-controller="navController">
-            <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
-            <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-            <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-            <span ng-if="!hike.preTrip">
-              <button class="btn btn-link btn-xs" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
+            <span ng-if="recentHikes.length < 1">
+              <h4 class="text-center margin-all">
+                <em>You don't have any hikes yet! Add one below!</em>
+                ⛺️
+              </h4>
             </span>
-            <span ng-if="hike.preTrip && !hike.postTrip">
-              <button class="btn btn-link btn-xs" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</button>
-            </span>
-        </div>
-        </li>
-        </ul>
-        <!-- All Hikes Button -->
-        <button class="btn-block btn-lg btn btn-link margin-top-sm" ng-controller="navController" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> View All Hikes</button>
-        </span>
-        <span ng-if="recentHikes.length < 1">
-                            <h4 class="text-center margin-all">
-                                <em>You don't have any hikes yet! Add one below!</em> ⛺️
-                            </h4>
-                        </span>
-    </div>
-    <!------------------------->
-    <!--     ADD NEW HIKE    -->
-    <!------------------------->
-    <div uib-accordion-group class="panel-default" is-open="status.newHike" id="top-new-hike">
-        <uib-accordion-heading>
-            <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Hike <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i></h2>
-        </uib-accordion-heading>
-        <!-- New Hike Form -->
-        <form ng-submit="addHike()" class="padding-left-sm padding-right-sm form-horizontal" id="addHikeForm">
-            <!-- Hike Name Field -->
-            <div class="form-group">
+          </div>
+          <!------------------------->
+          <!-- ADD NEW HIKE -->
+          <!------------------------->
+          <div uib-accordion-group="uib-accordion-group" class="panel-default" is-open="status.newHike" id="top-new-hike">
+            <uib-accordion-heading>
+              <h2 class="heading-shadow">
+                <span class="glyphicon glyphicon-plus"></span>
+                Hike
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newHike, 'glyphicon-chevron-right': !status.newHike}"></i>
+              </h2>
+            </uib-accordion-heading>
+            <!-- New Hike Form -->
+            <form ng-submit="addHike()" class="padding-left-sm padding-right-sm form-horizontal" id="addHikeForm">
+              <!-- Hike Name Field -->
+              <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="newHike.name">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </span>
+                  <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Hike Name" ng-model="newHike.name">
                 </div>
-            </div>
-            <!-- Region Field -->
-            <div class="form-group">
+              </div>
+              <!-- Region Field -->
+              <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-screenshot"></i></span>
-                    <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-screenshot"></i>
+                  </span>
+                  <input type="text" name="region" id="region" ng-model="newHike.region" class="form-control input-lg" placeholder="Region">
                 </div>
-            </div>
-            <!-- Hike Distance Field -->
-            <div class="form-group">
+              </div>
+              <!-- Hike Distance Field -->
+              <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-resize-horizontal"></i></span>
-                    <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Rnd Trip Dist. (mi)">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-resize-horizontal"></i>
+                  </span>
+                  <input type="text" name="distance" id="distance" ng-model="newHike.distance" class="form-control input-lg" placeholder="Rnd Trip Dist. (mi)">
                 </div>
-            </div>
-            <!-- Elevation Gain Field -->
-            <div class="form-group">
+              </div>
+              <!-- Elevation Gain Field -->
+              <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-resize-vertical"></i></span>
-                    <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Total Gain (ft)">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                  </span>
+                  <input type="text" name="gain" id="gain" ng-model="newHike.gain" class="form-control input-lg" placeholder="Total Gain (ft)">
                 </div>
-            </div>
-            <!-- Location URL Field -->
-            <div class="form-group">
+              </div>
+              <!-- Location URL Field -->
+              <div class="form-group">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                    <input type="text" name="location" id="location" ng-model="newHike.location" class="form-control input-lg" placeholder="Map URL">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                  </span>
+                  <input type="text" name="location" id="location" ng-model="newHike.location" class="form-control input-lg" placeholder="Map URL">
                 </div>
-            </div>
-            <!-- Hike Notes -->
-            <div class="form-group">
+              </div>
+              <!-- Hike Notes -->
+              <div class="form-group">
                 <div class="input-group margin-bottom-sm">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                    <textarea name="notes" id="notes" cols="30" rows="10" ng-model="newHike.notes" class="form-control input-lg" placeholder="Special Notes: logistics, permits, driving or trailhead access"></textarea>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-comment"></i>
+                  </span>
+                  <textarea name="notes" id="notes" cols="30" rows="10" ng-model="newHike.notes" class="form-control input-lg" placeholder="Special Notes: logistics, permits, driving or trailhead access"></textarea>
                 </div>
                 <!-- Add New Hike Button -->
-                <button type="submit" class="btn-block btn-info btn-lg"><span class="glyphicon glyphicon-ok"></span> Add New Hike</button>
-            </div>
-        </form>
+                <button type="submit" class="btn-block btn-info btn-lg">
+                  <span class="glyphicon glyphicon-ok"></span>
+                  Add New Hike</button>
+              </div>
+            </form>
+          </div>
+          <!--------------------------->
+          <!-- ADD NEW PRE-TRIP -->
+          <!--------------------------->
+          <div uib-accordion-group="uib-accordion-group" class="panel-default" is-open="status.newPreTrip" id="newPreTripForm">
+            <uib-accordion-heading>
+              <h2 class="heading-shadow">
+                <span class="glyphicon glyphicon-plus"></span>
+                Pre-Trip
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i>
+              </h2>
+            </uib-accordion-heading>
+            <span ng-if="incompletePreTrips.length >= 1">
+              <!-- Pre-Trip Hike Selector Dropdown Form -->
+              <form ng-submit="startPreTrip(selectedHike)" class="padding-left padding-right padding-top form-horizontal">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-arrow-right"></i>
+                    </span>
+                    <select class="form-control input-lg" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
+                      <option value="">Choose a Hike...</option>
+                    </select>
+                  </div>
+                  <!-- Start Pre-Trip Button -->
+                  <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    Start Pre-Trip</button>
+                </div>
+              </form>
+            </span>
+            <span ng-if="incompletePreTrips.length < 1">
+              <h4 class="text-center margin-all">
+                <em>You don't have any pending hikes! Add one above!</em>
+                🏕
+              </h4>
+            </span>
+          </div>
+          <!-- End Accordian -->
+        </uib-accordion>
+      </div>
     </div>
-    <!--------------------------->
-    <!--    ADD NEW PRE-TRIP   -->
-    <!--------------------------->
-    <div uib-accordion-group class="panel-default" is-open="status.newPreTrip" id="newPreTripForm">
-        <uib-accordion-heading>
-            <h2 class="heading-shadow"><span class="glyphicon glyphicon-plus"></span> Pre-Trip <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.newPreTrip, 'glyphicon-chevron-right': !status.newPreTrip}"></i></h2>
-        </uib-accordion-heading>
-        <span ng-if="incompletePreTrips.length >= 1">
-                            <!-- Pre-Trip Hike Selector Dropdown Form -->
-                            <form ng-submit="startPreTrip(selectedHike)" class="padding-left padding-right padding-top form-horizontal">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-arrow-right"></i></span>
-        <select class="form-control input-lg" id="selectedHike" ng-model="selectedHike" ng-options="hike._id as hike.name for hike in incompletePreTrips" ng-selected="preHikeDefault">
-                                            <option value="">Choose a Hike...</option>
-                                        </select>
-    </div>
-    <!-- Start Pre-Trip Button -->
-    <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
-</div>
-</form>
-</span>
-<span ng-if="incompletePreTrips.length < 1">
-                            <h4 class="text-center margin-all">
-                                <em>You don't have any pending hikes! Add one above!</em> 🏕
-                            </h4>
-                        </span>
-</div>
-<!-- End Accordian -->
-</uib-accordion>
-</div>
-</div>
-</div>
-
+  </div>
 
 </div>
 <!-- End Primary Container -->

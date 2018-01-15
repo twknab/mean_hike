@@ -253,13 +253,13 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
 
   };
 
-//-----------------------------//
-//-------- ADD POST-TRIP ------//
-//-----------------------------//
+  //-----------------------------//
+  //-------- ADD POST-TRIP ------//
+  //-----------------------------//
 
-$scope.startPostTrip = function(hikeId) {
+  $scope.startPostTrip = function(hikeId) {
     $location.url('/hikes/' + hikeId + '/post-trip');
-};
+  };
 
 
   //-----------------------------------------//

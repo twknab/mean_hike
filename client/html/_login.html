@@ -1,128 +1,180 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse" id="top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-            <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
-        </div>
-        <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="" ng-click="home()"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                <li><a href="" ng-controller="ModalRegisterCtrl as $ctrl" ng-click="$ctrl.open()"><span class="glyphicon glyphicon-user"></span> Register</a></li>
-                <li><a href="" ng-click="about()"><span class="glyphicon glyphicon-tree-conifer"></span> About</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class="btn btn-info navbar-btn" ng-click="timHome()"><span class="glyphicon glyphicon-new-window"></span> By Tim Knab</button>
-                </li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
+    <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-home"></span>
+            Home</a>
+        </li>
+        <li>
+          <a href="" ng-controller="ModalRegisterCtrl as $ctrl" ng-click="$ctrl.open()">
+            <span class="glyphicon glyphicon-user"></span>
+            Register</a>
+        </li>
+        <li>
+          <a href="" ng-click="about()">
+            <span class="glyphicon glyphicon-tree-conifer"></span>
+            About</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="btn btn-info navbar-btn" ng-click="timHome()">
+            <span class="glyphicon glyphicon-new-window"></span>
+            By Tim Knab</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 <!-- Primary Container -->
 <div class="container margin-bottom">
-    <!-- Jumbotron -->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="jumbotron">
-                <h1><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool</h1>
-                <p>Plan, record and better prepare for your hiking adventures.</p>
-                <p><a class="btn btn-danger btn-lg" ng-click="about()"><span class="glyphicon glyphicon-tree-conifer"></span> Learn more</a></p>
-            </div>
-        </div>
+  <!-- Jumbotron -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="jumbotron">
+        <h1>
+          <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool</h1>
+        <p>Plan, record and better prepare for your hiking adventures.</p>
+        <p>
+          <a class="btn btn-danger btn-lg" ng-click="about()">
+            <span class="glyphicon glyphicon-tree-conifer"></span>
+            Learn more</a>
+        </p>
+      </div>
     </div>
-    <!-- Login -->
-    <div class="row">
-        <div class="col-sm-12" id="top-login">
-            <h2><span class="glyphicon glyphicon-log-in"></span> User Login</h2>
-            <!-- Success Alerts -->
-            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
-            <!-- Login Form -->
-            <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal" id="loginForm">
-                <div class="form-group">
-                    <!-- Email Field -->
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="loginId" id="loginId" ng-model="user.loginId" class="form-control input-lg login" placeholder="Email or Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <!-- Password Field -->
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg login" placeholder="Password">
-                    </div>
-                </div>
-                <div class="form-group">
-                  <!-- Login Button -->
-                  <button type="submit" class="btn-block btn-info btn-lg"><span class="glyphicon glyphicon-log-in"></span> Login</button>
-                </div>
-            </form>
-            <!-- Register Button -->
-            <button ng-controller="ModalRegisterCtrl as $ctrl" ng-click="$ctrl.open()" class="btn-block btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Create New Account</button>
+  </div>
+  <!-- Login -->
+  <div class="row">
+    <div class="col-sm-12" id="top-login">
+      <h2>
+        <span class="glyphicon glyphicon-log-in"></span>
+        User Login</h2>
+      <!-- Success Alerts -->
+      <div uib-alert="uib-alert" ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)">
+        <strong>{{alert.hdr}}</strong>
+        {{alert.msg}}</div>
+      <!-- Login Form -->
+      <form ng-submit="login()" class="padding-left-sm padding-right-sm form-horizontal" id="loginForm">
+        <div class="form-group">
+          <!-- Email Field -->
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input type="text" name="loginId" id="loginId" ng-model="user.loginId" class="form-control input-lg login" placeholder="Email or Username">
+          </div>
         </div>
+        <div class="form-group">
+          <!-- Password Field -->
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg login" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <!-- Login Button -->
+          <button type="submit" class="btn-block btn-info btn-lg">
+            <span class="glyphicon glyphicon-log-in"></span>
+            Login</button>
+        </div>
+      </form>
+      <!-- Register Button -->
+      <button ng-controller="ModalRegisterCtrl as $ctrl" ng-click="$ctrl.open()" class="btn-block btn btn-link btn-lg">
+        <span class="glyphicon glyphicon-user"></span>
+        Create New Account</button>
     </div>
+  </div>
 </div>
 
 <div ng-controller="ModalRegisterCtrl as $ctrl" class="modal-demo">
-    <script type="text/ng-template" id="_register.html">
-        <!-- Modal content-->
-        <div class="row">
-            <div class="col-sm-12" id="top-registration">
-                <div class="modal-content">
-                    <div class="panel panel-default margin-bottom-none">
-                        <div class="panel-heading"><button type="button" class="close close-modal" ng-click="$ctrl.cancel()">&times;</button>
-                            <h2 class="modal-title"><span class="glyphicon glyphicon-user"></span> Register</h2></div>
-                            <div class="panel-body">
-                                <!-- Registration Form -->
-                                <form id="registrationForm" ng-submit="register()" class="margin-left-sm margin-right-sm form-horizontal">
-                                    <!-- Username Field -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type="text" name="username" id="username" ng-model="newUser.username" class="form-control input-lg" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <!-- Email Field -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                            <input type="text" name="email" id="email" ng-model="newUser.email" class="form-control input-lg" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <!-- Email Confirm Field -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                            <input type="text" name="emailConfirm" id="emailConfirm" ng-model="newUser.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
-                                        </div>
-                                    </div>
-                                    <!-- Password Field -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                            <input type="password" name="regPassword" id="regPassword" ng-model="newUser.password" class="form-control input-lg" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <!-- Confirm Password Field -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                            <input type="password" name="passwordConfirm" id="passwordConfirm" ng-model="newUser.passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
-                                        </div>
-                                        <!-- Registration Button -->
-                                        <button type="submit" formmethod="POST" form="reg_form" class="btn-block btn-info btn-lg margin-top-sm" ng-click="$ctrl.register()"><span class="glyphicon glyphicon-user"></span> Register</button> </div>
-                                        <button type="button" class="btn-block btn btn-link btn-lg margin-top-sm" ng-click="$ctrl.cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                </div>
+  <script type="text/ng-template" id="_register.html">
+    <!-- Modal content-->
+    <div class="row">
+      <div class="col-sm-12" id="top-registration">
+        <div class="modal-content">
+          <div class="panel panel-default margin-bottom-none">
+            <div class="panel-heading">
+              <button type="button" class="close close-modal" ng-click="$ctrl.cancel()">&times;</button>
+              <h2 class="modal-title">
+                <span class="glyphicon glyphicon-user"></span>
+                Register</h2>
             </div>
+            <div class="panel-body">
+              <!-- Registration Form -->
+              <form id="registrationForm" ng-submit="register()" class="margin-left-sm margin-right-sm form-horizontal">
+                <!-- Username Field -->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-user"></i>
+                    </span>
+                    <input type="text" name="username" id="username" ng-model="newUser.username" class="form-control input-lg" placeholder="Username">
+                  </div>
+                </div>
+                <!-- Email Field -->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-envelope"></i>
+                    </span>
+                    <input type="text" name="email" id="email" ng-model="newUser.email" class="form-control input-lg" placeholder="Email">
+                  </div>
+                </div>
+                <!-- Email Confirm Field -->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-envelope"></i>
+                    </span>
+                    <input type="text" name="emailConfirm" id="emailConfirm" ng-model="newUser.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+                  </div>
+                </div>
+                <!-- Password Field -->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input type="password" name="regPassword" id="regPassword" ng-model="newUser.password" class="form-control input-lg" placeholder="Password">
+                  </div>
+                </div>
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input type="password" name="passwordConfirm" id="passwordConfirm" ng-model="newUser.passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+                  </div>
+                  <!-- Registration Button -->
+                  <button type="submit" formmethod="POST" form="reg_form" class="btn-block btn-info btn-lg margin-top-sm" ng-click="$ctrl.register()">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Register</button>
+                </div>
+                <button type="button" class="btn-block btn btn-link btn-lg margin-top-sm" ng-click="$ctrl.cancel()">
+                  <span class="glyphicon glyphicon-ban-circle"></span>
+                  Nevermind</button>
+              </form>
+            </div>
+
+          </div>
         </div>
-    </script>
+      </div>
+    </div>
+  </script>
 </div>

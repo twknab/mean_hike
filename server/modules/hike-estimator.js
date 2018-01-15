@@ -12,19 +12,19 @@ The equation makes the following assumptions:
 */
 
 module.exports = {
-    travelTime: function(hkDist, elvGain) {
-        /*
-        Estimates travel time in hours and minutes for a hike.
+  travelTime: function(hkDist, elvGain) {
+    /*
+    Estimates travel time in hours and minutes for a hike.
 
-        Parameters:
-        - `hkDist` - "Round trip hike distance (in miles)"
-        - `elvGain` - "Total elevation gain (in feet)"
-        */
+    Parameters:
+    - `hkDist` - "Round trip hike distance (in miles)"
+    - `elvGain` - "Total elevation gain (in feet)"
+    */
 
-        const dt = (((hkDist / 2) + (elvGain / 1000)) + ((((hkDist / 2) + (elvGain / 1000)) * 5) / 60)).toString().split('.'), // split to convert to whole minutes
-        h = dt[0], // whole number hours
-        m = Math.ceil(('.' + dt[1]) * 60); // convert to whole number minutes and round up to nearest whole
+    const dt = (((hkDist / 2) + (elvGain / 1000)) + ((((hkDist / 2) + (elvGain / 1000)) * 5) / 60)).toString().split('.'), // split to convert to whole minutes
+      h = dt[0], // whole number hours
+      m = Math.ceil(('.' + dt[1]) * 60); // convert to whole number minutes and round up to nearest whole
 
-        return `${h} hours ${m} minutes`;
-    },
+    return `${h} hours ${m} minutes`;
+  },
 }

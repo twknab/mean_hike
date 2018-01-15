@@ -2,98 +2,137 @@
 <nav class="navbar navbar-inverse" ng-controller="navController" id="top">
   <div class="container-fluid">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-          <li class="active"><a href="" ng-click="userAccount(user.accountName)"><span class="glyphicon glyphicon-user"></span> User Account</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-            </li>
-        </ul>
+      <ul class="nav navbar-nav">
+        <li class="">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-dashboard"></span>
+            Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="" ng-click="userAccount(user.accountName)">
+            <span class="glyphicon glyphicon-user"></span>
+            User Account</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="btn btn-primary navbar-btn" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Logout</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Welcome Responsive Row -->
-    <div class="row">
-        <div class="col-sm-12">
-            <!-- Page Title and Icon -->
-            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>{{accountName}}'s Account</em></small></h1>
-        </div>
+  <!-- Welcome Responsive Row -->
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Page Title and Icon -->
+      <h1 class="page-header">
+        <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/>
+        <small>
+          <em>{{accountName}}'s Account</em>
+        </small>
+      </h1>
     </div>
+  </div>
 
-    <!-- User Account Responsive Row -->
-    <div class="row">
-        <!-- Update User Account -->
-        <div class="col-sm-12" id="top-update-user">
-            <!-- Success Alerts -->
-            <div uib-alert ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}} <a class="info_alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a></div>
-            <!-- Update User Errors -->
-            <div class="alert alert-danger margin-top-sm" ng-repeat="error in updateErrors">
-                <p><strong>Error!</strong> {{error.message}}</p>
-            </div>
-            <div class="panel panel-default">
-                <!-- Panel Title -->
-                <div class="panel-heading">
-                    <h2 class="heading-shadow"><span class="glyphicon glyphicon-check"></span> Update Account</h2>
-                </div>
-                <div class="panel-body padding-bottom-none">
-                    <!-- Update Account Form -->
-                    <form ng-submit="updateUser()" class="padding-left-sm padding-right-sm form-horizontal" id="updateUserForm">
-                        <!-- Update Password Field -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" name="username" id="username" ng-model="user.username" placeholder="New Username" class="form-control input-lg">
-                            </div>
-                        </div>
-                        <!-- Update Email Field -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input type="email" name="email" id="email" ng-model="user.email" placeholder="New Email" class="form-control input-lg">
-                            </div>
-                        </div>
-                        <!-- Confirm Email Field -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input type="email" name="emailConfirm" id="emailConfirm" ng-model="user.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
-                            </div>
-                        </div>
-                        <!-- Update Password Field -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="New Password">
-                            </div>
-                        </div>
-                        <!-- Confirm Password Field -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" name="passwordConfirm" ng-model="user.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
-                            </div>
-                        </div>
-                        <!-- Update User and Cancel Buttons -->
-                        <div class="form-group">
-                          <button type="submit" class="btn btn-block btn-lg btn-info"><span class="glyphicon glyphicon-check"></span> Update User</button>
-                          <button class="btn btn-block btn-lg btn-link" type="button" ng-click="cancel()"><span class="glyphicon glyphicon-ban-circle"></span> Nevermind</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <!-- User Account Responsive Row -->
+  <div class="row">
+    <!-- Update User Account -->
+    <div class="col-sm-12" id="top-update-user">
+      <!-- Success Alerts -->
+      <div uib-alert="uib-alert" ng-repeat="alert in successAlerts" ng-class="'alert-' + (alert.type || 'info')" close="closeSuccessAlert($index)">
+        <strong>{{alert.hdr}}</strong>
+        {{alert.msg}}
+        <a class="info_alert_link" href="" ng-controller="navController" ng-click="home()">Return Dashboard.</a>
+      </div>
+      <!-- Update User Errors -->
+      <div class="alert alert-danger margin-top-sm" ng-repeat="error in updateErrors">
+        <p>
+          <strong>Error!</strong>
+          {{error.message}}</p>
+      </div>
+      <div class="panel panel-default">
+        <!-- Panel Title -->
+        <div class="panel-heading">
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-check"></span>
+            Update Account</h2>
         </div>
+        <div class="panel-body padding-bottom-none">
+          <!-- Update Account Form -->
+          <form ng-submit="updateUser()" class="padding-left-sm padding-right-sm form-horizontal" id="updateUserForm">
+            <!-- Update Password Field -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-user"></i>
+                </span>
+                <input type="text" name="username" id="username" ng-model="user.username" placeholder="New Username" class="form-control input-lg">
+              </div>
+            </div>
+            <!-- Update Email Field -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-envelope"></i>
+                </span>
+                <input type="email" name="email" id="email" ng-model="user.email" placeholder="New Email" class="form-control input-lg">
+              </div>
+            </div>
+            <!-- Confirm Email Field -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-envelope"></i>
+                </span>
+                <input type="email" name="emailConfirm" id="emailConfirm" ng-model="user.emailConfirm" class="form-control input-lg" placeholder="Confirm Email">
+              </div>
+            </div>
+            <!-- Update Password Field -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input type="password" name="password" id="password" ng-model="user.password" class="form-control input-lg" placeholder="New Password">
+              </div>
+            </div>
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input type="password" name="passwordConfirm" ng-model="user.passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirm Password">
+              </div>
+            </div>
+            <!-- Update User and Cancel Buttons -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-block btn-lg btn-info">
+                <span class="glyphicon glyphicon-check"></span>
+                Update User</button>
+              <button class="btn btn-block btn-lg btn-link" type="button" ng-click="cancel()">
+                <span class="glyphicon glyphicon-ban-circle"></span>
+                Nevermind</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- End Primary Container -->

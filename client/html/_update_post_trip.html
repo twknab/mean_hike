@@ -3,21 +3,37 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-      <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-        <li class="active"><a href="" ng-click="editPostTrip()"><span class="glyphicon glyphicon-edit"></span> Post-Trip</a></li>
-        <li class=""><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
+        <li class="">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-dashboard"></span>
+            Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="" ng-click="editPostTrip()">
+            <span class="glyphicon glyphicon-edit"></span>
+            Post-Trip</a>
+        </li>
+        <li class="">
+          <a href="" ng-click="viewAllHikes()">
+            <span class="glyphicon glyphicon-th-list"></span>
+            All Hikes</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+          <button class="btn btn-primary navbar-btn" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Logout</button>
         </li>
       </ul>
     </div>
@@ -29,7 +45,12 @@
   <div class="row">
     <div class="col-sm-12">
       <!-- Page Title and Icon -->
-      <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>Edit Post-Trip</em></small></h1>
+      <h1 class="page-header">
+        <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/>
+        <small>
+          <em>Edit Post-Trip</em>
+        </small>
+      </h1>
     </div>
   </div>
   <div class="row">
@@ -38,10 +59,16 @@
       <div class="panel panel-default">
         <!-- Panel Title -->
         <div class="panel-heading">
-          <h2 class="heading-shadow"><span class="glyphicon glyphicon-edit"></span> <span class="fix-line-break"></span> Update Post-Trip</h2></div>
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-edit"></span>
+            <span class="fix-line-break"></span>
+            Update Post-Trip</h2>
+        </div>
         <div class="panel-body">
           <!-- PreTrip Alerts -->
-          <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)"><strong>{{alert.hdr}}</strong> {{alert.msg}}</div>
+          <div uib-alert="uib-alert" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)">
+            <strong>{{alert.hdr}}</strong>
+            {{alert.msg}}</div>
           <!-- Post-Trip Hike Form -->
           <form ng-submit="updatePostTrip()" class="padding-left-sm padding-right-sm form-horizontal">
             <!-- Start and End Date of Hike -->
@@ -52,19 +79,22 @@
                     <h2 class="hike-date-hdr">Hiking Starting Date:</h2>
                     <p class="input-group">
                       <span class="input-group-addon">
-                        <button type="button" class="btn btn-default p-0" ng-click="startDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default p-0" ng-click="startDate()">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
                       </span>
-                      <input type="text" class="form-control input-lg"
-                      uib-datepicker-popup="fullDate"  ng-model="postTrip.start_date" ng-click="startDate()" is-open="starting_date.opened" close-text="Close" placeholder="Start Date" />
+                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.start_date" ng-click="startDate()" is-open="starting_date.opened" close-text="Close" placeholder="Start Date"/>
                     </p>
                   </div>
                   <div class="col-md-6">
                     <h2 class="hike-date-hdr">Hiking End Date:</h2>
                     <p class="input-group">
                       <span class="input-group-addon">
-                        <button type="button" class="btn btn-default p-0" ng-click="endDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default p-0" ng-click="endDate()">
+                          <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
                       </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="End Date" />
+                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="End Date"/>
                     </p>
                   </div>
                 </div>
@@ -75,7 +105,9 @@
               <fieldset>
                 <legend>Actual Hiking Time:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-time"></i>
+                  </span>
                   <input type="text" name="time" id="time" class="form-control input-lg fix-line-break" ng-model="postTrip.time" placeholder="Act. Hiking Time (or Best Guess)">
                 </div>
                 <span class="help-block margin-label">Update the actual hiking time experienced.</span>
@@ -86,7 +118,9 @@
               <fieldset>
                 <legend>Actual Weather:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-cloud"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-cloud"></i>
+                  </span>
                   <textarea class="form-control fix-line-break input-lg" rows="5" id="weather" ng-model="postTrip.weather" placeholder="Describe the actual weather experienced (morning, afternoon and night), or a general overview as best you can remember."></textarea>
                 </div>
                 <span class="help-block margin-label">Update the actual weather experienced.</span>
@@ -97,7 +131,9 @@
               <fieldset>
                 <legend>Experienced Hazards:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-warning-sign"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                  </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.hazards" rows="5" id="hazards" placeholder="Describe any hazards experienced."></textarea>
                 </div>
                 <span class="help-block margin-label">Update any experienced hazards.</span>
@@ -108,7 +144,9 @@
               <fieldset>
                 <legend>Flora and Fauna Sightings:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-leaf"></i>
+                  </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.floraFauna" rows="5" id="wildlife" placeholder="Describe any interesting flora or fauna observed."></textarea>
                 </div>
                 <span class="help-block margin-label">Update any flora and fauna sightings.</span>
@@ -119,14 +157,20 @@
               <fieldset>
                 <legend>Additional Notes:</legend>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-comment"></i>
+                  </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.notes" rows="5" id="notes" placeholder="Describe any additional details which may aid in future or repeated endeavors."></textarea>
                 </div>
                 <span class="help-block margin-label">Update any additional notes.</span>
               </fieldset>
               <!-- Complete Post-Trip and Cancel Buttons -->
-              <button type="submit" class="btn btn-block btn-lg btn-info margin-top"><span class="glyphicon glyphicon-check"></span> Update Post Trip</button>
-              <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+              <button type="submit" class="btn btn-block btn-lg btn-info margin-top">
+                <span class="glyphicon glyphicon-check"></span>
+                Update Post Trip</button>
+              <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()">
+                <span class="glyphicon glyphicon-ban-circle"></span>
+                Cancel</button>
             </div>
           </form>
         </div>

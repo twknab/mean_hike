@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
-<head>
-    <base href="/"> <!-- Allows for $locationProvider.html5 mode in Angular -->
+  <head>
+    <base href="/">
+    <!-- Allows for $locationProvider.html5 mode in Angular -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -43,9 +44,11 @@
     <script src="js/factories/angular-post-trip-factory.js"></script>
     <!-- Angular Services -->
     <script src="js/services/angular-message-service.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Partial Container -->
-    <div ng-view><!-- Partials load here --></div>
-</body>
+    <div ng-view="ng-view">
+      <!-- Partials load here -->
+    </div>
+  </body>
 </html>

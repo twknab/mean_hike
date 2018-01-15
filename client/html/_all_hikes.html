@@ -2,162 +2,240 @@
 <nav class="navbar navbar-inverse" ng-controller="navController">
   <div class="container-fluid">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="" ng-click="home()"><span class="glyphicon glyphicon-tree-conifer"></span> Hiking Tool</a>
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="" ng-click="home()">
+        <span class="glyphicon glyphicon-tree-conifer"></span>
+        Hiking Tool</a>
     </div>
     <div uib-collapse="navCollapsed" class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class=""><a href="" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-          <li class="active"><a href="" ng-click="viewAllHikes()"><span class="glyphicon glyphicon-th-list"></span> All Hikes</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <button class="btn btn-primary navbar-btn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-            </li>
-        </ul>
+      <ul class="nav navbar-nav">
+        <li class="">
+          <a href="" ng-click="home()">
+            <span class="glyphicon glyphicon-dashboard"></span>
+            Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="" ng-click="viewAllHikes()">
+            <span class="glyphicon glyphicon-th-list"></span>
+            All Hikes</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="btn btn-primary navbar-btn" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out"></span>
+            Logout</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
 
 <!-- Begin Primary Container -->
 <div class="container">
-    <!-- Responsive Row -->
-    <div class="row">
-        <div class="col-sm-12">
-            <!-- Page Title and Icon -->
-            <h1 class="page-header"><span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/><small><em>All Hikes</em></small></h1>
-        </div>
+  <!-- Responsive Row -->
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Page Title and Icon -->
+      <h1 class="page-header">
+        <span class="glyphicon glyphicon-tree-conifer"></span>Hiking Tool<br/>
+        <small>
+          <em>All Hikes</em>
+        </small>
+      </h1>
     </div>
-    <!-- Hike Nav Buttons -->
-    <div class="row">
-        <div class="col-md-4 text-center">
-            <div class="btn-group margin-bottom-sm" ng-controller="navController">
-                <button type="button" class="btn btn-link" ng-click="scrollStats()"><span class="glyphicon glyphicon-stats"></span> View Hiking Stats</button>
-            </div>
-        </div>
+  </div>
+  <!-- Hike Nav Buttons -->
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <div class="btn-group margin-bottom-sm" ng-controller="navController">
+        <button type="button" class="btn btn-link" ng-click="scrollStats()">
+          <span class="glyphicon glyphicon-stats"></span>
+          View Hiking Stats</button>
+      </div>
     </div>
-    <!-- Responsive Row -->
-    <div class="row">
-        <div class="col-sm-12" id="top-all-hikes">
-            <!-- All Hikes Panel -->
-            <div class="panel panel-default">
-                <!-- Panel Title -->
-                <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-th-list"></span> Hikes</h2></div>
-                <div class="panel-body">
-                    <!-- Search Box -->
-                    <div class="input-group margin-bottom-sm">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                        <input type="text" name="search" id="search" placeholder="Search hikes..." class="form-control input-lg" ng-model="searchBox">
-                    </div>
-                    <!-- Show All Hikes -->
-                    <!-- If Hikes -->
-                    <span ng-if="hikes.length > 0">
-                        <ul class="list-group no-list-margin" id="recentHikes">
-                            <li class="list-group-item" ng-repeat="hike in hikes | filter:searchBox">
-                                <!-- If Pre-Trip Incomplete -->
-                                <span ng-if="!hike.preTrip">
-                                    <div>
-                                        <strong>{{hike.name}}</strong> -
-                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}}- added {{hike.createdAt | date}}</a> -
-                                        <span class="label label-warning">Pre-Trip Incomplete</span>
-                                    </div>
-                                </span>
-                                <!-- If Pre-Trip Completed Only (not Post-Trip) -->
-                                <span ng-if="hike.preTrip && !hike.postTrip">
-                                    <div>
-                                        <strong>{{hike.name}}</strong> -
-                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.preTrip.updatedAt | date}}</a> -
-                                        <span class="label label-success">Pre-Trip Completed</span>
-                                    </div>
-                                </span>
-                                <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
-                                <span ng-if="hike.preTrip && hike.postTrip">
-                                    <div>
-                                        <strong>{{hike.name}}</strong> -
-                                        <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}} mi | {{hike.gain}} ft gain - {{hike.timeEstimate}} - updated {{hike.postTrip.updatedAt | date}}</a> -
-                                        <span class="label label-default">Completed</span>
-                                    </div>
-                                </span>
-                                <div class="margin-top-sm" ng-controller="navController">
-                                    <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
-                                    <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                                    <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                    <span ng-if="!hike.preTrip">
-                                      <button class="btn btn-link btn-xs" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
-                                    </span>
-                                    <span ng-if="hike.preTrip && !hike.postTrip">
-                                      <button class="btn btn-link btn-xs" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</button>
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- Back to Dashboard Button -->
-                        <button class="btn btn-block btn-lg btn-link margin-top-sm" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
-                    </span>
-                    <span ng-if="hikes.length < 1">
-                        <h4 class="text-center margin-top">
-                            <em>You don't have any hikes!</em> 😞
-                            <!-- Back to Dashboard Button -->
-                            <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Add a Hike in the Dashboard</button>
-                        </h4>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hiking Stats Panel -->
-    <div class="panel panel-default" id="top-stats">
+  </div>
+  <!-- Responsive Row -->
+  <div class="row">
+    <div class="col-sm-12" id="top-all-hikes">
+      <!-- All Hikes Panel -->
+      <div class="panel panel-default">
         <!-- Panel Title -->
-        <div class="panel-heading"><h2 class="heading-shadow"><span class="glyphicon glyphicon-stats"></span> Stats</h2></div>
-        <!-- Panel Body -->
-        <div class="panel-body">
-            <!-- Responsive Row -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- Total Distance Hiked -->
-                    <div class="panel panel-default">
-                        <!-- Panel Title -->
-                        <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">Total Distance Completed (mi)</span></div>
-                        <div class="panel-body">
-                            <span ng-if="stats.distance">
-                                <h4 class="text-center">{{stats.distance}} miles</h4>
-                            </span>
-                            <span ng-if="!stats.distance">
-                                <h4 class="text-center">
-                                    0 miles
-                                </h4>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Responsive Row -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <!-- Panel Title -->
-                        <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> <span class="fix-line-break">Total Gain Completed (ft)</span></div>
-                        <div class="panel-body">
-                            <span ng-if="stats.gain">
-                                <h4 class="text-center">{{stats.gain}} feet</h4>
-                            </span>
-                            <span ng-if="!stats.gain">
-                                <h4 class="text-center">
-                                    0 feet
-                                </h4>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center"><em>Note: Stats are for fully completed hikes only.</em></p>
-            <!-- Back to Dashboard Button -->
-            <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()"><span class="glyphicon glyphicon-dashboard"></span> Back To Dashboard</button>
+        <div class="panel-heading">
+          <h2 class="heading-shadow">
+            <span class="glyphicon glyphicon-th-list"></span>
+            Hikes</h2>
         </div>
+        <div class="panel-body">
+          <!-- Search Box -->
+          <div class="input-group margin-bottom-sm">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-search"></i>
+            </span>
+            <input type="text" name="search" id="search" placeholder="Search hikes..." class="form-control input-lg" ng-model="searchBox">
+          </div>
+          <!-- Show All Hikes -->
+          <!-- If Hikes -->
+          <span ng-if="hikes.length > 0">
+            <ul class="list-group no-list-margin" id="recentHikes">
+              <li class="list-group-item" ng-repeat="hike in hikes | filter:searchBox">
+                <!-- If Pre-Trip Incomplete -->
+                <span ng-if="!hike.preTrip">
+                  <div>
+                    <strong>{{hike.name}}</strong>
+                    -
+                    <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                      mi |
+                      {{hike.gain}}
+                      ft gain -
+                      {{hike.timeEstimate}}- added
+                      {{hike.createdAt | date}}</a>
+                    -
+                    <span class="label label-warning">Pre-Trip Incomplete</span>
+                  </div>
+                </span>
+                <!-- If Pre-Trip Completed Only (not Post-Trip) -->
+                <span ng-if="hike.preTrip && !hike.postTrip">
+                  <div>
+                    <strong>{{hike.name}}</strong>
+                    -
+                    <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                      mi |
+                      {{hike.gain}}
+                      ft gain -
+                      {{hike.timeEstimate}}
+                      - updated
+                      {{hike.preTrip.updatedAt | date}}</a>
+                    -
+                    <span class="label label-success">Pre-Trip Completed</span>
+                  </div>
+                </span>
+                <!-- If Completed Hike (Pre-Trip & Post-Trip) -->
+                <span ng-if="hike.preTrip && hike.postTrip">
+                  <div>
+                    <strong>{{hike.name}}</strong>
+                    -
+                    <a href="" alt="{{hike.name}}" ng-controller="navController" ng-click="viewHike(hike._id)">{{hike.distance}}
+                      mi |
+                      {{hike.gain}}
+                      ft gain -
+                      {{hike.timeEstimate}}
+                      - updated
+                      {{hike.postTrip.updatedAt | date}}</a>
+                    -
+                    <span class="label label-default">Completed</span>
+                  </div>
+                </span>
+                <div class="margin-top-sm" ng-controller="navController">
+                  <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)">
+                    <span class="glyphicon glyphicon-folder-close"></span>
+                    View Hike</button>
+                  <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete</button>
+                  <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Edit</button>
+                  <span ng-if="!hike.preTrip">
+                    <button class="btn btn-link btn-xs" ng-click="startPreTrip(hike._id)">
+                      <span class="glyphicon glyphicon-arrow-right"></span>
+                      Start Pre-Trip</button>
+                  </span>
+                  <span ng-if="hike.preTrip && !hike.postTrip">
+                    <button class="btn btn-link btn-xs" ng-click="startPostTrip(hike._id)">
+                      <span class="glyphicon glyphicon-check"></span>
+                      Complete Post-Trip</button>
+                  </span>
+                </div>
+              </li>
+            </ul>
+            <!-- Back to Dashboard Button -->
+            <button class="btn btn-block btn-lg btn-link margin-top-sm" ng-controller="navController" ng-click="home()">
+              <span class="glyphicon glyphicon-dashboard"></span>
+              Back To Dashboard</button>
+          </span>
+          <span ng-if="hikes.length < 1">
+            <h4 class="text-center margin-top">
+              <em>You don't have any hikes!</em>
+              😞
+              <!-- Back to Dashboard Button -->
+              <button class="form-control btn btn-link" ng-controller="navController" ng-click="home()">
+                <span class="glyphicon glyphicon-dashboard"></span>
+                Add a Hike in the Dashboard</button>
+            </h4>
+          </span>
+        </div>
+      </div>
     </div>
-</div> <!-- End Primary Container -->
+  </div>
+
+  <!-- Hiking Stats Panel -->
+  <div class="panel panel-default" id="top-stats">
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h2 class="heading-shadow">
+        <span class="glyphicon glyphicon-stats"></span>
+        Stats</h2>
+    </div>
+    <!-- Panel Body -->
+    <div class="panel-body">
+      <!-- Responsive Row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Total Distance Hiked -->
+          <div class="panel panel-default">
+            <!-- Panel Title -->
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-map-marker"></span>
+              <span class="fix-line-break">Total Distance Completed (mi)</span></div>
+            <div class="panel-body">
+              <span ng-if="stats.distance">
+                <h4 class="text-center">{{stats.distance}}
+                  miles</h4>
+              </span>
+              <span ng-if="!stats.distance">
+                <h4 class="text-center">
+                  0 miles
+                </h4>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Responsive Row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <!-- Panel Title -->
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-map-marker"></span>
+              <span class="fix-line-break">Total Gain Completed (ft)</span></div>
+            <div class="panel-body">
+              <span ng-if="stats.gain">
+                <h4 class="text-center">{{stats.gain}}
+                  feet</h4>
+              </span>
+              <span ng-if="!stats.gain">
+                <h4 class="text-center">
+                  0 feet
+                </h4>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center">
+        <em>Note: Stats are for fully completed hikes only.</em>
+      </p>
+      <!-- Back to Dashboard Button -->
+      <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()">
+        <span class="glyphicon glyphicon-dashboard"></span>
+        Back To Dashboard</button>
+    </div>
+  </div>
+</div>
+<!-- End Primary Container -->

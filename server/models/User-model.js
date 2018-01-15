@@ -851,6 +851,8 @@ UserSchema.methods.__checkAllRegFields = function(regFormData) {
   // Holds errors:
   var errors = [];
 
+  // Development Note: Why can't you use mongoose 'required' validations here????
+
   if (!regFormData.username) {
     var err = new Error("Username is required.");
     err.field = 'username';

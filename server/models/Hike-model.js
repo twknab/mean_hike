@@ -442,7 +442,7 @@ HikeSchema.methods.alphaNumCheck = function(string) {
     /*
     Pattern checks for A-Z, a-z, 0-9, and the following: `.,!@#*`. Error only flags if pattern is NOT matched.
     */
-    var err = new Error('must contain only letters, numbers, and the following characters: .,!@#&*\'-\"\\|/()');
+    var err = new Error('must contain only letters, numbers, and the following characters: . , ! @ # & * \' - \" \\ | / ( )');
     return err;
   }
 

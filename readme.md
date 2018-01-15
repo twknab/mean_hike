@@ -141,6 +141,8 @@ into the hike. (medium-priority)
 + Change hiking slugs to index value rather than id... (low-priority as may have to re-write some queries could be intense)
 
 ## Important Needed Features:
+- Add "Edit Pre-Trip" or "Edit Post-Trip" buttons to "Edit Hike" page if either is relevant to Hike under question. (Perhaps as an additional info pane as a single column with a button, if only pre-trip. Or 2 columns if pre-trip and post-trip).
+
 - Clean up visual display of information, add colors to help visually differentiate each information section.
 
 - Turn the view hike / post-trip / pre-trip into accordions, like the homepage, instead of the stacked cards like they are now.
@@ -152,6 +154,8 @@ into the hike. (medium-priority)
 
 ## Important Bugs:
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
+
++ See line 854 on User-model.js. Why are you manually doing validations when you could be using Mongoose validations (like you are doing elsewhere...)?
 
 + Post-Trip is able to be completed for dates in the future.
 

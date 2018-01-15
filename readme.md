@@ -150,7 +150,7 @@ into the hike. (medium-priority)
 ## Important Bugs:
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
 
-+ Add New Hike: 150 character limit too small for URLs -- should be 300.
++ Post-Trip is able to be completed for dates in the future.
 
 + Edit Hike form does not alert user if "nothing has changed". If non-changed form is submitted, it says, "Hike successfully updated!". This is inaccurate. Can you better guide your users and do a check? How do you want to approach this? (Query for the hike and then compare it against formData?)
 

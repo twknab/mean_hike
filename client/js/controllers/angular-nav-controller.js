@@ -316,6 +316,20 @@ app.controller('navController', ['$scope', 'userFactory', 'hikeFactory', 'preTri
         }
     };
 
+    $scope.startPreTrip = function(hikeId) {
+      /*
+      Starts pre-trip (used for all hikes page mostly).
+      */
+        $location.url('/hikes/' + hikeId + '/pre-trip');
+    };
+
+    $scope.startPostTrip = function(hikeId) {
+      /*
+      Starts post-trip (used for all hikes page mostly).
+      */
+        $location.url('/hikes/' + hikeId + '/post-trip');
+    };
+
     $scope.scrollStats = function() {
         /*
         Scrolls to stats portion on view all hikes page.

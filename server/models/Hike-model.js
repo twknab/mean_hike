@@ -70,7 +70,7 @@ var HikeSchema = new Schema({
   location: {
     type: String,
     minlength: [2, 'Location URL must be at least 2 characters.'],
-    maxlength: [350, 'Location URL must not be greater than 150 characters.'],
+    maxlength: [500, 'Location URL must not be greater than 500 characters.'],
     trim: true,
   }, // end location field
   notes: {

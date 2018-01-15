@@ -86,6 +86,12 @@
                                     <button class="btn btn-link btn-xs" ng-click="viewHike(hike._id)"><span class="glyphicon glyphicon-folder-close"></span> View Hike</button>
                                     <button class="btn btn-link btn-xs" ng-click="deleteHike(hike._id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                                     <button class="btn btn-link btn-xs" ng-click="editHike(hike._id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                    <span ng-if="!hike.preTrip">
+                                      <button class="btn btn-link btn-xs" ng-click="startPreTrip(hike._id)"><span class="glyphicon glyphicon-arrow-right"></span> Start Pre-Trip</button>
+                                    </span>
+                                    <span ng-if="hike.preTrip && !hike.postTrip">
+                                      <button class="btn btn-link btn-xs" ng-click="startPostTrip(hike._id)"><span class="glyphicon glyphicon-check"></span> Complete Post-Trip</button>
+                                    </span>
                                 </div>
                             </li>
                         </ul>

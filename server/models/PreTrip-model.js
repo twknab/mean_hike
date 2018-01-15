@@ -65,7 +65,6 @@ var PreTripSchema = new Schema({
   }, // end hazards field
   notes: {
     type: String,
-    minlength: [2, 'Notes must be at least 2 characters.'],
     maxlength: [5000, 'Notes must not be greater than 5000 characters.'],
     trim: true,
   }, // end notes field
@@ -108,6 +107,8 @@ PreTripSchema.methods.validatePreTrip = function(formData, callback) {
     messages: {}, // will store messages
     validatedPreTrip: {}, // will hold created PreTrip if validation successful
   };
+
+  // Development Note: "Errors" property of "validated" object, although not used right now in the validations below, I am choosing to keep in the event that more validations wished to be added. This is simply to ensure the same format is followed throughout the entire application.
 
   // If `notes` property is empty, delete it (this happens if the user started to fill out notes then deleted them):
   if (formData.notes == '') {
@@ -182,28 +183,7 @@ PreTripSchema.methods.validateUpdatePreTrip = function(formData, callback) {
     messages: {}, // will store messages
   };
 
-  // If empty form is submitted throw an error:
-  if (Object.keys(formData).length < 1) {
-    validated.errors.requiredErr = {
-      message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
-    };
-  }
-
-  // Iterate through the object and if any properties are less than 2 characters (excluding `notes` [optional field] property), generate error:
-  for (var property in formData) {
-    if (formData.hasOwnProperty(property)) {
-      if ((formData[property].length < 2) && (property != 'notes')) {
-        validated.errors.requiredErr = {
-          message: 'Itinerary, weather, sunset, hazards and group size are all required fields.',
-        };
-      }
-    }
-  };
-
-  // If `notes` property is empty, delete it (this happens if the user started to fill out notes then deleted them):
-  if (formData.notes == '') {
-    delete formData.notes;
-  };
+  // Development Note: "Errors" property of "validated" object, although not used right now in the validations below, I am choosing to keep in the event that more validations wished to be added. This is simply to ensure the same format is followed throughout the entire application.
 
   // Check if any errors thus far in validation, if so send back:
   // If there are any errors send back validated object containing them:

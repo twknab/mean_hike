@@ -77,16 +77,15 @@ app.controller('preTripUpdateController', ['$scope', 'preTripFactory', 'userFact
       - `err` - Errors object returned.
       */
 
-
+      // Add error class to any field who was returned with error:
       for (var key in err) {
         if (err.hasOwnProperty(key)) {
-          userMessages.addAlert({
-            type: 'danger',
-            hdr: 'Error!',
-            msg: err[key].message
-          });
+
+          // Uses jQlite (built-in) to grab DOM element and add a class:
+          angular.element(document.querySelector('#' + key)).addClass('is-invalid').parent().after("<p class='margin-left-xsm err-msg'>" + err[key].message + "</p>");
+
         }
-      }
+      };
 
       $scope.getPreTrip();
 
@@ -133,6 +132,13 @@ app.controller('preTripUpdateController', ['$scope', 'preTripFactory', 'userFact
 
     // Clear any old alerts:
     userMessages.clearAlerts();
+
+    // Clear out any `is-invalid` error classes already existing from past submissions.
+    // Note: This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
+    angular.element(document.querySelector('#updatePreTripForm')).children().children().children().children().removeClass('is-invalid');
+
+    // Remove all error messages beneath flagged input fields:
+    angular.element(document.querySelectorAll('.err-msg')).remove();
 
     preTripFactory.updatePreTrip($scope.preTrip, cb.updatedPreTrip, cb.updatePreTripError);
   };

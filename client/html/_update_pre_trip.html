@@ -64,13 +64,13 @@
             <span class="fix-line-break"></span>
             Update Pre-Trip</h2>
         </div>
-        <div class="panel-body">
+        <div class="panel-body padding-bottom-none">
           <!-- PreTrip Alerts -->
           <div uib-alert="uib-alert" ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'info')" close="closeAlert($index)">
             <strong>{{alert.hdr}}</strong>
             {{alert.msg}}</div>
           <!-- Pre-Trip Hike Form -->
-          <form ng-submit="updatePreTrip(preTrip._id)" class="padding-left-sm padding-right-sm form-horizontal">
+          <form ng-submit="updatePreTrip(preTrip._id)" class="padding-left-sm padding-right-sm form-horizontal" id="updatePreTripForm">
             <!-- Itinerary -->
             <div class="form-group">
               <fieldset>
@@ -81,7 +81,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="preTrip.itinerary" rows="5" id="itinerary" placeholder="What are your goals each day? When will you reach each goal, the trailhead and home?"></textarea>
                 </div>
-                <span class="help-block margin-label">Update the itinerary.</span>
               </fieldset>
             </div>
             <!-- Weather Report -->
@@ -94,7 +93,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="preTrip.weather" rows="5" id="weather" placeholder="Enter (or copy and paste) a weather report for each day."></textarea>
                 </div>
-                <span class="help-block margin-label">Update the weather report.</span>
               </fieldset>
             </div>
             <!-- Sunset -->
@@ -107,7 +105,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="preTrip.sunset" rows="5" id="sunset" placeholder="What time is sunset each day?"></textarea>
                 </div>
-                <span class="help-block margin-label">Update the sunset time(s).</span>
               </fieldset>
             </div>
             <!-- Potential Hazards -->
@@ -120,7 +117,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="preTrip.hazards" rows="5" id="hazards" placeholder="What are possible hazards? Weather? Trail or route conditions or anything else?"></textarea>
                 </div>
-                <span class="help-block margin-label">Update any potential hazards.</span>
               </fieldset>
             </div>
             <!-- Additional Notes -->
@@ -133,7 +129,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="preTrip.notes" rows="5" id="notes" placeholder="Any additional notes since first adding your hike?"></textarea>
                 </div>
-                <span class="help-block margin-label">Update any additional pre-trip notes.</span>
               </fieldset>
             </div>
             <!-- Group Size -->
@@ -144,7 +139,7 @@
                   <span class="input-group-addon">
                     <i class="glyphicon glyphicon-user"></i>
                   </span>
-                  <ul class="list-group no-list-margin">
+                  <ul class="list-group no-list-margin" id="groupSize">
                     <li class="list-group-item preTrip">
                       <div class="radio">
                         <label>
@@ -175,12 +170,11 @@
                     </li>
                   </ul>
                 </div>
-                <span class="help-block margin-label">Update the group size.</span>
               </fieldset>
               <!-- Complete Pre-Trip and Cancel Buttons -->
-              <button type="submit" class="btn btn-block btn-lg btn-info margin-top">
+              <button type="submit" class="btn btn-block btn-lg btn-info margin-top-sm">
                 <span class="glyphicon glyphicon-arrow-right"></span>
-                Complete Pre-Trip</button>
+                Update Pre-Trip</button>
               <button class="btn btn-block btn-lg btn-link" ng-controller="navController" ng-click="home()">
                 <span class="glyphicon glyphicon-ban-circle"></span>
                 Cancel</button>

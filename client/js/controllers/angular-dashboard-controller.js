@@ -226,15 +226,16 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
   };
 
 
-  //--------------------------------//
-  //-------- ADD NEW PRE-TRIP ------//
-  //--------------------------------//
+  //----------------------------//
+  //-------- ADD PRE-TRIP ------//
+  //----------------------------//
 
   /*
   The functions in this section assist in handling the pre-trip drop down.
   */
 
   $scope.startPreTrip = function(hikeId) {
+
     // Clear out any `is-invalid` error classes already existing from past submissions.
     // Note: This seems really ugly to me, and please, if you're reading this, help me find a more elegant solution! Help me! ☹️
     angular.element(document.querySelector('#newPreTripForm')).children().children().children().removeClass('is-invalid');
@@ -242,7 +243,7 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
     // Remove all error messages beneath flagged input fields:
     angular.element(document.querySelectorAll('.err-msg')).remove();
 
-    // Make sure an empty pre-trip cannot be started and if so send error:
+    // Make sure an empty pre-trip cannot be started from dropdown and if so send error:
     if (!hikeId) {
       // Uses jQlite (built-in) to grab DOM element and add a class:
       angular.element(document.querySelector('#selectedHike')).addClass('is-invalid').parent().after(`<p class='margin-left-xsm err-msg'>You must select a hike to begin a new pre-trip.</p>`);
@@ -251,6 +252,14 @@ app.controller('dashboardController', ['$scope', 'userFactory', 'hikeFactory', '
     }
 
   };
+
+//-----------------------------//
+//-------- ADD POST-TRIP ------//
+//-----------------------------//
+
+$scope.startPostTrip = function(hikeId) {
+    $location.url('/hikes/' + hikeId + '/post-trip');
+};
 
 
   //-----------------------------------------//

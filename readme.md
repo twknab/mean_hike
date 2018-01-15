@@ -147,6 +147,9 @@ into the hike. (medium-priority)
 
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
+## Where I Left Off:
++ Groomed for pre-trip form error highlighting. Need to model off of Add Hike form error highlighting. This one will be a bit more complex.
+
 ## Important Bugs:
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
 

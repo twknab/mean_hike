@@ -37,10 +37,12 @@ var mongoose = require('mongoose'),
 var PostTripSchema = new Schema({
   start_date: {
     type: Date,
+    required: [true, 'Start date is required.'],
     default: this.created_at
   }, // end hike start date field
   end_date: {
     type: Date,
+    required: [true, 'End date is required.'],
     default: this.created_at
   }, // end hike end date field
   time: {
@@ -59,19 +61,16 @@ var PostTripSchema = new Schema({
   }, // end weather field
   hazards: {
     type: String,
-    minlength: [2, 'Hazards must be at least 2 characters.'],
     maxlength: [5000, 'Hazards must not be greater than 5000 characters.'],
     trim: true,
   }, // end hazards field
   floraFauna: {
     type: String,
-    minlength: [2, 'Flora and fauna must be at least 2 characters.'],
     maxlength: [5000, 'Flora and fauna must not be greater than 5000 characters.'],
     trim: true,
   }, // end floraFauna field
   notes: {
     type: String,
-    minlength: [2, 'Notes must be at least 2 characters.'],
     maxlength: [5000, 'Notes must not be greater than 5000 characters.'],
     trim: true,
   }, // end notes field
@@ -110,42 +109,42 @@ PostTripSchema.methods.validatePostTrip = function(formData, callback) {
   console.log("Beginning New PostTrip Validation now...");
 
   // If empty form is submitted, send error denoting required fields:
-  if (Object.keys(formData).length < 1) {
-    validated.errors.requiredErr = {
-      message: 'Date started, date ended, hiking time and weather are all required fields.',
-    };
-  }
+  // if (Object.keys(formData).length < 1) {
+  //   validated.errors.requiredErr = {
+  //     message: 'Date started, date ended, hiking time and weather are all required fields.',
+  //   };
+  // }
 
-  // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them) -- these fields are not required and may be left empty:
-  if (formData.hazards == '') {
-    delete formData.hazards;
-  };
-
-  if (formData.floraFauna == '') {
-    delete formData.floraFauna;
-  };
-
-  if (formData.notes == '') {
-    delete formData.notes;
-  };
+  // // If `hazards`, `floraFauna, `notes` (optional fields) are empty, delete them (this happens if the user started to fill out these fields then deleted them) -- these fields are not required and may be left empty:
+  // if (formData.hazards == '') {
+  //   delete formData.hazards;
+  // };
+  //
+  // if (formData.floraFauna == '') {
+  //   delete formData.floraFauna;
+  // };
+  //
+  // if (formData.notes == '') {
+  //   delete formData.notes;
+  // };
 
   // Make sure start date is not after ending date (ie, that start and end date are chronological -- no Time Travelers allowed!):
   if (formData.start_date > formData.end_date) {
-    validated.errors.hikingDates = {
-      message: 'Hiking end date cannot be earlier than starting date.',
+    validated.errors.end_date = {
+      message: 'End date cannot be earlier than starting date.',
     };
   }
 
   // Iterate through the object and if any properties are less than or equal to 2 characters (excluding `hazards`, `floraFauna`, `notes` [optional fields]), generate error:
-  for (var property in formData) {
-    if (formData.hasOwnProperty(property)) {
-      if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
-        validated.errors.requiredErr = {
-          message: 'Submitted fields must be at least 2 characters.',
-        };
-      }
-    }
-  };
+  // for (var property in formData) {
+  //   if (formData.hasOwnProperty(property)) {
+  //     if ((formData[property].length < 2) && ((property != 'hazards') || (property != 'floraFauna') || (property != 'notes'))) {
+  //       validated.errors.requiredErr = {
+  //         message: 'Submitted fields must be at least 2 characters.',
+  //       };
+  //     }
+  //   }
+  // };
 
   // Check if any errors thus far in validation, if so send back:
   // If there are any errors send back validated object containing them:

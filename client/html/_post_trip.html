@@ -274,7 +274,7 @@
             <strong>{{alert.hdr}}</strong>
             {{alert.msg}}</div>
           <!-- Post-Trip Hike Form -->
-          <form ng-submit="addPostTrip()" class="padding-left-sm padding-right-sm form-horizontal">
+          <form ng-submit="addPostTrip()" class="padding-left-sm padding-right-sm form-horizontal" id="addPostTripForm">
             <!-- Start and End Date of Hike -->
             <div class="form-group">
               <fieldset>
@@ -290,12 +290,12 @@
                       <input
                         type="text"
                         class="form-control input-lg"
+                        id="start_date"
                         uib-datepicker-popup="fullDate"
                         datepicker-options="dateOptions"
                         ng-model="postTrip.start_date"
                         ng-click="startDate()"
                         is-open="starting_date.opened"
-                        ng-required="true"
                         close-text="Close"
                         placeholder="Hiking Starting Date"/>
                     </p>
@@ -308,7 +308,7 @@
                           <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                       </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="Hiking End Date"/>
+                      <input type="text" class="form-control input-lg" id="end_date" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" close-text="Close" placeholder="Hiking End Date"/>
                     </p>
                   </div>
                 </div>

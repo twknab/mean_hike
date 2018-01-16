@@ -150,9 +150,13 @@ into the hike. (medium-priority)
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
 ## Where I Left Off:
-+ Groomed for pre-trip form error highlighting. Need to model off of Add Hike form error highlighting. This one will be a bit more complex.
+
 
 ## Important Bugs:
++ Add appropriate "Edit Pre-Trip" AND / OR "Complete Post-Trip" buttons to "Edit Hike" page. That way if you click Edit Page you can instantly edit either pre or post if exists.
+
++ "All Hikes" page: "View all stats" looks goofy up top -- can you just make this a nice clean button instead?
+
 + Found Bug 1/8/18: If you ADD HIKE and do not use appropriate alphanumerical characters, ONLY the alpha_num checks fire; the other validation messages do not appear?
 
 + See line 854 on User-model.js. Why are you manually doing validations when you could be using Mongoose validations (like you are doing elsewhere...)?

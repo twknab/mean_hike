@@ -153,6 +153,8 @@ into the hike. (medium-priority)
 
 
 ## Important Bugs:
++ Too long of weather input on View Hike page (this occurs with Post-Trip specifically, and could be a Post-trip only issue) will run *off page*. High priority fix.
+
 + Add appropriate "Edit Pre-Trip" AND / OR "Complete Post-Trip" buttons to "Edit Hike" page. That way if you click Edit Page you can instantly edit either pre or post if exists.
 
 + "All Hikes" page: "View all stats" looks goofy up top -- can you just make this a nice clean button instead?

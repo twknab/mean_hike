@@ -70,7 +70,7 @@
             <strong>{{alert.hdr}}</strong>
             {{alert.msg}}</div>
           <!-- Post-Trip Hike Form -->
-          <form ng-submit="updatePostTrip()" class="padding-left-sm padding-right-sm form-horizontal">
+          <form ng-submit="updatePostTrip()" class="padding-left-sm padding-right-sm form-horizontal" id="updatePostTripForm">
             <!-- Start and End Date of Hike -->
             <div class="form-group">
               <fieldset>
@@ -83,7 +83,7 @@
                           <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                       </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.start_date" ng-click="startDate()" is-open="starting_date.opened" close-text="Close" placeholder="Start Date"/>
+                      <input type="text" class="form-control input-lg" id="start_date" uib-datepicker-popup="fullDate" ng-model="postTrip.start_date" ng-click="startDate()" is-open="starting_date.opened" close-text="Close" placeholder="Start Date"/>
                     </p>
                   </div>
                   <div class="col-md-6">
@@ -94,7 +94,7 @@
                           <i class="glyphicon glyphicon-calendar"></i>
                         </button>
                       </span>
-                      <input type="text" class="form-control input-lg" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="End Date"/>
+                      <input type="text" class="form-control input-lg" id="end_date" uib-datepicker-popup="fullDate" ng-model="postTrip.end_date" ng-click="endDate()" is-open="ending_date.opened" ng-required="true" close-text="Close" placeholder="End Date"/>
                     </p>
                   </div>
                 </div>
@@ -110,7 +110,6 @@
                   </span>
                   <input type="text" name="time" id="time" class="form-control input-lg fix-line-break" ng-model="postTrip.time" placeholder="Act. Hiking Time (or Best Guess)">
                 </div>
-                <span class="help-block margin-label">Update the actual hiking time experienced.</span>
               </fieldset>
             </div>
             <!-- Actual Weather -->
@@ -123,7 +122,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" rows="5" id="weather" ng-model="postTrip.weather" placeholder="Describe the actual weather experienced (morning, afternoon and night), or a general overview as best you can remember."></textarea>
                 </div>
-                <span class="help-block margin-label">Update the actual weather experienced.</span>
               </fieldset>
             </div>
             <!-- Hazards or Emergencies -->
@@ -136,7 +134,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.hazards" rows="5" id="hazards" placeholder="Describe any hazards experienced."></textarea>
                 </div>
-                <span class="help-block margin-label">Update any experienced hazards.</span>
               </fieldset>
             </div>
             <!-- Flora and Fauna -->
@@ -149,7 +146,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.floraFauna" rows="5" id="wildlife" placeholder="Describe any interesting flora or fauna observed."></textarea>
                 </div>
-                <span class="help-block margin-label">Update any flora and fauna sightings.</span>
               </fieldset>
             </div>
             <!-- Additional Notes -->
@@ -162,7 +158,6 @@
                   </span>
                   <textarea class="form-control fix-line-break input-lg" ng-model="postTrip.notes" rows="5" id="notes" placeholder="Describe any additional details which may aid in future or repeated endeavors."></textarea>
                 </div>
-                <span class="help-block margin-label">Update any additional notes.</span>
               </fieldset>
               <!-- Complete Post-Trip and Cancel Buttons -->
               <button type="submit" class="btn btn-block btn-lg btn-info margin-top">

@@ -78,19 +78,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
       - `err` - Errors object returned.
       */
 
-
-      // // Iterate through errors and add them to alerts:
-      // for (var key in err) {
-      //   if (err.hasOwnProperty(key)) {
-      //     console.log(err[key]);
-      //     userMessages.addAlert({
-      //       type: 'danger',
-      //       hdr: 'Error!',
-      //       msg: err[key].message
-      //     });
-      //   }
-      // }
-
       // Add error class to any field who was returned with error:
       for (var key in err) {
         if (err.hasOwnProperty(key)) {
@@ -100,8 +87,6 @@ app.controller('postTripController', ['$scope', 'postTripFactory', 'userFactory'
 
         }
       };
-
-      $scope.alerts = userMessages.getAlerts();
 
       // Scroll to errors:
       $scope.scrollTo('top-posttrip');

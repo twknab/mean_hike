@@ -29,6 +29,7 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Completed Improvements:
 
++ 01/16/18 - Error highlighting added to all input forms. (no more red error messages 🤗).
 + 11/13/17 - Can now add / edit hike start and end dates.
 + 10/07/17 - Fixed bug with stats feature.
 + 09/03/17 - Add scrolls for user actions and troubleshooted any mobile issues.

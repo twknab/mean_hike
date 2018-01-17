@@ -17,6 +17,7 @@ This application is designed to help others plan and prepare for their hiking ad
 - Create a post-trip form, upon return, recording your experiences and actual travel times.
 - See stats for fully completed hikes.
 - Edit your user profile (with validations).
+- Field error highlighting.
 
 ## Technologies:
 

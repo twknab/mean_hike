@@ -87,7 +87,7 @@ a:hover, a:focus {
 
 /* Style color of input fields focused */
 
-.input-group .form-control:focus, .form-control.input-lg.login:focus {
+.input-group .form-control:focus {
   z-index: 3;
   background: #0C0C0C !important;
   color: white;

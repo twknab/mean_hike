@@ -358,6 +358,12 @@ ul.is-invalid {
   }
 }
 
+/* Change menu button hover color */
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+  background-color: #006298;
+}
+
 /* Style top nav */
 
 .navbar-inverse {

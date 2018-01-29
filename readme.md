@@ -53,22 +53,13 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Dugout (Next Feature):
 
-+ Error field highlighting (see first bullet point below) [*In Progress*].
-  Notes: Have this mostly in place for the add hike form, but need to tweak any last changes and then roll it out across all the other (7+) forms.
-    - Notes:
-      - Login form: DONE
-      - Registration forms (x2): DONE
-      - Add new hike form: DONE
-      - Edit account form:
-      - Edit hike form:
-      - Pre-trip form:
-      - Edit pre-trip form:
-      - Post-trip form:
-      - Edit post-trip form:
-
 + All Hikes: View all hikes should be sorted by hiked date (completed), or by pre-trip date.
 
 ## Future Features Wish List:
+
++ Add TOS/User Agreement/ETC to homepage
+
++ Add "Quick Estimator" tool for quick time estimates (and even a setting to tweak hiking speed)
 
 + Add a feature where validation errors display as bootstrap error form stylings in real-time. (medium-priority)
 

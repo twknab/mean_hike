@@ -57,6 +57,8 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Future Features Wish List:
 
++ Change <input type="url"> on all location URL fields!
+
 + Add TOS/User Agreement/ETC to homepage
 
 + Add "Quick Estimator" tool for quick time estimates (and even a setting to tweak hiking speed)

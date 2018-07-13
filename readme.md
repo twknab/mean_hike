@@ -57,6 +57,10 @@ This application is designed to help others plan and prepare for their hiking ad
 
 ## Future Features Wish List:
 
++ Add Trip Photos -- let users add photos to trip
+
++ Add social media linkages -- let users share out their hikes and photos!
+
 + Change <input type="url"> on all location URL fields!
 
 + Add TOS/User Agreement/ETC to homepage

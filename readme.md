@@ -1,7 +1,8 @@
 # Setup Directions:
 1. Git clone project.
-2. `npm install` all packages.
+2. `npm install` all packages. (*Important Note:* If `npm` fails with any installation of `bcrypt`, please install yarn via `sudo npm install yarn -g`), and then run `sudo yarn install` and `bcrypt` should install just fine. [Contact me](http://sasquatchcreative.com/contact) with any issues if there are any.
 3. `bower install` all packages.
+4. If in doubt, please see the `package.json` and `bower.json` files to see any necessary dependencies.
 
 # About:
 

@@ -385,6 +385,10 @@ module.exports = {
           */
 
           for (var i = 0; i < UserAndCompletePostTrips.hikes.length; i++) {
+            console.log("$$$$$$$$$");
+            console.log(typeof(UserAndCompletePostTrips.hikes[0].distance));
+            console.log((UserAndCompletePostTrips.hikes[0].distance).toFixed(2));
+            console.log("$$$$$$$$$");
             stats.distance = (parseFloat(stats.distance) + parseFloat(UserAndCompletePostTrips.hikes[i].distance)).toFixed(2);
             stats.gain = (parseFloat(stats.gain) + parseFloat(UserAndCompletePostTrips.hikes[i].gain)).toFixed(2);
           }

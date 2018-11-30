@@ -63,7 +63,7 @@ Note: To help the reader, I've organized the code into the following headings. D
 
 // Setup dependencies:
 var mongoose = require('mongoose'),
-  bcrypt = require('bcrypt-as-promised'),
+  bcrypt = require('bcrypt'),
   Schema = mongoose.Schema;
 
 

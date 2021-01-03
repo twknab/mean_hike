@@ -10,7 +10,7 @@ var mongoose = require('mongoose'), // grab `mongoose` module
   dbName = 'hikeDB'; // name of our database to be utilized in this application
 
 // Iterate through Models folder and load each JS file:
-fs.readdirSync(modelsPath).forEach(function(file) {
+fs.readdirSync(modelsPath).forEach(function (file) {
   if (file.indexOf('.js') > 0) {
     require(modelsPath + '/' + file);
   }
@@ -24,19 +24,19 @@ mongoose.connect('mongodb://localhost/' + dbName); // this connects Mongoose to 
 
 // Mongoose/Mongo/Node connection events:
 mongoose.connection
-  .on('connected', function() {
+  .on('connected', function () {
     console.log('Mongoose now connected to MongoDB using DB:', dbName);
   })
-  .on('disconnected', function() {
+  .on('disconnected', function () {
     console.log('Mongoose disconected from:', dbName);
   })
-  .on('error', function(err) {
+  .on('error', function (err) {
     console.log('Mongoose has encountered an error connecting to MongoDB.', err);
   });
 
 // If Node connection breaks, close Mongoose and MongoDB connections:
-process.on('SIGINT', function() {
-  mongoose.connection.close(function() {
+process.on('SIGINT', function () {
+  mongoose.connection.close(function () {
     console.log('Mongoose connection to MongoDB closing due to lost Node connection.');
     process.exit(0);
   });

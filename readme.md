@@ -1,6 +1,19 @@
 
 # About HikingTool
 
+- [About HikingTool](#about-hikingtool)
+  - [Live Deployment](#live-deployment)
+  - [Screenshots](#screenshots)
+  - [Technologies](#technologies)
+  - [Setup Instructions](#setup-instructions)
+  - [Features](#features)
+  - [Completed Improvements](#completed-improvements)
+  - [Dugout (Next Feature)](#dugout-next-feature)
+  - [Future Features Wish List](#future-features-wish-list)
+  - [Important Needed Features](#important-needed-features)
+  - [Important Bugs](#important-bugs)
+  - [Developer Note](#developer-note)
+
 HikingTool is a JavaScript based application designed to help others plan and prepare for their hiking adventures. Users can record important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, which includes basic questions about weather, distance and location, users are better prepared for their pending trip. Upon return, a "post-trip" form may be completed which will ask important questions about the actual experiences from the user's trip. Preparing beforehand, and retrospectively learning, will help users become more skillful and safer hikers.
 
 ## Live Deployment

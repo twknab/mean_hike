@@ -115,7 +115,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     Loads Tim's homepage.
     */
 
-    $window.open('http://sasquat.ch', "_blank");
+    $window.open('https://timknab.dev', "_blank");
   };
 
   $scope.contact = function() {
@@ -123,7 +123,7 @@ app.controller('userController', ['$scope', 'userFactory', 'userMessages', '$loc
     Loads personal contact page
     */
 
-    $window.open('http://sasquatchcreative.com/contact/', "_blank");
+    $window.open('https://timknab.dev', "_blank");
   };
 
   //------------------------------//

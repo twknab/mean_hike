@@ -1,14 +1,78 @@
-# Setup Directions:
+
+# About HikingTool
+
+HikingTool is a JavaScript based application designed to help others plan and prepare for their hiking adventures. Users can record important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, which includes basic questions about weather, distance and location, users are better prepared for their pending trip. Upon return, a "post-trip" form may be completed which will ask important questions about the actual experiences from the user's trip. Preparing beforehand, and retrospectively learning, will help users become more skillful and safer hikers.
+
+## Live Deployment
+
+You can see a live deployment of HikingTool at:
+
+- [https://hiking.tools](https://hiking.tools)
+
+## Screenshots
+
+*1. Login*
+![login](https://user-images.githubusercontent.com/20636750/108612698-f0178680-739f-11eb-8c9a-2ddc05245d71.png)
+
+*2. Register*
+![register](https://user-images.githubusercontent.com/20636750/108612699-f0b01d00-739f-11eb-80e9-a177cf331b73.png)
+
+*3. About*
+![about](https://user-images.githubusercontent.com/20636750/108612700-f148b380-739f-11eb-8876-9174501d91d3.png)
+
+*4. Dashboard*
+![dashboard](https://user-images.githubusercontent.com/20636750/108612701-f148b380-739f-11eb-98f8-bd0e2a0afa79.png)
+
+*5. Add New Hike*
+![add-hike](https://user-images.githubusercontent.com/20636750/108612702-f1e14a00-739f-11eb-90f0-c4c7d3399d48.png)
+
+*6. View Hike No Pre-Trip*
+![view-hike-no-pretrip](https://user-images.githubusercontent.com/20636750/108612704-f279e080-739f-11eb-9da1-577107cb4050.png)
+
+*7. Add New Pre-Trip*
+![add-pre-trip](https://user-images.githubusercontent.com/20636750/108612703-f279e080-739f-11eb-8c39-0d4e75383ab9.png)
+
+*8. View Pre-Trip*
+![pre-trip-report](https://user-images.githubusercontent.com/20636750/108612705-f3127700-739f-11eb-810f-1e7f5c7149c6.png)
+
+*9. View Hike No Post-Trip*
+![view-hike-no-post-trip](https://user-images.githubusercontent.com/20636750/108612706-f3127700-739f-11eb-9cf3-cd9b4a87fc56.png)
+
+*10. View Hike Completed Post-Trip*
+![view-hike-complete](https://user-images.githubusercontent.com/20636750/108612707-f3ab0d80-739f-11eb-9435-f0b284fe533f.png)
+
+*11. Edit Hike*
+![edit-hike](https://user-images.githubusercontent.com/20636750/108612708-f3ab0d80-739f-11eb-9a05-d5b89f2e9be9.png)
+
+*12. Edit Pre-Trip*
+![edit-pre-trip](https://user-images.githubusercontent.com/20636750/108612710-f443a400-739f-11eb-8771-4e7e702fcc9c.png)
+
+*13. Edit Post-Trip*
+![edit-post-trip](https://user-images.githubusercontent.com/20636750/108612711-f443a400-739f-11eb-9777-972147613244.png)
+
+*14. Edit Account*
+![edit-account](https://user-images.githubusercontent.com/20636750/108612709-f3ab0d80-739f-11eb-9249-1f153f0f137b.png)
+
+*15. View All Hikes with Search*
+![view-all-hikes](https://user-images.githubusercontent.com/20636750/108612712-f4dc3a80-739f-11eb-8aa1-5ba71a2251ea.png)
+
+## Technologies
+
+- MongoDB
+- ExpressJS
+- Angular 1.x
+- Node
+- Bcrypt
+- Angular UI
+
+## Setup Instructions
+
 1. Git clone project.
 2. `npm install` all packages. (*Important Note:* If `npm` fails with any installation of `bcrypt`, please install yarn via `sudo npm install yarn -g`), and then run `sudo yarn install` and `bcrypt` should install just fine. [Contact me](http://sasquatchcreative.com/contact) with any issues if there are any.
 3. `bower install` all packages.
 4. If in doubt, please see the `package.json` and `bower.json` files to see any necessary dependencies.
 
-# About:
-
-This application is designed to help others plan and prepare for their hiking adventures, while also recording important information from their experience that may be of value for future hikes. By filling out a "pre-trip" form prior to departing, basic questions about weather, distance, location and more will be asked. This will ensure a more prepared mind when departing. Upon return, a "post-trip" form may be completed which will ask you important questions about the actual experience of your trip. Questions about actual experienced weather, actual hazards and more will help you log and retrospectively learn for better preparation next time.
-
-## Features:
+## Features
 
 - User login and registration, with validations and strong password.
 - User dashboard displaying recently updated hikes.
@@ -20,16 +84,7 @@ This application is designed to help others plan and prepare for their hiking ad
 - Edit your user profile (with validations).
 - Field error highlighting.
 
-## Technologies:
-
-- MongoDB
-- ExpressJS
-- Angular 1.x
-- Node
-- Bcrypt
-- Angular UI
-
-## Completed Improvements:
+## Completed Improvements
 
 + 01/16/18 - Error highlighting added to all input forms. (no more red error messages 🤗).
 + 11/13/17 - Can now add / edit hike start and end dates.
@@ -52,11 +107,11 @@ This application is designed to help others plan and prepare for their hiking ad
 + 07/20/17 - Cleaned up modal controllers.
 + 07/19/17 - Added 'Never show this message again' setting to Dashboard Welcome Message.
 
-## Dugout (Next Feature):
+## Dugout (Next Feature)
 
 + All Hikes: View all hikes should be sorted by hiked date (completed), or by pre-trip date.
 
-## Future Features Wish List:
+## Future Features Wish List
 
 + Add Trip Photos -- let users add photos to trip
 
@@ -140,7 +195,7 @@ into the hike. (medium-priority)
 
 + Change hiking slugs to index value rather than id... (low-priority as may have to re-write some queries could be intense)
 
-## Important Needed Features:
+## Important Needed Features
 - Add "Edit Pre-Trip" or "Edit Post-Trip" buttons to "Edit Hike" page if either is relevant to Hike under question. (Perhaps as an additional info pane as a single column with a button, if only pre-trip. Or 2 columns if pre-trip and post-trip).
 
 - Clean up visual display of information, add colors to help visually differentiate each information section.
@@ -149,10 +204,8 @@ into the hike. (medium-priority)
 
 - Pre-Trip: Add "Driving conditions", ie, do you have to drive on any forest roads? Do you have extra equipment? (sleeping, water, axe, power jumper, etc)
 
-## Where I Left Off:
 
-
-## Important Bugs:
+## Important Bugs
 + Too long of weather input on View Hike page (this occurs with Post-Trip specifically, and could be a Post-trip only issue) will run *off page*. High priority fix.
 
 + Add appropriate "Edit Pre-Trip" AND / OR "Complete Post-Trip" buttons to "Edit Hike" page. That way if you click Edit Page you can instantly edit either pre or post if exists.
@@ -169,5 +222,5 @@ into the hike. (medium-priority)
 
 + Add Location URL regex validation to make sure an actual URL is used (https:// and http:// validation)
 
-## Developer Note:
+## Developer Note
 - Throughout the project there are some comments denoted by `Development Note` which may provide some insight into future improvements, etc. If you wish to see all development notes, do a search in the project for "development note".

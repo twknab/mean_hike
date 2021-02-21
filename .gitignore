@@ -9,3 +9,6 @@ bower_components
 
 # for Mac:
 .DS_Store
+
+# ignore screenshots
+hiking_tool_screenshots
